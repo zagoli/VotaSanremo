@@ -8,6 +8,13 @@ defmodule VotaSanremo.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
 
+    field :user_type, :string
+    field :first_name, :string
+    field :last_name, :string
+    field :username, :string
+    field :default_vote_multiplier, :float
+    field :votes_privacy, :string
+
     timestamps(type: :utc_datetime)
   end
 
@@ -36,7 +43,9 @@ defmodule VotaSanremo.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :first_name, :last_name, :username])
+    |> validate_required([:username])
+    |> unique_constraint(:username)
     |> validate_email(opts)
     |> validate_password(opts)
   end
@@ -54,9 +63,9 @@ defmodule VotaSanremo.Accounts.User do
     |> validate_required([:password])
     |> validate_length(:password, min: 12, max: 72)
     # Examples of additional password validation:
-    # |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
-    # |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
-    # |> validate_format(:password, ~r/[!?@#$%^&*_0-9]/, message: "at least one digit or punctuation character")
+    |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
+    |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
+    |> validate_format(:password, ~r/[!?@#$%^&*_0-9]/, message: "at least one digit or punctuation character")
     |> maybe_hash_password(opts)
   end
 
