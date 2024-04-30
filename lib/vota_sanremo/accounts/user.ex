@@ -43,11 +43,26 @@ defmodule VotaSanremo.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password, :first_name, :last_name, :username])
+    |> cast(attrs, [:email, :password, :first_name, :last_name, :username, :default_vote_multiplier, :votes_privacy])
     |> validate_required([:username])
-    |> unique_constraint(:username)
+    |> validate_inclusion(:votes_privacy, ["public", "private", "juries_only"])
+    |> validate_names()
+    |> validate_username()
     |> validate_email(opts)
     |> validate_password(opts)
+  end
+
+  defp validate_names(changeset) do
+    changeset
+    |> validate_length(:first_name, max: 160)
+    |> validate_length(:last_name, max: 160)
+  end
+
+  defp validate_username(changeset) do
+    changeset
+    |> validate_length(:username, max: 160)
+    |> unsafe_validate_unique(:username, VotaSanremo.Repo)
+    |> unique_constraint(:username)
   end
 
   defp validate_email(changeset, opts) do
@@ -65,7 +80,9 @@ defmodule VotaSanremo.Accounts.User do
     # Examples of additional password validation:
     |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
     |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
-    |> validate_format(:password, ~r/[!?@#$%^&*_0-9]/, message: "at least one digit or punctuation character")
+    |> validate_format(:password, ~r/[!?@#$%^&*_0-9]/,
+      message: "at least one digit or punctuation character"
+    )
     |> maybe_hash_password(opts)
   end
 

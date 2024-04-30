@@ -48,13 +48,24 @@ defmodule VotaSanremo.AccountsTest do
     end
   end
 
+  describe "user default values" do
+    test "user fields with defaults are populated correctly" do
+      %{id: id} = user_fixture()
+      user = Accounts.get_user!(id)
+      assert user.user_type == "user"
+      assert user.default_vote_multiplier == 1.0
+      assert user.votes_privacy == "public"
+    end
+  end
+
   describe "register_user/1" do
-    test "requires email and password to be set" do
+    test "requires username, email and password to be set" do
       {:error, changeset} = Accounts.register_user(%{})
 
       assert %{
                password: ["can't be blank"],
-               email: ["can't be blank"]
+               email: ["can't be blank"],
+               username: ["can't be blank"]
              } = errors_on(changeset)
     end
 
@@ -63,8 +74,17 @@ defmodule VotaSanremo.AccountsTest do
 
       assert %{
                email: ["must have the @ sign and no spaces"],
-               password: ["at least one digit or punctuation character", "at least one upper case character", "should be at least 12 character(s)"]
+               password: [
+                 "at least one digit or punctuation character",
+                 "at least one upper case character",
+                 "should be at least 12 character(s)"
+               ]
              } = errors_on(changeset)
+    end
+
+    test "validates votes privacy value is admissible" do
+      {:error, changeset} = Accounts.register_user(%{votes_privacy: "restricted"})
+      assert %{votes_privacy: ["is invalid"]} = errors_on(changeset)
     end
 
     test "validates maximum values for email and password for security" do
@@ -72,6 +92,17 @@ defmodule VotaSanremo.AccountsTest do
       {:error, changeset} = Accounts.register_user(%{email: too_long, password: too_long})
       assert "should be at most 160 character(s)" in errors_on(changeset).email
       assert "should be at most 72 character(s)" in errors_on(changeset).password
+    end
+
+    test "validates maximum values for first name, last name and username" do
+      too_long = String.duplicate("db", 100)
+
+      {:error, changeset} =
+        Accounts.register_user(%{username: too_long, first_name: too_long, last_name: too_long})
+
+      assert "should be at most 160 character(s)" in errors_on(changeset).username
+      assert "should be at most 160 character(s)" in errors_on(changeset).first_name
+      assert "should be at most 160 character(s)" in errors_on(changeset).last_name
     end
 
     test "validates email uniqueness" do
@@ -82,6 +113,12 @@ defmodule VotaSanremo.AccountsTest do
       # Now try with the upper cased email too, to check that email case is ignored.
       {:error, changeset} = Accounts.register_user(%{email: String.upcase(email)})
       assert "has already been taken" in errors_on(changeset).email
+    end
+
+    test "validates username uniqueness" do
+      %{username: username} = user_fixture()
+      {:error, changeset} = Accounts.register_user(%{username: username})
+      assert "has already been taken" in errors_on(changeset).username
     end
 
     test "registers users with a hashed password" do
@@ -103,16 +140,34 @@ defmodule VotaSanremo.AccountsTest do
     test "allows fields to be set" do
       email = unique_user_email()
       password = valid_user_password()
+      username = "Greg"
+      first_name = "Gregory"
+      last_name = "Big"
+      default_vote_multiplier = 0.5
+      votes_privacy = "private"
 
       changeset =
         Accounts.change_user_registration(
           %User{},
-          valid_user_attributes(email: email, password: password)
+          valid_user_attributes(
+            email: email,
+            password: password,
+            first_name: first_name,
+            last_name: last_name,
+            username: username,
+            default_vote_multiplier: default_vote_multiplier,
+            votes_privacy: votes_privacy
+          )
         )
 
       assert changeset.valid?
       assert get_change(changeset, :email) == email
       assert get_change(changeset, :password) == password
+      assert get_change(changeset, :first_name) == first_name
+      assert get_change(changeset, :last_name) == last_name
+      assert get_change(changeset, :username) == username
+      assert get_change(changeset, :default_vote_multiplier) == default_vote_multiplier
+      assert get_change(changeset, :votes_privacy) == votes_privacy
       assert is_nil(get_change(changeset, :hashed_password))
     end
   end
@@ -244,6 +299,7 @@ defmodule VotaSanremo.AccountsTest do
 
     test "allows fields to be set" do
       valid_password = "New valid password!"
+
       changeset =
         Accounts.change_user_password(%User{}, %{
           "password" => valid_password
@@ -268,7 +324,11 @@ defmodule VotaSanremo.AccountsTest do
         })
 
       assert %{
-               password: ["at least one digit or punctuation character", "at least one upper case character", "should be at least 12 character(s)"],
+               password: [
+                 "at least one digit or punctuation character",
+                 "at least one upper case character",
+                 "should be at least 12 character(s)"
+               ],
                password_confirmation: ["does not match password"]
              } = errors_on(changeset)
     end
@@ -477,7 +537,11 @@ defmodule VotaSanremo.AccountsTest do
         })
 
       assert %{
-               password: ["at least one digit or punctuation character", "at least one upper case character", "should be at least 12 character(s)"],
+               password: [
+                 "at least one digit or punctuation character",
+                 "at least one upper case character",
+                 "should be at least 12 character(s)"
+               ],
                password_confirmation: ["does not match password"]
              } = errors_on(changeset)
     end
