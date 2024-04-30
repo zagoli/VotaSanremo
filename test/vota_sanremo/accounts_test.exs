@@ -52,9 +52,9 @@ defmodule VotaSanremo.AccountsTest do
     test "user fields with defaults are populated correctly" do
       %{id: id} = user_fixture()
       user = Accounts.get_user!(id)
-      assert user.user_type == "user"
+      assert user.user_type == :user
       assert user.default_vote_multiplier == 1.0
-      assert user.votes_privacy == "public"
+      assert user.votes_privacy == :public
     end
   end
 
@@ -83,7 +83,7 @@ defmodule VotaSanremo.AccountsTest do
     end
 
     test "validates votes privacy value is admissible" do
-      {:error, changeset} = Accounts.register_user(%{votes_privacy: "restricted"})
+      {:error, changeset} = Accounts.register_user(%{votes_privacy: :restricted})
       assert %{votes_privacy: ["is invalid"]} = errors_on(changeset)
     end
 
@@ -144,7 +144,7 @@ defmodule VotaSanremo.AccountsTest do
       first_name = "Gregory"
       last_name = "Big"
       default_vote_multiplier = 0.5
-      votes_privacy = "private"
+      votes_privacy = :private
 
       changeset =
         Accounts.change_user_registration(

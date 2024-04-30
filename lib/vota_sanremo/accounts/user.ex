@@ -8,16 +8,16 @@ defmodule VotaSanremo.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
 
-    field :user_type, :string
+    field :user_type, Ecto.Enum, values: [:user, :admin]
     field :first_name, :string
     field :last_name, :string
     field :username, :string
     field :default_vote_multiplier, :float
-    field :votes_privacy, :string
+    field :votes_privacy, Ecto.Enum, values: [:public, :private, :juries_only]
 
     has_many :founded_juries, VotaSanremo.Juries.Jury, foreign_key: :founder
 
-    many_to_many :juries, VotaSanremo.Juries.Jury, join_through: :juries_composition
+    many_to_many :juries, VotaSanremo.Juries.Jury, join_through: "juries_composition"
 
     timestamps(type: :utc_datetime)
   end
@@ -49,7 +49,7 @@ defmodule VotaSanremo.Accounts.User do
     user
     |> cast(attrs, [:email, :password, :first_name, :last_name, :username, :default_vote_multiplier, :votes_privacy])
     |> validate_required([:username])
-    |> validate_inclusion(:votes_privacy, ["public", "private", "juries_only"])
+    |> validate_inclusion(:votes_privacy, [:public, :private, :juries_only])
     |> validate_names()
     |> validate_username()
     |> validate_email(opts)
