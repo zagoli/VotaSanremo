@@ -21,10 +21,12 @@ defmodule VotaSanremo.JuriesTest do
     end
 
     test "create_jury/1 with valid data creates a jury" do
-      valid_attrs = %{name: "some name", founder: VotaSanremo.AccountsFixtures.user_fixture().id}
+      %{id: user_id} = VotaSanremo.AccountsFixtures.user_fixture()
+      valid_attrs = %{name: "some name", founder: user_id}
 
       assert {:ok, %Jury{} = jury} = Juries.create_jury(valid_attrs)
       assert jury.name == "some name"
+      assert jury.founder == user_id
     end
 
     test "create_jury/1 with invalid data returns error changeset" do

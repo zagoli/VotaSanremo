@@ -7,6 +7,8 @@ defmodule VotaSanremo.Editions.Edition do
     field :start_date, :date
     field :end_date, :date
 
+    has_many :evenings, VotaSanremo.Evenings.Evening
+
     timestamps(type: :utc_datetime)
   end
 
