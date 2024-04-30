@@ -3,7 +3,7 @@ defmodule VotaSanremo.Repo.Migrations.CreateJuries do
 
   def change do
     create table(:juries) do
-      add :name, :string
+      add :name, :string, null: false
       add :founder, references(:users, on_delete: :nothing)
 
       timestamps(type: :utc_datetime)
