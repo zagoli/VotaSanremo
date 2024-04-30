@@ -4,7 +4,10 @@ defmodule VotaSanremo.Juries.Jury do
 
   schema "juries" do
     field :name, :string
+
     belongs_to :user, VotaSanremo.Accounts.User, foreign_key: :founder
+
+    many_to_many :members, VotaSanremo.Accounts.User, join_through: :juries_composition
 
     timestamps(type: :utc_datetime)
   end
