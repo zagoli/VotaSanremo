@@ -15,6 +15,8 @@ defmodule VotaSanremo.Accounts.User do
     field :default_vote_multiplier, :float
     field :votes_privacy, :string
 
+    has_many :founded_juries, VotaSanremo.Juries.Jury, foreign_key: :founder
+
     timestamps(type: :utc_datetime)
   end
 
