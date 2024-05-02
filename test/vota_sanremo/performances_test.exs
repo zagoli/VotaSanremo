@@ -2,7 +2,6 @@ defmodule VotaSanremo.PerformancesTest do
   use VotaSanremo.DataCase
 
   alias VotaSanremo.Performances
-  alias VotaSanremo.{EveningsFixtures, PerformersFixtures}
 
   describe "performancetypes" do
     alias VotaSanremo.Performances.PerformanceType
@@ -71,7 +70,7 @@ defmodule VotaSanremo.PerformancesTest do
   describe "performances" do
     alias VotaSanremo.Performances.Performance
 
-    import VotaSanremo.PerformancesFixtures
+    import VotaSanremo.{PerformancesFixtures, EveningsFixtures, PerformersFixtures}
 
     @invalid_attrs %{performance_type_id: nil, performer_id: nil, evening_id: nil}
 
@@ -88,8 +87,8 @@ defmodule VotaSanremo.PerformancesTest do
     test "create_performance/1 with valid data creates a performance" do
       valid_attrs = %{
         performance_type_id: performance_type_fixture().id,
-        performer_id: PerformersFixtures.performer_fixture().id,
-        evening_id: EveningsFixtures.evening_fixture().id
+        performer_id: performer_fixture().id,
+        evening_id: evening_fixture().id
       }
 
       assert {:ok, %Performance{}} = Performances.create_performance(valid_attrs)
@@ -104,8 +103,8 @@ defmodule VotaSanremo.PerformancesTest do
 
       update_attrs = %{
         performance_type_id: performance_type_fixture().id,
-        performer_id: PerformersFixtures.performer_fixture().id,
-        evening_id: EveningsFixtures.evening_fixture().id
+        performer_id: performer_fixture().id,
+        evening_id: evening_fixture().id
       }
 
       assert {:ok, %Performance{}} = Performances.update_performance(performance, update_attrs)

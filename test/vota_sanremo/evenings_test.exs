@@ -6,7 +6,7 @@ defmodule VotaSanremo.EveningsTest do
   describe "evenings" do
     alias VotaSanremo.Evenings.Evening
 
-    import VotaSanremo.EveningsFixtures
+    import VotaSanremo.{EveningsFixtures, EditionsFixtures}
 
     @invalid_attrs %{date: nil, description: nil, number: nil, votes_start: nil, votes_end: nil}
 
@@ -21,7 +21,7 @@ defmodule VotaSanremo.EveningsTest do
     end
 
     test "create_evening/1 with valid data creates a evening" do
-      %{id: edition_id} = VotaSanremo.EditionsFixtures.edition_fixture()
+      %{id: edition_id} = edition_fixture()
       valid_attrs = %{
         date: ~D[2024-04-29],
         description: "some description",

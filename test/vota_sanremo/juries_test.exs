@@ -6,7 +6,7 @@ defmodule VotaSanremo.JuriesTest do
   describe "juries" do
     alias VotaSanremo.Juries.Jury
 
-    import VotaSanremo.JuriesFixtures
+    import VotaSanremo.{JuriesFixtures, AccountsFixtures}
 
     @invalid_attrs %{name: nil, founder: -1}
 
@@ -21,7 +21,7 @@ defmodule VotaSanremo.JuriesTest do
     end
 
     test "create_jury/1 with valid data creates a jury" do
-      %{id: user_id} = VotaSanremo.AccountsFixtures.user_fixture()
+      %{id: user_id} = user_fixture()
       valid_attrs = %{name: "some name", founder: user_id}
 
       assert {:ok, %Jury{} = jury} = Juries.create_jury(valid_attrs)

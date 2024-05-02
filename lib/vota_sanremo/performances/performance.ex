@@ -8,6 +8,8 @@ defmodule VotaSanremo.Performances.Performance do
     belongs_to :evening, VotaSanremo.Evenings.Evening
     belongs_to :performer, VotaSanremo.Performers.Performer
 
+    has_many :votes, VotaSanremo.Votes.Vote
+
     timestamps(type: :utc_datetime)
   end
 
