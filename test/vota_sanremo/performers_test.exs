@@ -3,16 +3,16 @@ defmodule VotaSanremo.PerformersTest do
 
   alias VotaSanremo.Performers
 
-  describe "performes" do
+  describe "performers" do
     alias VotaSanremo.Performers.Performer
 
     import VotaSanremo.PerformersFixtures
 
     @invalid_attrs %{name: nil}
 
-    test "list_performes/0 returns all performes" do
+    test "list_performers/0 returns all performers" do
       performer = performer_fixture()
-      assert Performers.list_performes() == [performer]
+      assert Performers.list_performers() == [performer]
     end
 
     test "get_performer!/1 returns the performer with given id" do

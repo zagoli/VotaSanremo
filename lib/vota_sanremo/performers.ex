@@ -9,15 +9,15 @@ defmodule VotaSanremo.Performers do
   alias VotaSanremo.Performers.Performer
 
   @doc """
-  Returns the list of performes.
+  Returns the list of performers.
 
   ## Examples
 
-      iex> list_performes()
+      iex> list_performers()
       [%Performer{}, ...]
 
   """
-  def list_performes do
+  def list_performers do
     Repo.all(Performer)
   end
 

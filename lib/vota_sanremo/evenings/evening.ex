@@ -9,6 +9,8 @@ defmodule VotaSanremo.Evenings.Evening do
     field :votes_start, :utc_datetime
     field :votes_end, :utc_datetime
 
+    has_many :performances, VotaSanremo.Performances.Performance
+
     belongs_to :edition, VotaSanremo.Editions.Edition
 
     timestamps(type: :utc_datetime)

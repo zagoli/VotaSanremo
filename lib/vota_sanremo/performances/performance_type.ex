@@ -5,6 +5,8 @@ defmodule VotaSanremo.Performances.PerformanceType do
   schema "performancetypes" do
     field :type, :string
 
+    has_many :performances, VotaSanremo.Performances.Performance
+
     timestamps(type: :utc_datetime)
   end
 

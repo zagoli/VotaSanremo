@@ -2,8 +2,10 @@ defmodule VotaSanremo.Performers.Performer do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "performes" do
+  schema "performers" do
     field :name, :string
+
+    has_many :performances, VotaSanremo.Performances.Performance
 
     timestamps(type: :utc_datetime)
   end

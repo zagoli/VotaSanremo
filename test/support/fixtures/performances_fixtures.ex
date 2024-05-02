@@ -3,6 +3,7 @@ defmodule VotaSanremo.PerformancesFixtures do
   This module defines test helpers for creating
   entities via the `VotaSanremo.Performances` context.
   """
+  alias VotaSanremo.{EveningsFixtures, PerformersFixtures}
 
   @doc """
   Generate a unique performance_type type.
@@ -21,5 +22,25 @@ defmodule VotaSanremo.PerformancesFixtures do
       |> VotaSanremo.Performances.create_performance_type()
 
     performance_type
+  end
+
+  @doc """
+  Generate a performance.
+  """
+  def performance_fixture(attrs \\ %{}) do
+    type = performance_type_fixture()
+    performer = PerformersFixtures.performer_fixture()
+    evening = EveningsFixtures.evening_fixture()
+
+    {:ok, performance} =
+      attrs
+      |> Enum.into(%{
+        performance_type_id: type.id,
+        performer_id: performer.id,
+        evening_id: evening.id
+      })
+      |> VotaSanremo.Performances.create_performance()
+
+    performance
   end
 end
