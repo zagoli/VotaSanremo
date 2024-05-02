@@ -2,7 +2,7 @@ defmodule VotaSanremo.Performances.PerformanceType do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "performancetypes" do
+  schema "performance_types" do
     field :type, :string
 
     has_many :performances, VotaSanremo.Performances.Performance
