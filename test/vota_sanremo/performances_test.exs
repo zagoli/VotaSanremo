@@ -3,16 +3,16 @@ defmodule VotaSanremo.PerformancesTest do
 
   alias VotaSanremo.Performances
 
-  describe "performancetypes" do
+  describe "performance_types" do
     alias VotaSanremo.Performances.PerformanceType
 
     import VotaSanremo.PerformancesFixtures
 
     @invalid_attrs %{type: nil}
 
-    test "list_performancetypes/0 returns all performancetypes" do
+    test "list_performance_types/0 returns all performance_types" do
       performance_type = performance_type_fixture()
-      assert Performances.list_performancetypes() == [performance_type]
+      assert Performances.list_performance_types() == [performance_type]
     end
 
     test "get_performance_type!/1 returns the performance_type with given id" do

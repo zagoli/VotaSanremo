@@ -49,7 +49,6 @@ defmodule VotaSanremo.Accounts.User do
   def registration_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:email, :password, :first_name, :last_name, :username, :default_vote_multiplier, :votes_privacy])
-    |> validate_required([:username])
     |> validate_inclusion(:votes_privacy, [:public, :private, :juries_only])
     |> validate_names()
     |> validate_username()
@@ -65,6 +64,7 @@ defmodule VotaSanremo.Accounts.User do
 
   defp validate_username(changeset) do
     changeset
+    |> validate_required([:username])
     |> validate_length(:username, max: 160)
     |> unsafe_validate_unique(:username, VotaSanremo.Repo)
     |> unique_constraint(:username)

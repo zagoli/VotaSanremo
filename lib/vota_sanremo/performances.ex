@@ -9,15 +9,15 @@ defmodule VotaSanremo.Performances do
   alias VotaSanremo.Performances.PerformanceType
 
   @doc """
-  Returns the list of performancetypes.
+  Returns the list of performance types.
 
   ## Examples
 
-      iex> list_performancetypes()
+      iex> list_performance_types()
       [%PerformanceType{}, ...]
 
   """
-  def list_performancetypes do
+  def list_performance_types do
     Repo.all(PerformanceType)
   end
 
