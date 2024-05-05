@@ -7,6 +7,7 @@ defmodule VotaSanremo.Editions do
   alias VotaSanremo.Repo
 
   alias VotaSanremo.Editions.Edition
+  alias VotaSanremo.Editions.Edition.Queries
 
   @doc """
   Returns the list of editions.
@@ -18,7 +19,19 @@ defmodule VotaSanremo.Editions do
 
   """
   def list_editions do
-    Repo.all(Edition)
+    Queries.all()
+  end
+
+  @doc """
+  Returns the list of editions with the associated evenings.
+
+  ##  Examples
+
+      iex> list_editions_with_evenings()
+      [%Edition{evenings: [%Evening{}, ...]}, ...]
+  """
+  def list_editions_with_evenings do
+    Queries.all_with_evenings()
   end
 
   @doc """
@@ -36,6 +49,32 @@ defmodule VotaSanremo.Editions do
 
   """
   def get_edition!(id), do: Repo.get!(Edition, id)
+
+  @doc """
+  Gets the edition with the latest start date.
+
+  Raises `Ecto.NoResultsError` if no Edition exist.
+
+  ## Examples
+
+      iex> get_latest_edition!()
+      %Edition{}
+
+  """
+  def get_latest_edition!(), do: Queries.latest_edition!()
+
+  @doc """
+  Gets the edition with the latest start date and associated evenings.
+
+  Raises `Ecto.NoResultsError` if no Edition exist.
+
+  ## Examples
+
+      iex> get_latest_edition_with_evenings!()
+      %Edition{evenings: [%Evening{}, ...]}
+
+  """
+  def get_latest_edition_with_evenings!(), do: Queries.latest_edition_with_evenings!()
 
   @doc """
   Creates a edition.

@@ -4,9 +4,10 @@ defmodule VotaSanremo.EditionsTest do
   alias VotaSanremo.Editions
 
   describe "editions" do
+    alias VotaSanremo.Evenings
     alias VotaSanremo.Editions.Edition
 
-    import VotaSanremo.EditionsFixtures
+    import VotaSanremo.{EditionsFixtures, EveningsFixtures}
 
     @invalid_attrs %{name: nil, start_date: nil, end_date: nil}
 
@@ -35,7 +36,12 @@ defmodule VotaSanremo.EditionsTest do
 
     test "update_edition/2 with valid data updates the edition" do
       edition = edition_fixture()
-      update_attrs = %{name: "some updated name", start_date: ~D[2024-04-30], end_date: ~D[2024-04-30]}
+
+      update_attrs = %{
+        name: "some updated name",
+        start_date: ~D[2024-04-30],
+        end_date: ~D[2024-04-30]
+      }
 
       assert {:ok, %Edition{} = edition} = Editions.update_edition(edition, update_attrs)
       assert edition.name == "some updated name"
@@ -64,6 +70,67 @@ defmodule VotaSanremo.EditionsTest do
       %{name: name} = edition_fixture()
       {:error, changeset} = Editions.create_edition(%{name: name})
       assert "has already been taken" in errors_on(changeset).name
+    end
+
+    test "list_editions_with_evenings/0 returns all editions with associated evenings" do
+      evening = evening_fixture()
+      [edition] = Editions.list_editions_with_evenings()
+      assert evening == List.first(edition.evenings)
+    end
+
+    test "get_latest_edition!/0 returs the latest edition when there is at least one edition" do
+      {:ok, _edition1} =
+        Editions.create_edition(%{
+          name: "Edition 1",
+          start_date: ~D[2022-02-10],
+          end_date: ~D[2022-02-15]
+        })
+
+      {:ok, edition2} =
+        Editions.create_edition(%{
+          name: "Edition 2",
+          start_date: ~D[2023-02-10],
+          end_date: ~D[2023-02-15]
+        })
+
+      assert Editions.get_latest_edition!() == edition2
+    end
+
+    test "get_latest_edition!/0 throws error when there are no editions" do
+      assert_raise Ecto.NoResultsError, &Editions.get_latest_edition!/0
+    end
+
+    test "get_latest_edition_with_evenings!/0 returs the latest edition when there is at least one edition, with associated evenings" do
+      {:ok, _edition1} =
+        Editions.create_edition(%{
+          name: "Edition 1",
+          start_date: ~D[2022-02-10],
+          end_date: ~D[2022-02-15]
+        })
+
+      {:ok, edition2} =
+        Editions.create_edition(%{
+          name: "Edition 2",
+          start_date: ~D[2023-02-10],
+          end_date: ~D[2023-02-15]
+        })
+
+      {:ok, evening} =
+        Evenings.create_evening(%{
+          number: 1,
+          date: ~D[2023-02-11],
+          votes_start: ~U[2023-02-11 22:00:00Z],
+          votes_end: ~U[2023-02-11 23:55:00Z],
+          edition_id: edition2.id
+        })
+
+      latest_edition = Editions.get_latest_edition_with_evenings!()
+      assert latest_edition.id == edition2.id
+      assert latest_edition.evenings == [evening]
+    end
+
+    test "get_latest_edition_with_evenings!/0 throws error when there are no editions" do
+      assert_raise Ecto.NoResultsError, &Editions.get_latest_edition_with_evenings!/0
     end
   end
 end
