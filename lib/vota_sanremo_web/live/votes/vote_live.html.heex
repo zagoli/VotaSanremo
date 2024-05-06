@@ -1,0 +1,15 @@
+<main>
+  <h1 class="text-5xl">Cast your votes</h1>
+  
+  <.evening_selector
+    class="mt-4 max-w-[450px]"
+    evenings={@evenings}
+    selected_evening={@selected_evening}
+  />
+
+  <h3 class="text-2xl mt-4">
+    <%= @selected_evening.description %>
+  </h3>
+
+  
+</main>
