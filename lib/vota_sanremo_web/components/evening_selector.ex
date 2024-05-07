@@ -3,28 +3,22 @@ defmodule VotaSanremoWeb.EveningSelector do
 
   attr :evening, VotaSanremo.Evenings.Evening, required: true
   attr :selected, :boolean, default: false
-  attr :now, DateTime, default: DateTime.utc_now()
 
   defp evening_button(assigns) do
+    assigns =
+      assign(
+        assigns,
+        :button_class,
+        if assigns.selected do
+          "bg-black text-white hover:bg-zinc-700 py-2 px-4 text-lg font-semibold border border-black"
+        else
+          "bg-white hover:bg-zinc-100 py-2 px-4 text-lg font-semibold border border-black"
+        end
+      )
+
     ~H"""
     <div class="grow">
-      <button
-        type="button"
-        class={
-          if @selected do
-            "bg-black text-white hover:bg-zinc-700 py-2 px-4 text-lg font-semibold border border-black"
-          else
-            "bg-white hover:bg-zinc-100 py-2 px-4 text-lg font-semibold border border-black"
-          end
-        }
-        phx-click="evening-selected"
-        value={@evening.id}
-        class="ml-2 mr-2"
-        disabled={
-          DateTime.compare(@now, @evening.votes_start) == :lt or
-            DateTime.compare(@now, @evening.votes_end) == :gt
-        }
-      >
+      <button type="button" class={@button_class} phx-click="evening-selected" value={@evening.id}>
         <%= @evening.number %>
       </button>
     </div>
