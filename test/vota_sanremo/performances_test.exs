@@ -6,7 +6,7 @@ defmodule VotaSanremo.PerformancesTest do
   describe "performance_types" do
     alias VotaSanremo.Performances.PerformanceType
 
-    import VotaSanremo.PerformancesFixtures
+    import VotaSanremo.{PerformancesFixtures, EveningsFixtures, PerformersFixtures}
 
     @invalid_attrs %{type: nil}
 
@@ -143,6 +143,35 @@ defmodule VotaSanremo.PerformancesTest do
                  performer_id: performer_id,
                  evening_id: evening_id
                })
+    end
+
+    test "list_performances_of_evening/1 returns only the performances for the given evening and associations are loaded" do
+      evening_1 = evening_fixture(%{date: ~D[2024-02-24], number: 1})
+      evening_2 = evening_fixture(%{date: ~D[2024-02-25], number: 2})
+      performance_1 = performance_fixture(%{evening_id: evening_1.id})
+      _performance_2 = performance_fixture(%{evening_id: evening_2.id})
+
+      [retrieved_performance] = Performances.list_performances_of_evening(evening_1)
+
+      assert performance_1.id == retrieved_performance.id
+      assert Ecto.assoc_loaded?(retrieved_performance.performer)
+      assert Ecto.assoc_loaded?(retrieved_performance.performance_type)
+      assert performance_1.performer_id == retrieved_performance.performer.id
+      assert performance_1.performance_type_id == retrieved_performance.performance_type.id
+    end
+
+    test "list_performances_of_evening/1 returns performances ordered by performer name" do
+      evening = evening_fixture()
+      performer_1 = performer_fixture(%{name: "B"})
+      performer_2 = performer_fixture(%{name: "A"})
+      performance_fixture(%{evening_id: evening.id, performer_id: performer_1.id})
+      performance_fixture(%{evening_id: evening.id, performer_id: performer_2.id})
+
+      [retrieved_performance_1, retrieved_performance_2] = Performances.list_performances_of_evening(evening)
+
+      assert retrieved_performance_1.performer.name == "A"
+      assert retrieved_performance_2.performer.name == "B"
+
     end
   end
 end

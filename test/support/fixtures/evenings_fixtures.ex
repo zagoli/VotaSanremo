@@ -9,7 +9,6 @@ defmodule VotaSanremo.EveningsFixtures do
   Generate a evening.
   """
   def evening_fixture(attrs \\ %{}) do
-    edition = EditionsFixtures.edition_fixture()
     {:ok, evening} =
       attrs
       |> Enum.into(%{
@@ -18,7 +17,11 @@ defmodule VotaSanremo.EveningsFixtures do
         number: 42,
         votes_end: ~U[2024-04-29 14:47:00Z],
         votes_start: ~U[2024-04-29 14:47:00Z],
-        edition_id: edition.id
+        edition_id:
+          if not Map.has_key?(attrs, :edition_id) do
+            %{id: id} = EditionsFixtures.edition_fixture()
+            id
+          end
       })
       |> VotaSanremo.Evenings.create_evening()
 

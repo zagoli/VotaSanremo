@@ -7,7 +7,7 @@ defmodule VotaSanremo.Editions.Edition.Queries do
   alias VotaSanremo.Editions.Edition
   alias VotaSanremo.Evenings.Evening
 
-  def base() do
+  defp base() do
     Edition
   end
 

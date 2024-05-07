@@ -4,7 +4,6 @@ defmodule VotaSanremo.EditionsTest do
   alias VotaSanremo.Editions
 
   describe "editions" do
-    alias VotaSanremo.Evenings
     alias VotaSanremo.Editions.Edition
 
     import VotaSanremo.{EditionsFixtures, EveningsFixtures}
@@ -79,19 +78,8 @@ defmodule VotaSanremo.EditionsTest do
     end
 
     test "get_latest_edition!/0 returs the latest edition when there is at least one edition" do
-      {:ok, _edition1} =
-        Editions.create_edition(%{
-          name: "Edition 1",
-          start_date: ~D[2022-02-10],
-          end_date: ~D[2022-02-15]
-        })
-
-      {:ok, edition2} =
-        Editions.create_edition(%{
-          name: "Edition 2",
-          start_date: ~D[2023-02-10],
-          end_date: ~D[2023-02-15]
-        })
+      _edition1 = edition_fixture(%{name: "Edition 1", start_date: ~D[2022-02-10]})
+      edition2 = edition_fixture(%{name: "Edition 2", start_date: ~D[2023-02-10]})
 
       assert Editions.get_latest_edition!() == edition2
     end
@@ -101,31 +89,13 @@ defmodule VotaSanremo.EditionsTest do
     end
 
     test "get_latest_edition_with_evenings!/0 returs the latest edition when there is at least one edition, with associated evenings" do
-      {:ok, _edition1} =
-        Editions.create_edition(%{
-          name: "Edition 1",
-          start_date: ~D[2022-02-10],
-          end_date: ~D[2022-02-15]
-        })
-
-      {:ok, edition2} =
-        Editions.create_edition(%{
-          name: "Edition 2",
-          start_date: ~D[2023-02-10],
-          end_date: ~D[2023-02-15]
-        })
-
-      {:ok, evening} =
-        Evenings.create_evening(%{
-          number: 1,
-          date: ~D[2023-02-11],
-          votes_start: ~U[2023-02-11 22:00:00Z],
-          votes_end: ~U[2023-02-11 23:55:00Z],
-          edition_id: edition2.id
-        })
+      _edition1 = edition_fixture(%{name: "Edition 1", start_date: ~D[2022-02-10]})
+      edition2 = edition_fixture(%{name: "Edition 2", start_date: ~D[2023-02-10]})
+      evening = evening_fixture(%{edition_id: edition2.id})
 
       latest_edition = Editions.get_latest_edition_with_evenings!()
       assert latest_edition.id == edition2.id
+      assert Ecto.assoc_loaded?(latest_edition.evenings)
       assert latest_edition.evenings == [evening]
     end
 

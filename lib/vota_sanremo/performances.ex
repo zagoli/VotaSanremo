@@ -7,6 +7,7 @@ defmodule VotaSanremo.Performances do
   alias VotaSanremo.Repo
 
   alias VotaSanremo.Performances.PerformanceType
+  alias VotaSanremo.Performances.Performance
 
   @doc """
   Returns the list of performance types.
@@ -114,7 +115,20 @@ defmodule VotaSanremo.Performances do
 
   """
   def list_performances do
-    Repo.all(Performance)
+    Performance.Queries.all()
+  end
+
+  @doc """
+  Returns the list of performances associated with an Evening.
+
+  ## Examples
+
+      iex> list_performances_of_evening(%Evening{})
+      [%Performance{}, ...]
+
+  """
+  def list_performances_of_evening(evening) do
+    Performance.Queries.list_performances_of_evening(evening)
   end
 
   @doc """
