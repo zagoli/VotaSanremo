@@ -5,6 +5,7 @@ defmodule VotaSanremo.Editions.Edition.Queries do
   import Ecto.Query
   alias VotaSanremo.Repo
   alias VotaSanremo.Editions.Edition
+  alias VotaSanremo.Evenings.Evening
 
   def base() do
     Edition
@@ -39,8 +40,9 @@ defmodule VotaSanremo.Editions.Edition.Queries do
   end
 
   defp preload_evenings(query) do
+    ordered_evenings = Evening |> order_by(:number)
     query
-    |> preload(:evenings)
+    |> preload(evenings: ^ordered_evenings)
   end
 
 end

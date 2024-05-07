@@ -19,13 +19,16 @@ defmodule VotaSanremoWeb.Votes.VoteLive do
     assign(socket, :selected_evening, evening)
   end
 
-  defp assign_default_selected_evening(socket) do
+  defp assign_default_selected_evening(%{assigns: %{evenings: evenings}} = socket) do
     first_evening =
-      socket.assigns.evenings
+      evenings
       |> Enum.sort(&(&1.date < &2.date))
       |> List.first()
 
-    assign_selected_evening(socket, first_evening)
+    today = DateTime.utc_now() |> DateTime.to_date()
+    default_evening = Enum.find(evenings, first_evening, fn e -> e.date == today end)
+
+    assign_selected_evening(socket, default_evening)
   end
 
   def handle_event("evening-selected", %{"value" => evening_id}, socket) do
