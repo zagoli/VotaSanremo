@@ -110,7 +110,7 @@ defmodule VotaSanremo.PerformancesTest do
       update_attrs = %{
         performance_type_id: performance_type_fixture().id,
         performer_id: performer_fixture().id,
-        evening_id: evening_fixture().id
+        evening_id: evening_fixture(%{date: ~D[1999-01-01]}).id
       }
 
       assert {:ok, %Performance{}} = Performances.update_performance(performance, update_attrs)

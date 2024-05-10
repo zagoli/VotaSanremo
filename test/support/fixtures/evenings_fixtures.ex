@@ -12,11 +12,11 @@ defmodule VotaSanremo.EveningsFixtures do
     {:ok, evening} =
       attrs
       |> Enum.into(%{
-        date: random_date(),
+        date: ~D[2024-04-09],
         description: "some description",
         number: 42,
         votes_end: ~U[2024-04-29 14:47:00Z],
-        votes_start: ~U[2024-04-29 14:47:00Z],
+        votes_start: ~U[2024-04-29 19:47:00Z],
         edition_id:
           if not Map.has_key?(attrs, :edition_id) do
             %{id: id} = EditionsFixtures.edition_fixture()
@@ -26,12 +26,5 @@ defmodule VotaSanremo.EveningsFixtures do
       |> VotaSanremo.Evenings.create_evening()
 
     evening
-  end
-
-  def random_date() do
-    year = Enum.random(1970..2035)
-    month = Enum.random(1..12)
-    day = Enum.random(1..28)
-    Date.new!(year, month, day)
   end
 end

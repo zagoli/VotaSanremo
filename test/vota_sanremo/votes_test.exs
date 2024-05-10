@@ -6,7 +6,7 @@ defmodule VotaSanremo.VotesTest do
   describe "votes" do
     alias VotaSanremo.Votes.Vote
 
-    import VotaSanremo.{VotesFixtures, AccountsFixtures, PerformancesFixtures}
+    import VotaSanremo.{VotesFixtures, AccountsFixtures, PerformancesFixtures, EveningsFixtures}
 
     @invalid_attrs %{score: nil, multiplier: nil, user_id: nil, performance_id: nil}
 
@@ -40,11 +40,12 @@ defmodule VotaSanremo.VotesTest do
     test "update_vote/2 with valid data updates the vote" do
       vote = vote_fixture()
 
+      another_evening = evening_fixture(%{date: ~D[1999-01-01]})
       update_attrs = %{
         score: 5.5,
         multiplier: 1.0,
         user_id: user_fixture().id,
-        performance_id: performance_fixture().id
+        performance_id: performance_fixture(%{evening_id: another_evening.id}).id
       }
 
       assert {:ok, %Vote{} = vote} = Votes.update_vote(vote, update_attrs)
