@@ -6,7 +6,7 @@ defmodule VotaSanremo.PerformancesTest do
   describe "performance_types" do
     alias VotaSanremo.Performances.PerformanceType
 
-    import VotaSanremo.{PerformancesFixtures, EveningsFixtures, PerformersFixtures}
+    import VotaSanremo.PerformancesFixtures
 
     @invalid_attrs %{type: nil}
 
@@ -70,7 +70,13 @@ defmodule VotaSanremo.PerformancesTest do
   describe "performances" do
     alias VotaSanremo.Performances.Performance
 
-    import VotaSanremo.{PerformancesFixtures, EveningsFixtures, PerformersFixtures}
+    import VotaSanremo.{
+      PerformancesFixtures,
+      EveningsFixtures,
+      PerformersFixtures,
+      AccountsFixtures,
+      VotesFixtures
+    }
 
     @invalid_attrs %{performance_type_id: nil, performer_id: nil, evening_id: nil}
 
@@ -148,16 +154,20 @@ defmodule VotaSanremo.PerformancesTest do
     test "list_performances_of_evening/1 returns only the performances for the given evening and associations are loaded" do
       evening_1 = evening_fixture(%{date: ~D[2024-02-24], number: 1})
       evening_2 = evening_fixture(%{date: ~D[2024-02-25], number: 2})
-      performance_1 = performance_fixture(%{evening_id: evening_1.id})
-      _performance_2 = performance_fixture(%{evening_id: evening_2.id})
+      performance = performance_fixture(%{evening_id: evening_1.id})
+      performance_fixture(%{evening_id: evening_2.id})
+      user = user_fixture()
+      _vote = vote_fixture(%{user_id: user.id, performance_id: performance.id})
 
-      [retrieved_performance] = Performances.list_performances_of_evening(evening_1)
+      [retrieved_performance] = Performances.list_performances_of_evening(evening_1, user)
 
-      assert performance_1.id == retrieved_performance.id
+      assert performance.id == retrieved_performance.id
       assert Ecto.assoc_loaded?(retrieved_performance.performer)
       assert Ecto.assoc_loaded?(retrieved_performance.performance_type)
-      assert performance_1.performer_id == retrieved_performance.performer.id
-      assert performance_1.performance_type_id == retrieved_performance.performance_type.id
+      assert Ecto.assoc_loaded?(retrieved_performance.votes)
+      assert performance.performer_id == retrieved_performance.performer.id
+      assert performance.performance_type_id == retrieved_performance.performance_type.id
+      assert performance.id == retrieved_performance.votes |> hd() |> Map.get(:performance_id)
     end
 
     test "list_performances_of_evening/1 returns performances ordered by performer name" do
@@ -166,12 +176,29 @@ defmodule VotaSanremo.PerformancesTest do
       performer_2 = performer_fixture(%{name: "A"})
       performance_fixture(%{evening_id: evening.id, performer_id: performer_1.id})
       performance_fixture(%{evening_id: evening.id, performer_id: performer_2.id})
+      user = user_fixture()
 
-      [retrieved_performance_1, retrieved_performance_2] = Performances.list_performances_of_evening(evening)
+      [retrieved_performance_1, retrieved_performance_2] =
+        Performances.list_performances_of_evening(evening, user)
 
       assert retrieved_performance_1.performer.name == "A"
       assert retrieved_performance_2.performer.name == "B"
+    end
 
+    test "list_performances_of_evening/1 returns performances with votes of current user only" do
+      evening = evening_fixture()
+      performance = performance_fixture(%{evening_id: evening.id})
+      _performance_2 = performance_fixture(%{evening_id: evening.id})
+      user_1 = user_fixture()
+      user_2 = user_fixture()
+      vote_user_1 = vote_fixture(%{user_id: user_1.id, performance_id: performance.id})
+      _vote_user_2 = vote_fixture(%{user_id: user_2.id, performance_id: performance.id})
+
+      [retrieved_performance_1, retrieved_performance_2] =
+        Performances.list_performances_of_evening(evening, user_1)
+
+      assert retrieved_performance_1.votes == [vote_user_1]
+      assert retrieved_performance_2.votes == []
     end
   end
 end

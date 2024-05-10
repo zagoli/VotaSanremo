@@ -8,6 +8,8 @@ defmodule VotaSanremo.Performances do
 
   alias VotaSanremo.Performances.PerformanceType
   alias VotaSanremo.Performances.Performance
+  alias VotaSanremo.Accounts.User
+  alias VotaSanremo.Evenings.Evening
 
   @doc """
   Returns the list of performance types.
@@ -119,16 +121,16 @@ defmodule VotaSanremo.Performances do
   end
 
   @doc """
-  Returns the list of performances associated with an Evening.
+  Returns the list of performances associated with an Evening, with the associated user votes.
 
   ## Examples
 
-      iex> list_performances_of_evening(%Evening{})
+      iex> list_performances_of_evening(%Evening{}, %User{})
       [%Performance{}, ...]
 
   """
-  def list_performances_of_evening(evening) do
-    Performance.Queries.list_performances_of_evening(evening)
+  def list_performances_of_evening(%Evening{} = evening, %User{} = user) do
+    Performance.Queries.list_performances_of_evening(evening, user)
   end
 
   @doc """

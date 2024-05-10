@@ -9,15 +9,21 @@ defmodule VotaSanremo.VotesFixtures do
   Generate a vote.
   """
   def vote_fixture(attrs \\ %{}) do
-    user = AccountsFixtures.user_fixture()
-    performance = PerformancesFixtures.performance_fixture()
     {:ok, vote} =
       attrs
       |> Enum.into(%{
         multiplier: 1.0,
         score: 7.5,
-        user_id: user.id,
-        performance_id: performance.id
+        user_id:
+          if not Map.has_key?(attrs, :user_id) do
+            %{id: id} = AccountsFixtures.user_fixture()
+            id
+          end,
+        performance_id:
+          if not Map.has_key?(attrs, :performance_id) do
+            %{id: id} = PerformancesFixtures.performance_fixture()
+            id
+          end
       })
       |> VotaSanremo.Votes.create_vote()
 

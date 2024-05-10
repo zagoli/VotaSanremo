@@ -28,16 +28,24 @@ defmodule VotaSanremo.PerformancesFixtures do
   Generate a performance.
   """
   def performance_fixture(attrs \\ %{}) do
-    type = performance_type_fixture()
-    performer = PerformersFixtures.performer_fixture()
-    evening = EveningsFixtures.evening_fixture()
-
     {:ok, performance} =
       attrs
       |> Enum.into(%{
-        performance_type_id: type.id,
-        performer_id: performer.id,
-        evening_id: evening.id
+        performance_type_id:
+          if not Map.has_key?(attrs, :performance_type_id) do
+            %{id: id} = performance_type_fixture()
+            id
+          end,
+        performer_id:
+          if not Map.has_key?(attrs, :performer_id) do
+            %{id: id} = PerformersFixtures.performer_fixture()
+            id
+          end,
+        evening_id:
+          if not Map.has_key?(attrs, :evening_id) do
+            %{id: id} = EveningsFixtures.evening_fixture()
+            id
+          end
       })
       |> VotaSanremo.Performances.create_performance()
 
