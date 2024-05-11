@@ -10,6 +10,10 @@ defmodule VotaSanremoWeb.Votes.VoteLive do
      |> assign_default_selected_evening}
   end
 
+  def handle_params(_params, _uri, socket) do
+    {:noreply, socket}
+  end
+
   defp assign_evenings(socket) do
     %{evenings: evenings} = Editions.get_latest_edition_with_evenings!()
     assign(socket, :evenings, evenings)

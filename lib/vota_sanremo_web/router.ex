@@ -68,7 +68,8 @@ defmodule VotaSanremoWeb.Router do
       on_mount: [{VotaSanremoWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
-      live "/vote", Votes.VoteLive
+      live "/vote", Votes.VoteLive, :show
+      live "/vote/performance/:id", Votes.VoteLive, :new
     end
   end
 
