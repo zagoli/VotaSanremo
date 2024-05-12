@@ -69,7 +69,8 @@ defmodule VotaSanremoWeb.Router do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
       live "/vote", Votes.VoteLive, :show
-      live "/vote/performance/:id", Votes.VoteLive, :new
+      live "/vote/performance/new/:id", Votes.VoteLive, :new
+      live "/vote/performance/edit/:id", Votes.VoteLive, :edit
     end
   end
 

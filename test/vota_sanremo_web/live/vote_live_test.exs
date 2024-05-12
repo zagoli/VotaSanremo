@@ -97,10 +97,12 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       assert html =~ "First evening"
     end
 
-    test "Navigating to add new vote route shows modal", %{conn: conn, edition: edition} do
+    test "Navigating to new or edit vote route shows modal", %{conn: conn, edition: edition} do
       evening_fixture(%{edition_id: edition.id})
-      {:ok, _live, html} = live(conn, ~p"/vote/performance/1")
-      assert html =~ "id=\"submit-vote-modal\""
+      {:ok, _live, html} = live(conn, ~p"/vote/performance/new/1")
+      assert html =~ "submit-vote-modal"
+      {:ok, _live, html} = live(conn, ~p"/vote/performance/edit/1")
+      assert html =~ "submit-vote-modal"
     end
   end
 end
