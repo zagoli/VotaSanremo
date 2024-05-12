@@ -3,10 +3,7 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainer do
   Provides a function component for displaying a list of performances.
   """
   use Phoenix.Component
-  import VotaSanremoWeb.PresentationTable
-  import VotaSanremoWeb.CoreComponents, only: [header: 1]
   alias VotaSanremo.Performances.PerformanceType
-
 
   @doc """
   A container used to show a list of performances with a header of performances type.
@@ -27,31 +24,81 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainer do
 
   def performances_container(assigns) do
     ~H"""
-    <.header class="mb-2">
-      <%= @performances_type.type %>
-    </.header>
-
-    <.presentation_table items={@performances}>
-      <:name :let={performance}>
-        <p class="font-bold text-xl">
-          <%= performance.performer.name %>
-        </p>
-      </:name>
-
-      <:property :let={performance}>
-        <.button_badge
-          disabled={not @can_user_vote}
-          phx-click="vote-clicked"
-          value={performance.id}
-        >
-          <%= if Enum.empty?(performance.votes) do
-            "-"
-          else
-            performance.votes |> List.first() |> Map.get(:score)
-          end %>
-        </.button_badge>
-      </:property>
-    </.presentation_table>
+    <.live_component
+      module={VotaSanremoWeb.Votes.PerformancesContainer.Internal}
+      id={"#{@performances_type.type}-performances-container"}
+      performances_type={@performances_type}
+      performances={@performances}
+      can_user_vote={@can_user_vote}
+    />
     """
+  end
+end
+
+defmodule VotaSanremoWeb.Votes.PerformancesContainer.Internal do
+  @moduledoc """
+  Internal implementation of performances container. Do not use directly
+  """
+  use VotaSanremoWeb, :live_component
+  import VotaSanremoWeb.PresentationTable
+  import VotaSanremoWeb.CoreComponents, only: [header: 1]
+
+  def update(assigns, socket) do
+    IO.inspect socket.assigns
+    {:ok,
+     socket
+     |> assign(assigns)}
+  end
+
+  def render(assigns) do
+    ~H"""
+    <section>
+      <.header class="mb-2">
+        <%= @performances_type.type %>
+      </.header>
+
+      <.presentation_table items={@performances}>
+        <:name :let={performance}>
+          <p class="font-bold text-xl">
+            <%= performance.performer.name %>
+          </p>
+        </:name>
+
+        <:property :let={performance}>
+          <.button_badge
+            disabled={not @can_user_vote}
+            phx-click="vote-clicked"
+            value={performance.id}
+            phx-target={@myself}
+          >
+            <%= if Enum.empty?(performance.votes) do
+              "-"
+            else
+              performance.votes |> List.first() |> Map.get(:score)
+            end %>
+          </.button_badge>
+        </:property>
+      </.presentation_table>
+    </section>
+    """
+  end
+
+  def handle_event(
+        "vote-clicked",
+        %{"value" => performance_id},
+        %{assigns: %{performances: performances}} = socket
+      ) do
+    performance =
+      performances
+      |> Enum.find(fn performance -> performance.id == String.to_integer(performance_id) end)
+
+    path =
+      if Enum.empty?(performance.votes) do
+        ~p"/vote/performance/new/#{performance_id}"
+      else
+        ~p"/vote/performance/edit/#{performance_id}"
+      end
+
+    {:noreply, push_patch(socket, to: path)}
   end
 end
