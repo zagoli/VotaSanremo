@@ -1,11 +1,12 @@
 defmodule VotaSanremoWeb.PresentationTable do
   @moduledoc """
   Provides a table used to present some items and a property for each item.
+  Provides also a badge-button.
   See the provided function documentation for more info.
   """
   use Phoenix.Component
 
-  @doc ~S"""
+  @doc """
   Renders a table with two columns.
   The first column should present the name of each item of the table.
   The second column should present a property related to the item, maybe with a phx-click attribute specified.
@@ -24,7 +25,7 @@ defmodule VotaSanremoWeb.PresentationTable do
 
   def presentation_table(assigns) do
     ~H"""
-    <div class="grid grid-cols-2 text-xl gap-y-6">
+    <div class="grid grid-cols-2 gap-y-6">
       <%= for item <- @items do %>
         <div class="font-semibold border-b">
           <%= render_slot(@name, item) %>
@@ -35,6 +36,24 @@ defmodule VotaSanremoWeb.PresentationTable do
         </div>
       <% end %>
     </div>
+    """
+  end
+
+  @doc """
+  Renders a button with the look of a badge.
+
+  ## Examples
+
+      <.button_badge disabled>Click me</.button_badge>
+  """
+  attr :rest, :global, include: ~w(disabled form name value)
+  slot :inner_block, required: true
+
+  def button_badge(assigns) do
+    ~H"""
+    <button type="button" class="bg-gray-300 rounded-lg px-2 disabled:text-gray-500" {@rest}>
+      <%= render_slot(@inner_block) %>
+    </button>
     """
   end
 end

@@ -1,6 +1,7 @@
 defmodule VotaSanremoWeb.Votes.VoteLive do
   use VotaSanremoWeb, :live_view
   import VotaSanremoWeb.EveningSelector
+  import VotaSanremoWeb.Votes.PerformancesContainer
   alias VotaSanremo.Editions
   alias VotaSanremo.Performances
 
@@ -21,10 +22,19 @@ defmodule VotaSanremoWeb.Votes.VoteLive do
   end
 
   defp assign_selected_evening_with_performances(socket, evening) do
-    assign(socket,
-      selected_evening: evening,
-      performances: Performances.list_performances_of_evening(evening, socket.assigns.current_user)
-    )
+    socket
+    |> assign(:selected_evening, evening)
+    |> assign_performances()
+  end
+
+  defp assign_performances(
+         %{assigns: %{selected_evening: evening, current_user: current_user}} = socket
+       ) do
+    performances =
+      Performances.list_performances_of_evening(evening, current_user)
+      |> Enum.group_by(fn performance -> performance.performance_type end)
+
+    assign(socket, :performances, performances)
   end
 
   defp assign_default_selected_evening(%{assigns: %{evenings: evenings}} = socket) do
@@ -48,5 +58,26 @@ defmodule VotaSanremoWeb.Votes.VoteLive do
     {:noreply,
      socket
      |> assign_selected_evening_with_performances(evening)}
+  end
+
+  def handle_event(
+        "vote-clicked",
+        %{"value" => performance_id},
+        %{assigns: %{performances: grouped_performances}} = socket
+      ) do
+    performance =
+      grouped_performances
+      |> Map.values()
+      |> List.flatten()
+      |> Enum.find(fn performance -> performance.id == String.to_integer(performance_id) end)
+
+    path =
+      if Enum.empty?(performance.votes) do
+        ~p"/vote/performance/new/#{performance_id}"
+      else
+        ~p"/vote/performance/edit/#{performance_id}"
+      end
+
+    {:noreply, push_patch(socket, to: path)}
   end
 end

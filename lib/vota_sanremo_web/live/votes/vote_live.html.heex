@@ -9,6 +9,11 @@
   <h3 class="text-2xl mt-4">
     <%= @selected_evening.description %>
   </h3>
+
+  <.performances_container 
+    performances_type={%VotaSanremo.Performances.PerformanceType{type: "BINGOLINO"}}
+    can_user_vote={true}
+    performances={[%{performer: %{name: "Mario"}, votes: [], id: 1}, %{performer: %{name: "Luigi"}, votes: [%{score: 7}], id: 2}]}/>
   
   <.modal :if={@live_action in [:new, :edit]} id="submit-vote-modal" show on_cancel={JS.patch(~p"/vote")}>
     This is a modal.
