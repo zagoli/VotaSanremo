@@ -4,6 +4,7 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainer do
   """
   use Phoenix.Component
   alias VotaSanremo.Performances.PerformanceType
+  alias VotaSanremo.ScoresUtils
 
   @doc """
   A container used to show a list of performances with a header of performances type.
@@ -41,6 +42,7 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainer.Internal do
   @moduledoc """
   Internal implementation of performances container. Do not use directly
   """
+  alias VotaSanremo.ScoresUtils
   use VotaSanremoWeb, :live_component
   import VotaSanremoWeb.PresentationTable
   import VotaSanremoWeb.CoreComponents, only: [header: 1]
@@ -75,7 +77,7 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainer.Internal do
             <%= if Enum.empty?(performance.votes) do
               "-"
             else
-              performance.votes |> List.first() |> Map.get(:score)
+              performance.votes |> List.first() |> Map.get(:score) |> ScoresUtils.to_string()
             end %>
           </.button_badge>
         </:property>

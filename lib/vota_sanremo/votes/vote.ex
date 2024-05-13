@@ -1,6 +1,7 @@
 defmodule VotaSanremo.Votes.Vote do
   use Ecto.Schema
   import Ecto.Changeset
+  alias VotaSanremo.ScoresUtils
 
   schema "votes" do
     field :score, :float
@@ -16,13 +17,7 @@ defmodule VotaSanremo.Votes.Vote do
     vote
     |> cast(attrs, [:score, :multiplier, :user_id, :performance_id])
     |> validate_required([:score, :multiplier, :user_id, :performance_id])
-    |> validate_inclusion(:score, acceptable_votes())
+    |> validate_inclusion(:score, ScoresUtils.acceptable_scores)
     |> unique_constraint([:user_id, :performance_id])
-  end
-
-  defp acceptable_votes() do
-    Stream.iterate(1, &(&1 + 0.25))
-    |> Enum.take_while(&(&1 <= 10))
-    |> Enum.to_list()
   end
 end

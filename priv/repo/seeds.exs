@@ -156,8 +156,8 @@ Enum.each(performances_attrs, fn attrs -> Performances.create_performance(attrs)
 %{id: user_id} = Accounts.get_user_by_email("gerry@example.com")
 
 votes_attrs = [
-  %{score: 10, multiplier: 1.0, user_id: user_id, performance_id: first_performance.id},
-  %{score: 8, multiplier: 1.0, user_id: user_id, performance_id: second_performance.id}
+  %{score: 5.25, multiplier: 1.0, user_id: user_id, performance_id: first_performance.id},
+  %{score: 8.5, multiplier: 1.0, user_id: user_id, performance_id: second_performance.id}
 ]
 
 Enum.each(votes_attrs, fn attrs -> Votes.create_vote(attrs) end)
