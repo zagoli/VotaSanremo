@@ -21,6 +21,7 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainer do
   attr :performances_type, PerformanceType, required: true
   attr :performances, :list, required: true
   attr :can_user_vote, :boolean, required: true
+  attr :class, :string, default: nil
 
   def performances_container(assigns) do
     ~H"""
@@ -30,6 +31,7 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainer do
       performances_type={@performances_type}
       performances={@performances}
       can_user_vote={@can_user_vote}
+      class={@class}
     />
     """
   end
@@ -44,7 +46,6 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainer.Internal do
   import VotaSanremoWeb.CoreComponents, only: [header: 1]
 
   def update(assigns, socket) do
-    IO.inspect socket.assigns
     {:ok,
      socket
      |> assign(assigns)}
@@ -52,7 +53,7 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainer.Internal do
 
   def render(assigns) do
     ~H"""
-    <section>
+    <section class={@class}>
       <.header class="mb-2">
         <%= @performances_type.type %>
       </.header>

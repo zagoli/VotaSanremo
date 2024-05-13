@@ -1,6 +1,7 @@
 defmodule VotaSanremoWeb.Votes.VoteLive do
   use VotaSanremoWeb, :live_view
   import VotaSanremoWeb.EveningSelector
+  import VotaSanremoWeb.Votes.PerformancesContainer
   alias VotaSanremo.Editions
   alias VotaSanremo.Performances
 

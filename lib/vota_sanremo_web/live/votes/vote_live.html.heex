@@ -10,8 +10,24 @@
     <%= @selected_evening.description %>
   </h3>
   
-  <.modal :if={@live_action in [:new, :edit]} id="submit-vote-modal" show on_cancel={JS.patch(~p"/vote")}>
+  <%= for performance_group <- @grouped_performances do %>
+    <.performances_container
+      class="mt-3 mb-7"
+      performances_type={performance_group |> elem(0)}
+      performances={performance_group |> elem(1)}
+      can_user_vote={
+        DateTime.after?(DateTime.utc_now(), @selected_evening.votes_start) and
+          DateTime.before?(DateTime.utc_now(), @selected_evening.votes_end)
+      }
+    />
+  <% end %>
+  
+  <.modal
+    :if={@live_action in [:new, :edit]}
+    id="submit-vote-modal"
+    show
+    on_cancel={JS.patch(~p"/vote")}
+  >
     This is a modal.
   </.modal>
-
 </main>

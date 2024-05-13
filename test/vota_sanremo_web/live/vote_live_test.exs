@@ -1,8 +1,14 @@
 defmodule VotaSanremoWeb.VoteLiveTest do
   use VotaSanremoWeb.ConnCase, async: true
   import Phoenix.LiveViewTest
-  import VotaSanremo.EditionsFixtures
-  import VotaSanremo.EveningsFixtures
+
+  import VotaSanremo.{
+    EditionsFixtures,
+    EveningsFixtures,
+    PerformersFixtures,
+    PerformancesFixtures,
+    VotesFixtures
+  }
 
   defp create_edition(_) do
     %{edition: edition_fixture()}
@@ -103,6 +109,82 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       assert html =~ "submit-vote-modal"
       {:ok, _live, html} = live(conn, ~p"/vote/performance/edit/1")
       assert html =~ "submit-vote-modal"
+    end
+
+    test "Each performance of an evening is correctly rendered", %{
+      conn: conn,
+      edition: edition,
+      user: user
+    } do
+      %{id: evening_id} = evening_fixture(%{edition_id: edition.id})
+      %{id: first_performance_type_id} = performance_type_fixture(%{type: "Songs"})
+      %{id: second_performance_type_id} = performance_type_fixture(%{type: "Dresses"})
+      %{id: performer_id} = performer_fixture(%{name: "Johnny"})
+
+      %{id: first_performance_id} =
+        performance_fixture(%{
+          evening_id: evening_id,
+          performer_id: performer_id,
+          performance_type_id: first_performance_type_id
+        })
+
+      performance_fixture(%{
+        evening_id: evening_id,
+        performer_id: performer_id,
+        performance_type_id: second_performance_type_id
+      })
+
+      vote_fixture(%{score: 8, performance_id: first_performance_id, user_id: user.id})
+
+      {:ok, _live, html} = live(conn, ~p"/vote")
+      assert html =~ "Johnny"
+      assert html =~ "8"
+      assert html =~ "-"
+      assert html =~ "Songs"
+      assert html =~ "Dresses"
+    end
+
+    test "Clicking on a vote when it is possible to vote navigates to modal", %{
+      conn: conn,
+      edition: edition
+    } do
+      %{id: evening_id} =
+        evening_fixture(%{
+          edition_id: edition.id,
+          votes_start: DateTime.utc_now() |> DateTime.add(-10, :minute),
+          votes_end: DateTime.utc_now() |> DateTime.add(10, :minute)
+        })
+
+      performance_fixture(%{evening_id: evening_id})
+
+      {:ok, live, _html} = live(conn, ~p"/vote")
+
+      live
+      |> element("button", "-")
+      |> render_click()
+
+      assert_patch(live)
+    end
+
+    test "Clicking on a vote when it isn't possible to vote do not navigate to modal", %{
+      conn: conn,
+      edition: edition
+    } do
+      %{id: evening_id} =
+        evening_fixture(%{
+          edition_id: edition.id,
+          votes_start: DateTime.utc_now() |> DateTime.add(10, :minute)
+        })
+
+      performance_fixture(%{evening_id: evening_id})
+
+      {:ok, live, _html} = live(conn, ~p"/vote")
+
+      assert_raise ArgumentError, "cannot click element \"button\" because it is disabled", fn ->
+        live
+        |> element("button", "-")
+        |> render_click()
+      end
     end
   end
 end
