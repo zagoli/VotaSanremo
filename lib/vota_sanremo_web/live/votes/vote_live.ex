@@ -18,7 +18,13 @@ defmodule VotaSanremoWeb.Votes.VoteLive do
         %{assigns: %{performances: performances}} = socket
       ) do
     performance = Enum.find(performances, &(&1.id == String.to_integer(performance_id)))
-    {:noreply, assign(socket, :performance, performance)}
+
+    {:noreply,
+     if performance == nil do
+       push_navigate(socket, to: ~p"/vote")
+     else
+       assign(socket, :performance, performance)
+     end}
   end
 
   def handle_params(_params, _uri, socket) do

@@ -1,5 +1,5 @@
 <div>
-  <.form for={@form} id="product-form" phx-target={@myself} phx-change="score-selected">
+  <.form for={@form} id="vote-form" phx-target={@myself} phx-change="score-selected">
     <fieldset class="vote-form-radio-group">
       <%= for {label, score} <- @scores do %>
         <label

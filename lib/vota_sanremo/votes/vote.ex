@@ -19,7 +19,7 @@ defmodule VotaSanremo.Votes.Vote do
     |> validate_required([:score, :multiplier, :user_id, :performance_id])
     |> foreign_key_constraint(:user_id)
     |> foreign_key_constraint(:performance_id)
-    |> validate_inclusion(:score, ScoresUtils.acceptable_scores)
+    |> validate_inclusion(:score, ScoresUtils.acceptable_scores())
     |> unique_constraint([:user_id, :performance_id])
   end
 end

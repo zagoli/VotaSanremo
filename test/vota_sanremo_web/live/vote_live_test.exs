@@ -14,7 +14,7 @@ defmodule VotaSanremoWeb.VoteLiveTest do
     %{edition: edition_fixture()}
   end
 
-  describe "Vote" do
+  describe "Evening selector" do
     setup [:create_edition, :register_and_log_in_user]
 
     test "Evening selector creates evenings button", %{conn: conn, edition: edition} do
@@ -102,14 +102,10 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       {:ok, _live, html} = live(conn, ~p"/vote")
       assert html =~ "First evening"
     end
+  end
 
-    test "Navigating to new or edit vote route shows modal", %{conn: conn, edition: edition} do
-      evening_fixture(%{edition_id: edition.id})
-      {:ok, _live, html} = live(conn, ~p"/vote/performance/new/1")
-      assert html =~ "submit-vote-modal"
-      {:ok, _live, html} = live(conn, ~p"/vote/performance/edit/1")
-      assert html =~ "submit-vote-modal"
-    end
+  describe "Performances container" do
+    setup [:create_edition, :register_and_log_in_user]
 
     test "Each performance of an evening is correctly rendered", %{
       conn: conn,
@@ -144,7 +140,7 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       assert html =~ "Dresses"
     end
 
-    test "Clicking on a vote when it is possible to vote navigates to modal", %{
+    test "Clicking on a vote when it is possible to vote navigates", %{
       conn: conn,
       edition: edition
     } do
@@ -166,7 +162,7 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       assert_patch(live)
     end
 
-    test "Clicking on a vote when it isn't possible to vote do not navigate to modal", %{
+    test "Clicking on a vote when it isn't possible to vote does not navigate", %{
       conn: conn,
       edition: edition
     } do
@@ -185,6 +181,81 @@ defmodule VotaSanremoWeb.VoteLiveTest do
         |> element("button", "-")
         |> render_click()
       end
+    end
+  end
+
+  describe "Vote form" do
+    setup [:create_edition, :register_and_log_in_user]
+
+    test "Navigating to new or edit vote route shows modal", %{conn: conn, edition: edition} do
+      %{id: evening_id} =
+        evening_fixture(%{
+          edition_id: edition.id,
+          votes_start: DateTime.utc_now() |> DateTime.add(-10, :minute),
+          votes_end: DateTime.utc_now() |> DateTime.add(10, :minute)
+        })
+
+      %{id: performance_id} = performance_fixture(%{evening_id: evening_id})
+
+      {:ok, live, _html} = live(conn, ~p"/vote/performance/new/#{performance_id}")
+      assert live |> has_element?("#submit-vote-modal")
+      {:ok, live, _html} = live(conn, ~p"/vote/performance/new/#{performance_id}")
+      assert live |> has_element?("#submit-vote-modal")
+    end
+
+    test "Submitting a new vote for a performace without votes creates a new vote",
+         %{
+           conn: conn,
+           edition: edition
+         } do
+      %{id: evening_id} =
+        evening_fixture(%{
+          edition_id: edition.id,
+          votes_start: DateTime.utc_now() |> DateTime.add(-10, :minute),
+          votes_end: DateTime.utc_now() |> DateTime.add(10, :minute)
+        })
+
+      %{id: performance_id} = performance_fixture(%{evening_id: evening_id})
+
+      {:ok, live, _html} = live(conn, ~p"/vote/performance/new/#{performance_id}")
+
+      live
+      |> form("#vote-form")
+      |> render_change(%{"score" => "5.25"})
+
+      assert render(live) =~ "Vote submitted!"
+      path = assert_patch(live)
+      {:ok, _live, html} = live(conn, path)
+
+      assert html =~ "5+"
+    end
+
+    test "Updating a vote for a performace with a vote updates the vote",
+         %{
+           conn: conn,
+           edition: edition,
+           user: user
+         } do
+      %{id: evening_id} =
+        evening_fixture(%{
+          edition_id: edition.id,
+          votes_start: DateTime.utc_now() |> DateTime.add(-10, :minute),
+          votes_end: DateTime.utc_now() |> DateTime.add(10, :minute)
+        })
+
+      %{id: performance_id} = performance_fixture(%{evening_id: evening_id})
+      vote_fixture(%{score: 1.0, performance_id: performance_id, user_id: user.id})
+
+      {:ok, live, _html} = live(conn, ~p"/vote/performance/edit/#{performance_id}")
+
+      live
+      |> form("#vote-form")
+      |> render_change(%{"score" => "5.25"})
+
+      assert render(live) =~ "Vote submitted!"
+      path = assert_patch(live)
+      {:ok, _live, html} = live(conn, path)
+      assert html =~ "5+"
     end
   end
 end
