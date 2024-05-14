@@ -10,15 +10,12 @@
     <%= @selected_evening.description %>
   </h3>
   
-  <%= for performance_group <- @grouped_performances do %>
+  <%= for performance_group <- Enum.group_by(@performances, &(&1.performance_type)) do %>
     <.performances_container
       class="mt-3 mb-7"
       performances_type={performance_group |> elem(0)}
       performances={performance_group |> elem(1)}
-      can_user_vote={
-        DateTime.after?(DateTime.utc_now(), @selected_evening.votes_start) and
-          DateTime.before?(DateTime.utc_now(), @selected_evening.votes_end)
-      }
+      can_user_vote={@can_user_vote}
     />
   <% end %>
   
@@ -28,6 +25,11 @@
     show
     on_cancel={JS.patch(~p"/vote")}
   >
-    This is a modal.
+    <.vote_form
+      user={@current_user}
+      performance={@performance}
+      action={@live_action}
+      can_user_vote={@can_user_vote}
+    />
   </.modal>
 </main>

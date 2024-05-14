@@ -1,7 +1,7 @@
 defmodule VotaSanremoWeb.Votes.VoteLive do
   use VotaSanremoWeb, :live_view
   import VotaSanremoWeb.EveningSelector
-  import VotaSanremoWeb.Votes.PerformancesContainer
+  import VotaSanremoWeb.Votes.{PerformancesContainer, VoteForm}
   alias VotaSanremo.Editions
   alias VotaSanremo.Performances
 
@@ -10,6 +10,15 @@ defmodule VotaSanremoWeb.Votes.VoteLive do
      socket
      |> assign_evenings
      |> assign_default_selected_evening}
+  end
+
+  def handle_params(
+        %{"id" => performance_id},
+        _uri,
+        %{assigns: %{performances: performances}} = socket
+      ) do
+    performance = Enum.find(performances, &(&1.id == String.to_integer(performance_id)))
+    {:noreply, assign(socket, :performance, performance)}
   end
 
   def handle_params(_params, _uri, socket) do
@@ -24,17 +33,23 @@ defmodule VotaSanremoWeb.Votes.VoteLive do
   defp assign_selected_evening_with_performances(socket, evening) do
     socket
     |> assign(:selected_evening, evening)
+    |> assign_can_user_vote()
     |> assign_performances()
+  end
+
+  defp assign_can_user_vote(%{assigns: %{selected_evening: evening}} = socket) do
+    can_user_vote =
+      DateTime.after?(DateTime.utc_now(), evening.votes_start) and
+        DateTime.before?(DateTime.utc_now(), evening.votes_end)
+
+    assign(socket, :can_user_vote, can_user_vote)
   end
 
   defp assign_performances(
          %{assigns: %{selected_evening: evening, current_user: current_user}} = socket
        ) do
-    performances =
-      Performances.list_performances_of_evening(evening, current_user)
-      |> Enum.group_by(fn performance -> performance.performance_type end)
-
-    assign(socket, :grouped_performances, performances)
+    performances = Performances.list_performances_of_evening(evening, current_user)
+    assign(socket, :performances, performances)
   end
 
   defp assign_default_selected_evening(%{assigns: %{evenings: evenings}} = socket) do
@@ -58,5 +73,14 @@ defmodule VotaSanremoWeb.Votes.VoteLive do
     {:noreply,
      socket
      |> assign_selected_evening_with_performances(evening)}
+  end
+
+  def handle_info({VotaSanremoWeb.Votes.VoteFormInternal, {:saved, performance_id, vote}}, socket) do
+    {:noreply,
+     socket
+     |> update(:performances, fn performances ->
+       performance_index = Enum.find_index(performances, &(&1.id == performance_id))
+       List.update_at(performances, performance_index, &Map.put(&1, :votes, [vote]))
+     end)}
   end
 end

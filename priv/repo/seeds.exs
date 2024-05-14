@@ -57,8 +57,8 @@ evenings_attrs = [
     date: ~D[2023-02-04],
     description: "First evening",
     number: 1,
-    votes_start: ~U[2023-02-04 22:15:00Z],
-    votes_end: ~U[2023-02-05 01:00:00Z],
+    votes_start: ~U[1970-01-01 00:00:01Z],
+    votes_end: ~U[2900-01-01 00:00:01Z],
     edition_id: edition_id
   },
   %{

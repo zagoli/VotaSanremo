@@ -27,7 +27,7 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainer do
   def performances_container(assigns) do
     ~H"""
     <.live_component
-      module={VotaSanremoWeb.Votes.PerformancesContainer.Internal}
+      module={VotaSanremoWeb.Votes.PerformancesContainerInternal}
       id={"#{@performances_type.type}-performances-container"}
       performances_type={@performances_type}
       performances={@performances}
@@ -38,14 +38,14 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainer do
   end
 end
 
-defmodule VotaSanremoWeb.Votes.PerformancesContainer.Internal do
+defmodule VotaSanremoWeb.Votes.PerformancesContainerInternal do
   @moduledoc """
   Internal implementation of performances container. Do not use directly
   """
-  alias VotaSanremo.ScoresUtils
   use VotaSanremoWeb, :live_component
   import VotaSanremoWeb.PresentationTable
   import VotaSanremoWeb.CoreComponents, only: [header: 1]
+  alias VotaSanremo.ScoresUtils
 
   def update(assigns, socket) do
     {:ok,

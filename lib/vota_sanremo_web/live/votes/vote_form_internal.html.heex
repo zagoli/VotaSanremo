@@ -1,0 +1,14 @@
+<div>
+  <.form for={@form} id="product-form" phx-target={@myself} phx-change="score-selected">
+    <fieldset class="vote-form-radio-group">
+      <%= for {label, score} <- @scores do %>
+        <label
+          class="flex justify-center bg-gray-200 hover:bg-gray-300 rounded-lg text-lg py-2"
+          role="button"
+        >
+          <input type="radio" value={score} name="score" class="hidden" /> <%= label %>
+        </label>
+      <% end %>
+    </fieldset>
+  </.form>
+</div>
