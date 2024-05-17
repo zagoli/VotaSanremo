@@ -86,22 +86,7 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainerInternal do
     """
   end
 
-  def handle_event(
-        "vote-clicked",
-        %{"value" => performance_id},
-        %{assigns: %{performances: performances}} = socket
-      ) do
-    performance =
-      performances
-      |> Enum.find(fn performance -> performance.id == String.to_integer(performance_id) end)
-
-    path =
-      if Enum.empty?(performance.votes) do
-        ~p"/vote/performance/new/#{performance_id}"
-      else
-        ~p"/vote/performance/edit/#{performance_id}"
-      end
-
-    {:noreply, push_patch(socket, to: path)}
+  def handle_event("vote-clicked", %{"value" => performance_id}, socket) do
+    {:noreply, push_patch(socket, to: ~p"/vote/performance/#{performance_id}")}
   end
 end

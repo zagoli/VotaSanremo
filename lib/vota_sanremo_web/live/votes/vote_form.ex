@@ -8,8 +8,6 @@ defmodule VotaSanremoWeb.Votes.VoteForm do
 
   attr :performance, Performance, required: true
   attr :user, User, required: true
-  attr :action, :atom, required: true
-  attr :can_user_vote, :boolean, required: true
 
   def vote_form(assigns) do
     ~H"""
@@ -18,8 +16,6 @@ defmodule VotaSanremoWeb.Votes.VoteForm do
       id="vote-form"
       performance={@performance}
       user={@user}
-      action={@action}
-      can_user_vote={@can_user_vote}
     />
     """
   end
@@ -43,10 +39,12 @@ defmodule VotaSanremoWeb.Votes.VoteFormInternal do
     {:ok,
      socket
      |> assign(assigns)
-     |> assign_vote()
      |> assign_form(changeset)
      |> assign_scores()}
   end
+
+  defp get_vote(%{votes: [vote]}), do: vote
+  defp get_vote(%{votes: []}), do: %Vote{}
 
   defp assign_form(socket, %Ecto.Changeset{} = changeset) do
     assign(socket, :form, to_form(changeset))
@@ -60,52 +58,10 @@ defmodule VotaSanremoWeb.Votes.VoteFormInternal do
     assign(socket, :scores, scores)
   end
 
-  defp assign_vote(socket) do
-    assign(socket, :vote, get_vote(socket.assigns.performance))
-  end
-
-  defp get_vote(%{votes: [vote]}), do: vote
-  defp get_vote(%{votes: []}), do: %Vote{}
-
-  def handle_event(
-        "score-selected",
-        _params,
-        %{assigns: %{can_user_vote: false}} = socket
-      ) do
-    {:noreply,
-     socket
-     |> put_flash(:error, "You can't vote, the voting for tonight is closed.")
-     |> push_patch(to: ~p"/vote")}
-  end
-
-  def handle_event(
-        "score-selected",
-        %{"score" => score},
-        %{assigns: %{can_user_vote: true}} = socket
-      ) do
+  def handle_event("score-selected", %{"score" => score}, socket) do
     vote_params = vote_params(socket, score)
-    save_vote(socket, socket.assigns.action, vote_params)
-  end
 
-  defp vote_params(socket, score) do
-    %{
-      score: score,
-      multiplier: socket.assigns.user.default_vote_multiplier,
-      user_id: socket.assigns.user.id,
-      performance_id: socket.assigns.performance.id
-    }
-  end
-
-  defp save_vote(socket, :new, vote_params) do
-    handle_save(socket, Votes.create_vote(vote_params))
-  end
-
-  defp save_vote(socket, :edit, vote_params) do
-    handle_save(socket, Votes.update_vote(socket.assigns.vote, vote_params))
-  end
-
-  defp handle_save(socket, result) do
-    case result do
+    case Votes.create_or_update_vote(vote_params) do
       {:ok, vote} ->
         notify_parent({:saved, socket.assigns.performance.id, vote})
 
@@ -115,10 +71,20 @@ defmodule VotaSanremoWeb.Votes.VoteFormInternal do
          |> push_patch(to: ~p"/vote")}
 
       {:error, %Ecto.Changeset{}} ->
-        {:noreply, socket
-        |> put_flash(:error, "There was an error while submitting your vote.")
-        |> push_patch(to: ~p"/vote")}
+        {:noreply,
+         socket
+         |> put_flash(:error, "There was an error while submitting your vote.")
+         |> push_patch(to: ~p"/vote")}
     end
+  end
+
+  defp vote_params(socket, score) do
+    %{
+      score: score,
+      multiplier: socket.assigns.user.default_vote_multiplier,
+      user_id: socket.assigns.user.id,
+      performance_id: socket.assigns.performance.id
+    }
   end
 
   defp notify_parent(msg), do: send(self(), {__MODULE__, msg})

@@ -58,6 +58,23 @@ defmodule VotaSanremo.VotesTest do
       assert vote == Votes.get_vote!(vote.id)
     end
 
+    test "create_or_update_vote/1 creates a new vote and updates it with new score and multiplier" do
+      %{id: user_id} = user_fixture()
+      %{id: performance_id} = performance_fixture()
+
+      # Creation
+      vote_attrs = %{score: 5.0, multiplier: 1.0, user_id: user_id, performance_id: performance_id}
+      assert {:ok, %Vote{} = vote} = Votes.create_or_update_vote(vote_attrs)
+      assert vote.score == 5.0
+      assert vote.multiplier == 1.0
+
+      # Update
+      update_vote_attrs = vote_attrs |> Map.put(:score, 6.0) |> Map.put(:multiplier, 2.0)
+      assert {:ok, %Vote{} = vote} = Votes.create_or_update_vote(update_vote_attrs)
+      assert vote.score == 6.0
+      assert vote.multiplier == 2.0
+    end
+
     test "delete_vote/1 deletes the vote" do
       vote = vote_fixture()
       assert {:ok, %Vote{}} = Votes.delete_vote(vote)

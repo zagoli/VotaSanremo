@@ -187,7 +187,7 @@ defmodule VotaSanremoWeb.VoteLiveTest do
   describe "Vote form" do
     setup [:create_edition, :register_and_log_in_user]
 
-    test "Navigating to new or edit vote route shows modal", %{conn: conn, edition: edition} do
+    test "Navigating to add vote route shows modal when voting is permitted", %{conn: conn, edition: edition} do
       %{id: evening_id} =
         evening_fixture(%{
           edition_id: edition.id,
@@ -197,13 +197,24 @@ defmodule VotaSanremoWeb.VoteLiveTest do
 
       %{id: performance_id} = performance_fixture(%{evening_id: evening_id})
 
-      {:ok, live, _html} = live(conn, ~p"/vote/performance/new/#{performance_id}")
-      assert live |> has_element?("#submit-vote-modal")
-      {:ok, live, _html} = live(conn, ~p"/vote/performance/new/#{performance_id}")
+      {:ok, live, _html} = live(conn, ~p"/vote/performance/#{performance_id}")
       assert live |> has_element?("#submit-vote-modal")
     end
 
-    test "Submitting a new vote for a performace without votes creates a new vote",
+    test "Navigating to add vote route shows no modal when voting is prohibited", %{conn: conn, edition: edition} do
+      %{id: evening_id} =
+        evening_fixture(%{
+          edition_id: edition.id,
+          votes_start: DateTime.utc_now() |> DateTime.add(10, :minute)
+        })
+
+      %{id: performance_id} = performance_fixture(%{evening_id: evening_id})
+
+      {:ok, live, _html} = live(conn, ~p"/vote/performance/#{performance_id}")
+      assert not has_element?(live, "#submit-vote-modal")
+    end
+
+    test "Submitting a new vote for a performace creates a new vote",
          %{
            conn: conn,
            edition: edition
@@ -217,7 +228,7 @@ defmodule VotaSanremoWeb.VoteLiveTest do
 
       %{id: performance_id} = performance_fixture(%{evening_id: evening_id})
 
-      {:ok, live, _html} = live(conn, ~p"/vote/performance/new/#{performance_id}")
+      {:ok, live, _html} = live(conn, ~p"/vote/performance/#{performance_id}")
 
       live
       |> form("#vote-form")
@@ -230,7 +241,7 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       assert html =~ "5+"
     end
 
-    test "Updating a vote for a performace with a vote updates the vote",
+    test "Updating a vote for a performace updates the vote",
          %{
            conn: conn,
            edition: edition,
@@ -246,7 +257,7 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       %{id: performance_id} = performance_fixture(%{evening_id: evening_id})
       vote_fixture(%{score: 1.0, performance_id: performance_id, user_id: user.id})
 
-      {:ok, live, _html} = live(conn, ~p"/vote/performance/edit/#{performance_id}")
+      {:ok, live, _html} = live(conn, ~p"/vote/performance/#{performance_id}")
 
       live
       |> form("#vote-form")

@@ -56,6 +56,27 @@ defmodule VotaSanremo.Votes do
   end
 
   @doc """
+  Creates or a vote. If a vote for the same user and performance is already present, it updates it with the new score and multiplier.
+
+  ## Examples
+
+      iex> create_or_update_vote(%{field: value})
+      {:ok, %Vote{}}
+
+      iex> create_or_update_vote(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_or_update_vote(attrs \\ %{}) do
+    %Vote{}
+    |> Vote.changeset(attrs)
+    |> Repo.insert(
+      on_conflict: {:replace, [:score, :multiplier]},
+      conflict_target: [:user_id, :performance_id]
+      )
+  end
+
+  @doc """
   Updates a vote.
 
   ## Examples
