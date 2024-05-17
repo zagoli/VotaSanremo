@@ -5,9 +5,11 @@ defmodule VotaSanremoWeb.Votes.VoteForm do
   use Phoenix.Component
   alias VotaSanremo.Accounts.User
   alias VotaSanremo.Performances.Performance
+  alias VotaSanremo.Evenings.Evening
 
   attr :performance, Performance, required: true
   attr :user, User, required: true
+  attr :evening, Evening, required: true
 
   def vote_form(assigns) do
     ~H"""
@@ -16,6 +18,7 @@ defmodule VotaSanremoWeb.Votes.VoteForm do
       id="vote-form"
       performance={@performance}
       user={@user}
+      evening={@evening}
     />
     """
   end
@@ -58,9 +61,37 @@ defmodule VotaSanremoWeb.Votes.VoteFormInternal do
     assign(socket, :scores, scores)
   end
 
-  def handle_event("score-selected", %{"score" => score}, socket) do
+  def handle_event(
+        "score-selected",
+        %{"score" => score},
+        %{assigns: %{evening: evening}} = socket
+      ) do
+    can_user_vote =
+      DateTime.after?(DateTime.utc_now(), evening.votes_start) and
+        DateTime.before?(DateTime.utc_now(), evening.votes_end)
+
     vote_params = vote_params(socket, score)
 
+    maybe_save_vote(socket, vote_params, can_user_vote)
+  end
+
+  defp vote_params(socket, score) do
+    %{
+      score: score,
+      multiplier: socket.assigns.user.default_vote_multiplier,
+      user_id: socket.assigns.user.id,
+      performance_id: socket.assigns.performance.id
+    }
+  end
+
+  defp maybe_save_vote(socket, _vote_params, false) do
+    {:noreply,
+     socket
+     |> put_flash(:error, "You cannot vote now.")
+     |> push_patch(to: ~p"/vote")}
+  end
+
+  defp maybe_save_vote(socket, vote_params, true) do
     case Votes.create_or_update_vote(vote_params) do
       {:ok, vote} ->
         notify_parent({:saved, socket.assigns.performance.id, vote})
@@ -76,15 +107,6 @@ defmodule VotaSanremoWeb.Votes.VoteFormInternal do
          |> put_flash(:error, "There was an error while submitting your vote.")
          |> push_patch(to: ~p"/vote")}
     end
-  end
-
-  defp vote_params(socket, score) do
-    %{
-      score: score,
-      multiplier: socket.assigns.user.default_vote_multiplier,
-      user_id: socket.assigns.user.id,
-      performance_id: socket.assigns.performance.id
-    }
   end
 
   defp notify_parent(msg), do: send(self(), {__MODULE__, msg})

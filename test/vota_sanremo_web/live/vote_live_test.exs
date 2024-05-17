@@ -187,7 +187,10 @@ defmodule VotaSanremoWeb.VoteLiveTest do
   describe "Vote form" do
     setup [:create_edition, :register_and_log_in_user]
 
-    test "Navigating to add vote route shows modal when voting is permitted", %{conn: conn, edition: edition} do
+    test "Navigating to add vote route shows modal when voting is permitted", %{
+      conn: conn,
+      edition: edition
+    } do
       %{id: evening_id} =
         evening_fixture(%{
           edition_id: edition.id,
@@ -201,17 +204,30 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       assert live |> has_element?("#submit-vote-modal")
     end
 
-    test "Navigating to add vote route shows no modal when voting is prohibited", %{conn: conn, edition: edition} do
+    test "Cannot add vote when voting is prohibited",
+         %{conn: conn, edition: edition} do
       %{id: evening_id} =
         evening_fixture(%{
           edition_id: edition.id,
-          votes_start: DateTime.utc_now() |> DateTime.add(10, :minute)
+          votes_start: DateTime.utc_now() |> DateTime.add(-10, :minute),
+          votes_end: DateTime.utc_now() |> DateTime.add(2, :second)
         })
 
       %{id: performance_id} = performance_fixture(%{evening_id: evening_id})
 
       {:ok, live, _html} = live(conn, ~p"/vote/performance/#{performance_id}")
-      assert not has_element?(live, "#submit-vote-modal")
+
+      Process.sleep(2000)
+
+      live
+      |> form("#vote-form")
+      |> render_change(%{"score" => "5.25"})
+
+      assert render(live) =~ "You cannot vote now."
+      path = assert_patch(live)
+      {:ok, _live, html} = live(conn, path)
+
+      assert not (html =~ "5+")
     end
 
     test "Submitting a new vote for a performace creates a new vote",

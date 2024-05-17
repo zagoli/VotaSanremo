@@ -20,7 +20,7 @@
   <% end %>
   
   <.modal
-    :if={@live_action == :vote and @can_user_vote}
+    :if={@live_action == :vote}
     id="submit-vote-modal"
     show
     on_cancel={JS.patch(~p"/vote")}
@@ -28,6 +28,7 @@
     <.vote_form
       user={@current_user}
       performance={@performance}
+      evening={@selected_evening}
     />
   </.modal>
 </main>
