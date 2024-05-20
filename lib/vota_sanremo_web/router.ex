@@ -21,6 +21,7 @@ defmodule VotaSanremoWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    live "/leaderboard", Leaderboard.LeaderboardLive
   end
 
   # Other scopes may use custom stacks.
