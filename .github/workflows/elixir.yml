@@ -55,6 +55,6 @@ jobs:
       - uses: mhanberg/gigalixir-action@v0.6.1
         with:
           GIGALIXIR_APP: ${{ secrets.GIGALIXIR_APP_NAME }}
-          GIGALIXIR_USERNAME: ${{ secrets.GIGALIXIR_USERNAME }}
+          GIGALIXIR_USERNAME: ${{ secrets.GIGALIXIR_EMAIL }}
           GIGALIXIR_PASSWORD: ${{ secrets.GIGALIXIR_PASSWORD }}
           SSH_PRIVATE_KEY: ${{ secrets.GIGALIXIR_PRIVATE_SSH }}
