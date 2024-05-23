@@ -89,4 +89,11 @@ defmodule VotaSanremoWeb.Votes.VoteLive do
        List.update_at(performances, performance_index, &Map.put(&1, :votes, [vote]))
      end)}
   end
+
+  defp group_performances(performances) do
+    Enum.group_by(performances, & &1.performance_type)
+    |> Enum.map(fn {performance_type, performance} -> {performance_type.type, performance} end)
+    # order group types
+    |> Enum.sort(&(elem(&1, 0) >= elem(&2, 0)))
+  end
 end

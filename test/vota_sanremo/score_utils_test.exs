@@ -52,7 +52,7 @@ defmodule VotaSanremo.ScoreUtilsTest do
         assert ScoresUtils.to_string(int_score + 0.0) == "#{int_score}"
         assert ScoresUtils.to_string(int_score + 0.25) == "#{int_score}+"
         assert ScoresUtils.to_string(int_score + 0.5) == "#{int_score}½"
-        assert ScoresUtils.to_string(int_score + 0.75) == "#{int_score+1}-"
+        assert ScoresUtils.to_string(int_score + 0.75) == "#{int_score + 1}-"
       end)
     end
   end

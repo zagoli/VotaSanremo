@@ -3,7 +3,6 @@ defmodule VotaSanremo.Performances.Performance do
   import Ecto.Changeset
 
   schema "performances" do
-
     belongs_to :performance_type, VotaSanremo.Performances.PerformanceType
     belongs_to :evening, VotaSanremo.Evenings.Evening
     belongs_to :performer, VotaSanremo.Performers.Performer

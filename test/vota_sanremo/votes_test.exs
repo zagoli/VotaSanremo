@@ -41,6 +41,7 @@ defmodule VotaSanremo.VotesTest do
       vote = vote_fixture()
 
       another_evening = evening_fixture(%{date: ~D[1999-01-01]})
+
       update_attrs = %{
         score: 5.5,
         multiplier: 1.0,
@@ -63,7 +64,13 @@ defmodule VotaSanremo.VotesTest do
       %{id: performance_id} = performance_fixture()
 
       # Creation
-      vote_attrs = %{score: 5.0, multiplier: 1.0, user_id: user_id, performance_id: performance_id}
+      vote_attrs = %{
+        score: 5.0,
+        multiplier: 1.0,
+        user_id: user_id,
+        performance_id: performance_id
+      }
+
       assert {:ok, %Vote{} = vote} = Votes.create_or_update_vote(vote_attrs)
       assert vote.score == 5.0
       assert vote.multiplier == 1.0

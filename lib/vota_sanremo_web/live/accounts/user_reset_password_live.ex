@@ -17,7 +17,6 @@ defmodule VotaSanremoWeb.UserResetPasswordLive do
         <.error :if={@form.errors != []}>
           Oops, something went wrong! Please check the errors below.
         </.error>
-
         <.input field={@form[:password]} type="password" label="New password" required />
         <.input
           field={@form[:password_confirmation]}

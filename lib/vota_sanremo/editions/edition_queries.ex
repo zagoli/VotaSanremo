@@ -41,8 +41,8 @@ defmodule VotaSanremo.Editions.Edition.Queries do
 
   defp preload_evenings(query) do
     ordered_evenings = Evening |> order_by(:number)
+
     query
     |> preload(evenings: ^ordered_evenings)
   end
-
 end

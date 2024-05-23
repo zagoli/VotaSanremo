@@ -51,9 +51,31 @@ defmodule VotaSanremoWeb.PresentationTable do
 
   def button_badge(assigns) do
     ~H"""
-    <button type="button" class="bg-gray-300 rounded-lg px-2 disabled:text-gray-500" {@rest}>
+    <button
+      type="button"
+      class="bg-gray-300 rounded-lg px-2 disabled:text-gray-500"
+      {@rest}
+      style="line-height: normal"
+    >
       <%= render_slot(@inner_block) %>
     </button>
+    """
+  end
+
+  @doc """
+  Renders a gray badge.
+
+  ## Examples
+
+      <.badge>Hi I'm a badge</.badge>
+  """
+  slot :inner_block, required: true
+
+  def badge(assigns) do
+    ~H"""
+    <span class="bg-gray-300 rounded-lg px-2 leading-6">
+      <%= render_slot(@inner_block) %>
+    </span>
     """
   end
 end

@@ -1,3 +1,35 @@
 <.header>
-Leaderboard live works!
+  Leaderboard
+  <:subtitle>
+    See the current live leaderboard!
+  </:subtitle>
 </.header>
+
+<section class="mt-5 mb-5">
+  <.form for={nil}>
+    <.input
+      type="checkbox"
+      name="weighted-scores-flag"
+      label="Weighted scores"
+      phx-change="weighted-flag-selected"
+    />
+  </.form>
+</section>
+
+<%= for {performance_type, scores} <- order_and_group_scores(@scores) do %>
+  <.header class="mb-2">
+    <%= performance_type %>
+  </.header>
+
+  <div class="mb-7">
+    <.presentation_table items={scores}>
+      <:name :let={score_group}><%= score_group.name %></:name>
+
+      <:property :let={score_group}>
+        <.badge>
+          <%= score_group.score %>
+        </.badge>
+      </:property>
+    </.presentation_table>
+  </div>
+<% end %>

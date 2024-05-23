@@ -33,6 +33,7 @@ defmodule VotaSanremoWeb.UserSettingsLive do
           </:actions>
         </.simple_form>
       </div>
+
       <div>
         <.simple_form
           for={@password_form}

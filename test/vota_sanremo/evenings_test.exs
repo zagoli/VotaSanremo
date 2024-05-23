@@ -22,6 +22,7 @@ defmodule VotaSanremo.EveningsTest do
 
     test "create_evening/1 with valid data creates a evening" do
       %{id: edition_id} = edition_fixture()
+
       valid_attrs = %{
         date: ~D[2024-04-29],
         description: "some description",

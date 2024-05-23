@@ -73,7 +73,7 @@ defmodule VotaSanremo.Votes do
     |> Repo.insert(
       on_conflict: {:replace, [:score, :multiplier]},
       conflict_target: [:user_id, :performance_id]
-      )
+    )
   end
 
   @doc """

@@ -48,7 +48,15 @@ defmodule VotaSanremo.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password, :first_name, :last_name, :username, :default_vote_multiplier, :votes_privacy])
+    |> cast(attrs, [
+      :email,
+      :password,
+      :first_name,
+      :last_name,
+      :username,
+      :default_vote_multiplier,
+      :votes_privacy
+    ])
     |> validate_inclusion(:votes_privacy, [:public, :private, :juries_only])
     |> validate_names()
     |> validate_username()

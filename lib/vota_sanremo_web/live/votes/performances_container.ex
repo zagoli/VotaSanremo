@@ -3,7 +3,6 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainer do
   Provides a function component for displaying a list of performances.
   """
   use Phoenix.Component
-  alias VotaSanremo.Performances.PerformanceType
   alias VotaSanremo.ScoresUtils
 
   @doc """
@@ -19,7 +18,7 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainer do
         performances={performances}
         can_user_vote={true}/>
   """
-  attr :performances_type, PerformanceType, required: true
+  attr :performances_type, :string, required: true
   attr :performances, :list, required: true
   attr :can_user_vote, :boolean, required: true
   attr :class, :string, default: nil
@@ -28,7 +27,7 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainer do
     ~H"""
     <.live_component
       module={VotaSanremoWeb.Votes.PerformancesContainerInternal}
-      id={"#{@performances_type.type}-performances-container"}
+      id={"#{@performances_type}-performances-container"}
       performances_type={@performances_type}
       performances={@performances}
       can_user_vote={@can_user_vote}
@@ -57,15 +56,11 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainerInternal do
     ~H"""
     <section class={@class}>
       <.header class="mb-2">
-        <%= @performances_type.type %>
+        <%= @performances_type %>
       </.header>
 
       <.presentation_table items={@performances}>
-        <:name :let={performance}>
-          <p class="font-bold text-xl">
-            <%= performance.performer.name %>
-          </p>
-        </:name>
+        <:name :let={performance}><%= performance.performer.name %></:name>
 
         <:property :let={performance}>
           <.button_badge

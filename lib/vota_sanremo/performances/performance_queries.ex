@@ -40,7 +40,12 @@ defmodule VotaSanremo.Performances.Performance.Queries do
   end
 
   defp filters(query, %Evening{} = evening, %User{} = user) do
-    conditions = dynamic([p, _, v], p.evening_id == ^evening.id and (v.user_id == ^user.id or is_nil(v.user_id)))
+    conditions =
+      dynamic(
+        [p, _, v],
+        p.evening_id == ^evening.id and (v.user_id == ^user.id or is_nil(v.user_id))
+      )
+
     where(query, ^conditions)
   end
 
