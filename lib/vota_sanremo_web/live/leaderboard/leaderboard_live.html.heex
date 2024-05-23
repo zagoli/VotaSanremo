@@ -5,7 +5,11 @@
   </:subtitle>
 </.header>
 
-<section class="mt-5 mb-5">
+<div :if={Enum.empty?(@scores)} class="mt-5">
+  <p>There are no votes to show!</p>
+</div>
+
+<section :if={not Enum.empty?(@scores)} class="mt-5 mb-5">
   <.form for={nil} id="weighted-score-flag-form" phx-change="weighted-flag-selected">
     <.input type="checkbox" name="weighted-scores-flag" label="Weighted scores" />
   </.form>
