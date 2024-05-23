@@ -4,16 +4,9 @@ defmodule VotaSanremo.PerformersTest do
   alias VotaSanremo.Performers
 
   describe "performers" do
+    import VotaSanremo.PerformersFixtures
     alias VotaSanremo.Performers.Performer
-
-    import VotaSanremo.{
-      PerformersFixtures,
-      PerformancesFixtures,
-      VotesFixtures,
-      EditionsFixtures,
-      EveningsFixtures,
-      TestSetupFixtures
-    }
+    alias VotaSanremo.TestSetupFixtures
 
     @invalid_attrs %{name: nil}
 
@@ -87,6 +80,14 @@ defmodule VotaSanremo.PerformersTest do
       assert second_avg_score.score == Enum.sum(scores) / Enum.count(scores)
     end
 
+    test "list_performers_avg_score_by_edition/1 uses multiplier" do
+      scores = 1..5
+      {edition_id, _, _, _} = TestSetupFixtures.setup_for_avg_score_tests(scores, 2.0)
+      [avg_score | _] = Performers.list_performers_avg_score_by_edition(edition_id)
+
+      assert avg_score.score == Enum.sum(scores) * 2 / Enum.count(scores)
+    end
+
     test "list_performers_weighted_avg_score_by_edition/1 lists performers with correct avg score" do
       scores = 1..10
 
@@ -107,6 +108,14 @@ defmodule VotaSanremo.PerformersTest do
 
       assert first_avg_score.score == Enum.sum(scores) / Enum.count(scores) * Enum.sum(scores)
       assert second_avg_score.score == Enum.sum(scores) / Enum.count(scores) * Enum.sum(scores)
+    end
+
+    test "list_performers_weighted_avg_score_by_edition/1 uses multiplier" do
+      scores = 1..5
+      {edition_id, _, _, _} = TestSetupFixtures.setup_for_avg_score_tests(scores, 2.0)
+      [avg_score | _] = Performers.list_performers_weighted_avg_score_by_edition(edition_id)
+
+      assert avg_score.score == Enum.sum(scores) * 2 / Enum.count(scores) * Enum.sum(scores)
     end
   end
 end

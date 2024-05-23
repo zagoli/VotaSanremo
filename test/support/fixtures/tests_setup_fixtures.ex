@@ -16,7 +16,7 @@ defmodule VotaSanremo.TestSetupFixtures do
       iex> setup_for_avg_score_test(1..10)
       {1, "Performer", "Type 1", "Type 2"}
   """
-  def setup_for_avg_score_tests(scores) do
+  def setup_for_avg_score_tests(scores, multiplier \\ 1.0) do
     %{id: edition_id} = edition_fixture()
     %{id: performer_id, name: performer_name} = performer_fixture()
     %{id: first_performance_type_id, type: first_performance_type} = performance_type_fixture()
@@ -45,8 +45,8 @@ defmodule VotaSanremo.TestSetupFixtures do
       })
 
     Enum.each(scores, fn score ->
-      vote_fixture(%{score: score, performance_id: first_performance_id})
-      vote_fixture(%{score: score, performance_id: second_performance_id})
+      vote_fixture(%{score: score, performance_id: first_performance_id, multiplier: multiplier})
+      vote_fixture(%{score: score, performance_id: second_performance_id, multiplier: multiplier})
     end)
 
     {edition_id, performer_name, first_performance_type, second_performance_type}

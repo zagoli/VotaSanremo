@@ -46,7 +46,7 @@ defmodule VotaSanremo.Performers.Performer.Queries do
     |> select([performer, _performance, vote, _evening, performance_type], %{
       performance_type: performance_type.type,
       name: performer.name,
-      score: avg(vote.score)
+      score: avg(vote.score * vote.multiplier)
     })
   end
 
@@ -55,7 +55,7 @@ defmodule VotaSanremo.Performers.Performer.Queries do
     |> select([performer, _performance, vote, _evening, performance_type], %{
       performance_type: performance_type.type,
       name: performer.name,
-      score: avg(vote.score) * sum(vote.score)
+      score: avg(vote.score * vote.multiplier) * sum(vote.score)
     })
   end
 end
