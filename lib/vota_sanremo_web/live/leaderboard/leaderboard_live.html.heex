@@ -6,13 +6,8 @@
 </.header>
 
 <section class="mt-5 mb-5">
-  <.form for={nil}>
-    <.input
-      type="checkbox"
-      name="weighted-scores-flag"
-      label="Weighted scores"
-      phx-change="weighted-flag-selected"
-    />
+  <.form for={nil} id="weighted-score-flag-form" phx-change="weighted-flag-selected">
+    <.input type="checkbox" name="weighted-scores-flag" label="Weighted scores" />
   </.form>
 </section>
 
@@ -20,11 +15,11 @@
   <.header class="mb-2">
     <%= performance_type %>
   </.header>
-
+  
   <div class="mb-7">
     <.presentation_table items={scores}>
       <:name :let={score_group}><%= score_group.name %></:name>
-
+      
       <:property :let={score_group}>
         <.badge>
           <%= score_group.score %>
