@@ -32,6 +32,9 @@ defmodule VotaSanremoWeb.Votes.VoteFormInternal do
   alias VotaSanremo.Votes
   alias VotaSanremo.Votes.Vote
   alias VotaSanremo.ScoresUtils
+  alias VotaSanremoWeb.Endpoint
+
+  @votes_topic "votes"
 
   def update(assigns, socket) do
     changeset =
@@ -95,6 +98,7 @@ defmodule VotaSanremoWeb.Votes.VoteFormInternal do
     case Votes.create_or_update_vote(vote_params) do
       {:ok, vote} ->
         notify_parent({:saved, socket.assigns.performance.id, vote})
+        broadcast_vote_added()
 
         {:noreply,
          socket
@@ -110,4 +114,5 @@ defmodule VotaSanremoWeb.Votes.VoteFormInternal do
   end
 
   defp notify_parent(msg), do: send(self(), {__MODULE__, msg})
+  defp broadcast_vote_added(), do: Endpoint.broadcast(@votes_topic, "vote_added", :ok)
 end

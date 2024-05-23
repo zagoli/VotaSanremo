@@ -2,8 +2,15 @@ defmodule VotaSanremoWeb.Leaderboard.LeaderboardLive do
   use VotaSanremoWeb, :live_view
   import VotaSanremoWeb.PresentationTable
   alias VotaSanremo.{Editions, Performers}
+  alias VotaSanremoWeb.Endpoint
+
+  @votes_topic "votes"
 
   def mount(_params, _session, socket) do
+    if connected?(socket) do
+      Endpoint.subscribe(@votes_topic)
+    end
+
     {:ok,
      socket
      |> assign_edition
@@ -40,5 +47,9 @@ defmodule VotaSanremoWeb.Leaderboard.LeaderboardLive do
      socket
      |> assign_weighted_flag(flag == "true")
      |> assign_scores()}
+  end
+
+  def handle_info(%{event: "vote_added", payload: :ok}, socket) do
+    {:noreply, assign_scores(socket)}
   end
 end
