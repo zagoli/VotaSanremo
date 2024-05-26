@@ -10,7 +10,7 @@ defmodule VotaSanremoWeb.UserForgotPasswordLive do
         Forgot your password?
         <:subtitle>We'll send a password reset link to your inbox</:subtitle>
       </.header>
-
+      
       <.simple_form for={@form} id="reset_password_form" phx-submit="send_email">
         <.input field={@form[:email]} type="email" placeholder="Email" required />
         <:actions>
@@ -19,7 +19,7 @@ defmodule VotaSanremoWeb.UserForgotPasswordLive do
           </.button>
         </:actions>
       </.simple_form>
-
+      
       <p class="text-center text-sm mt-4">
         <.link href={~p"/users/register"}>Register</.link>
         | <.link href={~p"/users/log_in"}>Log in</.link>

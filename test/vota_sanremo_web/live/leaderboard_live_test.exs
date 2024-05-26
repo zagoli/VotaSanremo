@@ -23,6 +23,7 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
     test "Leaderboard shows no votes message when there are no votes", %{conn: conn} do
       Votes.list_votes()
       |> Enum.each(fn vote -> Votes.delete_vote(vote) end)
+
       {:ok, _live, html} = live(conn, ~p"/leaderboard")
       assert html =~ "There are no votes to show!"
     end
