@@ -1,0 +1,19 @@
+<main>
+  <.evening_selector class="mt-4 " evenings={@evenings} selected_evening={@selected_evening} />
+  <h3 class="text-2xl mt-4">
+    <%= @selected_evening.description %>
+  </h3>
+
+  <%= for {performance_type, performances} <- group_performances(@performances) do %>
+    <.performances_container
+      class="mt-3 mb-7"
+      performances_type={performance_type}
+      performances={performances}
+      can_user_vote={@can_user_vote}
+    />
+  <% end %>
+
+  <.modal :if={@live_action == :vote} id="submit-vote-modal" show on_cancel={JS.patch(~p"/vote")}>
+    <.vote_form user={@current_user} performance={@performance} evening={@selected_evening} />
+  </.modal>
+</main>
