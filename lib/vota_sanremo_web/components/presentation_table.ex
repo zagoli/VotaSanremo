@@ -30,7 +30,7 @@ defmodule VotaSanremoWeb.PresentationTable do
         <div class="font-semibold border-b">
           <%= render_slot(@name, item) %>
         </div>
-        
+
         <div class="border-b text-right pr-3">
           <%= render_slot(@property, item) %>
         </div>
