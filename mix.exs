@@ -4,7 +4,7 @@ defmodule VotaSanremo.MixProject do
   def project do
     [
       app: :vota_sanremo,
-      version: "0.1.0",
+      version: "1.0.0",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
@@ -57,7 +57,8 @@ defmodule VotaSanremo.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.2"}
+      {:bandit, "~> 1.2"},
+      {:pbkdf2_elixir, "~> 2.0"}
     ]
   end
 

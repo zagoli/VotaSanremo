@@ -1,0 +1,10 @@
+fieldset.vote-form-radio-group {
+    display: grid;
+    grid-template: repeat(9, 1fr) 1fr / repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+fieldset.vote-form-radio-group label:last-child {
+    grid-column: 1 / span 4;
+}
+
