@@ -25,7 +25,7 @@ defmodule VotaSanremoWeb.PresentationTable do
 
   def presentation_table(assigns) do
     ~H"""
-    <div class="grid grid-cols-2 gap-y-6 max-w-[450px]">
+    <div class="grid grid-cols-2 gap-y-6 ">
       <%= for item <- @items do %>
         <div class="font-semibold border-b">
           <%= render_slot(@name, item) %>
