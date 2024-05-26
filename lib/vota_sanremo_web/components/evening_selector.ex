@@ -10,18 +10,16 @@ defmodule VotaSanremoWeb.EveningSelector do
         assigns,
         :button_class,
         if assigns.selected do
-          "bg-black text-white hover:bg-zinc-700 py-2 px-4 text-lg font-semibold border border-black"
+          "bg-zinc-700 text-white hover:bg-zinc-600 px-4 text-lg font-semibold border border-black rounded"
         else
-          "bg-white hover:bg-zinc-100 py-2 px-4 text-lg font-semibold border border-black"
+          "bg-white hover:bg-zinc-100 px-4 text-lg font-semibold border border-black rounded"
         end
       )
 
     ~H"""
-    <div class="grow">
-      <button type="button" class={@button_class} phx-click="evening-selected" value={@evening.id}>
-        <%= @evening.number %>
-      </button>
-    </div>
+    <button type="button" class={@button_class} phx-click="evening-selected" value={@evening.id}>
+      <%= @evening.number %>
+    </button>
     """
   end
 
@@ -31,7 +29,7 @@ defmodule VotaSanremoWeb.EveningSelector do
 
   def evening_selector(assigns) do
     ~H"""
-    <div class={["flex", @class]}>
+    <div class={["grid grid-rows-1 grid-flow-col gap-4", @class]}>
       <.evening_button
         :for={evening <- @evenings}
         evening={evening}
