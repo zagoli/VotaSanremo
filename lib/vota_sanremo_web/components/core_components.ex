@@ -20,6 +20,25 @@ defmodule VotaSanremoWeb.CoreComponents do
   import VotaSanremoWeb.Gettext
 
   @doc """
+  Renders a navigation link for the sidebar that goes to the given path.
+  """
+  attr :path, :any, required: true, doc: "the path to navigate to"
+  attr :text, :string, required: true, doc: "the text to display"
+  attr :method, :string, default: "get", doc: "the optional method used to navigate"
+
+  def sidenav_link(assigns) do
+    ~H"""
+    <.link
+      href={@path}
+      method={@method}
+      class="pl-10 h-10 text-white capitalize font-semibold hover:bg-zinc-600 flex flex-wrap content-center"
+    >
+      <%= @text %>
+    </.link>
+    """
+  end
+
+  @doc """
   Renders a modal.
 
   ## Examples
@@ -671,5 +690,28 @@ defmodule VotaSanremoWeb.CoreComponents do
   """
   def translate_errors(errors, field) when is_list(errors) do
     for {^field, {msg, opts}} <- errors, do: translate_error({msg, opts})
+  end
+
+  @doc """
+  Helper function to show a side drawer
+  """
+  def show_drawer(selector, display \\ "block") do
+    JS.show(%JS{},
+      to: selector,
+      display: display,
+      transition: {"ease-in duration-200", "opacity-0", "opacity-100"},
+      time: 150
+    )
+  end
+
+  @doc """
+  Helper function to hide a side drawer
+  """
+  def hide_drawer(selector) do
+    JS.hide(%JS{},
+      to: selector,
+      transition: {"ease-out duration-200", "opacity-100", "opacity-0"},
+      time: 150
+    )
   end
 end
