@@ -31,7 +31,7 @@ defmodule VotaSanremoWeb.CoreComponents do
     <.link
       href={@path}
       method={@method}
-      class="pl-10 h-10 text-white capitalize font-semibold hover:bg-zinc-600 flex flex-wrap content-center"
+      class="pl-10 h-10 text-white font-semibold hover:bg-zinc-600 flex flex-wrap content-center"
     >
       <%= @text %>
     </.link>

@@ -227,7 +227,7 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       path = assert_patch(live)
       {:ok, _live, html} = live(conn, path)
 
-      assert not (html =~ "5+")
+      refute html =~ "5+"
     end
 
     test "Submitting a new vote for a performace creates a new vote",

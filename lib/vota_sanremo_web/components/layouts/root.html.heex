@@ -24,15 +24,15 @@
         
         <nav class="flex flex-col">
           <%= if @current_user do %>
-            <.sidenav_link path={~p"/vote"} text="vote" />
+            <.sidenav_link path={~p"/vote"} text="Vote" />
           <% end %>
-           <.sidenav_link path={~p"/leaderboard"} text="leaderboard" />
+           <.sidenav_link path={~p"/leaderboard"} text="Leaderboard" />
           <%= if @current_user do %>
-            <.sidenav_link path={~p"/users/settings"} text="settings" />
-            <.sidenav_link path={~p"/users/log_out"} text="log out" method="delete" />
+            <.sidenav_link path={~p"/users/settings"} text="Settings" />
+            <.sidenav_link path={~p"/users/log_out"} text="Log out" method="delete" />
           <% else %>
-            <.sidenav_link path={~p"/users/register"} text="register" />
-            <.sidenav_link path={~p"/users/log_in"} text="log in" />
+            <.sidenav_link path={~p"/users/register"} text="Register" />
+            <.sidenav_link path={~p"/users/log_in"} text="Log in" />
           <% end %>
         </nav>
       </div>
