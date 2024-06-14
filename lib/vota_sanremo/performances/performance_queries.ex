@@ -36,7 +36,9 @@ defmodule VotaSanremo.Performances.Performance.Queries do
 
   defp join_votes(query, user) do
     query
-    |> join(:left, [p, _], v in assoc(p, :votes), on: p.id == v.performance_id and v.user_id == ^user.id)
+    |> join(:left, [p, _], v in assoc(p, :votes),
+      on: p.id == v.performance_id and v.user_id == ^user.id
+    )
   end
 
   defp filter_by_evening(query, %Evening{} = evening) do
