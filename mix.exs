@@ -5,7 +5,7 @@ defmodule VotaSanremo.MixProject do
     [
       app: :vota_sanremo,
       version: "1.0.0",
-      elixir: "~> 1.14",
+      elixir: "~> 1.17",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
