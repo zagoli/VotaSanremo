@@ -210,14 +210,14 @@ defmodule VotaSanremoWeb.VoteLiveTest do
         evening_fixture(%{
           edition_id: edition.id,
           votes_start: DateTime.utc_now() |> DateTime.add(-10, :minute),
-          votes_end: DateTime.utc_now() |> DateTime.add(2, :second)
+          votes_end: DateTime.utc_now() |> DateTime.add(1, :second)
         })
 
       %{id: performance_id} = performance_fixture(%{evening_id: evening_id})
 
       {:ok, live, _html} = live(conn, ~p"/vote/performance/#{performance_id}")
 
-      Process.sleep(2000)
+      Process.sleep(1000)
 
       live
       |> form("#vote-form")
