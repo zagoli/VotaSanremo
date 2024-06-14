@@ -51,7 +51,7 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
         |> render_change(%{"weighted-scores-flag" => true})
 
       mean_score = Enum.sum(@scores) / Enum.count(@scores)
-      assert not (html =~ Float.to_string(mean_score))
+      refute html =~ Float.to_string(mean_score)
       mean_weighted_score = mean_score * Enum.sum(@scores)
       assert html =~ Float.to_string(mean_weighted_score)
     end
@@ -60,7 +60,7 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
       {:ok, live, html} = live(conn, ~p"/leaderboard")
       initial_mean_score = Enum.sum(@scores) / Enum.count(@scores)
       assert html =~ Float.to_string(initial_mean_score)
-      assert not (html =~ "4.0")
+      refute html =~ "4.0"
 
       vote =
         Votes.list_votes()

@@ -272,7 +272,16 @@ defmodule VotaSanremo.Accounts do
 
   If the token matches, the user account is marked as confirmed
   and the token is deleted.
+
+  The version that confirms a user given a User struct should only be used by tests.
   """
+  def confirm_user(%User{} = user) do
+    case Repo.transaction(confirm_user_multi(user)) do
+      {:ok, %{user: user}} -> {:ok, user}
+      _ -> :error
+    end
+  end
+
   def confirm_user(token) do
     with {:ok, query} <- UserToken.verify_email_token_query(token, "confirm"),
          %User{} = user <- Repo.one(query),

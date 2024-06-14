@@ -5,7 +5,11 @@ defmodule VotaSanremoWeb.UserSessionController do
   alias VotaSanremoWeb.UserAuth
 
   def create(conn, %{"_action" => "registered"} = params) do
-    create(conn, params, "Account created successfully!")
+    create(
+      conn,
+      params,
+      "Account created successfully! A confirmation email was sent to your email address."
+    )
   end
 
   def create(conn, %{"_action" => "password_updated"} = params) do

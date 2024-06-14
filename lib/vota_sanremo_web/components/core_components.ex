@@ -20,6 +20,25 @@ defmodule VotaSanremoWeb.CoreComponents do
   import VotaSanremoWeb.Gettext
 
   @doc """
+  Renders a navigation link for the sidebar that goes to the given path.
+  """
+  attr :path, :any, required: true, doc: "the path to navigate to"
+  attr :text, :string, required: true, doc: "the text to display"
+  attr :method, :string, default: "get", doc: "the optional method used to navigate"
+
+  def sidenav_link(assigns) do
+    ~H"""
+    <.link
+      href={@path}
+      method={@method}
+      class="pl-10 h-10 text-white font-semibold hover:bg-zinc-600 flex flex-wrap content-center"
+    >
+      <%= @text %>
+    </.link>
+    """
+  end
+
+  @doc """
   Renders a modal.
 
   ## Examples
@@ -123,10 +142,11 @@ defmodule VotaSanremoWeb.CoreComponents do
     >
       <p :if={@title} class="flex items-center gap-1.5 text-sm font-semibold leading-6">
         <.icon :if={@kind == :info} name="hero-information-circle-mini" class="h-4 w-4" />
-        <.icon :if={@kind == :error} name="hero-exclamation-circle-mini" class="h-4 w-4" />
-        <%= @title %>
+        <.icon :if={@kind == :error} name="hero-exclamation-circle-mini" class="h-4 w-4" /> <%= @title %>
       </p>
+
       <p class="mt-2 text-sm leading-5"><%= msg %></p>
+
       <button type="button" class="group absolute top-1 right-1 p-2" aria-label={gettext("close")}>
         <.icon name="hero-x-mark-solid" class="h-5 w-5 opacity-40 group-hover:opacity-70" />
       </button>
@@ -319,9 +339,9 @@ defmodule VotaSanremoWeb.CoreComponents do
           checked={@checked}
           class="rounded border-zinc-300 text-zinc-900 focus:ring-0"
           {@rest}
-        />
-        <%= @label %>
+        /> <%= @label %>
       </label>
+
       <.error :for={msg <- @errors}><%= msg %></.error>
     </div>
     """
@@ -331,6 +351,7 @@ defmodule VotaSanremoWeb.CoreComponents do
     ~H"""
     <div phx-feedback-for={@name}>
       <.label for={@id}><%= @label %></.label>
+
       <select
         id={@id}
         name={@name}
@@ -341,6 +362,7 @@ defmodule VotaSanremoWeb.CoreComponents do
         <option :if={@prompt} value=""><%= @prompt %></option>
         <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
       </select>
+
       <.error :for={msg <- @errors}><%= msg %></.error>
     </div>
     """
@@ -371,6 +393,7 @@ defmodule VotaSanremoWeb.CoreComponents do
     ~H"""
     <div phx-feedback-for={@name}>
       <.label for={@id}><%= @label %></.label>
+
       <input
         type={@type}
         name={@name}
@@ -411,8 +434,9 @@ defmodule VotaSanremoWeb.CoreComponents do
   def error(assigns) do
     ~H"""
     <p class="mt-3 flex gap-3 text-sm leading-6 text-rose-600 phx-no-feedback:hidden">
-      <.icon name="hero-exclamation-circle-mini" class="mt-0.5 h-5 w-5 flex-none" />
-      <%= render_slot(@inner_block) %>
+      <.icon name="hero-exclamation-circle-mini" class="mt-0.5 h-5 w-5 flex-none" /> <%= render_slot(
+        @inner_block
+      ) %>
     </p>
     """
   end
@@ -433,10 +457,12 @@ defmodule VotaSanremoWeb.CoreComponents do
         <h1 class="text-lg font-semibold leading-8 text-zinc-800">
           <%= render_slot(@inner_block) %>
         </h1>
+
         <p :if={@subtitle != []} class="mt-2 text-sm leading-6 text-zinc-600">
           <%= render_slot(@subtitle) %>
         </p>
       </div>
+
       <div class="flex-none"><%= render_slot(@actions) %></div>
     </header>
     """
@@ -479,11 +505,13 @@ defmodule VotaSanremoWeb.CoreComponents do
         <thead class="text-sm text-left leading-6 text-zinc-500">
           <tr>
             <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal"><%= col[:label] %></th>
+
             <th :if={@action != []} class="relative p-0 pb-4">
               <span class="sr-only"><%= gettext("Actions") %></span>
             </th>
           </tr>
         </thead>
+
         <tbody
           id={@id}
           phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}
@@ -502,6 +530,7 @@ defmodule VotaSanremoWeb.CoreComponents do
                 </span>
               </div>
             </td>
+
             <td :if={@action != []} class="relative w-14 p-0">
               <div class="relative whitespace-nowrap py-4 text-right text-sm font-medium">
                 <span class="absolute -inset-y-px -right-4 left-0 group-hover:bg-zinc-50 sm:rounded-r-xl" />
@@ -540,6 +569,7 @@ defmodule VotaSanremoWeb.CoreComponents do
       <dl class="-my-4 divide-y divide-zinc-100">
         <div :for={item <- @item} class="flex gap-4 py-4 text-sm leading-6 sm:gap-8">
           <dt class="w-1/4 flex-none text-zinc-500"><%= item.title %></dt>
+
           <dd class="text-zinc-700"><%= render_slot(item) %></dd>
         </div>
       </dl>
@@ -564,8 +594,7 @@ defmodule VotaSanremoWeb.CoreComponents do
         navigate={@navigate}
         class="text-sm font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
       >
-        <.icon name="hero-arrow-left-solid" class="h-3 w-3" />
-        <%= render_slot(@inner_block) %>
+        <.icon name="hero-arrow-left-solid" class="h-3 w-3" /> <%= render_slot(@inner_block) %>
       </.link>
     </div>
     """
@@ -671,5 +700,28 @@ defmodule VotaSanremoWeb.CoreComponents do
   """
   def translate_errors(errors, field) when is_list(errors) do
     for {^field, {msg, opts}} <- errors, do: translate_error({msg, opts})
+  end
+
+  @doc """
+  Helper function to show a side drawer
+  """
+  def show_drawer(selector, display \\ "block") do
+    JS.show(%JS{},
+      to: selector,
+      display: display,
+      transition: {"ease-in duration-200", "opacity-0", "opacity-100"},
+      time: 150
+    )
+  end
+
+  @doc """
+  Helper function to hide a side drawer
+  """
+  def hide_drawer(selector) do
+    JS.hide(%JS{},
+      to: selector,
+      transition: {"ease-out duration-200", "opacity-100", "opacity-0"},
+      time: 150
+    )
   end
 end
