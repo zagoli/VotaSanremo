@@ -14,7 +14,7 @@ defmodule VotaSanremoWeb.ConnCase do
   by setting `use VotaSanremoWeb.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
-alias VotaSanremo.Accounts
+  alias VotaSanremo.Accounts
 
   use ExUnit.CaseTemplate
 

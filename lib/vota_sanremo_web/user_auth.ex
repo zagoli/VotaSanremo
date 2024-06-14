@@ -223,6 +223,7 @@ defmodule VotaSanremoWeb.UserAuth do
 
   defp maybe_put_confirm_email_flash(%{assigns: assigns} = conn) do
     flash = Map.get(assigns, :flash)
+
     if !flash or Enum.empty?(flash) do
       put_flash(conn, :error, "Please confirm your e-mail address first.")
     else
