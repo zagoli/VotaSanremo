@@ -7,11 +7,11 @@
     <.live_title>
       <%= assigns[:page_title] || "VotaSanremo" %>
     </.live_title>
-     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  
+
   <body class="bg-white antialiased">
     <aside
       class="z-10 absolute right-0 bg-zinc-700 sm:w-96 w-72 h-full hidden"
@@ -21,12 +21,12 @@
         <button class="p-4" type="button" title="hide menu" phx-click={hide_drawer("aside")}>
           <.icon class="text-white" name="hero-x-mark" />
         </button>
-        
+
         <nav class="flex flex-col">
           <%= if @current_user do %>
             <.sidenav_link path={~p"/vote"} text="Vote" />
           <% end %>
-           <.sidenav_link path={~p"/leaderboard"} text="Leaderboard" />
+          <.sidenav_link path={~p"/leaderboard"} text="Leaderboard" />
           <%= if @current_user do %>
             <.sidenav_link path={~p"/users/settings"} text="Settings" />
             <.sidenav_link path={~p"/users/log_out"} text="Log out" method="delete" />
@@ -37,7 +37,7 @@
         </nav>
       </div>
     </aside>
-    
+
     <header class="px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between border-b border-zinc-100 py-3 text-sm">
         <!-- Items left -->
@@ -54,6 +54,6 @@
         </div>
       </div>
     </header>
-     <%= @inner_content %>
+    <%= @inner_content %>
   </body>
 </html>

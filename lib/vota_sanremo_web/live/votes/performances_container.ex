@@ -58,10 +58,10 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainerInternal do
       <.header class="mb-2">
         <%= @performances_type %>
       </.header>
-      
+
       <.presentation_table items={@performances}>
         <:name :let={performance}><%= performance.performer.name %></:name>
-        
+
         <:property :let={performance}>
           <.button_badge
             disabled={not @can_user_vote}

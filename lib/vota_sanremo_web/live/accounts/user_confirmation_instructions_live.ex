@@ -10,7 +10,7 @@ defmodule VotaSanremoWeb.UserConfirmationInstructionsLive do
         No confirmation instructions received?
         <:subtitle>We'll send a new confirmation link to your inbox</:subtitle>
       </.header>
-      
+
       <.simple_form for={@form} id="resend_confirmation_form" phx-submit="send_instructions">
         <.input field={@form[:email]} type="email" placeholder="Email" required />
         <:actions>
@@ -19,7 +19,7 @@ defmodule VotaSanremoWeb.UserConfirmationInstructionsLive do
           </.button>
         </:actions>
       </.simple_form>
-      
+
       <p class="text-center mt-4">
         <.link href={~p"/users/register"}>Register</.link>
         | <.link href={~p"/users/log_in"}>Log in</.link>
