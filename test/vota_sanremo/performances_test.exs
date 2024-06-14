@@ -188,14 +188,20 @@ defmodule VotaSanremo.PerformancesTest do
     test "list_performances_of_evening/1 returns performances with votes of current user only" do
       evening = evening_fixture()
       performance = performance_fixture(%{evening_id: evening.id})
-      _performance_2 = performance_fixture(%{evening_id: evening.id})
+      performance_2 = performance_fixture(%{evening_id: evening.id})
       user_1 = user_fixture()
       user_2 = user_fixture()
       vote_user_1 = vote_fixture(%{user_id: user_1.id, performance_id: performance.id})
       _vote_user_2 = vote_fixture(%{user_id: user_2.id, performance_id: performance.id})
 
-      [retrieved_performance_1, retrieved_performance_2] =
+      _vote_user_2_on_performance_2 =
+        vote_fixture(%{user_id: user_2.id, performance_id: performance_2.id})
+
+      retrieved_performances =
         Performances.list_performances_of_evening(evening, user_1)
+
+      assert Enum.count(retrieved_performances) == 2
+      [retrieved_performance_1, retrieved_performance_2] = retrieved_performances
 
       assert retrieved_performance_1.votes == [vote_user_1]
       assert retrieved_performance_2.votes == []

@@ -124,20 +124,23 @@ defmodule VotaSanremoWeb.VoteLiveTest do
           performance_type_id: first_performance_type_id
         })
 
-      performance_fixture(%{
-        evening_id: evening_id,
-        performer_id: performer_id,
-        performance_type_id: second_performance_type_id
-      })
+      %{id: second_performance_id} =
+        performance_fixture(%{
+          evening_id: evening_id,
+          performer_id: performer_id,
+          performance_type_id: second_performance_type_id
+        })
 
       vote_fixture(%{score: 8, performance_id: first_performance_id, user_id: user.id})
+      vote_fixture(%{performance_id: second_performance_id})
 
       {:ok, _live, html} = live(conn, ~p"/vote")
+      assert html =~ "Songs"
       assert html =~ "Johnny"
       assert html =~ "8"
-      assert html =~ "-"
-      assert html =~ "Songs"
+
       assert html =~ "Dresses"
+      assert html =~ "-"
     end
 
     test "Clicking on a vote when it is possible to vote navigates", %{

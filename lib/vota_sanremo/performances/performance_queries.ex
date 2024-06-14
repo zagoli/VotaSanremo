@@ -20,8 +20,8 @@ defmodule VotaSanremo.Performances.Performance.Queries do
   def list_performances_of_evening(%Evening{} = evening, %User{} = user) do
     base()
     |> join_performers()
-    |> join_votes()
-    |> filters(evening, user)
+    |> join_votes(user)
+    |> filter_by_evening(evening)
     |> order_by_performer()
     |> preload_performer()
     |> preload_votes()
@@ -34,19 +34,14 @@ defmodule VotaSanremo.Performances.Performance.Queries do
     |> join(:inner, [performance], performer in assoc(performance, :performer))
   end
 
-  defp join_votes(query) do
+  defp join_votes(query, user) do
     query
-    |> join(:left, [p, _], v in assoc(p, :votes))
+    |> join(:left, [p, _], v in assoc(p, :votes), on: p.id == v.performance_id and v.user_id == ^user.id)
   end
 
-  defp filters(query, %Evening{} = evening, %User{} = user) do
-    conditions =
-      dynamic(
-        [p, _, v],
-        p.evening_id == ^evening.id and (v.user_id == ^user.id or is_nil(v.user_id))
-      )
-
-    where(query, ^conditions)
+  defp filter_by_evening(query, %Evening{} = evening) do
+    query
+    |> where([p, _, _], p.evening_id == ^evening.id)
   end
 
   defp order_by_performer(query) do
