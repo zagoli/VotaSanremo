@@ -201,31 +201,29 @@ defmodule VotaSanremoWeb.UserAuth do
   If you want to enforce the user email is confirmed before
   they use the application at all, here would be a good place.
   """
-  def require_authenticated_user(conn, _opts) do
-    user = conn.assigns[:current_user]
-
-    cond do
-      user.confirmed_at ->
-        conn
-
-      user ->
-        conn
-        |> maybe_put_confirm_email_flash()
-        |> maybe_store_return_to()
-        |> redirect(to: ~p"/")
-        |> halt()
-
-      true ->
-        conn
-        |> put_flash(:error, "You must log in to access this page.")
-        |> maybe_store_return_to()
-        |> redirect(to: ~p"/users/log_in")
-        |> halt()
-    end
+  def require_authenticated_user(%{assigns: %{current_user: %{confirmed_at: nil}}} = conn, _opts) do
+    conn
+    |> maybe_put_confirm_email_flash()
+    |> maybe_store_return_to()
+    |> redirect(to: ~p"/")
+    |> halt()
   end
 
-  defp maybe_put_confirm_email_flash(%{assigns: %{flash: flash}} = conn) do
-    if Enum.empty?(flash) do
+  def require_authenticated_user(%{assigns: %{current_user: _}} = conn, _opts) do
+    conn
+  end
+
+  def require_authenticated_user(conn, _opts) do
+    conn
+    |> put_flash(:error, "You must log in to access this page.")
+    |> maybe_store_return_to()
+    |> redirect(to: ~p"/users/log_in")
+    |> halt()
+  end
+
+  defp maybe_put_confirm_email_flash(%{assigns: assigns} = conn) do
+    flash = Map.get(assigns, :flash)
+    if !flash or Enum.empty?(flash) do
       put_flash(conn, :error, "Please confirm your e-mail address first.")
     else
       conn

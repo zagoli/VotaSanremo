@@ -264,6 +264,7 @@ defmodule VotaSanremoWeb.UserAuthTest do
     end
 
     test "does not redirect if user is authenticated", %{conn: conn, user: user} do
+      {:ok, user} = Accounts.confirm_user(user)
       conn = conn |> assign(:current_user, user) |> UserAuth.require_authenticated_user([])
       refute conn.halted
       refute conn.status
