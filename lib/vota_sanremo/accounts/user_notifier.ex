@@ -8,7 +8,7 @@ defmodule VotaSanremo.Accounts.UserNotifier do
     email =
       new()
       |> to(recipient)
-      |> from({"VotaSanremo", "contact@example.com"})
+      |> from({"VotaSanremo", "votasanremo@zagoli.com"})
       |> subject(subject)
       |> text_body(body)
 

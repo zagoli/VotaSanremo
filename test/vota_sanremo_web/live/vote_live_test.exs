@@ -124,20 +124,23 @@ defmodule VotaSanremoWeb.VoteLiveTest do
           performance_type_id: first_performance_type_id
         })
 
-      performance_fixture(%{
-        evening_id: evening_id,
-        performer_id: performer_id,
-        performance_type_id: second_performance_type_id
-      })
+      %{id: second_performance_id} =
+        performance_fixture(%{
+          evening_id: evening_id,
+          performer_id: performer_id,
+          performance_type_id: second_performance_type_id
+        })
 
       vote_fixture(%{score: 8, performance_id: first_performance_id, user_id: user.id})
+      vote_fixture(%{performance_id: second_performance_id})
 
       {:ok, _live, html} = live(conn, ~p"/vote")
+      assert html =~ "Songs"
       assert html =~ "Johnny"
       assert html =~ "8"
-      assert html =~ "-"
-      assert html =~ "Songs"
+
       assert html =~ "Dresses"
+      assert html =~ "-"
     end
 
     test "Clicking on a vote when it is possible to vote navigates", %{
@@ -210,14 +213,14 @@ defmodule VotaSanremoWeb.VoteLiveTest do
         evening_fixture(%{
           edition_id: edition.id,
           votes_start: DateTime.utc_now() |> DateTime.add(-10, :minute),
-          votes_end: DateTime.utc_now() |> DateTime.add(2, :second)
+          votes_end: DateTime.utc_now() |> DateTime.add(1, :second)
         })
 
       %{id: performance_id} = performance_fixture(%{evening_id: evening_id})
 
       {:ok, live, _html} = live(conn, ~p"/vote/performance/#{performance_id}")
 
-      Process.sleep(2000)
+      Process.sleep(1000)
 
       live
       |> form("#vote-form")
@@ -227,7 +230,7 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       path = assert_patch(live)
       {:ok, _live, html} = live(conn, path)
 
-      assert not (html =~ "5+")
+      refute html =~ "5+"
     end
 
     test "Submitting a new vote for a performace creates a new vote",
