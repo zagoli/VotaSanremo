@@ -8,6 +8,7 @@ defmodule VotaSanremo.Performers do
 
   alias VotaSanremo.Performers.Performer
   alias VotaSanremo.Performers.Performer.Queries
+  alias VotaSanremo.Accounts.User
 
   @doc """
   Returns the list of performers.
@@ -132,5 +133,21 @@ defmodule VotaSanremo.Performers do
   """
   def list_performers_weighted_avg_score_by_edition(edition_id) when is_integer(edition_id) do
     Queries.list_performers_weighted_avg_score_by_edition(edition_id)
+  end
+
+  @doc """
+  Same as the version without `user` as the parameter, but with only the votes of the given `user`.
+  """
+  def list_performers_avg_score_by_edition_by_user(edition_id, %User{} = user)
+      when is_integer(edition_id) do
+    Queries.list_performers_avg_score_by_edition_by_user(edition_id, user)
+  end
+
+  @doc """
+  Same as the version without `user` as the parameter, but with only the votes of the given `user`.
+  """
+  def list_performers_weighted_avg_score_by_edition_by_user(edition_id, %User{} = user)
+      when is_integer(edition_id) do
+    Queries.list_performers_weighted_avg_score_by_edition_by_user(edition_id, user)
   end
 end
