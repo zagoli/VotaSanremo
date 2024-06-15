@@ -13,7 +13,7 @@ defmodule VotaSanremo.Accounts.User do
     field :last_name, :string
     field :username, :string
     field :default_vote_multiplier, :float
-    field :votes_privacy, Ecto.Enum, values: [:public, :private, :juries_only]
+    field :votes_privacy, Ecto.Enum, values: [:public, :private]
 
     has_many :founded_juries, VotaSanremo.Juries.Jury, foreign_key: :founder
     has_many :votes, VotaSanremo.Votes.Vote
@@ -57,7 +57,7 @@ defmodule VotaSanremo.Accounts.User do
       :default_vote_multiplier,
       :votes_privacy
     ])
-    |> validate_inclusion(:votes_privacy, [:public, :private, :juries_only])
+    |> validate_inclusion(:votes_privacy, [:public, :private])
     |> validate_names()
     |> validate_username()
     |> validate_email(opts)
