@@ -30,4 +30,11 @@ defmodule VotaSanremo.AccountsFixtures do
     [_, token | _] = String.split(captured_email.text_body, "[TOKEN]")
     token
   end
+
+  def confirm_user(%VotaSanremo.Accounts.User{} = user) do
+    case VotaSanremo.Repo.transaction(VotaSanremo.Accounts.confirm_user_multi(user)) do
+      {:ok, %{user: user}} -> {:ok, user}
+      _ -> :error
+    end
+  end
 end
