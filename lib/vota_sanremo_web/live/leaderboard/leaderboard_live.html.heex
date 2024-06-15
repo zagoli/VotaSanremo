@@ -5,15 +5,9 @@
   </:subtitle>
 </.header>
 
-<%= if Enum.empty?(@scores) do %>
-  <div class="mt-5">
-    <p>There are no votes to show!</p>
-  </div>
-<% else %>
-  <section class="mt-5 mb-5">
-    <.form for={nil} id="weighted-score-flag-form" phx-change="weighted-flag-selected">
-      <.input type="checkbox" name="weighted-scores-flag" label="Weighted scores" />
-    </.form>
-  </section>
-<% end %>
+<section class="mt-5 mb-5">
+  <.form for={nil} id="weighted-score-flag-form" phx-change="weighted-flag-selected">
+    <.input type="checkbox" name="weighted-scores-flag" label="Weighted scores" />
+  </.form>
+</section>
  <.performers_scores scores={@scores} />

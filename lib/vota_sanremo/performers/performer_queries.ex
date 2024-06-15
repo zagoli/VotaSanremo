@@ -56,7 +56,7 @@ defmodule VotaSanremo.Performers.Performer.Queries do
   end
 
   defp join_votes(query) do
-    query |> join(:inner, [p, pp], v in assoc(pp, :votes))
+    query |> join(:left, [p, pp], v in assoc(pp, :votes))
   end
 
   defp join_votes_of_user(query, user) do
