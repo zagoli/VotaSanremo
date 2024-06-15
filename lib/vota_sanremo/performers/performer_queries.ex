@@ -51,18 +51,6 @@ defmodule VotaSanremo.Performers.Performer.Queries do
     |> all()
   end
 
-  def list_performers_weighted_avg_score_by_edition_by_user(edition_id, user) do
-    base()
-    |> join_performances()
-    |> join_votes_of_user(user)
-    |> join_evenings()
-    |> join_performance_types()
-    |> filter_by_edition(edition_id)
-    |> group_by_performer_and_performance_type()
-    |> select_weighted_avg_score()
-    |> all()
-  end
-
   defp join_performances(query) do
     query |> join(:inner, [p], performance in assoc(p, :performances))
   end

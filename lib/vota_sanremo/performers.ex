@@ -142,12 +142,4 @@ defmodule VotaSanremo.Performers do
       when is_integer(edition_id) do
     Queries.list_performers_avg_score_by_edition_by_user(edition_id, user)
   end
-
-  @doc """
-  Same as the version without `user` as the parameter, but with only the votes of the given `user`.
-  """
-  def list_performers_weighted_avg_score_by_edition_by_user(edition_id, %User{} = user)
-      when is_integer(edition_id) do
-    Queries.list_performers_weighted_avg_score_by_edition_by_user(edition_id, user)
-  end
 end
