@@ -8,8 +8,8 @@ defmodule VotaSanremoWeb.Votes.VoteLive do
   def mount(_params, _session, socket) do
     {:ok,
      socket
-     |> assign_evenings
-     |> assign_default_selected_evening}
+     |> assign_evenings()
+     |> assign_default_selected_evening()}
   end
 
   def handle_params(
