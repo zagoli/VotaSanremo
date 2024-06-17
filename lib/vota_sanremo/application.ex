@@ -13,7 +13,7 @@ defmodule VotaSanremo.Application do
       {DNSCluster, query: Application.get_env(:vota_sanremo, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: VotaSanremo.PubSub},
       # Start the Finch HTTP client for sending emails
-      {Finch, name: Swoosh.Finch},
+      {Finch, name: VotaSanremo.Finch},
       # Start a worker by calling: VotaSanremo.Worker.start_link(arg)
       # {VotaSanremo.Worker, arg},
       # Start to serve requests, typically the last entry
