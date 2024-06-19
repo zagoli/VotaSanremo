@@ -6,7 +6,7 @@ defmodule VotaSanremo.AccountsFixtures do
 
   def unique_user_email, do: "user#{System.unique_integer()}@example.com"
   def valid_user_password, do: "Hello world!"
-  def unique_username, do: "username#{System.unique_integer()}"
+  def unique_username, do: "username#{System.unique_integer([:positive])}"
 
   def valid_user_attributes(attrs \\ %{}) do
     Enum.into(attrs, %{

@@ -95,14 +95,31 @@ defmodule VotaSanremo.AccountsTest do
     end
 
     test "validates maximum values for first name, last name and username" do
-      too_long = String.duplicate("db", 100)
+      too_long = String.duplicate("a", 161)
 
       {:error, changeset} =
-        Accounts.register_user(%{username: too_long, first_name: too_long, last_name: too_long})
+        Accounts.register_user(%{first_name: too_long, last_name: too_long})
 
-      assert "should be at most 160 character(s)" in errors_on(changeset).username
       assert "should be at most 160 character(s)" in errors_on(changeset).first_name
       assert "should be at most 160 character(s)" in errors_on(changeset).last_name
+    end
+
+    test "validates username format and length" do
+      # Too long
+      {:error, changeset} = Accounts.register_user(%{username: String.duplicate("a", 161)})
+      assert "should be at most 160 character(s)" in errors_on(changeset).username
+
+      # Too short
+      {:error, changeset} = Accounts.register_user(%{username: "aaa"})
+      assert "should be at least 4 character(s)" in errors_on(changeset).username
+
+      # Invalid format
+      {:error, changeset} = Accounts.register_user(%{username: "invalid-username"})
+      assert "must contain only letters and numbers" in errors_on(changeset).username
+
+      # Valid username
+      {:error, changeset} = Accounts.register_user(%{username: "Perfectly00Valid00Username"})
+      refute Map.has_key?(errors_on(changeset), :username)
     end
 
     test "validates email uniqueness" do

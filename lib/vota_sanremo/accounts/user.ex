@@ -74,6 +74,8 @@ defmodule VotaSanremo.Accounts.User do
     changeset
     |> validate_required([:username])
     |> validate_length(:username, max: 160)
+    |> validate_length(:username, min: 4)
+    |> validate_format(:username, ~r"^[a-zA-Z0-9]+$", message: "must contain only letters and numbers")
     |> unsafe_validate_unique(:username, VotaSanremo.Repo)
     |> unique_constraint(:username)
   end
