@@ -587,4 +587,37 @@ defmodule VotaSanremo.AccountsTest do
       refute inspect(%User{password: "123456"}) =~ "password: \"123456\""
     end
   end
+
+  describe "list_users_by_username/1" do
+    alias VotaSanremo.UserSearch
+
+    setup do
+      user_fixture(%{username: "user1"})
+      user_fixture(%{username: "user2"})
+      user_fixture(%{username: "user3"})
+      user_fixture(%{username: "user4"})
+      user_fixture(%{username: "user5"})
+      :ok
+    end
+
+    test "finds all users starting with the provided username" do
+      changeset = UserSearch.change_username(%{"username" => "User"})
+
+      found_usernames =
+        Accounts.list_users_by_username(changeset)
+        |> Enum.map(& &1.username)
+
+      assert "user1" in found_usernames
+      assert "user2" in found_usernames
+      assert "user3" in found_usernames
+      assert "user4" in found_usernames
+      assert "user5" in found_usernames
+    end
+
+    test "returns empty list when no match is found" do
+      changeset = UserSearch.change_username(%{"username" => "nothing"})
+      found_users = Accounts.list_users_by_username(changeset)
+      assert Enum.empty?(found_users)
+    end
+  end
 end

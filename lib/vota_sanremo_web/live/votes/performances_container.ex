@@ -1,4 +1,4 @@
-defmodule VotaSanremoWeb.Votes.PerformancesContainer do
+defmodule VotaSanremoWeb.PerformancesContainer do
   @moduledoc """
   Provides a function component for displaying a list of performances.
   """

@@ -1,4 +1,4 @@
-defmodule VotaSanremoWeb.Leaderboard.LeaderboardLive do
+defmodule VotaSanremoWeb.LeaderboardLive do
   use VotaSanremoWeb, :live_view
   import VotaSanremoWeb.PerformersScores
   alias VotaSanremo.{Editions, Performers}

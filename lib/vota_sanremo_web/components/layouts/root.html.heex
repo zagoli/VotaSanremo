@@ -28,7 +28,7 @@
           <% end %>
           <.sidenav_link path={~p"/leaderboard"} text="Leaderboard" />
           <%= if @current_user do %>
-            <.sidenav_link path={~p"/users/profile/#{@current_user.id}"} text={@current_user.username <> " profile"} />
+            <.sidenav_link path={~p"/search/users"} text="Search users" />
             <.sidenav_link path={~p"/users/settings"} text="Settings" />
             <.sidenav_link path={~p"/users/log_out"} text="Log out" method="delete" />
           <% else %>

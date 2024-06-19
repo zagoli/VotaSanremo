@@ -97,6 +97,7 @@ defmodule VotaSanremoWeb.CoreComponents do
                   <.icon name="hero-x-mark-solid" class="h-5 w-5" />
                 </button>
               </div>
+
               <div id={"#{@id}-content"}>
                 <%= render_slot(@inner_block) %>
               </div>
@@ -360,7 +361,7 @@ defmodule VotaSanremoWeb.CoreComponents do
         {@rest}
       >
         <option :if={@prompt} value=""><%= @prompt %></option>
-        <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
+         <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
       </select>
 
       <.error :for={msg <- @errors}><%= msg %></.error>
@@ -372,7 +373,7 @@ defmodule VotaSanremoWeb.CoreComponents do
     ~H"""
     <div phx-feedback-for={@name}>
       <.label for={@id}><%= @label %></.label>
-      <textarea
+       <textarea
         id={@id}
         name={@name}
         class={[

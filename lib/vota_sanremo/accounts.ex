@@ -4,9 +4,11 @@ defmodule VotaSanremo.Accounts do
   """
 
   import Ecto.Query, warn: false
+  import Ecto.Changeset, only: [apply_action: 2]
   alias VotaSanremo.Repo
 
   alias VotaSanremo.Accounts.{User, UserToken, UserNotifier}
+  alias VotaSanremo.Accounts.User.Queries
 
   ## Database getters
 
@@ -59,6 +61,22 @@ defmodule VotaSanremo.Accounts do
 
   """
   def get_user!(id), do: Repo.get!(User, id)
+
+  @doc """
+  List users with a username starting with a string.
+  The string to match is extracted from the valid input `changeset`.
+  The `changeset` must be created from a `VotaSanremo.UserSearch.Username` struct.
+
+  ## Examples
+
+      iex> list_users_by_username("user")
+      [%User{username: "user1"}, %User{username: "user2"}]
+
+  """
+  def list_users_by_username(%Ecto.Changeset{} = changeset) do
+    {:ok, username} = apply_action(changeset, :get_username)
+    Queries.list_users_by_username(username.username)
+  end
 
   ## User registration
 

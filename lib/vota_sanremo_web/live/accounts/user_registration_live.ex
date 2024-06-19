@@ -30,8 +30,8 @@ defmodule VotaSanremoWeb.UserRegistrationLive do
         <.error :if={@check_errors}>
           Oops, something went wrong! Please check the errors below.
         </.error>
-        <.input field={@form[:username]} type="text" label="Username" required />
-        <.input field={@form[:email]} type="email" label="Email" required />
+        <.input field={@form[:username]} type="text" label="Username" phx-debounce="blur" required />
+        <.input field={@form[:email]} type="email" label="Email" phx-debounce="blur" required />
         <.input field={@form[:password]} type="password" label="Password" required />
         <:actions>
           <.button phx-disable-with="Creating account..." class="w-full">Create an account</.button>
