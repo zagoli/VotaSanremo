@@ -66,16 +66,17 @@ defmodule VotaSanremo.Accounts.User do
 
   defp validate_names(changeset) do
     changeset
-    |> validate_length(:first_name, max: 160)
-    |> validate_length(:last_name, max: 160)
+    |> validate_length(:first_name, min: 1, max: 160)
+    |> validate_length(:last_name, min: 1, max: 160)
   end
 
   defp validate_username(changeset) do
     changeset
     |> validate_required([:username])
-    |> validate_length(:username, max: 160)
-    |> validate_length(:username, min: 4)
-    |> validate_format(:username, ~r"^[a-zA-Z0-9]+$", message: "must contain only letters and numbers")
+    |> validate_length(:username, min: 4, max: 160)
+    |> validate_format(:username, ~r"^[a-zA-Z0-9]+$",
+      message: "must contain only letters and numbers"
+    )
     |> unsafe_validate_unique(:username, VotaSanremo.Repo)
     |> unique_constraint(:username)
   end
@@ -193,5 +194,15 @@ defmodule VotaSanremo.Accounts.User do
     else
       add_error(changeset, :current_password, "is not valid")
     end
+  end
+
+  @doc """
+  A user changeset for changing user-modifiables fields.
+  """
+  def user_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:first_name, :last_name, :votes_privacy])
+    |> validate_inclusion(:votes_privacy, [:public, :private])
+    |> validate_names()
   end
 end

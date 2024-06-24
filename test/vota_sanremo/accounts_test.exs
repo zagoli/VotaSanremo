@@ -308,6 +308,35 @@ defmodule VotaSanremo.AccountsTest do
     end
   end
 
+  describe "change_user/2" do
+    test "returns a changeset" do
+      assert %Ecto.Changeset{} = Accounts.change_user(%User{})
+    end
+  end
+
+  describe "update_user/2" do
+    setup do
+      %{user: user_fixture(first_name: "name", last_name: "surname", votes_privacy: :public)}
+    end
+
+    test "updates the user", %{user: user} do
+      new_first_name = "new name"
+      new_last_name = "new surname"
+      new_votes_privacy = :private
+
+      {:ok, updated_user} =
+        Accounts.update_user(user, %{
+          first_name: new_first_name,
+          last_name: new_last_name,
+          votes_privacy: new_votes_privacy
+        })
+
+      assert updated_user.first_name == new_first_name
+      assert updated_user.last_name == new_last_name
+      assert updated_user.votes_privacy == new_votes_privacy
+    end
+  end
+
   describe "change_user_password/2" do
     test "returns a user changeset" do
       assert %Ecto.Changeset{} = changeset = Accounts.change_user_password(%User{})

@@ -114,6 +114,22 @@ defmodule VotaSanremo.Accounts do
   ## Settings
 
   @doc """
+  Returns an `%Ecto.Changeset{}` for changing user-modifiable fields.
+  """
+  def change_user(user, attrs \\ %{}) do
+    User.user_changeset(user, attrs)
+  end
+
+  @doc """
+  Updates a user.
+  Does not update email, password and other non user-changeables fields.
+  """
+  def update_user(user, attrs \\ %{}) do
+    User.user_changeset(user, attrs)
+    |> Repo.update()
+  end
+
+  @doc """
   Returns an `%Ecto.Changeset{}` for changing the user email.
 
   ## Examples
@@ -143,7 +159,7 @@ defmodule VotaSanremo.Accounts do
     user
     |> User.email_changeset(attrs)
     |> User.validate_current_password(password)
-    |> Ecto.Changeset.apply_action(:update)
+    |> apply_action(:update)
   end
 
   @doc """
