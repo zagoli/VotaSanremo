@@ -10,5 +10,4 @@ defmodule VotaSanremo.UserSearch do
   def change_username(attrs \\ %{}) do
     Username.changeset(%Username{}, attrs)
   end
-
 end

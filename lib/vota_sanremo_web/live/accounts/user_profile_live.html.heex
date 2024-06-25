@@ -1,9 +1,9 @@
 <div>
   <h1 class="text-3xl"><%= @user.username %></h1>
-  
+
   <section class="mt-5">
     <h2 class="text-xl font-bold">Votes</h2>
-    
+
     <%= if @user.votes_privacy == :public do %>
       <.performers_scores scores={@scores} />
     <% else %>

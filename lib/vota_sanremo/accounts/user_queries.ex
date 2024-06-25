@@ -16,11 +16,11 @@ defmodule VotaSanremo.Accounts.User.Queries do
   """
   def list_users_by_username(username) when is_binary(username) do
     like = "#{username}%"
+
     base()
     |> where([u], ilike(u.username, ^like))
     |> order_by(desc: :username)
     |> limit(100)
     |> Repo.all()
   end
-
 end

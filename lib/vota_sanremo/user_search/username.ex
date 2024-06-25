@@ -17,6 +17,8 @@ defmodule VotaSanremo.UserSearch.Username do
     username
     |> cast(attrs, [:username])
     |> validate_required([:username])
-    |> validate_format(:username, ~r"^[a-zA-Z0-9]+$", message: "must contain only letters and numbers")
+    |> validate_format(:username, ~r"^[a-zA-Z0-9]+$",
+      message: "must contain only letters and numbers"
+    )
   end
 end

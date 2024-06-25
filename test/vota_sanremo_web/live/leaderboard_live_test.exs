@@ -20,7 +20,10 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
   describe "Leaderboard" do
     setup [:create_votes]
 
-    test "Leaderboard renders hyphens when there are no votes", %{conn: conn, performer_name: performer_name} do
+    test "Leaderboard renders hyphens when there are no votes", %{
+      conn: conn,
+      performer_name: performer_name
+    } do
       # Delete votes created during test setup
       Votes.list_votes()
       |> Enum.each(fn vote -> Votes.delete_vote(vote) end)
