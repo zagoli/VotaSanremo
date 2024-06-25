@@ -20,12 +20,17 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
   describe "Leaderboard" do
     setup [:create_votes]
 
-    test "Leaderboard shows no votes message when there are no votes", %{conn: conn} do
+    test "Leaderboard renders hyphens when there are no votes", %{
+      conn: conn,
+      performer_name: performer_name
+    } do
+      # Delete votes created during test setup
       Votes.list_votes()
       |> Enum.each(fn vote -> Votes.delete_vote(vote) end)
 
       {:ok, _live, html} = live(conn, ~p"/leaderboard")
-      assert html =~ "There are no votes to show!"
+      assert html =~ performer_name
+      assert html =~ "-"
     end
 
     test "Leaderboard contains average scores for performers by default", %{

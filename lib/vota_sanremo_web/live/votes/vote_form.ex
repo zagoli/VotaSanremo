@@ -1,4 +1,4 @@
-defmodule VotaSanremoWeb.Votes.VoteForm do
+defmodule VotaSanremoWeb.VoteForm do
   @moduledoc """
   Provides a form for voting a performance.
   """
@@ -14,7 +14,7 @@ defmodule VotaSanremoWeb.Votes.VoteForm do
   def vote_form(assigns) do
     ~H"""
     <.live_component
-      module={VotaSanremoWeb.Votes.VoteFormInternal}
+      module={VotaSanremoWeb.VoteFormInternal}
       id="vote-form"
       performance={@performance}
       user={@user}
@@ -24,7 +24,7 @@ defmodule VotaSanremoWeb.Votes.VoteForm do
   end
 end
 
-defmodule VotaSanremoWeb.Votes.VoteFormInternal do
+defmodule VotaSanremoWeb.VoteFormInternal do
   @moduledoc """
   Internal implementation of vote form. Do not use directly
   """

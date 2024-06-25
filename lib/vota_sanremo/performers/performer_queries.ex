@@ -16,29 +16,70 @@ defmodule VotaSanremo.Performers.Performer.Queries do
   end
 
   def list_performers_avg_score_by_edition(edition_id) do
-    base_for_performers_score_by_edition(edition_id)
+    base()
+    |> join_performances()
+    |> join_votes()
+    |> join_evenings()
+    |> join_performance_types()
+    |> filter_by_edition(edition_id)
+    |> group_by_performer_and_performance_type()
     |> select_avg_score()
     |> all()
   end
 
   def list_performers_weighted_avg_score_by_edition(edition_id) do
-    base_for_performers_score_by_edition(edition_id)
+    base()
+    |> join_performances()
+    |> join_votes()
+    |> join_evenings()
+    |> join_performance_types()
+    |> filter_by_edition(edition_id)
+    |> group_by_performer_and_performance_type()
     |> select_weighted_avg_score()
     |> all()
   end
 
-  defp base_for_performers_score_by_edition(edition_id) do
-    from performer in "performers",
-      join: performance in "performances",
-      on: performance.performer_id == performer.id,
-      join: vote in "votes",
-      on: vote.performance_id == performance.id,
-      join: evening in "evenings",
-      on: evening.id == performance.evening_id,
-      join: performance_type in "performance_types",
-      on: performance.performance_type_id == performance_type.id,
-      where: evening.edition_id == ^edition_id,
-      group_by: [performer.name, performance_type.type]
+  def list_performers_avg_score_by_edition_by_user(edition_id, user) do
+    base()
+    |> join_performances()
+    |> join_votes_of_user(user)
+    |> join_evenings()
+    |> join_performance_types()
+    |> filter_by_edition(edition_id)
+    |> group_by_performer_and_performance_type()
+    |> select_avg_score()
+    |> all()
+  end
+
+  defp join_performances(query) do
+    query |> join(:inner, [p], performance in assoc(p, :performances))
+  end
+
+  defp join_votes(query) do
+    query |> join(:left, [p, pp], v in assoc(pp, :votes))
+  end
+
+  defp join_votes_of_user(query, user) do
+    query
+    |> join(:left, [p, pp], v in assoc(pp, :votes),
+      on: pp.id == v.performance_id and v.user_id == ^user.id
+    )
+  end
+
+  defp join_evenings(query) do
+    query |> join(:inner, [p, pp, v], e in assoc(pp, :evening))
+  end
+
+  defp join_performance_types(query) do
+    query |> join(:inner, [p, pp, v, e], pt in assoc(pp, :performance_type))
+  end
+
+  defp filter_by_edition(query, edition_id) do
+    query |> where([p, pp, v, e, pt], e.edition_id == ^edition_id)
+  end
+
+  defp group_by_performer_and_performance_type(query) do
+    query |> group_by([p, pp, v, e, pt], [p.name, pt.type])
   end
 
   defp select_avg_score(query) do

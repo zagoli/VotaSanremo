@@ -207,4 +207,27 @@ defmodule VotaSanremoWeb.UserSettingsLiveTest do
       assert message == "You must log in to access this page."
     end
   end
+
+  describe "votes privacy form" do
+    setup [:register_and_log_in_user]
+
+    test "renders form", %{conn: conn} do
+      {:ok, _live, html} = live(conn, ~p"/users/settings")
+      assert html =~ "Set your votes privacy"
+      assert html =~ "Public"
+      assert html =~ "Private"
+    end
+
+    test "can change privacy", %{conn: conn, user: user} do
+      {:ok, live, _html} = live(conn, ~p"/users/settings")
+      user = Accounts.get_user!(user.id)
+      assert user.votes_privacy == :public
+
+      form(live, "#votes_privacy_form", user: %{votes_privacy: :private})
+      |> render_change()
+
+      user = Accounts.get_user!(user.id)
+      assert user.votes_privacy == :private
+    end
+  end
 end

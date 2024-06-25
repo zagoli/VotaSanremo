@@ -1,15 +1,15 @@
-defmodule VotaSanremoWeb.Votes.VoteLive do
+defmodule VotaSanremoWeb.VoteLive do
   use VotaSanremoWeb, :live_view
   import VotaSanremoWeb.EveningSelector
-  import VotaSanremoWeb.Votes.{PerformancesContainer, VoteForm}
+  import VotaSanremoWeb.{PerformancesContainer, VoteForm}
   alias VotaSanremo.Editions
   alias VotaSanremo.Performances
 
   def mount(_params, _session, socket) do
     {:ok,
      socket
-     |> assign_evenings
-     |> assign_default_selected_evening}
+     |> assign_evenings()
+     |> assign_default_selected_evening()}
   end
 
   def handle_params(
@@ -81,7 +81,7 @@ defmodule VotaSanremoWeb.Votes.VoteLive do
      |> assign_selected_evening_with_performances(evening)}
   end
 
-  def handle_info({VotaSanremoWeb.Votes.VoteFormInternal, {:saved, performance_id, vote}}, socket) do
+  def handle_info({VotaSanremoWeb.VoteFormInternal, {:saved, performance_id, vote}}, socket) do
     {:noreply,
      socket
      |> update(:performances, fn performances ->

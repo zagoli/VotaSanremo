@@ -1,4 +1,5 @@
 defmodule VotaSanremo.PerformersTest do
+  alias VotaSanremo.AccountsFixtures
   use VotaSanremo.DataCase
 
   alias VotaSanremo.Performers
@@ -6,7 +7,6 @@ defmodule VotaSanremo.PerformersTest do
   describe "performers" do
     import VotaSanremo.PerformersFixtures
     alias VotaSanremo.Performers.Performer
-    alias VotaSanremo.TestSetupFixtures
 
     @invalid_attrs %{name: nil}
 
@@ -57,6 +57,12 @@ defmodule VotaSanremo.PerformersTest do
       performer = performer_fixture()
       assert %Ecto.Changeset{} = Performers.change_performer(performer)
     end
+  end
+
+  describe "performers votes" do
+    import VotaSanremo.PerformersFixtures
+    alias VotaSanremo.Performers.Performer
+    alias VotaSanremo.TestSetupFixtures
 
     test "list_performers_avg_score_by_edition/1 lists performers with correct avg score" do
       scores = 1..10
@@ -116,6 +122,36 @@ defmodule VotaSanremo.PerformersTest do
       [avg_score | _] = Performers.list_performers_weighted_avg_score_by_edition(edition_id)
 
       assert avg_score.score == Enum.sum(scores) * 2 / Enum.count(scores) * Enum.sum(scores)
+    end
+
+    test "list_performers_avg_score_by_edition_by_user/2 lists performers with correct avg score of given user" do
+      user = AccountsFixtures.user_fixture()
+
+      {edition_id, performer_name, first_performance_type, second_performance_type} =
+        TestSetupFixtures.setup_for_avg_score_by_user_test(user)
+
+      [first_avg_score, second_avg_score] =
+        Performers.list_performers_avg_score_by_edition_by_user(edition_id, user)
+
+      assert first_avg_score.name == performer_name
+      assert second_avg_score.name == performer_name
+      assert first_avg_score.performance_type in [first_performance_type, second_performance_type]
+
+      assert second_avg_score.performance_type in [
+               first_performance_type,
+               second_performance_type
+             ]
+
+      assert first_avg_score.score == 5.0
+      assert second_avg_score.score == 5.0
+    end
+
+    test "list_performers_avg_score_by_edition_by_user/2 uses multiplier" do
+      user = AccountsFixtures.user_fixture()
+      {edition_id, _, _, _} = TestSetupFixtures.setup_for_avg_score_by_user_test(user, 2.0)
+      [avg_score | _] = Performers.list_performers_avg_score_by_edition_by_user(edition_id, user)
+
+      assert avg_score.score == 10.0
     end
   end
 end

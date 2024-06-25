@@ -1,5 +1,0 @@
-#!/bin/sh
-set -eu
-
-cd -P -- "$(dirname -- "$0")"
-exec ./vota_sanremo eval VotaSanremo.Release.migrate

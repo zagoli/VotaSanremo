@@ -8,6 +8,7 @@ defmodule VotaSanremo.Performers do
 
   alias VotaSanremo.Performers.Performer
   alias VotaSanremo.Performers.Performer.Queries
+  alias VotaSanremo.Accounts.User
 
   @doc """
   Returns the list of performers.
@@ -86,9 +87,7 @@ defmodule VotaSanremo.Performers do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_performer(%Performer{} = performer) do
-    Repo.delete(performer)
-  end
+  def delete_performer(%Performer{} = performer), do: Repo.delete(performer)
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking performer changes.
@@ -99,9 +98,8 @@ defmodule VotaSanremo.Performers do
       %Ecto.Changeset{data: %Performer{}}
 
   """
-  def change_performer(%Performer{} = performer, attrs \\ %{}) do
-    Performer.changeset(performer, attrs)
-  end
+  def change_performer(%Performer{} = performer, attrs \\ %{}),
+    do: Performer.changeset(performer, attrs)
 
   @doc """
   Returns the average scores of performers as maps. These maps contain the performer name, the performance type
@@ -113,9 +111,8 @@ defmodule VotaSanremo.Performers do
       [%{name: "Performer_1", performance_type: "Song", score: 12.33},
       %{name: "Performer_1", performance_type: "Song", score: 12.33}]
   """
-  def list_performers_avg_score_by_edition(edition_id) when is_integer(edition_id) do
-    Queries.list_performers_avg_score_by_edition(edition_id)
-  end
+  def list_performers_avg_score_by_edition(edition_id) when is_integer(edition_id),
+    do: Queries.list_performers_avg_score_by_edition(edition_id)
 
   @doc """
   Returns the average weighted scores of performers as maps.
@@ -130,7 +127,13 @@ defmodule VotaSanremo.Performers do
       [%{name: "Performer_1", performance_type: "Song", score: 12.33},
       %{name: "Performer_1", performance_type: "Song", score: 12.33}]
   """
-  def list_performers_weighted_avg_score_by_edition(edition_id) when is_integer(edition_id) do
-    Queries.list_performers_weighted_avg_score_by_edition(edition_id)
-  end
+  def list_performers_weighted_avg_score_by_edition(edition_id) when is_integer(edition_id),
+    do: Queries.list_performers_weighted_avg_score_by_edition(edition_id)
+
+  @doc """
+  Same as the version without `user` as the parameter, but with only the votes of the given `user`.
+  """
+  def list_performers_avg_score_by_edition_by_user(edition_id, %User{} = user)
+      when is_integer(edition_id),
+      do: Queries.list_performers_avg_score_by_edition_by_user(edition_id, user)
 end

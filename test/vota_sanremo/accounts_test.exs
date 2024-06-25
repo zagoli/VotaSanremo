@@ -95,14 +95,31 @@ defmodule VotaSanremo.AccountsTest do
     end
 
     test "validates maximum values for first name, last name and username" do
-      too_long = String.duplicate("db", 100)
+      too_long = String.duplicate("a", 161)
 
       {:error, changeset} =
-        Accounts.register_user(%{username: too_long, first_name: too_long, last_name: too_long})
+        Accounts.register_user(%{first_name: too_long, last_name: too_long})
 
-      assert "should be at most 160 character(s)" in errors_on(changeset).username
       assert "should be at most 160 character(s)" in errors_on(changeset).first_name
       assert "should be at most 160 character(s)" in errors_on(changeset).last_name
+    end
+
+    test "validates username format and length" do
+      # Too long
+      {:error, changeset} = Accounts.register_user(%{username: String.duplicate("a", 161)})
+      assert "should be at most 160 character(s)" in errors_on(changeset).username
+
+      # Too short
+      {:error, changeset} = Accounts.register_user(%{username: "aaa"})
+      assert "should be at least 4 character(s)" in errors_on(changeset).username
+
+      # Invalid format
+      {:error, changeset} = Accounts.register_user(%{username: "invalid-username"})
+      assert "must contain only letters and numbers" in errors_on(changeset).username
+
+      # Valid username
+      {:error, changeset} = Accounts.register_user(%{username: "Perfectly00Valid00Username"})
+      refute Map.has_key?(errors_on(changeset), :username)
     end
 
     test "validates email uniqueness" do
@@ -288,6 +305,35 @@ defmodule VotaSanremo.AccountsTest do
       assert Accounts.update_user_email(user, token) == :error
       assert Repo.get!(User, user.id).email == user.email
       assert Repo.get_by(UserToken, user_id: user.id)
+    end
+  end
+
+  describe "change_user/2" do
+    test "returns a changeset" do
+      assert %Ecto.Changeset{} = Accounts.change_user(%User{})
+    end
+  end
+
+  describe "update_user/2" do
+    setup do
+      %{user: user_fixture(first_name: "name", last_name: "surname", votes_privacy: :public)}
+    end
+
+    test "updates the user", %{user: user} do
+      new_first_name = "new name"
+      new_last_name = "new surname"
+      new_votes_privacy = :private
+
+      {:ok, updated_user} =
+        Accounts.update_user(user, %{
+          first_name: new_first_name,
+          last_name: new_last_name,
+          votes_privacy: new_votes_privacy
+        })
+
+      assert updated_user.first_name == new_first_name
+      assert updated_user.last_name == new_last_name
+      assert updated_user.votes_privacy == new_votes_privacy
     end
   end
 
@@ -568,6 +614,39 @@ defmodule VotaSanremo.AccountsTest do
   describe "inspect/2 for the User module" do
     test "does not include password" do
       refute inspect(%User{password: "123456"}) =~ "password: \"123456\""
+    end
+  end
+
+  describe "list_users_by_username/1" do
+    alias VotaSanremo.UserSearch
+
+    setup do
+      user_fixture(%{username: "user1"})
+      user_fixture(%{username: "user2"})
+      user_fixture(%{username: "user3"})
+      user_fixture(%{username: "user4"})
+      user_fixture(%{username: "user5"})
+      :ok
+    end
+
+    test "finds all users starting with the provided username" do
+      changeset = UserSearch.change_username(%{"username" => "User"})
+
+      found_usernames =
+        Accounts.list_users_by_username(changeset)
+        |> Enum.map(& &1.username)
+
+      assert "user1" in found_usernames
+      assert "user2" in found_usernames
+      assert "user3" in found_usernames
+      assert "user4" in found_usernames
+      assert "user5" in found_usernames
+    end
+
+    test "returns empty list when no match is found" do
+      changeset = UserSearch.change_username(%{"username" => "nothing"})
+      found_users = Accounts.list_users_by_username(changeset)
+      assert Enum.empty?(found_users)
     end
   end
 end
