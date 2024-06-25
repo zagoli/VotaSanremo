@@ -1,18 +1,14 @@
 # VotaSanremo
+Code for [votasanremo.zagoli.com](votasanremo.zagoli.com).
 
-To start your Phoenix server:
+This website allows you to vote for each artist every evening during the 
+[Sanremo Music Festival](https://en.wikipedia.org/wiki/Sanremo_Music_Festival) and view a live leaderboard.
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+It's a personal project, not affiliated with the Festival in any way. 
+I created it for my friends and to learn Elixir and Phoenix LiveView. 
+Unfortunately, my UI/UX skills are lacking, so it might not look very polished.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+# Run locally
+1. Install [Elixir](https://elixir-lang.org/install.html)
+2. Install [PostgreSQL](https://www.postgresql.org/download/)
+3. Clone `main` and run `mix phx.server`
