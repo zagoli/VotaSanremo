@@ -101,4 +101,100 @@ defmodule VotaSanremo.Juries do
   def change_jury(%Jury{} = jury, attrs \\ %{}) do
     Jury.changeset(jury, attrs)
   end
+
+  alias VotaSanremo.Juries.JuryInvitation
+
+  @doc """
+  Returns the list of jury_invitations.
+
+  ## Examples
+
+      iex> list_jury_invitations()
+      [%JuryInvitation{}, ...]
+
+  """
+  def list_jury_invitations do
+    Repo.all(JuryInvitation)
+  end
+
+  @doc """
+  Gets a single jury_invitation.
+
+  Raises `Ecto.NoResultsError` if the Jury invitation does not exist.
+
+  ## Examples
+
+      iex> get_jury_invitation!(123)
+      %JuryInvitation{}
+
+      iex> get_jury_invitation!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_jury_invitation!(id), do: Repo.get!(JuryInvitation, id)
+
+  @doc """
+  Creates a jury_invitation.
+
+  ## Examples
+
+      iex> create_jury_invitation(%{field: value})
+      {:ok, %JuryInvitation{}}
+
+      iex> create_jury_invitation(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_jury_invitation(attrs \\ %{}) do
+    %JuryInvitation{}
+    |> JuryInvitation.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a jury_invitation.
+
+  ## Examples
+
+      iex> update_jury_invitation(jury_invitation, %{field: new_value})
+      {:ok, %JuryInvitation{}}
+
+      iex> update_jury_invitation(jury_invitation, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_jury_invitation(%JuryInvitation{} = jury_invitation, attrs) do
+    jury_invitation
+    |> JuryInvitation.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a jury_invitation.
+
+  ## Examples
+
+      iex> delete_jury_invitation(jury_invitation)
+      {:ok, %JuryInvitation{}}
+
+      iex> delete_jury_invitation(jury_invitation)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_jury_invitation(%JuryInvitation{} = jury_invitation) do
+    Repo.delete(jury_invitation)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking jury_invitation changes.
+
+  ## Examples
+
+      iex> change_jury_invitation(jury_invitation)
+      %Ecto.Changeset{data: %JuryInvitation{}}
+
+  """
+  def change_jury_invitation(%JuryInvitation{} = jury_invitation, attrs \\ %{}) do
+    JuryInvitation.changeset(jury_invitation, attrs)
+  end
 end
