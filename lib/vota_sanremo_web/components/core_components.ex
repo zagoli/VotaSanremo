@@ -23,8 +23,9 @@ defmodule VotaSanremoWeb.CoreComponents do
   Renders a navigation link for the sidebar that goes to the given path.
   """
   attr :path, :any, required: true, doc: "the path to navigate to"
-  attr :text, :string, required: true, doc: "the text to display"
   attr :method, :string, default: "get", doc: "the optional method used to navigate"
+
+  slot :inner_block, required: true, doc: "the text to display"
 
   def sidenav_link(assigns) do
     ~H"""
@@ -33,7 +34,7 @@ defmodule VotaSanremoWeb.CoreComponents do
       method={@method}
       class="pl-10 h-10 text-white font-semibold hover:bg-zinc-600 flex flex-wrap content-center"
     >
-      <%= @text %>
+      <%= render_slot(@inner_block) %>
     </.link>
     """
   end
