@@ -1,0 +1,13 @@
+<.header>
+  Create a new Jury
+  <:subtitle>
+    Choose a name. You will be able to invite jurors later.
+  </:subtitle>
+</.header>
+
+<.simple_form for={@form} phx-change="validate" phx-submit="save">
+  <.input field={@form[:name]} label="Jury name" phx-debounce="blur" />
+  <:actions>
+    <.button type="submit" phx-disable-with="Saving..." class="w-full">Save</.button>
+  </:actions>
+</.simple_form>

@@ -57,6 +57,20 @@ defmodule VotaSanremo.JuriesTest do
       jury = jury_fixture()
       assert %Ecto.Changeset{} = Juries.change_jury(jury)
     end
+
+    test "validates jury name format and length" do
+      # Too long
+      {:error, changeset} = Juries.create_jury(%{name: String.duplicate("a", 161)})
+      assert "should be at most 160 character(s)" in errors_on(changeset).name
+
+      # Invalid format
+      {:error, changeset} = Juries.create_jury(%{name: "invalid-username"})
+      assert "must contain only letters and numbers" in errors_on(changeset).name
+
+      # Valid name
+      {:error, changeset} = Juries.create_jury(%{name: "Perfectly00Valid00Username"})
+      refute Map.has_key?(errors_on(changeset), :name)
+    end
   end
 
   describe "jury_invitations" do

@@ -76,6 +76,7 @@ defmodule VotaSanremoWeb.Router do
       live "/juries", JuriesLive
       live "/juries/personal", PersonalJuriesLive
       live "/juries/new", NewJuryLive
+      live "/juries/:jury_id", JuryLive
     end
   end
 
