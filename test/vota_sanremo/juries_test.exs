@@ -5,7 +5,7 @@ defmodule VotaSanremo.JuriesTest do
 
   describe "juries" do
     alias VotaSanremo.Juries.Jury
-
+    alias VotaSanremo.Juries.JuriesComposition
     import VotaSanremo.{JuriesFixtures, AccountsFixtures}
 
     @invalid_attrs %{name: nil, founder: -1}
@@ -79,6 +79,15 @@ defmodule VotaSanremo.JuriesTest do
       # Valid name
       {:error, changeset} = Juries.create_jury(%{name: "Perfectly00Valid00Username"})
       refute Map.has_key?(errors_on(changeset), :name)
+    end
+
+    test "add_member/2 adds a user to a jury as a member" do
+      jury = jury_fixture()
+      user = user_fixture()
+
+      assert {:ok, %JuriesComposition{}} = Juries.add_member(jury, user)
+
+      # TODO: complete test when method to get members of jury is done
     end
   end
 

@@ -7,6 +7,9 @@ defmodule VotaSanremo.Juries do
   alias VotaSanremo.Repo
 
   alias VotaSanremo.Juries.Jury
+  alias VotaSanremo.Accounts.User
+  alias VotaSanremo.Juries.JuriesComposition
+
 
   @doc """
   Returns the list of juries.
@@ -51,23 +54,38 @@ defmodule VotaSanremo.Juries do
   """
   def get_jury(id), do: Repo.get(Jury, id)
 
-
-
   @doc """
   Creates a jury.
 
   ## Examples
 
-      iex> create_jury(%{field: value})
+      iex> create_jury(%{name: value, founder: 1})
       {:ok, %Jury{}}
 
-      iex> create_jury(%{field: bad_value})
+      iex> create_jury(%{name: bad_value, founder: -1})
       {:error, %Ecto.Changeset{}}
 
   """
   def create_jury(attrs \\ %{}) do
     %Jury{}
     |> Jury.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Adds a member to a jury.
+
+  ## Examples
+
+      iex> add_member(jury, user)
+      {:ok, %JuriesComposition{}}
+
+      iex> add_member(jury, bad_user)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def add_member(%Jury{} = jury, %User{} = user) do
+    %JuriesComposition{jury: jury, user: user}
     |> Repo.insert()
   end
 
