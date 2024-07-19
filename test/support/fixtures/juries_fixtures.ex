@@ -8,7 +8,7 @@ defmodule VotaSanremo.JuriesFixtures do
   @doc """
   Generate a unique jury name.
   """
-  def unique_jury_name, do: "some name#{System.unique_integer([:positive])}"
+  def unique_jury_name, do: "someName#{System.unique_integer([:positive])}"
 
   @doc """
   Generate a jury.

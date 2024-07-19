@@ -2,13 +2,16 @@
   <h1 class="text-3xl"><%= @user.username %></h1>
 
   <section class="mt-5">
-    <h2 class="text-xl font-bold" :if={not Enum.empty?(@scores)}>Votes</h2>
-    <h3 class="text-lg"></h3>
-
-    <%= if @user.votes_privacy == :public do %>
-      <.performers_scores scores={@scores} />
-    <% else %>
+    <h2 class="text-xl font-bold">Votes</h2>
+    
+    <%= if @user.votes_privacy == :private do %>
       <p><%= @user.username %> does not want to disclose his/her votes.</p>
+    <% else %>
+      <%= if Enum.empty?(@scores) do %>
+        <p>There are no votes to show yet.</p>
+      <% else %>  
+        <.performers_scores scores={@scores} />
+      <% end %>  
     <% end %>
   </section>
 </div>

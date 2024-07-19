@@ -20,12 +20,21 @@ defmodule VotaSanremo.JuriesTest do
       assert Juries.get_jury!(jury.id) == jury
     end
 
+    test "get_jury/1 returns the jury with given id" do
+      jury = jury_fixture()
+      assert Juries.get_jury(jury.id) == jury
+    end
+
+    test "get_jury/1 returns nil if the id is not present" do
+      assert Juries.get_jury(1) == nil
+    end
+
     test "create_jury/1 with valid data creates a jury" do
       %{id: user_id} = user_fixture()
-      valid_attrs = %{name: "some name", founder: user_id}
+      valid_attrs = %{name: "someName", founder: user_id}
 
       assert {:ok, %Jury{} = jury} = Juries.create_jury(valid_attrs)
-      assert jury.name == "some name"
+      assert jury.name == "someName"
       assert jury.founder == user_id
     end
 
@@ -35,10 +44,10 @@ defmodule VotaSanremo.JuriesTest do
 
     test "update_jury/2 with valid data updates the jury" do
       jury = jury_fixture()
-      update_attrs = %{name: "some updated name"}
+      update_attrs = %{name: "someUpdatedName"}
 
       assert {:ok, %Jury{} = jury} = Juries.update_jury(jury, update_attrs)
-      assert jury.name == "some updated name"
+      assert jury.name == "someUpdatedName"
     end
 
     test "update_jury/2 with invalid data returns error changeset" do

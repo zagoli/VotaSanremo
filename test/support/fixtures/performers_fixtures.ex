@@ -7,7 +7,7 @@ defmodule VotaSanremo.PerformersFixtures do
   @doc """
   Generate a unique performer name.
   """
-  def unique_performer_name, do: "some name#{System.unique_integer([:positive])}"
+  def unique_performer_name, do: "someName#{System.unique_integer([:positive])}"
 
   @doc """
   Generate a performer.

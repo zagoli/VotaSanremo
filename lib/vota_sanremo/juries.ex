@@ -38,6 +38,22 @@ defmodule VotaSanremo.Juries do
   def get_jury!(id), do: Repo.get!(Jury, id)
 
   @doc """
+  Gets a single jury.
+
+  ## Examples
+
+      iex> get_jury(123)
+      %Jury{}
+
+      iex> get_jury(456)
+      nil
+
+  """
+  def get_jury(id), do: Repo.get(Jury, id)
+
+
+
+  @doc """
   Creates a jury.
 
   ## Examples

@@ -37,13 +37,9 @@ defmodule VotaSanremoWeb.UserProfileLiveTest do
     end
 
     test "does not render user votes when they are private", %{conn: conn, user: user} do
-      # TODO: use correct functions to update the user when implemented
       {:ok, _} =
         user
-        |> Accounts.change_user_registration(%{
-          votes_privacy: :private,
-          password: "FakePassword99"
-        })
+        |> Accounts.change_user(%{votes_privacy: :private})
         |> VotaSanremo.Repo.update()
 
       {:ok, _live, html} = live(conn, ~p"/users/profile/#{user.id}")

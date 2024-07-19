@@ -21,10 +21,10 @@ defmodule VotaSanremo.PerformersTest do
     end
 
     test "create_performer/1 with valid data creates a performer" do
-      valid_attrs = %{name: "some name"}
+      valid_attrs = %{name: "someName"}
 
       assert {:ok, %Performer{} = performer} = Performers.create_performer(valid_attrs)
-      assert performer.name == "some name"
+      assert performer.name == "someName"
     end
 
     test "create_performer/1 with invalid data returns error changeset" do
@@ -33,12 +33,12 @@ defmodule VotaSanremo.PerformersTest do
 
     test "update_performer/2 with valid data updates the performer" do
       performer = performer_fixture()
-      update_attrs = %{name: "some updated name"}
+      update_attrs = %{name: "someUpdatedName"}
 
       assert {:ok, %Performer{} = performer} =
                Performers.update_performer(performer, update_attrs)
 
-      assert performer.name == "some updated name"
+      assert performer.name == "someUpdatedName"
     end
 
     test "update_performer/2 with invalid data returns error changeset" do
