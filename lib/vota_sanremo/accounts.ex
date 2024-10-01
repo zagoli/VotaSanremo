@@ -68,10 +68,11 @@ defmodule VotaSanremo.Accounts do
   Limited to a hudred matches.
   """
   def list_users_by_username(%Ecto.Changeset{} = changeset) do
-    # TODO use PostgreSQL's `fuzzystrmatch` when available
-    {:ok, username} = apply_action(changeset, :get_username)
-    like = "#{username}%"
+    {:ok, checkedChangeset} = apply_action(changeset, :get_username)
+    like = "#{checkedChangeset.username}%"
+
     User
+    # TODO use PostgreSQL's `fuzzystrmatch` when available
     |> where([u], ilike(u.username, ^like))
     |> order_by(desc: :username)
     |> limit(100)
