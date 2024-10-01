@@ -1,24 +1,28 @@
 <section>
   <.header>My Juries</.header>
-  
-  <div class="h-full">
-    <!-- New jury button -->
-    <.link
-      navigate={~p"/juries/new"}
-      class="block mt-3 text-center w-full bg-zinc-600 text-white rounded-lg p-3"
-    >
-      <.icon name="hero-plus" class="h-4 w-4" /> <span>Create New Jury</span>
-    </.link>
-    <!-- Member juries -->
-    <%= if not Enum.empty?(@member_juries) do %>
-      <.header class="mt-4">Juries you are a member of</.header>
-      <ul>
-        <%= for jury <- @member_juries do %>
-        <li><%= jury.name %></li>
-        <% end %>
-      </ul>
-    <% end %>
-  </div>
+  <!-- New jury button -->
+  <.link
+    navigate={~p"/juries/new"}
+    class="block mt-3 text-center w-full bg-zinc-600 text-white rounded-lg p-3"
+  >
+    <.icon name="hero-plus" class="h-4 w-4" /> <span>Create New Jury</span>
+  </.link>
+  <!-- Founded juries -->
+  <%= if not Enum.empty?(@founded_juries) do %>
+    <.header class="mt-4">Juries you have founded</.header>
+    
+    <ul>
+      <li :for={jury <- @founded_juries}><%= jury.name %></li>
+    </ul>
+  <% end %>
+  <!-- Member juries -->
+  <%= if not Enum.empty?(@member_juries) do %>
+    <.header class="mt-4">Juries you are a member of</.header>
+    
+    <ul>
+      <li :for={jury <- @member_juries}><%= jury.name %></li>
+    </ul>
+  <% end %>
   
   <.back navigate={~p"/juries"}>Juries</.back>
 </section>
