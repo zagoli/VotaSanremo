@@ -9,6 +9,7 @@ defmodule VotaSanremo.Juries do
   alias VotaSanremo.Juries.Jury
   alias VotaSanremo.Accounts.User
   alias VotaSanremo.Juries.JuriesComposition
+  alias VotaSanremo.Juries.JuriesComposition.Queries
 
 
   @doc """
@@ -22,6 +23,18 @@ defmodule VotaSanremo.Juries do
   """
   def list_juries do
     Repo.all(Jury)
+  end
+
+  @doc """
+  Returns the juries founded by a user.
+
+  ## Examples
+
+      iex> list_founded_juries(user)
+      [%Jury{}, ...]
+  """
+  def list_founded_juries(user = %User{}) do
+    Queries.list_founded_juries(user)
   end
 
   @doc """
