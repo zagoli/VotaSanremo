@@ -16,4 +16,9 @@ defmodule VotaSanremo.Juries.JuriesComposition.Queries do
     |> where(founder: ^user.id)
     |> Repo.all()
   end
+
+  def list_member_juries(%User{id: user_id}) do
+    %User{juries: juries} = User |> Repo.get(user_id) |> Repo.preload(:juries)
+    juries
+  end
 end

@@ -38,6 +38,18 @@ defmodule VotaSanremo.Juries do
   end
 
   @doc """
+  Returns the juries the user is a member of.
+
+  ## Examples
+
+      iex> list_member_juries(user)
+      [%Jury{}, ...]
+  """
+  def list_member_juries(user = %User{}) do
+    Queries.list_member_juries(user)
+  end
+
+  @doc """
   Gets a single jury.
 
   Raises `Ecto.NoResultsError` if the Jury does not exist.
