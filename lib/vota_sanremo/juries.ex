@@ -115,6 +115,16 @@ defmodule VotaSanremo.Juries do
   end
 
   @doc """
+  Removes a member from a jury.
+  If the user is not a member of the jury, nothing happens.
+  """
+  def remove_member(%Jury{} = jury, %User{} = user) do
+    JuriesComposition
+    |> where([jc], jc.jury_id == ^jury.id and jc.user_id == ^user.id)
+    |> Repo.delete_all()
+  end
+
+  @doc """
   Updates a jury.
 
   ## Examples

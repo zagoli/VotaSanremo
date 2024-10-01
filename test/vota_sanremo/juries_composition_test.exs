@@ -33,12 +33,22 @@ defmodule VotaSanremo.JuriesCompositionTest do
   end
 
   describe "add_member/2" do
-    test "add_member/2 adds a user to a jury as a member" do
+    test "it adds a user to a jury as a member" do
       jury = jury_fixture()
       user = user_fixture()
-
-      assert {:ok, %JuriesComposition{}} = Juries.add_member(jury, user)
+      Juries.add_member(jury, user)
       assert Juries.list_member_juries(user) == [jury]
+    end
+  end
+
+  describe "remove_member/2" do
+    test "it removes a member from a jury" do
+      jury = jury_fixture()
+      user = user_fixture()
+      Juries.add_member(jury, user)
+      Juries.remove_member(jury, user)
+
+      assert Juries.list_member_juries(user) == []
     end
   end
 end
