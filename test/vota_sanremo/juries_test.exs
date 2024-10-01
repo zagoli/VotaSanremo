@@ -86,8 +86,7 @@ defmodule VotaSanremo.JuriesTest do
       user = user_fixture()
 
       assert {:ok, %JuriesComposition{}} = Juries.add_member(jury, user)
-
-      # TODO: complete test when method to get members of jury is done
+      assert Juries.list_member_juries(user) == [jury]
     end
   end
 
