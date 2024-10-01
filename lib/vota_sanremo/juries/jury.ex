@@ -20,9 +20,6 @@ defmodule VotaSanremo.Juries.Jury do
     |> cast(attrs, [:name, :founder])
     |> validate_required([:name, :founder])
     |> validate_length(:name, max: 160)
-    |> validate_format(:name, ~r"^[a-zA-Z0-9]+$",
-      message: "must contain only letters and numbers"
-    )
     |> unsafe_validate_unique(:name, VotaSanremo.Repo)
     |> unique_constraint(:name)
   end
