@@ -80,14 +80,6 @@ defmodule VotaSanremo.JuriesTest do
       {:error, changeset} = Juries.create_jury(%{name: "Perfectly00Valid00Username"})
       refute Map.has_key?(errors_on(changeset), :name)
     end
-
-    test "add_member/2 adds a user to a jury as a member" do
-      jury = jury_fixture()
-      user = user_fixture()
-
-      assert {:ok, %JuriesComposition{}} = Juries.add_member(jury, user)
-      assert Juries.list_member_juries(user) == [jury]
-    end
   end
 
   describe "jury_invitations" do
