@@ -9,7 +9,6 @@ defmodule VotaSanremo.Juries do
   alias VotaSanremo.Juries.Jury
   alias VotaSanremo.Accounts.User
   alias VotaSanremo.Juries.JuriesComposition
-  alias VotaSanremo.Juries.JuriesComposition.Queries
 
 
   @doc """
@@ -34,7 +33,9 @@ defmodule VotaSanremo.Juries do
       [%Jury{}, ...]
   """
   def list_founded_juries(user = %User{}) do
-    Queries.list_founded_juries(user)
+    Jury
+    |> where(founder: ^user.id)
+    |> Repo.all()
   end
 
   @doc """
@@ -46,7 +47,8 @@ defmodule VotaSanremo.Juries do
       [%Jury{}, ...]
   """
   def list_member_juries(user = %User{}) do
-    Queries.list_member_juries(user)
+    %User{juries: juries} = User |> Repo.get(user.id) |> Repo.preload(:juries)
+    juries
   end
 
   @doc """
