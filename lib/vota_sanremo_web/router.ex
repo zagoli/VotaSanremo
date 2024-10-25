@@ -74,6 +74,18 @@ defmodule VotaSanremoWeb.Router do
     end
   end
 
+  scope "/admin", VotaSanremoWeb do
+    pipe_through [:browser, :require_authenticated_user, :require_admin]
+
+    live_session :require_authenticated_admin,
+      on_mount: [
+        {VotaSanremoWeb.UserAuth, :ensure_authenticated},
+        {VotaSanremoWeb.UserAuth, :ensure_admin}
+      ] do
+      live "/editions", UserSettingsLive, :edit
+    end
+  end
+
   scope "/", VotaSanremoWeb do
     pipe_through [:browser]
 

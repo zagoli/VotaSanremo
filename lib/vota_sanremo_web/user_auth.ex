@@ -164,6 +164,17 @@ defmodule VotaSanremoWeb.UserAuth do
     end
   end
 
+  def on_mount(:ensure_admin, _params, _session, socket) do
+    if socket.assigns.current_user && socket.assigns.current_user.user_type == :admin do
+      {:cont, socket}
+    else
+      {:halt,
+       socket
+       |> Phoenix.LiveView.put_flash(:error, "You must be an admin to access this page.")
+       |> Phoenix.LiveView.redirect(to: ~p"/")}
+    end
+  end
+
   def on_mount(:redirect_if_user_is_authenticated, _params, session, socket) do
     socket = mount_current_user(socket, session)
 
@@ -192,6 +203,23 @@ defmodule VotaSanremoWeb.UserAuth do
       |> halt()
     else
       conn
+    end
+  end
+
+  @doc """
+  Ensures that the current user has admin privileges.
+
+  This plug checks the `current_user` assigned to the connection and verifies
+  if the user has admin rights.
+  """
+  def require_admin(%{assigns: %{current_user: user}} = conn, _opts) do
+    if user && user.user_type == :admin do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must be an admin to access this page.")
+      |> redirect(to: ~p"/")
+      |> halt()
     end
   end
 
