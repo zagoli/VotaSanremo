@@ -93,6 +93,37 @@ defmodule VotaSanremo.Accounts do
     User.registration_changeset(user, attrs, hash_password: false, validate_email: false)
   end
 
+  @doc """
+  Returns an `%Ecto.Changeset{}` for changing the user type.
+
+  ## Examples
+
+      iex> change_user_type(user)
+      %Ecto.Changeset{data: %User{}}
+
+  """
+  def change_user_type(user, attrs \\ %{}) do
+    User.user_type_changeset(user, attrs)
+  end
+
+  @doc """
+  Updates the user type.
+
+  ## Examples
+
+    iex> update_user_type(user, %{type: :user})
+    {:ok, %User{}}
+
+    iex> update_user_type(user, %{type: :invalid})
+    {:error, %Ecto.Changeset{}}
+
+  """
+  def update_user_type(%User{} = user, attrs) do
+    user
+    |> User.user_type_changeset(attrs)
+    |> Repo.update()
+  end
+
   ## Settings
 
   @doc """

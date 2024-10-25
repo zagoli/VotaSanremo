@@ -172,6 +172,50 @@ defmodule VotaSanremo.AccountsTest do
     end
   end
 
+  describe "change_user_type/2" do
+    test "returns a changeset" do
+      assert %Ecto.Changeset{} = changeset = Accounts.change_user_type(%User{})
+      assert changeset.required == [:user_type]
+    end
+
+    test "allows user_type to be set" do
+      user_type = :admin
+
+      changeset = Accounts.change_user_type(%User{}, %{user_type: user_type})
+
+      assert changeset.valid?
+      assert get_change(changeset, :user_type) == user_type
+    end
+
+    test "validates user_type inclusion" do
+      changeset = Accounts.change_user_type(%User{}, %{user_type: :invalid})
+
+      assert ["is invalid"] = errors_on(changeset).user_type
+    end
+  end
+
+  describe "update_user_type/2" do
+    setup do
+      %{user: user_fixture()}
+    end
+
+    test "updates the user type", %{user: user} do
+      new_user_type = :admin
+      {:ok, updated_user} = Accounts.update_user_type(user, %{user_type: new_user_type})
+      assert updated_user.user_type == new_user_type
+    end
+
+    test "does not update with invalid user type", %{user: user} do
+      {:error, changeset} = Accounts.update_user_type(user, %{user_type: :invalid})
+      assert ["is invalid"] = errors_on(changeset).user_type
+    end
+
+    test "does not update if user type is missing", %{user: user} do
+      {:error, changeset} = Accounts.update_user_type(user, %{})
+      assert %{user_type: ["can't be blank"]} = errors_on(changeset)
+    end
+  end
+
   describe "change_user_email/2" do
     test "returns a user changeset" do
       assert %Ecto.Changeset{} = changeset = Accounts.change_user_email(%User{})

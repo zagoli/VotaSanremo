@@ -192,4 +192,14 @@ defmodule VotaSanremo.Accounts.User do
       add_error(changeset, :current_password, "is not valid")
     end
   end
+
+  @doc """
+  A user changeset for changing the user type.
+  """
+  def user_type_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:user_type])
+    |> validate_required([:user_type])
+    |> validate_inclusion(:user_type, [:user, :admin])
+  end
 end
