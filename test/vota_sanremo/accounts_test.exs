@@ -201,18 +201,13 @@ defmodule VotaSanremo.AccountsTest do
 
     test "updates the user type", %{user: user} do
       new_user_type = :admin
-      {:ok, updated_user} = Accounts.update_user_type(user, %{user_type: new_user_type})
+      {:ok, updated_user} = Accounts.update_user_type(user, new_user_type)
       assert updated_user.user_type == new_user_type
     end
 
     test "does not update with invalid user type", %{user: user} do
-      {:error, changeset} = Accounts.update_user_type(user, %{user_type: :invalid})
+      {:error, changeset} = Accounts.update_user_type(user, :invalid)
       assert ["is invalid"] = errors_on(changeset).user_type
-    end
-
-    test "does not update if user type is missing", %{user: user} do
-      {:error, changeset} = Accounts.update_user_type(user, %{})
-      assert %{user_type: ["can't be blank"]} = errors_on(changeset)
     end
   end
 

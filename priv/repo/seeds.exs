@@ -40,7 +40,7 @@ Enum.each(users_attrs, fn attrs ->
 end)
 # Set user type as admin for ErGerry
 gerry = Accounts.get_user_by_email("gerry@example.com")
-Accounts.update_user_type(gerry, %{user_type: :admin})
+Accounts.update_user_type(gerry,:admin)
 
 # Create performance_types
 performance_types_attrs = [

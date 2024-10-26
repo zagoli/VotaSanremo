@@ -111,16 +111,16 @@ defmodule VotaSanremo.Accounts do
 
   ## Examples
 
-    iex> update_user_type(user, %{type: :user})
+    iex> update_user_type(user, :user)
     {:ok, %User{}}
 
-    iex> update_user_type(user, %{type: :invalid})
+    iex> update_user_type(user, :invalid)
     {:error, %Ecto.Changeset{}}
 
   """
-  def update_user_type(%User{} = user, attrs) do
+  def update_user_type(%User{} = user, user_type) when is_atom(user_type) do
     user
-    |> User.user_type_changeset(attrs)
+    |> User.user_type_changeset(%{user_type: user_type})
     |> Repo.update()
   end
 

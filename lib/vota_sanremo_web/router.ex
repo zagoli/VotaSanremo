@@ -82,7 +82,7 @@ defmodule VotaSanremoWeb.Router do
         {VotaSanremoWeb.UserAuth, :ensure_authenticated},
         {VotaSanremoWeb.UserAuth, :ensure_admin}
       ] do
-      live "/editions", UserSettingsLive, :edit
+      live "/editions", Admin.ManageEditionsLive, :edit
     end
   end
 

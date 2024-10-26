@@ -51,6 +51,20 @@ defmodule VotaSanremoWeb.ConnCase do
   end
 
   @doc """
+  Setup helper that registers and logs in admin users.
+
+      setup :register_and_log_in_admin
+
+  It stores an updated connection and a registered admin user in the
+  test context.
+  """
+  def register_and_log_in_admin(%{conn: conn}) do
+    user = VotaSanremo.AccountsFixtures.user_fixture()
+    {:ok, user} = Accounts.update_user_type(user, :admin)
+    %{conn: log_in_user(conn, user), user: user}
+  end
+
+  @doc """
   Logs the given `user` into the `conn`. Also confirms the given `user`.
 
   It returns an updated `conn`.
