@@ -47,11 +47,11 @@ defmodule VotaSanremoWeb.ManageEditionsLiveTest do
 
     test "It is possible to edit an edition name", %{conn: conn, editions: [edition | _]} do
       {:ok, live, _html} = live(conn, ~p"/admin/editions")
-
-      element(live, "#edition-#{edition.id}-editor span", edition.name) |> render_click()
       new_name = "New name"
 
-      form(live, "#edition-#{edition.id}-editor form", edition: %{name: new_name}) |> render_submit()
+      form(live, "#edition-#{edition.id}-editor form", edition: %{name: new_name})
+      |> render_submit()
+
       # The parent updates and then we check
       assert render(live) =~ new_name
     end
