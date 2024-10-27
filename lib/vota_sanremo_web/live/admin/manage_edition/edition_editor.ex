@@ -26,7 +26,8 @@ defmodule VotaSanremoWeb.Admin.EditionEditorInternal do
     {:ok,
      socket
      |> assign(assigns)
-     |> assign_form()}
+     |> assign_form()
+     |> assign_editing(false)}
   end
 
   def assign_form(socket) do
@@ -34,11 +35,21 @@ defmodule VotaSanremoWeb.Admin.EditionEditorInternal do
     assign(socket, :form, to_form(changeset))
   end
 
+  def assign_editing(socket, editing) when is_boolean(editing) do
+    assign(socket, :editing, editing)
+  end
+
+  def handle_event("editing", _params, socket) do
+    {:noreply, assign_editing(socket, true)}
+  end
+
   def handle_event("update_edition", %{"edition" => params}, socket) do
     {:ok, _edition} = Editions.update_edition(socket.assigns.edition, params)
     notify_parent(:edition_updated)
 
-    {:noreply, socket}
+    {:noreply,
+     socket
+     |> assign_editing(false)}
   end
 
   defp notify_parent(msg), do: send(self(), {__MODULE__, msg})

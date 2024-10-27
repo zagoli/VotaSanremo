@@ -4,12 +4,26 @@
       <.input
         type="text"
         field={@form[:name]}
-        class="text-lg font-bold bg-inherit p-0 border-none focus:ring-0 focus:outline-none"
+        class="text-lg font-bold bg-inherit p-0 border-none"
+        phx-change="editing"
       />
-      <div class="flex gap-2">
-        <span><%= Calendar.strftime(@edition.start_date, "%d/%m/%Y") %></span> <span>-</span>
-        <span><%= Calendar.strftime(@edition.end_date, "%d/%m/%Y") %></span>
-        <.icon name="hero-trash" />
+      <.input
+        type="date"
+        field={@form[:start_date]}
+        phx-change="editing"
+        class="bg-inherit p-0 border-none max-w-28"
+      />
+      <.input
+        type="date"
+        field={@form[:end_date]}
+        phx-change="editing"
+        class="bg-inherit p-0 border-none max-w-28"
+      />
+      <div class="flex gap-2 items-center">
+        <button type="submit" title="save edition">
+          <.icon name="hero-check-mini" class={not @editing && "invisible"} />
+        </button>
+         <.icon name="hero-trash-mini" />
       </div>
     </div>
   </.form>

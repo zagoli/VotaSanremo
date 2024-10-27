@@ -70,7 +70,7 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
       Votes.update_vote(vote, %{score: 6})
 
       send(live.pid, %{event: "vote_added", payload: :ok})
-      :timer.sleep(10)
+      Process.sleep(10)
 
       assert render(live) =~ "4.0"
     end
