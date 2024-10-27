@@ -1,4 +1,4 @@
-<div class="w-full bg-zinc-100 rounded-xl p-3 border border-zinc-400" id={@id}>
+<div class="w-full bg-zinc-100 rounded-xl p-3 border border-zinc-400 mb-3" id={@id}>
   <.form for={@form} phx-submit="update_edition" phx-target={@myself}>
     <div class="flex justify-between items-center pl-1 pr-1">
       <.input
@@ -20,10 +20,19 @@
         class="bg-inherit p-0 border-none max-w-28"
       />
       <div class="flex gap-2 items-center">
-        <button type="submit" title="save edition">
-          <.icon name="hero-check-mini" class={not @editing && "invisible"} />
+        <button type="submit" title="save edition" class={not @editing && "invisible"}>
+          <.icon name="hero-check-mini" />
         </button>
-         <.icon name="hero-trash-mini" />
+        
+        <button
+          type="button"
+          title="delete edition"
+          data-confirm="Are you sure to delete this edition?"
+          phx-click="delete_edition"
+          phx-target={@myself}
+        >
+          <.icon name="hero-trash-mini" />
+        </button>
       </div>
     </div>
   </.form>

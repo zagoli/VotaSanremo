@@ -52,5 +52,12 @@ defmodule VotaSanremoWeb.Admin.EditionEditorInternal do
      |> assign_editing(false)}
   end
 
+  def handle_event("delete_edition", _params, socket) do
+    {:ok, _edition} = Editions.delete_edition(socket.assigns.edition)
+    notify_parent(:edition_updated)
+
+    {:noreply, socket}
+  end
+
   defp notify_parent(msg), do: send(self(), {__MODULE__, msg})
 end

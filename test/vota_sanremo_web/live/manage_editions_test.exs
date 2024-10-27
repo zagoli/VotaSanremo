@@ -78,5 +78,15 @@ defmodule VotaSanremoWeb.ManageEditionsLiveTest do
 
       assert render(live) =~ Date.to_string(new_end_date)
     end
+
+    test "It is possible to delete an edition", %{conn: conn, editions: [edition | _]} do
+      {:ok, live, _html} = live(conn, ~p"/admin/editions")
+
+      live
+      |> element("#edition-#{edition.id}-editor button[title='delete edition']")
+      |> render_click()
+
+      refute render(live) =~ edition.name
+    end
   end
 end

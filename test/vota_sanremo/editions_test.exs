@@ -2,10 +2,10 @@ defmodule VotaSanremo.EditionsTest do
   use VotaSanremo.DataCase
 
   alias VotaSanremo.Editions
+  alias VotaSanremo.Editions.Edition
+  alias VotaSanremo.Evenings
 
   describe "editions" do
-    alias VotaSanremo.Editions.Edition
-
     import VotaSanremo.{EditionsFixtures, EveningsFixtures}
 
     @invalid_attrs %{name: nil, start_date: nil, end_date: nil}
@@ -58,6 +58,14 @@ defmodule VotaSanremo.EditionsTest do
       edition = edition_fixture()
       assert {:ok, %Edition{}} = Editions.delete_edition(edition)
       assert_raise Ecto.NoResultsError, fn -> Editions.get_edition!(edition.id) end
+    end
+
+    test "delete_edition/1 deletes the editions and all its evenings" do
+      edition = edition_fixture()
+      evening = evening_fixture(%{edition_id: edition.id})
+      assert {:ok, %Edition{}} = Editions.delete_edition(edition)
+      assert_raise Ecto.NoResultsError, fn -> Editions.get_edition!(edition.id) end
+      assert_raise Ecto.NoResultsError, fn -> Evenings.get_evening!(evening.id) end
     end
 
     test "change_edition/1 returns a edition changeset" do
