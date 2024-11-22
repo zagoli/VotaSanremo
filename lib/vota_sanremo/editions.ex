@@ -140,4 +140,20 @@ defmodule VotaSanremo.Editions do
   def change_edition(%Edition{} = edition, attrs \\ %{}) do
     Edition.changeset(edition, attrs)
   end
+
+
+  @doc """
+  Retrieves a list of all edition names from the database.
+
+  ## Examples
+
+      iex> list_editions_names()
+      ["Edition 1", "Edition 2", "Edition 3"]
+
+  """
+  def list_editions_names() do
+    Edition
+    |> select([e], e.name)
+    |> Repo.all()
+  end
 end

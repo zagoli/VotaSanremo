@@ -1,3 +1,15 @@
-<.header class="mb-10">Manage Editions</.header>
- 
-<.edition_editor :for={edition <- @editions} edition={edition} />
+<div class="mb-10 flex flex-row justify-between">
+  <.header>Manage Editions</.header>
+  
+  <.button
+    id="new-edition"
+    type="button"
+    aria-label="Create a new edition"
+    phx-click="new_edition"
+  >
+    +
+  </.button>
+</div>
+
+<p :if={Enum.empty?(@editions)} class="text-center">There are no editions yet.</p>
+ <.edition_editor :for={edition <- @editions} edition={edition} />

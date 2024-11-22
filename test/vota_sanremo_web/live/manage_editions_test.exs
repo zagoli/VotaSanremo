@@ -88,5 +88,42 @@ defmodule VotaSanremoWeb.ManageEditionsLiveTest do
 
       refute render(live) =~ edition.name
     end
+
+    test "It is possible to create new editions with fresh names", %{
+      conn: conn
+    } do
+      {:ok, live, _html} = live(conn, ~p"/admin/editions")
+
+      html =
+        live
+        |> element("button#new-edition")
+        |> render_click()
+
+      assert html =~ "New edition"
+
+      html =
+        live
+        |> element("button#new-edition")
+        |> render_click()
+
+      assert html =~ "New edition 2"
+    end
+
+    test "Adding a new edition still displays the existing editions", %{
+      conn: conn,
+      editions: editions
+    } do
+      {:ok, live, _html} = live(conn, ~p"/admin/editions")
+
+      live
+      |> element("button#new-edition")
+      |> render_click()
+
+      open_browser(live)
+
+      Enum.each(editions, fn edition ->
+        assert render(live) =~ edition.name
+      end)
+    end
   end
 end

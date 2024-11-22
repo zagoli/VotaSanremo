@@ -110,5 +110,12 @@ defmodule VotaSanremo.EditionsTest do
     test "get_latest_edition_with_evenings!/0 throws error when there are no editions" do
       assert_raise Ecto.NoResultsError, &Editions.get_latest_edition_with_evenings!/0
     end
+
+    test "list_editions_names/0 returns a list of editions names" do
+      edition_fixture(%{name: "Edition 1"})
+      edition_fixture(%{name: "Edition 2"})
+
+      assert Editions.list_editions_names() == ["Edition 1", "Edition 2"]
+    end
   end
 end
