@@ -89,7 +89,7 @@ defmodule VotaSanremoWeb.ManageEditionsLiveTest do
       refute render(live) =~ edition.name
     end
 
-    test "It is possible to create new editions with fresh names", %{
+    test "It is possible to create a new edition", %{
       conn: conn
     } do
       {:ok, live, _html} = live(conn, ~p"/admin/editions")
@@ -100,13 +100,6 @@ defmodule VotaSanremoWeb.ManageEditionsLiveTest do
         |> render_click()
 
       assert html =~ "New edition"
-
-      html =
-        live
-        |> element("button#new-edition")
-        |> render_click()
-
-      assert html =~ "New edition 2"
     end
 
     test "Adding a new edition still displays the existing editions", %{
@@ -119,11 +112,33 @@ defmodule VotaSanremoWeb.ManageEditionsLiveTest do
       |> element("button#new-edition")
       |> render_click()
 
-      open_browser(live)
-
       Enum.each(editions, fn edition ->
         assert render(live) =~ edition.name
       end)
+    end
+  end
+
+  describe "Manage evenings" do
+    setup [:register_and_log_in_admin, :setup_editions]
+
+    test "It is possible to add an evening to an edition", %{
+      conn: conn,
+      editions: [edition | _]
+    } do
+      {:ok, live, _html} = live(conn, ~p"/admin/editions")
+
+
+      button = live |> element("#edition-#{edition.id}-editor button[title='add an evening']")
+      render_click(button)
+      render_click(button)
+      html = render(live)
+
+      {:ok, document} = Floki.parse_document(html)
+
+      evening_spans =
+        Floki.find(document, "#edition-#{edition.id}-editor .evenings span[name='evening']")
+
+      assert Enum.count(evening_spans) == Enum.count(edition.evenings) + 2
     end
   end
 end

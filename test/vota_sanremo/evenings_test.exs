@@ -80,5 +80,13 @@ defmodule VotaSanremo.EveningsTest do
       evening = evening_fixture()
       assert %Ecto.Changeset{} = Evenings.change_evening(evening)
     end
+
+    test "get_latest_evening_date/0 returns the latest evening date" do
+      evening = evening_fixture(%{date: ~D[2024-01-01]})
+      evening_fixture(%{date: ~D[2023-01-01]})
+      evening_fixture(%{date: ~D[2022-01-01]})
+
+      assert Evenings.get_latest_evening_date() == evening.date
+    end
   end
 end

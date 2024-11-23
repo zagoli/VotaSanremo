@@ -20,6 +20,8 @@ end
 
 defmodule VotaSanremoWeb.Admin.EditionEditorInternal do
   alias VotaSanremo.Editions
+  alias VotaSanremo.Editions.Edition
+  alias VotaSanremo.Evenings
   use VotaSanremoWeb, :live_component
 
   def update(assigns, socket) do
@@ -57,6 +59,36 @@ defmodule VotaSanremoWeb.Admin.EditionEditorInternal do
     notify_parent(:edition_updated)
 
     {:noreply, socket}
+  end
+
+  def handle_event("add_evening", _params, socket) do
+    new_edition_attrs = %{
+      edition_id: socket.assigns.edition.id,
+      number: get_unique_evening_number(socket.assigns.edition),
+      date: get_unique_evening_date(),
+      votes_start: DateTime.utc_now(),
+      votes_end: DateTime.utc_now()
+    }
+
+    {:ok, _evening} = Evenings.create_evening(new_edition_attrs)
+    notify_parent(:edition_updated)
+
+    {:noreply, socket}
+  end
+
+  defp get_unique_evening_number(edition = %Edition{}) do
+    latest_number =
+      Enum.map(edition.evenings, & &1.number)
+      |> Enum.max()
+
+    latest_number + 1
+  end
+
+  defp get_unique_evening_date() do
+    case Evenings.get_latest_evening_date() do
+      nil -> Date.utc_today()
+      date -> Date.add(date, 1)
+    end
   end
 
   defp notify_parent(msg), do: send(self(), {__MODULE__, msg})

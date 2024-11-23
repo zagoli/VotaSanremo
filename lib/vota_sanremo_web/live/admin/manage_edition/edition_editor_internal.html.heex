@@ -33,6 +33,10 @@
         >
           <.icon name="hero-trash-mini" />
         </button>
+        
+        <button type="button" title="add an evening" phx-click="add_evening" phx-target={@myself}>
+          <.icon name="hero-plus-mini" />
+        </button>
       </div>
     </div>
   </.form>
@@ -41,7 +45,7 @@
     :for={evening <- @edition.evenings}
     class="w-full bg-zinc-200 mt-3 mb-3 rounded-xl flex items-center evenings"
   >
-    <span class="bg-zinc-300 font-bold rounded-l-xl p-3"><%= evening.number %></span>
+    <span class="bg-zinc-300 font-bold rounded-l-xl p-3" name="evening"><%= evening.number %></span>
     <div class="grid grid-cols-[1fr_2fr_2fr_min-content_min-content] items-center p-3 w-full">
       <span>
         <button type="button">

@@ -101,4 +101,21 @@ defmodule VotaSanremo.Evenings do
   def change_evening(%Evening{} = evening, attrs \\ %{}) do
     Evening.changeset(evening, attrs)
   end
+
+  @doc """
+  Retrieves the date of the most recent evening from the database.
+
+  ## Examples
+
+      iex> get_latest_evening_date()
+      ~D[2024-02-10]
+
+      iex> get_latest_evening_date() # When no records exist
+      nil
+  """
+  def get_latest_evening_date do
+    Evening
+    |> select([e], max(e.date))
+    |> Repo.one()
+  end
 end

@@ -1,6 +1,7 @@
 defmodule VotaSanremoWeb.Admin.ManageEditionsLive do
   use VotaSanremoWeb, :live_view
   import VotaSanremoWeb.Admin.EditionEditor
+  import VotaSanremo.GetFreshName
   alias VotaSanremo.Editions
 
   def mount(_params, _session, socket) do
@@ -17,7 +18,7 @@ defmodule VotaSanremoWeb.Admin.ManageEditionsLive do
   end
 
   def handle_event("new_edition", _params, socket) do
-    new_name = get_fresh_name()
+    new_name = get_fresh_name("New edition", Editions.list_editions_names())
 
     case Editions.create_edition(%{
            name: new_name,
@@ -27,18 +28,5 @@ defmodule VotaSanremoWeb.Admin.ManageEditionsLive do
       {:ok, _} -> {:noreply, assign_editions(socket)}
       {:error, _} -> {:noreply, socket |> put_flash(:error, "Error creating the edition")}
     end
-  end
-
-  defp get_fresh_name() do
-    base_name = "New edition"
-    names = Editions.list_editions_names()
-
-    # Creates a unique edition name by:
-    # 1. Generating an infinite sequence of numbers (1, 2, 3, ...)
-    Stream.iterate(1, &(&1 + 1))
-    # 2. Converting numbers to potential names (e.g. "Edition", "Edition 2", "Edition 3")
-    |> Stream.map(fn n -> if n == 1, do: base_name, else: "#{base_name} #{n}" end)
-    # 3. Finding the first name that doesn't exist in the 'names' list
-    |> Enum.find(fn name -> name not in names end)
   end
 end
