@@ -29,11 +29,10 @@ defmodule VotaSanremoWeb.ManageEditionsLiveTest do
 
     test "Every edition has a list of evenings", %{conn: conn, editions: editions} do
       {:ok, _live, html} = live(conn, ~p"/admin/editions")
-      {:ok, document} = Floki.parse_document(html)
 
       Enum.each(editions, fn edition ->
         evenings_div =
-          Floki.find(document, "#edition-#{edition.id}-editor .evenings")
+          Floki.find(html, "#edition-#{edition.id}-editor .evenings")
           |> Floki.text()
 
         Enum.each(edition.evenings, fn evening ->
@@ -127,18 +126,32 @@ defmodule VotaSanremoWeb.ManageEditionsLiveTest do
     } do
       {:ok, live, _html} = live(conn, ~p"/admin/editions")
 
-
       button = live |> element("#edition-#{edition.id}-editor button[title='add an evening']")
       render_click(button)
       render_click(button)
       html = render(live)
 
-      {:ok, document} = Floki.parse_document(html)
-
       evening_spans =
-        Floki.find(document, "#edition-#{edition.id}-editor .evenings span[name='evening']")
+        Floki.find(html, "#edition-#{edition.id}-editor .evenings span[name='evening-number']")
 
       assert Enum.count(evening_spans) == Enum.count(edition.evenings) + 2
+    end
+
+    test "It is possible to delete an evening", %{
+      conn: conn,
+      editions: [edition | _]
+    } do
+      {:ok, live, _html} = live(conn, ~p"/admin/editions")
+      evening_to_delete = List.first(edition.evenings)
+
+      query =
+        "#edition-#{edition.id}-editor .evenings button[title='delete evening #{evening_to_delete.number}']"
+
+      live
+      |> element(query)
+      |> render_click()
+
+      assert Floki.find(render(live), query) == []
     end
   end
 end

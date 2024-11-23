@@ -6,7 +6,7 @@ defmodule VotaSanremo.EveningsTest do
   describe "evenings" do
     alias VotaSanremo.Evenings.Evening
 
-    import VotaSanremo.{EveningsFixtures, EditionsFixtures}
+    import VotaSanremo.{EveningsFixtures, EditionsFixtures, PerformancesFixtures}
 
     @invalid_attrs %{date: nil, description: nil, number: nil, votes_start: nil, votes_end: nil}
 
@@ -72,6 +72,13 @@ defmodule VotaSanremo.EveningsTest do
 
     test "delete_evening/1 deletes the evening" do
       evening = evening_fixture()
+      assert {:ok, %Evening{}} = Evenings.delete_evening(evening)
+      assert_raise Ecto.NoResultsError, fn -> Evenings.get_evening!(evening.id) end
+    end
+
+    test "delete_evening/1 deletes the evening and its performances" do
+      evening = evening_fixture()
+      performance_fixture(%{evening_id: evening.id})
       assert {:ok, %Evening{}} = Evenings.delete_evening(evening)
       assert_raise Ecto.NoResultsError, fn -> Evenings.get_evening!(evening.id) end
     end

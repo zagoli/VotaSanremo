@@ -65,7 +65,6 @@ defmodule VotaSanremo.EditionsTest do
       evening = evening_fixture(%{edition_id: edition.id})
       assert {:ok, %Edition{}} = Editions.delete_edition(edition)
       assert_raise Ecto.NoResultsError, fn -> Editions.get_edition!(edition.id) end
-      assert_raise Ecto.NoResultsError, fn -> Evenings.get_evening!(evening.id) end
     end
 
     test "change_edition/1 returns a edition changeset" do

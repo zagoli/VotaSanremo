@@ -76,6 +76,19 @@ defmodule VotaSanremoWeb.Admin.EditionEditorInternal do
     {:noreply, socket}
   end
 
+  def handle_event(
+        "delete_evening",
+        %{"value" => evening_id},
+        %{assigns: %{edition: edition}} = socket
+      ) do
+    evening_id = String.to_integer(evening_id)
+    evening_to_delete = Enum.find(edition.evenings, &(&1.id == evening_id))
+    {:ok, _evening} = Evenings.delete_evening(evening_to_delete)
+    notify_parent(:edition_updated)
+
+    {:noreply, socket}
+  end
+
   defp get_unique_evening_number(edition = %Edition{}) do
     latest_number =
       Enum.map(edition.evenings, & &1.number)

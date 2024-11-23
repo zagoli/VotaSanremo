@@ -5,8 +5,8 @@ defmodule VotaSanremo.Repo.Migrations.CreateVotes do
     create table(:votes) do
       add :score, :float, null: false
       add :multiplier, :float, null: false
-      add :user_id, references(:users, on_delete: :nothing)
-      add :performance_id, references(:performances, on_delete: :nothing)
+      add :user_id, references(:users, on_delete: :delete_all)
+      add :performance_id, references(:performances, on_delete: :delete_all)
 
       timestamps(type: :utc_datetime)
     end

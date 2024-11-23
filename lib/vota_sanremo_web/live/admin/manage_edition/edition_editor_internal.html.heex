@@ -45,7 +45,10 @@
     :for={evening <- @edition.evenings}
     class="w-full bg-zinc-200 mt-3 mb-3 rounded-xl flex items-center evenings"
   >
-    <span class="bg-zinc-300 font-bold rounded-l-xl p-3" name="evening"><%= evening.number %></span>
+    <span class="bg-zinc-300 font-bold rounded-l-xl p-3" name="evening-number">
+      <%= evening.number %>
+    </span>
+    
     <div class="grid grid-cols-[1fr_2fr_2fr_min-content_min-content] items-center p-3 w-full">
       <span>
         <button type="button">
@@ -54,7 +57,16 @@
       </span>
        <span>Votes start: <%= Calendar.strftime(evening.votes_start, "%d/%m/%Y") %></span>
       <span>Votes end: <%= Calendar.strftime(evening.votes_end, "%d/%m/%Y") %></span>
-      <.icon name="hero-pencil" class="ml-2" /> <.icon name="hero-trash" class="ml-2" />
+      <.icon name="hero-pencil" class="ml-2" />
+      <button
+        type="button"
+        title={"delete evening #{evening.number}"}
+        phx-click="delete_evening"
+        value={evening.id}
+        phx-target={@myself}
+      >
+        <.icon name="hero-trash" class="ml-2" />
+      </button>
     </div>
   </div>
 </div>
