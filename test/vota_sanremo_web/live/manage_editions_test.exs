@@ -38,8 +38,8 @@ defmodule VotaSanremoWeb.ManageEditionsLiveTest do
         Enum.each(edition.evenings, fn evening ->
           assert evenings_div =~ "#{evening.number}"
           assert evenings_div =~ Calendar.strftime(evening.date, "%d/%m/%Y")
-          assert evenings_div =~ Calendar.strftime(evening.votes_start, "%d/%m/%Y")
-          assert evenings_div =~ Calendar.strftime(evening.votes_end, "%d/%m/%Y")
+          assert evenings_div =~ Calendar.strftime(evening.votes_start, "%H:%M")
+          assert evenings_div =~ Calendar.strftime(evening.votes_end, "%H:%M")
         end)
       end)
     end

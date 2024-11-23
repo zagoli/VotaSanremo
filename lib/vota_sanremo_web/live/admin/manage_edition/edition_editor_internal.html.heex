@@ -49,14 +49,12 @@
       <%= evening.number %>
     </span>
     
-    <div class="grid grid-cols-[1fr_2fr_2fr_min-content_min-content] items-center p-3 w-full">
+    <div class="grid grid-cols-[1fr_1fr_1fr_min-content_min-content] items-center p-3 w-full">
       <span>
-        <button type="button">
-          <%= Calendar.strftime(evening.date, "%d/%m/%Y") %>
-        </button>
+        <%= Calendar.strftime(evening.date, "%d/%m/%Y") %>
       </span>
-       <span>Votes start: <%= Calendar.strftime(evening.votes_start, "%d/%m/%Y") %></span>
-      <span>Votes end: <%= Calendar.strftime(evening.votes_end, "%d/%m/%Y") %></span>
+      <span>Votes start: <%= Calendar.strftime(evening.votes_start, "%H:%M") %></span>
+      <span>Votes end: <%= Calendar.strftime(evening.votes_end, "%H:%M") %></span>
       <.icon name="hero-pencil" class="ml-2" />
       <button
         type="button"

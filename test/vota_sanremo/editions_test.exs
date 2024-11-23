@@ -3,7 +3,6 @@ defmodule VotaSanremo.EditionsTest do
 
   alias VotaSanremo.Editions
   alias VotaSanremo.Editions.Edition
-  alias VotaSanremo.Evenings
 
   describe "editions" do
     import VotaSanremo.{EditionsFixtures, EveningsFixtures}
@@ -62,7 +61,7 @@ defmodule VotaSanremo.EditionsTest do
 
     test "delete_edition/1 deletes the editions and all its evenings" do
       edition = edition_fixture()
-      evening = evening_fixture(%{edition_id: edition.id})
+      evening_fixture(%{edition_id: edition.id})
       assert {:ok, %Edition{}} = Editions.delete_edition(edition)
       assert_raise Ecto.NoResultsError, fn -> Editions.get_edition!(edition.id) end
     end
