@@ -31,8 +31,9 @@
             <.sidenav_link path={~p"/users/settings"} text="Settings" />
             <.sidenav_link path={~p"/users/log_out"} text="Log out" method="delete" />
             <%= if @current_user.user_type === :admin do %>
-              <h2 class="text-lg font-bold text-white pl-10 mt-10">Admin section</h2>
+              <h2 class="text-lg font-bold text-white pl-10 mt-10 mb-5">Admin section</h2>
                <.sidenav_link path={~p"/admin/editions"} text="Manage editions" />
+               <.sidenav_link path={~p"/admin/performers"} text="Manage performers" />
             <% end %>
           <% else %>
             <.sidenav_link path={~p"/users/register"} text="Register" />

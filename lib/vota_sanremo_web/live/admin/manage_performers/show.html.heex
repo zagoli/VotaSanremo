@@ -1,0 +1,25 @@
+<.header>
+  Performer <%= @performer.id %>
+  <:actions>
+    <.link patch={~p"/admin/performers/#{@performer}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit performer</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @performer.name %></:item>
+</.list>
+
+<.back navigate={~p"/admin/performers"}>Back to performers</.back>
+
+<.modal :if={@live_action == :edit} id="performer-modal" show on_cancel={JS.patch(~p"/admin/performers/#{@performer}")}>
+  <.live_component
+    module={VotaSanremoWeb.Admin.ManagePerformersLive.FormComponent}
+    id={@performer.id}
+    title={@page_title}
+    action={@live_action}
+    performer={@performer}
+    patch={~p"/admin/performers/#{@performer}"}
+  />
+</.modal>
