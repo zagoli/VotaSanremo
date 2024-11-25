@@ -53,9 +53,12 @@
       <span>
         <%= Calendar.strftime(evening.date, "%d/%m/%Y") %>
       </span>
-      <span>Votes start: <%= Calendar.strftime(evening.votes_start, "%H:%M") %></span>
+       <span>Votes start: <%= Calendar.strftime(evening.votes_start, "%H:%M") %></span>
       <span>Votes end: <%= Calendar.strftime(evening.votes_end, "%H:%M") %></span>
-      <.icon name="hero-pencil" class="ml-2" />
+      <.link title={"edit evening #{evening.number}"} navigate={~p"/admin/evening/#{evening.id}"}>
+        <.icon name="hero-pencil" class="ml-2" />
+      </.link>
+      
       <button
         type="button"
         title={"delete evening #{evening.number}"}
