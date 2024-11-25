@@ -222,9 +222,9 @@ defmodule VotaSanremoWeb.CoreComponents do
   def simple_form(assigns) do
     ~H"""
     <.form :let={f} for={@for} as={@as} {@rest}>
-      <div class="mt-10 space-y-8 bg-white">
+      <div class="space-y-3">
         <%= render_slot(@inner_block, f) %>
-        <div :for={action <- @actions} class="mt-2 flex items-center justify-between gap-6">
+        <div :for={action <- @actions} class="mt-2 flex flex-row-reverse items-center justify-between gap-6">
           <%= render_slot(action, f) %>
         </div>
       </div>
@@ -292,6 +292,7 @@ defmodule VotaSanremoWeb.CoreComponents do
   attr :label, :string, default: nil
   attr :value, :any
   attr :class, :string, default: nil
+  attr :container_class, :string, default: nil
 
   attr :type, :string,
     default: "text",
@@ -329,7 +330,7 @@ defmodule VotaSanremoWeb.CoreComponents do
       end)
 
     ~H"""
-    <div phx-feedback-for={@name}>
+    <div phx-feedback-for={@name} class={@container_class}>
       <label class="flex items-center gap-4 text-sm leading-6 text-zinc-600">
         <input type="hidden" name={@name} value="false" />
         <input
@@ -350,7 +351,7 @@ defmodule VotaSanremoWeb.CoreComponents do
 
   def input(%{type: "select"} = assigns) do
     ~H"""
-    <div phx-feedback-for={@name}>
+    <div phx-feedback-for={@name} class={@container_class}>
       <.label for={@id}><%= @label %></.label>
 
       <select
@@ -371,7 +372,7 @@ defmodule VotaSanremoWeb.CoreComponents do
 
   def input(%{type: "textarea"} = assigns) do
     ~H"""
-    <div phx-feedback-for={@name}>
+    <div phx-feedback-for={@name} class={@container_class}>
       <.label for={@id}><%= @label %></.label>
       <textarea
         id={@id}
@@ -392,7 +393,7 @@ defmodule VotaSanremoWeb.CoreComponents do
   # All other inputs text, datetime-local, url, password, etc. are handled here...
   def input(assigns) do
     ~H"""
-    <div phx-feedback-for={@name}>
+    <div phx-feedback-for={@name} class={@container_class}>
       <.label for={@id}><%= @label %></.label>
 
       <input
