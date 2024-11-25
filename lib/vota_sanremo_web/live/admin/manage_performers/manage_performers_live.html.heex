@@ -7,16 +7,9 @@
   </:actions>
 </.header>
 
-<.table
-  id="performers"
-  rows={@streams.performers}
-  row_click={fn {_id, performer} -> JS.navigate(~p"/admin/performers/#{performer}") end}
->
+<.table id="performers" rows={@streams.performers}>
   <:col :let={{_id, performer}} label="Name"><%= performer.name %></:col>
   <:action :let={{_id, performer}}>
-    <div class="sr-only">
-      <.link navigate={~p"/admin/performers/#{performer}"}>Show</.link>
-    </div>
     <.link patch={~p"/admin/performers/#{performer}/edit"}>Edit</.link>
   </:action>
   <:action :let={{id, performer}}>
@@ -29,7 +22,12 @@
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="performer-modal" show on_cancel={JS.patch(~p"/admin/performers")}>
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="performer-modal"
+  show
+  on_cancel={JS.patch(~p"/admin/performers")}
+>
   <.live_component
     module={VotaSanremoWeb.Admin.ManagePerformersLive.FormComponent}
     id={@performer.id || :new}
