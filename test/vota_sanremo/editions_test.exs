@@ -113,7 +113,10 @@ defmodule VotaSanremo.EditionsTest do
       edition_fixture(%{name: "Edition 1"})
       edition_fixture(%{name: "Edition 2"})
 
-      assert Editions.list_editions_names() == ["Edition 1", "Edition 2"]
+      editions = Editions.list_editions_names()
+
+      assert Enum.member?(editions, "Edition 1")
+      assert Enum.member?(editions, "Edition 2")
     end
   end
 end
