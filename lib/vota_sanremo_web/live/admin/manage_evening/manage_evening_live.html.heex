@@ -34,4 +34,20 @@
   </:actions>
 </.simple_form>
 
+<.header>Performances</.header>
+
+<p :if={Enum.empty?(@evening.performances)} class="text-center">There are no performances yet.</p>
+
+<div
+  :for={performance <- @evening.performances}
+  id={"performance-#{performance.id}"}
+  class="grid grid-cols-[1fr_1fr_min-content] border-b py-1"
+>
+    <p><%= performance.performer.name %></p>
+    <p><%= performance.performance_type.type %></p>
+    <button type="button" title="delete performance">
+      <.icon name="hero-trash-mini" />
+    </button>
+</div>
+
 <.back navigate={~p"/admin/editions"}>Back to all editions</.back>

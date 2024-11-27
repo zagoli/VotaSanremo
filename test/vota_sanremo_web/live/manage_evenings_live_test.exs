@@ -3,6 +3,7 @@ defmodule VotaSanremoWeb.ManageEveningsLiveTest do
   import Phoenix.LiveViewTest
   import VotaSanremo.EveningsFixtures
   import VotaSanremo.EditionsFixtures
+  import VotaSanremo.PerformancesFixtures
 
   defp create_evening(_) do
     edition = edition_fixture()
@@ -42,6 +43,35 @@ defmodule VotaSanremoWeb.ManageEveningsLiveTest do
       html = render_submit(form)
 
       assert html =~ "has already been taken"
+    end
+  end
+
+  describe "Manage performances" do
+    alias VotaSanremo.Performances
+    alias VotaSanremo.Performers
+
+    setup [:register_and_log_in_admin, :create_evening]
+
+    test "The page displays a message if there are no performances", %{
+      conn: conn,
+      evening: evening
+    } do
+      {:ok, _live, html} = live(conn, ~p"/admin/evening/#{evening.id}")
+
+      assert html =~ "There are no performances yet."
+    end
+
+    test "The page renders the performanes of the evening", %{conn: conn, evening: evening} do
+      performance = performance_fixture(%{evening_id: evening.id})
+      {:ok, _live, html} = live(conn, ~p"/admin/evening/#{evening.id}")
+
+      performance_type = Performances.get_performance_type!(performance.performance_type_id)
+      performer = Performers.get_performer!(performance.performer_id)
+
+      performance_html = Floki.find(html, "#performance-#{performance.id}") |> List.first() |> Floki.text()
+
+      assert performance_html =~ performance_type.type
+      assert performance_html =~ performer.name
     end
   end
 end

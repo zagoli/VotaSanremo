@@ -4,12 +4,12 @@ defmodule VotaSanremoWeb.Admin.ManageEveningLive do
 
   @impl true
   def mount(%{"id" => evening_id}, _session, socket) do
-    evening = String.to_integer(evening_id) |> Evenings.get_evening!()
+    evening = String.to_integer(evening_id) |> Evenings.get_evening_with_performances!()
     changeset = Evenings.change_evening(evening)
 
     {:ok,
      socket
-     |> assign(evening: evening)
+     |> assign(:evening, evening)
      |> assign_form(changeset)}
   end
 
