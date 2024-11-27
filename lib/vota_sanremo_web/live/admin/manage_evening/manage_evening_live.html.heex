@@ -3,26 +3,30 @@
 </.header>
 
 <.simple_form
-  for={@form}
+  for={@evening_form}
   id={"evening-form-#{@evening.id}"}
   phx-change="validate"
   phx-submit="save"
   class="bg-zinc-100 rounded-xl p-3 border border-zinc-400 my-3"
 >
   <div class="flex gap-3">
-    <.input field={@form[:number]} type="number" label="Evening Number" container_class="flex-1" />
-    <.input field={@form[:date]} type="date" label="Date" container_class="flex-1" />
+    <.input
+      field={@evening_form[:number]}
+      type="number"
+      label="Evening Number"
+      container_class="flex-1"
+    /> <.input field={@evening_form[:date]} type="date" label="Date" container_class="flex-1" />
   </div>
-   <.input field={@form[:description]} type="textarea" label="Description" />
+   <.input field={@evening_form[:description]} type="textarea" label="Description" />
   <div class="flex gap-3">
     <.input
-      field={@form[:votes_start]}
+      field={@evening_form[:votes_start]}
       type="datetime-local"
       label="Votes Start"
       container_class="flex-1"
     />
     <.input
-      field={@form[:votes_end]}
+      field={@evening_form[:votes_end]}
       type="datetime-local"
       label="Votes End"
       container_class="flex-1"
@@ -36,18 +40,52 @@
 
 <.header>Performances</.header>
 
+<.form
+  for={@performance_form}
+  id="add-performance"
+  phx-submit="save"
+  class="bg-zinc-50 rounded-xl p-3 border border-zinc-200 my-3"
+>
+  <div class="grid grid-cols-[1fr_1fr_min-content] gap-3">
+    <.input
+      field={@performance_form[:performer_id]}
+      label="Performer"
+      type="select"
+      options={@performers}
+    />
+    <.input
+      field={@performance_form[:performance_type_id]}
+      label="Performance type"
+      type="select"
+      options={@performance_types}
+    />
+    <.button type="submit" title="add performance" class="!p-1 h-min self-end mb-1">
+      <.icon name="hero-plus-mini" />
+    </.button>
+  </div>
+</.form>
+
 <p :if={Enum.empty?(@evening.performances)} class="text-center">There are no performances yet.</p>
 
-<div
-  :for={performance <- @evening.performances}
-  id={"performance-#{performance.id}"}
-  class="grid grid-cols-[1fr_1fr_min-content] border-b py-1"
->
+<div id="performances">
+  <div
+    :for={performance <- @evening.performances}
+    id={"performance-#{performance.id}"}
+    class="grid grid-cols-[1fr_1fr_min-content] border-b py-1"
+  >
     <p><%= performance.performer.name %></p>
+    
     <p><%= performance.performance_type.type %></p>
-    <button type="button" title="delete performance">
+    
+    <button
+      type="button"
+      title="delete performance"
+      phx-click="delete_performance"
+      value={performance.id}
+    >
       <.icon name="hero-trash-mini" />
     </button>
+  </div>
 </div>
 
 <.back navigate={~p"/admin/editions"}>Back to all editions</.back>

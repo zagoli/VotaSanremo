@@ -4,6 +4,7 @@ defmodule VotaSanremoWeb.ManageEveningsLiveTest do
   import VotaSanremo.EveningsFixtures
   import VotaSanremo.EditionsFixtures
   import VotaSanremo.PerformancesFixtures
+  import VotaSanremo.PerformersFixtures
 
   defp create_evening(_) do
     edition = edition_fixture()
@@ -68,10 +69,46 @@ defmodule VotaSanremoWeb.ManageEveningsLiveTest do
       performance_type = Performances.get_performance_type!(performance.performance_type_id)
       performer = Performers.get_performer!(performance.performer_id)
 
-      performance_html = Floki.find(html, "#performance-#{performance.id}") |> List.first() |> Floki.text()
+      performance_html =
+        Floki.find(html, "#performance-#{performance.id}") |> List.first() |> Floki.text()
 
       assert performance_html =~ performance_type.type
       assert performance_html =~ performer.name
+    end
+
+    test "It is possible to add a performance", %{conn: conn, evening: evening} do
+      performer = performer_fixture()
+      performance_type = performance_type_fixture()
+
+      attrs = %{
+        performance_type_id: performance_type.id,
+        performer_id: performer.id
+      }
+
+      {:ok, live, _html} = live(conn, ~p"/admin/evening/#{evening.id}")
+
+      form = form(live, "#add-performance", performance: attrs)
+      html = render_submit(form)
+
+      assert html =~ "Performance added successfully."
+      performance_html = Floki.find(html, "#performances div") |> List.first() |> Floki.text()
+      assert performance_html =~ performer.name
+      assert performance_html =~ performance_type.type
+    end
+
+    test "It is possible to delete a performance", %{conn: conn, evening: evening} do
+      performance = performance_fixture(%{evening_id: evening.id})
+      {:ok, live, _html} = live(conn, ~p"/admin/evening/#{evening.id}")
+
+      html =
+        live
+        |> element("#performance-#{performance.id} button[title='delete performance']")
+        |> render_click()
+
+      performance_html = Floki.find(html, "#performance-#{performance.id}") |> List.first()
+
+      assert html =~ "Performance deleted successfully."
+      assert performance_html == nil
     end
   end
 end
