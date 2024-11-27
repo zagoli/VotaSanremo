@@ -9,15 +9,20 @@
 
 <.table id="performers" rows={@streams.performers}>
   <:col :let={{_id, performer}} label="Name"><%= performer.name %></:col>
+  
   <:action :let={{_id, performer}}>
-    <.link patch={~p"/admin/performers/#{performer}/edit"}>Edit</.link>
+    <.link patch={~p"/admin/performers/#{performer}/edit"} name="Edit">
+      <.icon name="hero-pencil-mini" />
+    </.link>
   </:action>
+  
   <:action :let={{id, performer}}>
     <.link
       phx-click={JS.push("delete", value: %{id: performer.id}) |> hide("##{id}")}
       data-confirm="Are you sure?"
+      name="Delete"
     >
-      Delete
+      <.icon name="hero-trash-mini" />
     </.link>
   </:action>
 </.table>

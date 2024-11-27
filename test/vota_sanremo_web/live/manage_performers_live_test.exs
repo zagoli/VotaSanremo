@@ -49,7 +49,7 @@ defmodule VotaSanremoWeb.ManagePerformersLiveTest do
     test "updates performer in listing", %{conn: conn, performer: performer} do
       {:ok, index_live, _html} = live(conn, ~p"/admin/performers")
 
-      assert index_live |> element("#performers-#{performer.id} a", "Edit") |> render_click() =~
+      assert index_live |> element("#performers-#{performer.id} a[name='Edit']") |> render_click() =~
                "Edit Performer"
 
       assert_patch(index_live, ~p"/admin/performers/#{performer}/edit")
@@ -72,7 +72,7 @@ defmodule VotaSanremoWeb.ManagePerformersLiveTest do
     test "deletes performer in listing", %{conn: conn, performer: performer} do
       {:ok, index_live, _html} = live(conn, ~p"/admin/performers")
 
-      assert index_live |> element("#performers-#{performer.id} a", "Delete") |> render_click()
+      assert index_live |> element("#performers-#{performer.id} a[name='Delete']") |> render_click()
       refute has_element?(index_live, "#performers-#{performer.id}")
     end
   end
