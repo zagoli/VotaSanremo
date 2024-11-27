@@ -38,6 +38,26 @@ defmodule VotaSanremo.Evenings do
   def get_evening!(id), do: Repo.get!(Evening, id)
 
   @doc """
+  Gets a single evening with preloaded performances and their associations.
+
+  Raises `Ecto.NoResultsError` if the Evening does not exist.
+
+  ## Examples
+
+      iex> get_evening_with_performances!(123)
+      %Evening{performances: [%Performance{performer: %Performer{}, performance_type: %PerformanceType{}}]}
+
+      iex> get_evening_with_performances!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_evening_with_performances!(id) do
+    Evening
+    |> Repo.get!(id)
+    |> Repo.preload(performances: [:performer, :performance_type])
+  end
+
+  @doc """
   Creates a evening.
 
   ## Examples

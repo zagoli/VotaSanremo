@@ -95,5 +95,18 @@ defmodule VotaSanremo.EveningsTest do
 
       assert Evenings.get_latest_evening_date() == evening.date
     end
+
+    test "get_evening_with_performances!/1 returns the evening with performances and associations" do
+      evening = evening_fixture()
+      performance = performance_fixture(%{evening_id: evening.id})
+
+      loaded_evening = Evenings.get_evening_with_performances!(evening.id)
+      assert loaded_evening.id == evening.id
+      assert [loaded_performance] = loaded_evening.performances
+      assert loaded_performance.id == performance.id
+      # Verify the actual performer and performance_type data
+      assert loaded_performance.performer.id == performance.performer_id
+      assert loaded_performance.performance_type.id == performance.performance_type_id
+    end
   end
 end
