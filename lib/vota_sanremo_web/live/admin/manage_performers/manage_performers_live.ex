@@ -33,7 +33,10 @@ defmodule VotaSanremoWeb.Admin.ManagePerformersLive do
   end
 
   @impl true
-  def handle_info({VotaSanremoWeb.Admin.ManagePerformersLive.FormComponent, {:saved, performer}}, socket) do
+  def handle_info(
+        {VotaSanremoWeb.Admin.ManagePerformersLive.FormComponent, {:saved, performer}},
+        socket
+      ) do
     {:noreply, stream_insert(socket, :performers, performer)}
   end
 

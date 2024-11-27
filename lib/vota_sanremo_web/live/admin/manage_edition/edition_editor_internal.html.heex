@@ -23,7 +23,7 @@
         <button type="submit" title="save edition" class={not @editing && "invisible"}>
           <.icon name="hero-check-mini" />
         </button>
-        
+
         <button
           type="button"
           title="delete edition"
@@ -33,14 +33,14 @@
         >
           <.icon name="hero-trash-mini" />
         </button>
-        
+
         <button type="button" title="add an evening" phx-click="add_evening" phx-target={@myself}>
           <.icon name="hero-plus-mini" />
         </button>
       </div>
     </div>
   </.form>
-  
+
   <div
     :for={evening <- @edition.evenings}
     class="w-full bg-zinc-200 mt-3 mb-3 rounded-xl flex items-center evenings"
@@ -48,17 +48,17 @@
     <span class="bg-zinc-300 font-bold rounded-l-xl p-3" name="evening-number">
       <%= evening.number %>
     </span>
-    
+
     <div class="grid grid-cols-[1fr_1fr_1fr_min-content_min-content] items-center p-3 w-full">
       <span>
         <%= Calendar.strftime(evening.date, "%d/%m/%Y") %>
       </span>
-       <span>Votes start: <%= Calendar.strftime(evening.votes_start, "%H:%M") %></span>
+      <span>Votes start: <%= Calendar.strftime(evening.votes_start, "%H:%M") %></span>
       <span>Votes end: <%= Calendar.strftime(evening.votes_end, "%H:%M") %></span>
       <.link title={"edit evening #{evening.number}"} navigate={~p"/admin/evening/#{evening.id}"}>
         <.icon name="hero-pencil-mini" class="ml-2" />
       </.link>
-      
+
       <button
         type="button"
         title={"delete evening #{evening.number}"}

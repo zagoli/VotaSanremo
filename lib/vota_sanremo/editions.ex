@@ -141,7 +141,6 @@ defmodule VotaSanremo.Editions do
     Edition.changeset(edition, attrs)
   end
 
-
   @doc """
   Retrieves a list of all edition names from the database.
 

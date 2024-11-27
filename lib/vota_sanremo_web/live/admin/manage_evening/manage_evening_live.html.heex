@@ -17,7 +17,7 @@
       container_class="flex-1"
     /> <.input field={@evening_form[:date]} type="date" label="Date" container_class="flex-1" />
   </div>
-   <.input field={@evening_form[:description]} type="textarea" label="Description" />
+  <.input field={@evening_form[:description]} type="textarea" label="Description" />
   <div class="flex gap-3">
     <.input
       field={@evening_form[:votes_start]}
@@ -32,7 +32,7 @@
       container_class="flex-1"
     />
   </div>
-  
+
   <:actions>
     <.button>Save</.button>
   </:actions>
@@ -74,9 +74,9 @@
     class="grid grid-cols-[1fr_1fr_min-content] border-b py-1"
   >
     <p><%= performance.performer.name %></p>
-    
+
     <p><%= performance.performance_type.type %></p>
-    
+
     <button
       type="button"
       title="delete performance"

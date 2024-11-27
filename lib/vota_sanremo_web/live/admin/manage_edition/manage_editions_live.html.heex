@@ -1,6 +1,6 @@
 <div class="mb-10 flex flex-row justify-between">
   <.header>Manage Editions</.header>
-  
+
   <.button
     id="new-edition"
     type="button"
@@ -13,4 +13,4 @@
 </div>
 
 <p :if={Enum.empty?(@editions)} class="text-center">There are no editions yet.</p>
- <.edition_editor :for={edition <- @editions} edition={edition} />
+<.edition_editor :for={edition <- @editions} edition={edition} />
