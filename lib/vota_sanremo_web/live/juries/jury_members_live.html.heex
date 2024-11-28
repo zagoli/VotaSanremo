@@ -1,3 +1,5 @@
 <.header><%= @jury.name %> members</.header>
 
-<.link navigate={~p"/juries/#{@jury.id}/members/invite"}>Invite a user</.link>
+<.link :if={@current_user.id == @jury.founder} navigate={~p"/juries/#{@jury.id}/members/invite"}>
+  Invite a user
+</.link>
