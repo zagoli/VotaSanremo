@@ -649,4 +649,25 @@ defmodule VotaSanremo.AccountsTest do
       assert Enum.empty?(found_users)
     end
   end
+
+  describe "list_some_users/1" do
+    setup do
+      users = for _ <- 1..10, do: user_fixture()
+      %{users: users}
+    end
+
+    test "returns the requested number of users" do
+      assert Enum.count(Accounts.list_some_users(5)) == 5
+      assert Enum.count(Accounts.list_some_users(3)) == 3
+    end
+
+    test "returns all users if requested number is greater than total users", %{users: users} do
+      users_count = Enum.count(users)
+      assert Enum.count(Accounts.list_some_users(users_count + 10)) == users_count
+    end
+
+    test "returns empty list if requested number is 0" do
+      assert Accounts.list_some_users(0) == []
+    end
+  end
 end

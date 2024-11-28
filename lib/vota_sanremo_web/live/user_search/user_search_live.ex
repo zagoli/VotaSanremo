@@ -4,10 +4,11 @@ defmodule VotaSanremoWeb.UserSearchLive do
   alias VotaSanremo.{UserSearch, Accounts}
 
   def mount(_params, _session, socket) do
+    initial_users = Accounts.list_some_users(20)
     {:ok,
      socket
      |> assign_form(UserSearch.change_username())
-     |> assign_users()}
+     |> assign_users(initial_users)}
   end
 
   def handle_params(%{"jury_id" => jury_id}, _uri, socket) do
@@ -22,7 +23,7 @@ defmodule VotaSanremoWeb.UserSearchLive do
     assign(socket, :form, to_form(changeset))
   end
 
-  defp assign_users(socket, users \\ []) do
+  defp assign_users(socket, users) do
     assign(socket, :users, users)
   end
 

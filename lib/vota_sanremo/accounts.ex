@@ -79,6 +79,17 @@ defmodule VotaSanremo.Accounts do
     |> Repo.all()
   end
 
+  @doc """
+  Returns a list of users limited to the specified number.
+  Returns all users if the number is greater than the total number of users.
+  Returns an empty list if number is 0.
+  """
+  def list_some_users(number) when is_integer(number) and number >= 0 do
+    User
+    |> limit(^number)
+    |> Repo.all()
+  end
+
   ## User registration
 
   @doc """

@@ -1,4 +1,4 @@
-defmodule VotaSanremoWeb.NewJuryLiveTest do
+defmodule VotaSanremoWeb.JuryMembersLiveTest do
   use VotaSanremoWeb.ConnCase, async: true
   import Phoenix.LiveViewTest
   import VotaSanremo.JuriesFixtures
@@ -33,6 +33,7 @@ defmodule VotaSanremoWeb.NewJuryLiveTest do
                |> element("#user-#{other_user.id} a", "Invite")
                |> render_click()
                |> follow_redirect(conn, ~p"/juries/#{jury.id}/members/invite/#{other_user.id}")
+               |> follow_redirect(conn, ~p"/juries/#{jury.id}/members")
 
       assert html =~ "User invited"
     end
