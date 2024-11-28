@@ -73,11 +73,13 @@ defmodule VotaSanremoWeb.Router do
       live "/vote", VoteLive, :show
       live "/vote/performance/:id", VoteLive, :vote
       live "/search/users", UserSearchLive, :search
+      live "/juries/:jury_id/members/invite", UserSearchLive, :invite
       live "/juries", JuriesLive
       live "/juries/personal", PersonalJuriesLive
       live "/juries/new", NewJuryLive
       live "/juries/:jury_id", JuryLive
       live "/juries/:jury_id/members", JuryMembersLive
+      live "/juries/:jury_id/members/invite/:user_id", JuryMembersLive
     end
   end
 

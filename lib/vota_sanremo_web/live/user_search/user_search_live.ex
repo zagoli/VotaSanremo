@@ -10,6 +10,14 @@ defmodule VotaSanremoWeb.UserSearchLive do
      |> assign_users()}
   end
 
+  def handle_params(%{"jury_id" => jury_id}, _uri, socket) do
+    {:noreply, assign(socket, :jury_id, jury_id)}
+  end
+
+  def handle_params(_params, _uri, socket) do
+    {:noreply, socket}
+  end
+
   defp assign_form(socket, changeset) do
     assign(socket, :form, to_form(changeset))
   end

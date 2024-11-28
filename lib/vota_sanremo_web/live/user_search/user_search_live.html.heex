@@ -6,9 +6,14 @@
 
 <.simple_list
   :if={not Enum.empty?(@users)}
-  item_click={fn user -> JS.navigate(~p"/users/profile/#{user.id}") end}
+  item_click={
+    @live_action == :search and fn user -> JS.navigate(~p"/users/profile/#{user.id}") end
+  }
 >
   <:item :for={user <- @users} click_target={user}>
-    <div id={"user-#{user.id}"}><%= user.username %></div>
+    <div id={"user-#{user.id}"} class="flex justify-between pr-4">
+      <span><%= user.username %></span>
+      <.link navigate={~p"/juries/#{@jury_id}/members/invite/#{user.id}"}>Invite</.link>
+    </div>
   </:item>
 </.simple_list>

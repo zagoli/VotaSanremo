@@ -2,6 +2,7 @@ defmodule VotaSanremoWeb.NewJuryLiveTest do
   use VotaSanremoWeb.ConnCase, async: true
   import Phoenix.LiveViewTest
   import VotaSanremo.JuriesFixtures
+  import VotaSanremo.AccountsFixtures
 
   defp create_jury(%{user: user}) do
     %{jury: jury_fixture(%{founder: user.id})}
@@ -23,15 +24,15 @@ defmodule VotaSanremoWeb.NewJuryLiveTest do
 
       assert {:ok, live, _html} =
                live
-               |> element("a", "Add member")
+               |> element("a", "Invite a user")
                |> render_click()
                |> follow_redirect(conn, ~p"/juries/#{jury.id}/members/invite")
 
       assert {:ok, _live, html} =
                live
-               |> element("#user-#{other_user.id} a", "invite")
+               |> element("#user-#{other_user.id} a", "Invite")
                |> render_click()
-               |> follow_redirect(conn, ~p"/juries/#{jury.id}/members")
+               |> follow_redirect(conn, ~p"/juries/#{jury.id}/members/invite/#{other_user.id}")
 
       assert html =~ "User invited"
     end
