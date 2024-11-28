@@ -34,7 +34,7 @@ defmodule VotaSanremoWeb.Admin.EditionEditorInternal do
 
   def assign_form(socket) do
     changeset = Editions.change_edition(socket.assigns.edition)
-    assign(socket, :form, to_form(changeset))
+    assign(socket, :form, to_form(changeset, id: "edition-form-#{socket.assigns.edition.id}"))
   end
 
   def assign_editing(socket, editing) when is_boolean(editing) do
