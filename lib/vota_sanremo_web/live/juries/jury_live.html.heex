@@ -2,4 +2,5 @@
   <.header>Jury not found</.header>
 <% else %>
   <.header><%= @jury.name %></.header>
+  <.link navigate={~p"/juries/#{@jury.id}/members"}>Members</.link>
 <% end %>

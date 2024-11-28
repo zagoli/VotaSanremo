@@ -9,6 +9,6 @@
   item_click={fn user -> JS.navigate(~p"/users/profile/#{user.id}") end}
 >
   <:item :for={user <- @users} click_target={user}>
-    <%= user.username %>
+    <div id={"user-#{user.id}"}><%= user.username %></div>
   </:item>
 </.simple_list>
