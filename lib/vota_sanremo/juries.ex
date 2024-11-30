@@ -10,7 +10,6 @@ defmodule VotaSanremo.Juries do
   alias VotaSanremo.Accounts.User
   alias VotaSanremo.Juries.JuriesComposition
 
-
   @doc """
   Returns the list of juries.
 
@@ -267,5 +266,20 @@ defmodule VotaSanremo.Juries do
   """
   def change_jury_invitation(%JuryInvitation{} = jury_invitation, attrs \\ %{}) do
     JuryInvitation.changeset(jury_invitation, attrs)
+  end
+
+  @doc """
+  Returns the list of pending invitations for a jury.
+
+  ## Examples
+
+      iex> get_pending_invitations(jury)
+      [%JuryInvitation{}, ...]
+  """
+  def get_pending_invitations(%Jury{} = jury) do
+    JuryInvitation
+    |> where([ji], ji.jury_id == ^jury.id and ji.status == :pending)
+    |> preload(:user)
+    |> Repo.all()
   end
 end

@@ -1,5 +1,15 @@
 <.header><%= @jury.name %> members</.header>
 
-<.link :if={@current_user.id == @jury.founder} navigate={~p"/juries/#{@jury.id}/members/invite"}>
+<.link :if={@is_founder} navigate={~p"/juries/#{@jury.id}/members/invite"}>
   Invite a user
 </.link>
+
+<%= if @is_founder do %>
+  <h3 class="mt-3 font-semibold">Pending invites</h3>
+  
+  <.simple_list id="pending-invitations" class="mt-3">
+    <:item :for={invite <- @pending_invitations}>
+      <span><%= invite.user.username %></span>
+    </:item>
+  </.simple_list>
+<% end %>

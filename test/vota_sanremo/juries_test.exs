@@ -144,5 +144,27 @@ defmodule VotaSanremo.JuriesTest do
 
       assert "has already been taken" in errors_on(changeset).jury_id
     end
+
+    test "get_pending_invitations/1 returns pending invitations for a jury" do
+      jury = jury_fixture()
+      user = user_fixture()
+
+      pending_invitation =
+        jury_invitation_fixture(%{
+          user_id: user.id,
+          jury_id: jury.id,
+          status: :pending
+        })
+
+      # Create an accepted invitation that shouldn't be returned
+      jury_invitation_fixture(%{
+        jury_id: jury.id,
+        status: :accepted
+      })
+
+      [result] = Juries.get_pending_invitations(jury)
+      assert result.id == pending_invitation.id
+      assert result.user.first_name == user.first_name
+    end
   end
 end

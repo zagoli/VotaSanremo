@@ -3,6 +3,7 @@ defmodule VotaSanremoWeb.JuryMembersLiveTest do
   import Phoenix.LiveViewTest
   import VotaSanremo.JuriesFixtures
   import VotaSanremo.AccountsFixtures
+  import VotaSanremo.JuriesFixtures
 
   defp create_juries(%{user: user}) do
     %{jury: jury_fixture(%{founder: user.id}), other_jury: jury_fixture()}
@@ -10,6 +11,13 @@ defmodule VotaSanremoWeb.JuryMembersLiveTest do
 
   defp create_other_user(_) do
     %{other_user: user_fixture()}
+  end
+
+  defp create_invitation(%{jury: jury, other_user: other_user}) do
+    %{
+      invitation:
+        jury_invitation_fixture(%{jury_id: jury.id, user_id: other_user.id, status: :pending})
+    }
   end
 
   describe "Invite member" do
@@ -57,6 +65,31 @@ defmodule VotaSanremoWeb.JuryMembersLiveTest do
 
       refute html =~ "User invited"
       assert html =~ "You are not allowed to invite a user!"
+    end
+  end
+
+  describe "View sent invitations" do
+    setup [:register_and_log_in_user, :create_juries, :create_other_user, :create_invitation]
+
+    test "It is possible to view sent invitations when founder", %{
+      conn: conn,
+      jury: jury,
+      other_user: other_user
+    } do
+      {:ok, _live, html} = live(conn, ~p"/juries/#{jury.id}/members")
+
+      assert html =~ "Pending invites"
+      invites_div = Floki.find(html, "#pending-invitations") |> List.first() |> Floki.text()
+      assert invites_div =~ other_user.username
+    end
+
+    test "When not a founder, the pending invites section is not present", %{
+      conn: conn,
+      other_jury: jury
+    } do
+      {:ok, _live, html} = live(conn, ~p"/juries/#{jury.id}/members")
+
+      refute html =~ "Pending invites"
     end
   end
 end
