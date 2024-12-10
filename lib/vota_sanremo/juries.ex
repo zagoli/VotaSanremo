@@ -83,6 +83,21 @@ defmodule VotaSanremo.Juries do
   def get_jury(id), do: Repo.get(Jury, id)
 
   @doc """
+  Gets a single jury with its members.
+
+  ## Examples
+
+      iex> get_jury_with_members(1)
+      %Jury{members: [%User{}, ...]}
+
+      iex> get_jury_with_members(-1)
+      nil
+  """
+  def get_jury_with_members(id) do
+    Repo.get(Jury, id) |> Repo.preload(:members)
+  end
+
+  @doc """
   Creates a jury.
 
   ## Examples

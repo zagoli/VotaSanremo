@@ -65,6 +65,17 @@ defmodule VotaSanremo.JuriesTest do
       jury = jury_fixture()
       assert %Ecto.Changeset{} = Juries.change_jury(jury)
     end
+
+    test "get_jury_with_members/1 returns the jury with preloaded members" do
+      jury = jury_fixture()
+      user = user_fixture()
+      assert {:ok, _} = Juries.add_member(jury, user)
+
+      loaded_jury = Juries.get_jury_with_members(jury.id)
+      assert loaded_jury.id == jury.id
+      assert [member] = loaded_jury.members
+      assert member.id == user.id
+    end
   end
 
   describe "jury_invitations" do

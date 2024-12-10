@@ -16,7 +16,7 @@ defmodule VotaSanremoWeb.JuryMembersLive do
   end
 
   defp assign_jury(socket, jury_id) do
-    assign(socket, :jury, Juries.get_jury(jury_id))
+    assign(socket, :jury, Juries.get_jury_with_members(jury_id))
   end
 
   defp assign_pending_invitations(%{assigns: %{is_founder: false}} = socket) do

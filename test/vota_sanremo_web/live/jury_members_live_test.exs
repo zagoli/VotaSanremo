@@ -20,6 +20,45 @@ defmodule VotaSanremoWeb.JuryMembersLiveTest do
     }
   end
 
+  describe "View members" do
+    alias VotaSanremo.Juries
+
+    setup [:register_and_log_in_user, :create_juries]
+
+    setup %{other_jury: jury} do
+      first_user = user_fixture()
+      second_user = user_fixture()
+
+      Juries.add_member(jury, first_user)
+      Juries.add_member(jury, second_user)
+
+      %{members: [first_user, second_user]}
+    end
+
+    test "It is possible to view jury members", %{conn: conn, other_jury: jury, members: members} do
+      {:ok, _live, html} = live(conn, ~p"/juries/#{jury.id}/members")
+      members_html = Floki.find(html, "#members") |> Floki.text()
+
+      Enum.each(members, fn member ->
+        assert members_html =~ member.username
+      end)
+    end
+
+    test "When clicking on a member, the user is redirected to that member's profile", %{
+      conn: conn,
+      other_jury: jury,
+      members: [member | _]
+    } do
+      {:ok, live, _html} = live(conn, ~p"/juries/#{jury.id}/members")
+
+      live
+      |> element("#members li", member.username)
+      |> render_click()
+
+      assert_redirect(live, ~p"/users/profile/#{member.id}")
+    end
+  end
+
   describe "Invite member" do
     setup [:register_and_log_in_user, :create_juries, :create_other_user]
 
