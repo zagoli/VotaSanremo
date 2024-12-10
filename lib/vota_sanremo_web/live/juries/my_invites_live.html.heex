@@ -15,8 +15,8 @@
       <.button phx-click="accept" value={invitation.id}>Accept</.button>
     </:action>
     
-    <:action>
-      <.button>Decline</.button>
+    <:action :let={invitation}>
+      <.button phx-click="decline" value={invitation.id}>Decline</.button>
     </:action>
   </.table>
 <% end %>

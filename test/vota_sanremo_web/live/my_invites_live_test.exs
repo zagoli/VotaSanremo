@@ -55,5 +55,21 @@ defmodule VotaSanremoWeb.MyInvitesLiveTest do
       assert html =~ "Invite accepted! You are now part of #{jury_name}"
       refute Floki.find(html, "#invitations") |> Floki.text() =~ jury_name
     end
+
+    test "Users can decline pending invites", %{
+      conn: conn,
+      invitations: {pending, _, _}
+    } do
+      {:ok, live, html} = live(conn, ~p"/juries/my_invites")
+
+      html =
+        live
+        |> element("#invitations button", "Decline")
+        |> render_click()
+
+      assert html =~ "Invite declined."
+      jury_name = Juries.get_jury!(pending.jury_id).name
+      refute Floki.find(html, "#invitations") |> Floki.text() =~ jury_name
+    end
   end
 end
