@@ -29,7 +29,7 @@ defmodule VotaSanremoWeb.MyInvitesLiveTest do
       # Delete the pending invitation for this test only
       Juries.delete_jury_invitation(pending)
 
-      {:ok, live, html} = live(conn, ~p"/juries/my_invites")
+      {:ok, _live, html} = live(conn, ~p"/juries/my_invites")
 
       assert html =~ "You have no pending invites"
       jury_name = Juries.get_jury!(accepted.jury_id).name
@@ -60,7 +60,7 @@ defmodule VotaSanremoWeb.MyInvitesLiveTest do
       conn: conn,
       invitations: {pending, _, _}
     } do
-      {:ok, live, html} = live(conn, ~p"/juries/my_invites")
+      {:ok, live, _html} = live(conn, ~p"/juries/my_invites")
 
       html =
         live
