@@ -69,8 +69,11 @@ defmodule VotaSanremo.JuriesTest do
 
   describe "jury_invitations" do
     alias VotaSanremo.Juries.JuryInvitation
-
     import VotaSanremo.{JuriesFixtures, AccountsFixtures}
+
+    setup _ do
+      %{user: user_fixture(), jury: jury_fixture()}
+    end
 
     @invalid_attrs %{status: nil}
 
@@ -84,10 +87,11 @@ defmodule VotaSanremo.JuriesTest do
       assert Juries.get_jury_invitation!(jury_invitation.id) == jury_invitation
     end
 
-    test "create_jury_invitation/1 with valid data creates a jury_invitation" do
-      %{id: user_id} = user_fixture()
-      %{id: jury_id} = jury_fixture()
-      valid_attrs = %{status: :accepted, user_id: user_id, jury_id: jury_id}
+    test "create_jury_invitation/1 with valid data creates a jury_invitation", %{
+      user: user,
+      jury: jury
+    } do
+      valid_attrs = %{status: :accepted, user_id: user.id, jury_id: jury.id}
 
       assert {:ok, %JuryInvitation{} = jury_invitation} =
                Juries.create_jury_invitation(valid_attrs)
@@ -129,10 +133,7 @@ defmodule VotaSanremo.JuriesTest do
       assert %Ecto.Changeset{} = Juries.change_jury_invitation(jury_invitation)
     end
 
-    test "validates unique contraints on user and jury" do
-      jury = jury_fixture()
-      user = user_fixture()
-
+    test "validates unique contraints on user and jury", %{user: user, jury: jury} do
       jury_invitation_fixture(%{user_id: user.id, jury_id: jury.id})
 
       assert {:error, changeset} =
@@ -145,10 +146,10 @@ defmodule VotaSanremo.JuriesTest do
       assert "has already been taken" in errors_on(changeset).jury_id
     end
 
-    test "get_pending_invitations/1 returns pending invitations for a jury" do
-      jury = jury_fixture()
-      user = user_fixture()
-
+    test "list_jury_pending_invitations/1 returns pending invitations for a jury", %{
+      user: user,
+      jury: jury
+    } do
       pending_invitation =
         jury_invitation_fixture(%{
           user_id: user.id,
@@ -162,9 +163,31 @@ defmodule VotaSanremo.JuriesTest do
         status: :accepted
       })
 
-      [result] = Juries.get_pending_invitations(jury)
-      assert result.id == pending_invitation.id
-      assert result.user.first_name == user.first_name
+      [invitation] = Juries.list_jury_pending_invitations(jury)
+      assert invitation.id == pending_invitation.id
+      assert invitation.user.first_name == user.first_name
+    end
+
+    test "list_user_pending_invitations/1 returns pending invitations for a user", %{
+      user: user,
+      jury: jury
+    } do
+      pending_invitation =
+        jury_invitation_fixture(%{
+          user_id: user.id,
+          jury_id: jury.id,
+          status: :pending
+        })
+
+      # Create an accepted invitation that shouldn't be returned
+      jury_invitation_fixture(%{
+        user_id: user.id,
+        status: :accepted
+      })
+
+      [invitation] = Juries.list_user_pending_invitations(user)
+      assert invitation.id == pending_invitation.id
+      assert invitation.jury.name == jury.name
     end
   end
 end

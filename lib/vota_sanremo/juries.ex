@@ -273,13 +273,28 @@ defmodule VotaSanremo.Juries do
 
   ## Examples
 
-      iex> get_pending_invitations(jury)
+      iex> list_jury_pending_invitations(jury)
       [%JuryInvitation{}, ...]
   """
-  def get_pending_invitations(%Jury{} = jury) do
+  def list_jury_pending_invitations(%Jury{} = jury) do
     JuryInvitation
     |> where([ji], ji.jury_id == ^jury.id and ji.status == :pending)
     |> preload(:user)
+    |> Repo.all()
+  end
+
+  @doc """
+  Returns the list of pending invitations for a user.
+
+  ## Examples
+
+      iex> list_user_pending_invitations(user)
+      [%JuryInvitation{}, ...]
+  """
+  def list_user_pending_invitations(%User{} = user) do
+    JuryInvitation
+    |> where([ji], ji.user_id == ^user.id and ji.status == :pending)
+    |> preload(:jury)
     |> Repo.all()
   end
 end
