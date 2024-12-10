@@ -11,8 +11,8 @@
   <.table id="invitations" rows={@pending_invitations}>
     <:col :let={invitation} label="Jury"><%= invitation.jury.name %></:col>
     
-    <:action>
-      <.button>Accept</.button>
+    <:action :let={invitation}>
+      <.button phx-click="accept" value={invitation.id}>Accept</.button>
     </:action>
     
     <:action>

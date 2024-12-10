@@ -31,12 +31,29 @@ defmodule VotaSanremoWeb.MyInvitesLiveTest do
 
       {:ok, live, html} = live(conn, ~p"/juries/my_invites")
 
-      open_browser(live)
       assert html =~ "You have no pending invites"
       jury_name = Juries.get_jury!(accepted.jury_id).name
       refute html =~ jury_name
       jury_name = Juries.get_jury!(declined.jury_id).name
       refute html =~ jury_name
+    end
+
+    test "Users can accept pending invites", %{
+      conn: conn,
+      invitations: {pending, _, _}
+    } do
+      {:ok, live, html} = live(conn, ~p"/juries/my_invites")
+      assert html =~ "Accept"
+      assert html =~ "Decline"
+
+      html =
+        live
+        |> element("#invitations button", "Accept")
+        |> render_click()
+
+      jury_name = Juries.get_jury!(pending.jury_id).name
+      assert html =~ "Invite accepted! You are now part of #{jury_name}"
+      refute Floki.find(html, "#invitations") |> Floki.text() =~ jury_name
     end
   end
 end
