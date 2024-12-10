@@ -105,12 +105,12 @@ defmodule VotaSanremo.JuriesTest do
 
     test "update_jury_invitation/2 with valid data updates the jury_invitation" do
       jury_invitation = jury_invitation_fixture()
-      update_attrs = %{status: :refused}
+      update_attrs = %{status: :declined}
 
       assert {:ok, %JuryInvitation{} = jury_invitation} =
                Juries.update_jury_invitation(jury_invitation, update_attrs)
 
-      assert jury_invitation.status == :refused
+      assert jury_invitation.status == :declined
     end
 
     test "update_jury_invitation/2 with invalid data returns error changeset" do
@@ -188,6 +188,41 @@ defmodule VotaSanremo.JuriesTest do
       [invitation] = Juries.list_user_pending_invitations(user)
       assert invitation.id == pending_invitation.id
       assert invitation.jury.name == jury.name
+    end
+
+    test "accept_invitation/1 accepts the invitation and adds user to jury", %{
+      user: user,
+      jury: jury
+    } do
+      invitation =
+        jury_invitation_fixture(%{
+          user_id: user.id,
+          jury_id: jury.id,
+          status: :pending
+        })
+
+      assert {:ok, accepted_invitation} = Juries.accept_invitation(invitation)
+      assert accepted_invitation.status == :accepted
+
+      # Use existing function to check user's juries
+      user_juries = Juries.list_member_juries(user)
+      assert Enum.any?(user_juries, fn j -> j.id == jury.id end)
+    end
+
+    test "decline_invitation/1 declines the invitation", %{user: user, jury: jury} do
+      invitation =
+        jury_invitation_fixture(%{
+          user_id: user.id,
+          jury_id: jury.id,
+          status: :pending
+        })
+
+      assert {:ok, declined_invitation} = Juries.decline_invitation(invitation)
+      assert declined_invitation.status == :declined
+
+      # Use existing function to check user's juries
+      user_juries = Juries.list_member_juries(user)
+      refute Enum.any?(user_juries, fn j -> j.id == jury.id end)
     end
   end
 end

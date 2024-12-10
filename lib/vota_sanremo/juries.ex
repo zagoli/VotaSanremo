@@ -9,6 +9,7 @@ defmodule VotaSanremo.Juries do
   alias VotaSanremo.Juries.Jury
   alias VotaSanremo.Accounts.User
   alias VotaSanremo.Juries.JuriesComposition
+  alias VotaSanremo.Accounts
 
   @doc """
   Returns the list of juries.
@@ -296,5 +297,53 @@ defmodule VotaSanremo.Juries do
     |> where([ji], ji.user_id == ^user.id and ji.status == :pending)
     |> preload(:jury)
     |> Repo.all()
+  end
+
+  @doc """
+  Accepts a jury invitation and adds the invited user to the jury.
+  Only pending invitations can be accepted, other statuses are ignored.
+
+  ## Examples
+
+      iex> accept_invitation(%JuryInvitation{status: :pending})
+      {:ok, %JuryInvitation{status: :accepted}}
+
+      iex> accept_invitation(%JuryInvitation{status: :declined})
+      nil
+  """
+  def accept_invitation(%JuryInvitation{status: :pending} = invitation) do
+    Repo.transaction(fn ->
+      with {:ok, updated_invitation} <-
+             invitation
+             |> change_jury_invitation(%{status: :accepted})
+             |> Repo.update(),
+           {:ok, _membership} <-
+             add_member(
+               updated_invitation.jury_id |> get_jury!(),
+               updated_invitation.user_id |> Accounts.get_user!()
+             ) do
+        updated_invitation
+      else
+        {:error, reason} -> Repo.rollback(reason)
+      end
+    end)
+  end
+
+  @doc """
+  Declines a jury invitation.
+  Only pending invitations can be declined, other statuses are ignored.
+
+  ## Examples
+
+      iex> decline_invitation(%JuryInvitation{status: :pending})
+      {:ok, %JuryInvitation{status: :declined}}
+
+      iex> decline_invitation(%JuryInvitation{status: :accepted})
+      nil
+  """
+  def decline_invitation(%JuryInvitation{status: :pending} = invitation) do
+    invitation
+    |> change_jury_invitation(%{status: :declined})
+    |> Repo.update()
   end
 end

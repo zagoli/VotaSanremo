@@ -3,7 +3,7 @@ defmodule VotaSanremo.Juries.JuryInvitation do
   import Ecto.Changeset
 
   schema "jury_invitations" do
-    field :status, Ecto.Enum, values: [:accepted, :refused, :pending]
+    field :status, Ecto.Enum, values: [:accepted, :declined, :pending]
 
     belongs_to :user, VotaSanremo.Accounts.User
     belongs_to :jury, VotaSanremo.Juries.Jury

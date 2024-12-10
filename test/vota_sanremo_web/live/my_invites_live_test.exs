@@ -7,8 +7,8 @@ defmodule VotaSanremoWeb.MyInvitesLiveTest do
   defp create_invitations(%{user: user}) do
     pending = jury_invitation_fixture(%{user_id: user.id, status: :pending})
     accepted = jury_invitation_fixture(%{user_id: user.id, status: :accepted})
-    refused = jury_invitation_fixture(%{user_id: user.id, status: :refused})
-    %{invitations: {pending, accepted, refused}}
+    declined = jury_invitation_fixture(%{user_id: user.id, status: :declined})
+    %{invitations: {pending, accepted, declined}}
   end
 
   describe "My Invites" do
@@ -24,7 +24,7 @@ defmodule VotaSanremoWeb.MyInvitesLiveTest do
 
     test "Users cannot see invites that are not pending", %{
       conn: conn,
-      invitations: {pending, accepted, refused}
+      invitations: {pending, accepted, declined}
     } do
       # Delete the pending invitation for this test only
       Juries.delete_jury_invitation(pending)
@@ -35,7 +35,7 @@ defmodule VotaSanremoWeb.MyInvitesLiveTest do
       assert html =~ "You have no pending invites"
       jury_name = Juries.get_jury!(accepted.jury_id).name
       refute html =~ jury_name
-      jury_name = Juries.get_jury!(refused.jury_id).name
+      jury_name = Juries.get_jury!(declined.jury_id).name
       refute html =~ jury_name
     end
   end
