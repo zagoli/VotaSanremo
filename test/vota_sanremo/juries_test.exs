@@ -201,7 +201,7 @@ defmodule VotaSanremo.JuriesTest do
           status: :pending
         })
 
-      assert {:ok, accepted_invitation} = Juries.accept_invitation(invitation)
+      assert {:ok, %{invitation: accepted_invitation}} = Juries.accept_invitation(invitation)
       assert accepted_invitation.status == :accepted
 
       # Use existing function to check user's juries

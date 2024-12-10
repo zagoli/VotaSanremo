@@ -10,6 +10,7 @@ defmodule VotaSanremo.Juries do
   alias VotaSanremo.Accounts.User
   alias VotaSanremo.Juries.JuriesComposition
   alias VotaSanremo.Accounts
+  alias Ecto.Multi
 
   @doc """
   Returns the list of juries.
@@ -306,28 +307,24 @@ defmodule VotaSanremo.Juries do
   ## Examples
 
       iex> accept_invitation(%JuryInvitation{status: :pending})
-      {:ok, %JuryInvitation{status: :accepted}}
+      {:ok, %{invitation: %JuryInvitation{status: :accepted}, membership: %JuriesComposition{}}}
 
       iex> accept_invitation(%JuryInvitation{status: :declined})
       nil
   """
   def accept_invitation(%JuryInvitation{status: :pending} = invitation) do
-    Repo.transaction(fn ->
-      with {:ok, updated_invitation} <-
-             invitation
-             |> change_jury_invitation(%{status: :accepted})
-             |> Repo.update(),
-           {:ok, _membership} <-
-             add_member(
-               updated_invitation.jury_id |> get_jury!(),
-               updated_invitation.user_id |> Accounts.get_user!()
-             ) do
-        updated_invitation
-      else
-        {:error, reason} -> Repo.rollback(reason)
-      end
+    Multi.new()
+    |> Multi.update(:invitation, change_jury_invitation(invitation, %{status: :accepted}))
+    |> Multi.run(:membership, fn _repo, %{invitation: updated_invitation} ->
+      add_member(
+        get_jury!(updated_invitation.jury_id),
+        Accounts.get_user!(updated_invitation.user_id)
+      )
     end)
+    |> Repo.transaction()
   end
+
+  def accept_invitation(_invitation), do: nil
 
   @doc """
   Declines a jury invitation.
