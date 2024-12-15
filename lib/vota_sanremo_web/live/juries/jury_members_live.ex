@@ -8,7 +8,7 @@ defmodule VotaSanremoWeb.JuryMembersLive do
      socket
      |> assign_jury(jury_id)
      |> assign_is_founder()
-     |> assign_pending_invitations()}
+     |> assign_pending_invites()}
   end
 
   defp assign_is_founder(%{assigns: %{current_user: user, jury: jury}} = socket) do
@@ -19,12 +19,12 @@ defmodule VotaSanremoWeb.JuryMembersLive do
     assign(socket, :jury, Juries.get_jury_with_members(jury_id))
   end
 
-  defp assign_pending_invitations(%{assigns: %{is_founder: false}} = socket) do
+  defp assign_pending_invites(%{assigns: %{is_founder: false}} = socket) do
     socket
   end
 
-  defp assign_pending_invitations(%{assigns: %{jury: jury}} = socket) do
-    assign(socket, :pending_invitations, Juries.list_jury_pending_invitations(jury))
+  defp assign_pending_invites(%{assigns: %{jury: jury}} = socket) do
+    assign(socket, :pending_invites, Juries.list_jury_pending_invites(jury))
   end
 
   def handle_params(%{"jury_id" => jury_id, "user_id" => user_id}, _uri, socket) do
@@ -45,7 +45,7 @@ defmodule VotaSanremoWeb.JuryMembersLive do
     if jury.founder !== user.id do
       socket |> put_flash(:error, "You are not allowed to invite a user!")
     else
-      case Juries.create_jury_invitation(%{status: :pending, jury_id: jury_id, user_id: user_id}) do
+      case Juries.create_jury_invite(%{status: :pending, jury_id: jury_id, user_id: user_id}) do
         {:ok, _} -> socket |> put_flash(:info, "User invited")
         {:error, _} -> socket |> put_flash(:error, "Error inviting user")
       end

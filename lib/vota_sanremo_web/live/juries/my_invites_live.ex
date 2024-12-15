@@ -3,26 +3,26 @@ defmodule VotaSanremoWeb.MyInvitesLive do
   alias VotaSanremo.Juries
 
   def mount(_params, _session, socket) do
-    {:ok, socket |> assign_pending_invitations()}
+    {:ok, socket |> assign_pending_invites()}
   end
 
-  defp assign_pending_invitations(%{assigns: %{current_user: user}} = socket) do
-    assign(socket, :pending_invitations, Juries.list_user_pending_invitations(user))
+  defp assign_pending_invites(%{assigns: %{current_user: user}} = socket) do
+    assign(socket, :pending_invites, Juries.list_user_pending_invites(user))
   end
 
   def handle_event(
         "accept",
-        %{"value" => jury_invitation_id},
-        %{assigns: %{pending_invitations: invitations}} = socket
+        %{"value" => jury_invite_id},
+        %{assigns: %{pending_invites: invites}} = socket
       ) do
-    jury_invitation = invitation_from_string_id(invitations, jury_invitation_id)
+    jury_invite = invite_from_string_id(invites, jury_invite_id)
 
-    case Juries.accept_invitation(jury_invitation) do
+    case Juries.accept_invite(jury_invite) do
       {:ok, _} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Invite accepted! You are now part of #{jury_invitation.jury.name}")
-         |> assign_pending_invitations()}
+         |> put_flash(:info, "Invite accepted! You are now part of #{jury_invite.jury.name}")
+         |> assign_pending_invites()}
 
       {:error, _} ->
         socket |> put_flash(:error, "Error while accepting this invite. Sorry!")
@@ -31,25 +31,25 @@ defmodule VotaSanremoWeb.MyInvitesLive do
 
   def handle_event(
         "decline",
-        %{"value" => jury_invitation_id},
-        %{assigns: %{pending_invitations: invitations}} = socket
+        %{"value" => jury_invite_id},
+        %{assigns: %{pending_invites: invites}} = socket
       ) do
-    jury_invitation = invitation_from_string_id(invitations, jury_invitation_id)
+    jury_invite = invite_from_string_id(invites, jury_invite_id)
 
-    case Juries.decline_invitation(jury_invitation) do
+    case Juries.decline_invite(jury_invite) do
       {:ok, _} ->
         {:noreply,
          socket
          |> put_flash(:info, "Invite declined.")
-         |> assign_pending_invitations()}
+         |> assign_pending_invites()}
 
       {:error, _} ->
         socket |> put_flash(:error, "Error while declining this invite. Sorry!")
     end
   end
 
-  defp invitation_from_string_id(invitations, invitation_id)
-       when is_binary(invitation_id) and is_list(invitations) do
-    Enum.find(invitations, &(&1.id == String.to_integer(invitation_id)))
+  defp invite_from_string_id(invites, invite_id)
+       when is_binary(invite_id) and is_list(invites) do
+    Enum.find(invites, &(&1.id == String.to_integer(invite_id)))
   end
 end

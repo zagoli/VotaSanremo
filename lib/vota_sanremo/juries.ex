@@ -189,173 +189,173 @@ defmodule VotaSanremo.Juries do
     Jury.changeset(jury, attrs)
   end
 
-  alias VotaSanremo.Juries.JuryInvitation
+  alias VotaSanremo.Juries.JuryInvite
 
   @doc """
-  Returns the list of jury_invitations.
+  Returns the list of jury_invites.
 
   ## Examples
 
-      iex> list_jury_invitations()
-      [%JuryInvitation{}, ...]
+      iex> list_jury_invites()
+      [%JuryInvite{}, ...]
 
   """
-  def list_jury_invitations do
-    Repo.all(JuryInvitation)
+  def list_jury_invites do
+    Repo.all(JuryInvite)
   end
 
   @doc """
-  Gets a single jury_invitation.
+  Gets a single jury_invite.
 
-  Raises `Ecto.NoResultsError` if the Jury invitation does not exist.
+  Raises `Ecto.NoResultsError` if the Jury invite does not exist.
 
   ## Examples
 
-      iex> get_jury_invitation!(123)
-      %JuryInvitation{}
+      iex> get_jury_invite!(123)
+      %JuryInvite{}
 
-      iex> get_jury_invitation!(456)
+      iex> get_jury_invite!(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_jury_invitation!(id), do: Repo.get!(JuryInvitation, id)
+  def get_jury_invite!(id), do: Repo.get!(JuryInvite, id)
 
   @doc """
-  Creates a jury_invitation.
+  Creates a jury_invite.
 
   ## Examples
 
-      iex> create_jury_invitation(%{field: value})
-      {:ok, %JuryInvitation{}}
+      iex> create_jury_invite(%{field: value})
+      {:ok, %JuryInvite{}}
 
-      iex> create_jury_invitation(%{field: bad_value})
+      iex> create_jury_invite(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_jury_invitation(attrs \\ %{}) do
-    %JuryInvitation{}
-    |> JuryInvitation.changeset(attrs)
+  def create_jury_invite(attrs \\ %{}) do
+    %JuryInvite{}
+    |> JuryInvite.changeset(attrs)
     |> Repo.insert()
   end
 
   @doc """
-  Updates a jury_invitation.
+  Updates a jury_invite.
 
   ## Examples
 
-      iex> update_jury_invitation(jury_invitation, %{field: new_value})
-      {:ok, %JuryInvitation{}}
+      iex> update_jury_invite(jury_invite, %{field: new_value})
+      {:ok, %JuryInvite{}}
 
-      iex> update_jury_invitation(jury_invitation, %{field: bad_value})
+      iex> update_jury_invite(jury_invite, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_jury_invitation(%JuryInvitation{} = jury_invitation, attrs) do
-    jury_invitation
-    |> JuryInvitation.changeset(attrs)
+  def update_jury_invite(%JuryInvite{} = jury_invite, attrs) do
+    jury_invite
+    |> JuryInvite.changeset(attrs)
     |> Repo.update()
   end
 
   @doc """
-  Deletes a jury_invitation.
+  Deletes a jury_invite.
 
   ## Examples
 
-      iex> delete_jury_invitation(jury_invitation)
-      {:ok, %JuryInvitation{}}
+      iex> delete_jury_invite(jury_invite)
+      {:ok, %JuryInvite{}}
 
-      iex> delete_jury_invitation(jury_invitation)
+      iex> delete_jury_invite(jury_invite)
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_jury_invitation(%JuryInvitation{} = jury_invitation) do
-    Repo.delete(jury_invitation)
+  def delete_jury_invite(%JuryInvite{} = jury_invite) do
+    Repo.delete(jury_invite)
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking jury_invitation changes.
+  Returns an `%Ecto.Changeset{}` for tracking jury_invite changes.
 
   ## Examples
 
-      iex> change_jury_invitation(jury_invitation)
-      %Ecto.Changeset{data: %JuryInvitation{}}
+      iex> change_jury_invite(jury_invite)
+      %Ecto.Changeset{data: %JuryInvite{}}
 
   """
-  def change_jury_invitation(%JuryInvitation{} = jury_invitation, attrs \\ %{}) do
-    JuryInvitation.changeset(jury_invitation, attrs)
+  def change_jury_invite(%JuryInvite{} = jury_invite, attrs \\ %{}) do
+    JuryInvite.changeset(jury_invite, attrs)
   end
 
   @doc """
-  Returns the list of pending invitations for a jury.
+  Returns the list of pending invites for a jury.
 
   ## Examples
 
-      iex> list_jury_pending_invitations(jury)
-      [%JuryInvitation{}, ...]
+      iex> list_jury_pending_invites(jury)
+      [%JuryInvite{}, ...]
   """
-  def list_jury_pending_invitations(%Jury{} = jury) do
-    JuryInvitation
+  def list_jury_pending_invites(%Jury{} = jury) do
+    JuryInvite
     |> where([ji], ji.jury_id == ^jury.id and ji.status == :pending)
     |> preload(:user)
     |> Repo.all()
   end
 
   @doc """
-  Returns the list of pending invitations for a user.
+  Returns the list of pending invites for a user.
 
   ## Examples
 
-      iex> list_user_pending_invitations(user)
-      [%JuryInvitation{}, ...]
+      iex> list_user_pending_invites(user)
+      [%JuryInvite{}, ...]
   """
-  def list_user_pending_invitations(%User{} = user) do
-    JuryInvitation
+  def list_user_pending_invites(%User{} = user) do
+    JuryInvite
     |> where([ji], ji.user_id == ^user.id and ji.status == :pending)
     |> preload(:jury)
     |> Repo.all()
   end
 
   @doc """
-  Accepts a jury invitation and adds the invited user to the jury.
-  Only pending invitations can be accepted, other statuses are ignored.
+  Accepts a jury invite and adds the invited user to the jury.
+  Only pending invites can be accepted, other statuses are ignored.
 
   ## Examples
 
-      iex> accept_invitation(%JuryInvitation{status: :pending})
-      {:ok, %{invitation: %JuryInvitation{status: :accepted}, membership: %JuriesComposition{}}}
+      iex> accept_invite(%JuryInvite{status: :pending})
+      {:ok, %{invite: %JuryInvite{status: :accepted}, membership: %JuriesComposition{}}}
 
-      iex> accept_invitation(%JuryInvitation{status: :declined})
+      iex> accept_invite(%JuryInvite{status: :declined})
       nil
   """
-  def accept_invitation(%JuryInvitation{status: :pending} = invitation) do
+  def accept_invite(%JuryInvite{status: :pending} = invite) do
     Multi.new()
-    |> Multi.update(:invitation, change_jury_invitation(invitation, %{status: :accepted}))
-    |> Multi.run(:membership, fn _repo, %{invitation: updated_invitation} ->
+    |> Multi.update(:invite, change_jury_invite(invite, %{status: :accepted}))
+    |> Multi.run(:membership, fn _repo, %{invite: updated_invite} ->
       add_member(
-        get_jury!(updated_invitation.jury_id),
-        Accounts.get_user!(updated_invitation.user_id)
+        get_jury!(updated_invite.jury_id),
+        Accounts.get_user!(updated_invite.user_id)
       )
     end)
     |> Repo.transaction()
   end
 
-  def accept_invitation(_invitation), do: nil
+  def accept_invite(_invite), do: nil
 
   @doc """
-  Declines a jury invitation.
-  Only pending invitations can be declined, other statuses are ignored.
+  Declines a jury invite.
+  Only pending invites can be declined, other statuses are ignored.
 
   ## Examples
 
-      iex> decline_invitation(%JuryInvitation{status: :pending})
-      {:ok, %JuryInvitation{status: :declined}}
+      iex> decline_invite(%JuryInvite{status: :pending})
+      {:ok, %JuryInvite{status: :declined}}
 
-      iex> decline_invitation(%JuryInvitation{status: :accepted})
+      iex> decline_invite(%JuryInvite{status: :accepted})
       nil
   """
-  def decline_invitation(%JuryInvitation{status: :pending} = invitation) do
-    invitation
-    |> change_jury_invitation(%{status: :declined})
+  def decline_invite(%JuryInvite{status: :pending} = invite) do
+    invite
+    |> change_jury_invite(%{status: :declined})
     |> Repo.update()
   end
 end

@@ -28,21 +28,21 @@ defmodule VotaSanremo.JuriesFixtures do
   end
 
   @doc """
-  Generate a jury_invitation.
+  Generate a jury_invite.
   """
-  def jury_invitation_fixture(attrs \\ %{}) do
+  def jury_invite_fixture(attrs \\ %{}) do
     %{id: user_id} = AccountsFixtures.user_fixture()
     %{id: jury_id} = jury_fixture()
 
-    {:ok, jury_invitation} =
+    {:ok, jury_invite} =
       attrs
       |> Enum.into(%{
         status: :accepted,
         user_id: user_id,
         jury_id: jury_id
       })
-      |> VotaSanremo.Juries.create_jury_invitation()
+      |> VotaSanremo.Juries.create_jury_invite()
 
-    jury_invitation
+    jury_invite
   end
 end

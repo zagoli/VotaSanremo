@@ -4,17 +4,17 @@ defmodule VotaSanremoWeb.MyInvitesLiveTest do
   import VotaSanremo.JuriesFixtures
   alias VotaSanremo.Juries
 
-  defp create_invitations(%{user: user}) do
-    pending = jury_invitation_fixture(%{user_id: user.id, status: :pending})
-    accepted = jury_invitation_fixture(%{user_id: user.id, status: :accepted})
-    declined = jury_invitation_fixture(%{user_id: user.id, status: :declined})
-    %{invitations: {pending, accepted, declined}}
+  defp create_invites(%{user: user}) do
+    pending = jury_invite_fixture(%{user_id: user.id, status: :pending})
+    accepted = jury_invite_fixture(%{user_id: user.id, status: :accepted})
+    declined = jury_invite_fixture(%{user_id: user.id, status: :declined})
+    %{invites: {pending, accepted, declined}}
   end
 
   describe "My Invites" do
-    setup [:register_and_log_in_user, :create_invitations]
+    setup [:register_and_log_in_user, :create_invites]
 
-    test "User can see their pending invites", %{conn: conn, invitations: {pending, _, _}} do
+    test "User can see their pending invites", %{conn: conn, invites: {pending, _, _}} do
       {:ok, _live, html} = live(conn, ~p"/juries/my_invites")
 
       assert html =~ "My invites"
@@ -24,10 +24,10 @@ defmodule VotaSanremoWeb.MyInvitesLiveTest do
 
     test "Users cannot see invites that are not pending", %{
       conn: conn,
-      invitations: {pending, accepted, declined}
+      invites: {pending, accepted, declined}
     } do
-      # Delete the pending invitation for this test only
-      Juries.delete_jury_invitation(pending)
+      # Delete the pending invite for this test only
+      Juries.delete_jury_invite(pending)
 
       {:ok, _live, html} = live(conn, ~p"/juries/my_invites")
 
@@ -40,7 +40,7 @@ defmodule VotaSanremoWeb.MyInvitesLiveTest do
 
     test "Users can accept pending invites", %{
       conn: conn,
-      invitations: {pending, _, _}
+      invites: {pending, _, _}
     } do
       {:ok, live, html} = live(conn, ~p"/juries/my_invites")
       assert html =~ "Accept"
@@ -48,28 +48,28 @@ defmodule VotaSanremoWeb.MyInvitesLiveTest do
 
       html =
         live
-        |> element("#invitations button", "Accept")
+        |> element("#invites button", "Accept")
         |> render_click()
 
       jury_name = Juries.get_jury!(pending.jury_id).name
       assert html =~ "Invite accepted! You are now part of #{jury_name}"
-      refute Floki.find(html, "#invitations") |> Floki.text() =~ jury_name
+      refute Floki.find(html, "#invites") |> Floki.text() =~ jury_name
     end
 
     test "Users can decline pending invites", %{
       conn: conn,
-      invitations: {pending, _, _}
+      invites: {pending, _, _}
     } do
       {:ok, live, _html} = live(conn, ~p"/juries/my_invites")
 
       html =
         live
-        |> element("#invitations button", "Decline")
+        |> element("#invites button", "Decline")
         |> render_click()
 
       assert html =~ "Invite declined."
       jury_name = Juries.get_jury!(pending.jury_id).name
-      refute Floki.find(html, "#invitations") |> Floki.text() =~ jury_name
+      refute Floki.find(html, "#invites") |> Floki.text() =~ jury_name
     end
   end
 end

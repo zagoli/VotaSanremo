@@ -78,8 +78,8 @@ defmodule VotaSanremo.JuriesTest do
     end
   end
 
-  describe "jury_invitations" do
-    alias VotaSanremo.Juries.JuryInvitation
+  describe "jury_invites" do
+    alias VotaSanremo.Juries.JuryInvite
     import VotaSanremo.{JuriesFixtures, AccountsFixtures}
 
     setup _ do
@@ -88,67 +88,67 @@ defmodule VotaSanremo.JuriesTest do
 
     @invalid_attrs %{status: nil}
 
-    test "list_jury_invitations/0 returns all jury_invitations" do
-      jury_invitation = jury_invitation_fixture()
-      assert Juries.list_jury_invitations() == [jury_invitation]
+    test "list_jury_invites/0 returns all jury_invites" do
+      jury_invite = jury_invite_fixture()
+      assert Juries.list_jury_invites() == [jury_invite]
     end
 
-    test "get_jury_invitation!/1 returns the jury_invitation with given id" do
-      jury_invitation = jury_invitation_fixture()
-      assert Juries.get_jury_invitation!(jury_invitation.id) == jury_invitation
+    test "get_jury_invite!/1 returns the jury_invite with given id" do
+      jury_invite = jury_invite_fixture()
+      assert Juries.get_jury_invite!(jury_invite.id) == jury_invite
     end
 
-    test "create_jury_invitation/1 with valid data creates a jury_invitation", %{
+    test "create_jury_invite/1 with valid data creates a jury_invite", %{
       user: user,
       jury: jury
     } do
       valid_attrs = %{status: :accepted, user_id: user.id, jury_id: jury.id}
 
-      assert {:ok, %JuryInvitation{} = jury_invitation} =
-               Juries.create_jury_invitation(valid_attrs)
+      assert {:ok, %JuryInvite{} = jury_invite} =
+               Juries.create_jury_invite(valid_attrs)
 
-      assert jury_invitation.status == :accepted
+      assert jury_invite.status == :accepted
     end
 
-    test "create_jury_invitation/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Juries.create_jury_invitation(@invalid_attrs)
+    test "create_jury_invite/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Juries.create_jury_invite(@invalid_attrs)
     end
 
-    test "update_jury_invitation/2 with valid data updates the jury_invitation" do
-      jury_invitation = jury_invitation_fixture()
+    test "update_jury_invite/2 with valid data updates the jury_invite" do
+      jury_invite = jury_invite_fixture()
       update_attrs = %{status: :declined}
 
-      assert {:ok, %JuryInvitation{} = jury_invitation} =
-               Juries.update_jury_invitation(jury_invitation, update_attrs)
+      assert {:ok, %JuryInvite{} = jury_invite} =
+               Juries.update_jury_invite(jury_invite, update_attrs)
 
-      assert jury_invitation.status == :declined
+      assert jury_invite.status == :declined
     end
 
-    test "update_jury_invitation/2 with invalid data returns error changeset" do
-      jury_invitation = jury_invitation_fixture()
+    test "update_jury_invite/2 with invalid data returns error changeset" do
+      jury_invite = jury_invite_fixture()
 
       assert {:error, %Ecto.Changeset{}} =
-               Juries.update_jury_invitation(jury_invitation, @invalid_attrs)
+               Juries.update_jury_invite(jury_invite, @invalid_attrs)
 
-      assert jury_invitation == Juries.get_jury_invitation!(jury_invitation.id)
+      assert jury_invite == Juries.get_jury_invite!(jury_invite.id)
     end
 
-    test "delete_jury_invitation/1 deletes the jury_invitation" do
-      jury_invitation = jury_invitation_fixture()
-      assert {:ok, %JuryInvitation{}} = Juries.delete_jury_invitation(jury_invitation)
-      assert_raise Ecto.NoResultsError, fn -> Juries.get_jury_invitation!(jury_invitation.id) end
+    test "delete_jury_invite/1 deletes the jury_invite" do
+      jury_invite = jury_invite_fixture()
+      assert {:ok, %JuryInvite{}} = Juries.delete_jury_invite(jury_invite)
+      assert_raise Ecto.NoResultsError, fn -> Juries.get_jury_invite!(jury_invite.id) end
     end
 
-    test "change_jury_invitation/1 returns a jury_invitation changeset" do
-      jury_invitation = jury_invitation_fixture()
-      assert %Ecto.Changeset{} = Juries.change_jury_invitation(jury_invitation)
+    test "change_jury_invite/1 returns a jury_invite changeset" do
+      jury_invite = jury_invite_fixture()
+      assert %Ecto.Changeset{} = Juries.change_jury_invite(jury_invite)
     end
 
     test "validates unique contraints on user and jury", %{user: user, jury: jury} do
-      jury_invitation_fixture(%{user_id: user.id, jury_id: jury.id})
+      jury_invite_fixture(%{user_id: user.id, jury_id: jury.id})
 
       assert {:error, changeset} =
-               Juries.create_jury_invitation(%{
+               Juries.create_jury_invite(%{
                  user_id: user.id,
                  jury_id: jury.id,
                  status: :accepted
@@ -157,79 +157,79 @@ defmodule VotaSanremo.JuriesTest do
       assert "has already been taken" in errors_on(changeset).jury_id
     end
 
-    test "list_jury_pending_invitations/1 returns pending invitations for a jury", %{
+    test "list_jury_pending_invites/1 returns pending invites for a jury", %{
       user: user,
       jury: jury
     } do
-      pending_invitation =
-        jury_invitation_fixture(%{
+      pending_invite =
+        jury_invite_fixture(%{
           user_id: user.id,
           jury_id: jury.id,
           status: :pending
         })
 
-      # Create an accepted invitation that shouldn't be returned
-      jury_invitation_fixture(%{
+      # Create an accepted invite that shouldn't be returned
+      jury_invite_fixture(%{
         jury_id: jury.id,
         status: :accepted
       })
 
-      [invitation] = Juries.list_jury_pending_invitations(jury)
-      assert invitation.id == pending_invitation.id
-      assert invitation.user.first_name == user.first_name
+      [invite] = Juries.list_jury_pending_invites(jury)
+      assert invite.id == pending_invite.id
+      assert invite.user.first_name == user.first_name
     end
 
-    test "list_user_pending_invitations/1 returns pending invitations for a user", %{
+    test "list_user_pending_invites/1 returns pending invites for a user", %{
       user: user,
       jury: jury
     } do
-      pending_invitation =
-        jury_invitation_fixture(%{
+      pending_invite =
+        jury_invite_fixture(%{
           user_id: user.id,
           jury_id: jury.id,
           status: :pending
         })
 
-      # Create an accepted invitation that shouldn't be returned
-      jury_invitation_fixture(%{
+      # Create an accepted invite that shouldn't be returned
+      jury_invite_fixture(%{
         user_id: user.id,
         status: :accepted
       })
 
-      [invitation] = Juries.list_user_pending_invitations(user)
-      assert invitation.id == pending_invitation.id
-      assert invitation.jury.name == jury.name
+      [invite] = Juries.list_user_pending_invites(user)
+      assert invite.id == pending_invite.id
+      assert invite.jury.name == jury.name
     end
 
-    test "accept_invitation/1 accepts the invitation and adds user to jury", %{
+    test "accept_invite/1 accepts the invite and adds user to jury", %{
       user: user,
       jury: jury
     } do
-      invitation =
-        jury_invitation_fixture(%{
+      invite =
+        jury_invite_fixture(%{
           user_id: user.id,
           jury_id: jury.id,
           status: :pending
         })
 
-      assert {:ok, %{invitation: accepted_invitation}} = Juries.accept_invitation(invitation)
-      assert accepted_invitation.status == :accepted
+      assert {:ok, %{invite: accepted_invite}} = Juries.accept_invite(invite)
+      assert accepted_invite.status == :accepted
 
       # Use existing function to check user's juries
       user_juries = Juries.list_member_juries(user)
       assert Enum.any?(user_juries, fn j -> j.id == jury.id end)
     end
 
-    test "decline_invitation/1 declines the invitation", %{user: user, jury: jury} do
-      invitation =
-        jury_invitation_fixture(%{
+    test "decline_invite/1 declines the invite", %{user: user, jury: jury} do
+      invite =
+        jury_invite_fixture(%{
           user_id: user.id,
           jury_id: jury.id,
           status: :pending
         })
 
-      assert {:ok, declined_invitation} = Juries.decline_invitation(invitation)
-      assert declined_invitation.status == :declined
+      assert {:ok, declined_invite} = Juries.decline_invite(invite)
+      assert declined_invite.status == :declined
 
       # Use existing function to check user's juries
       user_juries = Juries.list_member_juries(user)

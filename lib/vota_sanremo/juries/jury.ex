@@ -7,7 +7,7 @@ defmodule VotaSanremo.Juries.Jury do
 
     belongs_to :user, VotaSanremo.Accounts.User, foreign_key: :founder
 
-    has_many :jury_invitations, VotaSanremo.Juries.JuryInvitation
+    has_many :jury_invites, VotaSanremo.Juries.JuryInvite
 
     many_to_many :members, VotaSanremo.Accounts.User, join_through: "juries_composition"
 

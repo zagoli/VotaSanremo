@@ -13,10 +13,9 @@ defmodule VotaSanremoWeb.JuryMembersLiveTest do
     %{other_user: user_fixture()}
   end
 
-  defp create_invitation(%{jury: jury, other_user: other_user}) do
+  defp create_invite(%{jury: jury, other_user: other_user}) do
     %{
-      invitation:
-        jury_invitation_fixture(%{jury_id: jury.id, user_id: other_user.id, status: :pending})
+      invite: jury_invite_fixture(%{jury_id: jury.id, user_id: other_user.id, status: :pending})
     }
   end
 
@@ -107,18 +106,18 @@ defmodule VotaSanremoWeb.JuryMembersLiveTest do
     end
   end
 
-  describe "View sent invitations" do
-    setup [:register_and_log_in_user, :create_juries, :create_other_user, :create_invitation]
+  describe "View sent invites" do
+    setup [:register_and_log_in_user, :create_juries, :create_other_user, :create_invite]
 
-    test "It is possible to view sent invitations when founder", %{
+    test "It is possible to view sent invites when founder", %{
       conn: conn,
       jury: jury,
       other_user: other_user
     } do
       {:ok, _live, html} = live(conn, ~p"/juries/#{jury.id}/members")
 
-      assert html =~ "Pending invites"
-      invites_div = Floki.find(html, "#pending-invitations") |> List.first() |> Floki.text()
+      assert html =~ "Pending sent invites"
+      invites_div = Floki.find(html, "#pending-invites") |> List.first() |> Floki.text()
       assert invites_div =~ other_user.username
     end
 

@@ -5,18 +5,18 @@
   </:subtitle>
 </.header>
 
-<%= if Enum.empty?(@pending_invitations) do %>
+<%= if Enum.empty?(@pending_invites) do %>
   <p class="mt-3">You have no pending invites.</p>
 <% else %>
-  <.table id="invitations" rows={@pending_invitations}>
-    <:col :let={invitation} label="Jury"><%= invitation.jury.name %></:col>
+  <.table id="invites" rows={@pending_invites}>
+    <:col :let={invite} label="Jury"><%= invite.jury.name %></:col>
     
-    <:action :let={invitation}>
-      <.button phx-click="accept" value={invitation.id}>Accept</.button>
+    <:action :let={invite}>
+      <.button phx-click="accept" value={invite.id}>Accept</.button>
     </:action>
     
-    <:action :let={invitation}>
-      <.button phx-click="decline" value={invitation.id}>Decline</.button>
+    <:action :let={invite}>
+      <.button phx-click="decline" value={invite.id}>Decline</.button>
     </:action>
   </.table>
 <% end %>

@@ -1,8 +1,8 @@
-defmodule VotaSanremo.Juries.JuryInvitation do
+defmodule VotaSanremo.Juries.JuryInvite do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "jury_invitations" do
+  schema "jury_invites" do
     field :status, Ecto.Enum, values: [:accepted, :declined, :pending]
 
     belongs_to :user, VotaSanremo.Accounts.User
@@ -12,8 +12,8 @@ defmodule VotaSanremo.Juries.JuryInvitation do
   end
 
   @doc false
-  def changeset(jury_invitation, attrs) do
-    jury_invitation
+  def changeset(jury_invite, attrs) do
+    jury_invite
     |> cast(attrs, [:status, :user_id, :jury_id])
     |> validate_required([:status, :user_id, :jury_id])
     |> unique_constraint([:jury_id, :user_id])
