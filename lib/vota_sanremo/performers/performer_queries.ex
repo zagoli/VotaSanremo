@@ -51,6 +51,30 @@ defmodule VotaSanremo.Performers.Performer.Queries do
     |> all()
   end
 
+  def list_performers_avg_score_by_edition_by_jury(edition_id, jury) do
+    base()
+    |> join_performances()
+    |> join_votes_of_jury(jury)
+    |> join_evenings()
+    |> join_performance_types()
+    |> filter_by_edition(edition_id)
+    |> group_by_performer_and_performance_type()
+    |> select_avg_score()
+    |> all()
+  end
+
+  def list_performers_weighted_score_by_edition_by_jury(edition_id, jury) do
+    base()
+    |> join_performances()
+    |> join_votes_of_jury(jury)
+    |> join_evenings()
+    |> join_performance_types()
+    |> filter_by_edition(edition_id)
+    |> group_by_performer_and_performance_type()
+    |> select_weighted_avg_score()
+    |> all()
+  end
+
   defp join_performances(query) do
     query |> join(:inner, [p], performance in assoc(p, :performances))
   end
@@ -66,6 +90,13 @@ defmodule VotaSanremo.Performers.Performer.Queries do
     )
   end
 
+  defp join_votes_of_jury(query, jury) do
+    query
+    |> join(:left, [p, pp], v in assoc(pp, :votes), on: pp.id == v.performance_id)
+    |> join(:inner, [p, pp, v], u in assoc(v, :user), on: v.user_id == u.id)
+    |> join(:inner, [p, pp, v, u], j in assoc(u, :juries), on: j.id == ^jury.id)
+  end
+
   defp join_evenings(query) do
     query |> join(:inner, [p, pp, v], e in assoc(pp, :evening))
   end
@@ -75,16 +106,16 @@ defmodule VotaSanremo.Performers.Performer.Queries do
   end
 
   defp filter_by_edition(query, edition_id) do
-    query |> where([p, pp, v, e, pt], e.edition_id == ^edition_id)
+    query |> where([p, ..., e, pt], e.edition_id == ^edition_id)
   end
 
   defp group_by_performer_and_performance_type(query) do
-    query |> group_by([p, pp, v, e, pt], [p.name, pt.type])
+    query |> group_by([p, ..., pt], [p.name, pt.type])
   end
 
   defp select_avg_score(query) do
     query
-    |> select([performer, _performance, vote, _evening, performance_type], %{
+    |> select([performer, _, vote, ..., performance_type], %{
       performance_type: performance_type.type,
       name: performer.name,
       score: avg(vote.score * vote.multiplier)
@@ -93,7 +124,7 @@ defmodule VotaSanremo.Performers.Performer.Queries do
 
   defp select_weighted_avg_score(query) do
     query
-    |> select([performer, _performance, vote, _evening, performance_type], %{
+    |> select([performer, _, vote, ..., performance_type], %{
       performance_type: performance_type.type,
       name: performer.name,
       score: avg(vote.score * vote.multiplier) * sum(vote.score)
