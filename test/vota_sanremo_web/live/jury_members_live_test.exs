@@ -19,6 +19,16 @@ defmodule VotaSanremoWeb.JuryMembersLiveTest do
     }
   end
 
+  describe "Guest user" do
+    setup _ do
+      %{jury: jury_fixture()}
+    end
+
+    test "The page loads successfully", %{conn: conn, jury: jury} do
+      assert {:ok, _live, _html} = live(conn, ~p"/juries/#{jury.id}/members")
+    end
+  end
+
   describe "View members" do
     alias VotaSanremo.Juries
 

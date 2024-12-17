@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
     <.live_title>
-      <%= assigns[:page_title] || "VotaSanremo" %>
+      {assigns[:page_title] || "VotaSanremo"}
     </.live_title>
      <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
@@ -29,12 +29,12 @@
           
           <.sidenav_link path={~p"/leaderboard"}>Leaderboard</.sidenav_link>
           
+          <.sidenav_link path={~p"/juries"}>Juries</.sidenav_link>
+          
           <%= if @current_user do %>
             <.sidenav_link path={~p"/search/users"}>Search users</.sidenav_link>
             
             <.sidenav_link path={~p"/users/settings"}>Settings</.sidenav_link>
-            
-            <.sidenav_link path={~p"/juries"}>Juries</.sidenav_link>
             
             <.sidenav_link path={~p"/juries/my_invites"}>My invites</.sidenav_link>
             
@@ -64,6 +64,6 @@
         </div>
       </div>
     </header>
-     <%= @inner_content %>
+     {@inner_content}
   </body>
 </html>

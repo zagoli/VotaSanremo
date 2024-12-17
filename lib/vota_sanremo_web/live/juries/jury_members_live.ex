@@ -11,6 +11,10 @@ defmodule VotaSanremoWeb.JuryMembersLive do
      |> assign_pending_invites()}
   end
 
+  defp assign_is_founder(%{assigns: %{current_user: nil}} = socket) do
+    assign(socket, :is_founder, false)
+  end
+
   defp assign_is_founder(%{assigns: %{current_user: user, jury: jury}} = socket) do
     assign(socket, :is_founder, user.id === jury.founder)
   end
