@@ -80,7 +80,7 @@ defmodule VotaSanremoWeb.JuryMembersLiveTest do
 
       assert {:ok, live, _html} =
                live
-               |> element("a", "Invite a user")
+               |> element("a[title='Invite a user']")
                |> render_click()
                |> follow_redirect(conn, ~p"/juries/#{jury.id}/members/invite")
 

@@ -1,25 +1,13 @@
-<.header>{@jury.name} members</.header>
-
-<%= if @is_founder do %>
-  <.link navigate={~p"/juries/#{@jury.id}/members/invite"}>
-    Invite a user
-  </.link>
+<div class="flex justify-between items-center">
+  <.header>{@jury.name} members</.header>
   
-  <%= if not Enum.empty?(@pending_invites) do %>
-    <h3 class="mt-3 font-semibold">Pending sent invites</h3>
-    
-    <.simple_list id="pending-invites" class="mt-3">
-      <:item :for={invite <- @pending_invites}>
-        <span>{invite.user.username}</span>
-      </:item>
-    </.simple_list>
-  <% end %>
-<% end %>
-
-<h3 class="mt-3 font-semibold">Members</h3>
+  <.link :if={@is_founder} navigate={~p"/juries/#{@jury.id}/members/invite"} title="Invite a user">
+    <.icon name="hero-user-plus" />
+  </.link>
+</div>
 
 <%= if Enum.empty?(@jury.members) do %>
-  <p class="mt-3">There are not members yet.</p>
+  <p class="mt-3">There are no members yet.</p>
 <% else %>
   <.simple_list
     id="members"
@@ -31,3 +19,17 @@
     </:item>
   </.simple_list>
 <% end %>
+
+<%= if @is_founder do %>
+  <%= if not Enum.empty?(@pending_invites) do %>
+    <h3 class="mt-3 font-semibold">Pending sent invites</h3>
+    
+    <.simple_list id="pending-invites" class="mt-3">
+      <:item :for={invite <- @pending_invites}>
+        <span>{invite.user.username}</span>
+      </:item>
+    </.simple_list>
+  <% end %>
+<% end %>
+
+<.back navigate={~p"/juries/#{@jury.id}"}>Back to jury</.back>

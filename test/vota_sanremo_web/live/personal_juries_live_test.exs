@@ -20,7 +20,7 @@ defmodule VotaSanremoWeb.PersonalJuriesLiveTest do
 
     test "The page contains the juries founded by the user", %{conn: conn, founded_jury: jury} do
       {:ok, _live, html} = live(conn, ~p"/juries/personal")
-      assert html =~ "Juries you have founded"
+      assert html =~ "You founded"
       assert html =~ "#{jury.name}"
     end
 
@@ -33,7 +33,7 @@ defmodule VotaSanremoWeb.PersonalJuriesLiveTest do
 
     test "The page contains the juries the user is member of", %{conn: conn, jury: jury} do
       {:ok, _live, html} = live(conn, ~p"/juries/personal")
-      assert html =~ "Juries you are a member of"
+      assert html =~ "You are a member of"
       assert html =~ "#{jury.name}"
     end
 
@@ -42,6 +42,28 @@ defmodule VotaSanremoWeb.PersonalJuriesLiveTest do
       Juries.remove_member(jury, user)
       {:ok, _live, html} = live(conn, ~p"/juries/personal")
       refute html =~ "Juries you are a member of"
+    end
+
+    test "Clicking on a jury navigates to that jury page", %{
+      conn: conn,
+      founded_jury: founded_jury,
+      jury: jury
+    } do
+      # Founded
+      {:ok, live, _html} = live(conn, ~p"/juries/personal")
+
+      element(live, "#founded-juries li")
+      |> render_click()
+
+      assert_redirect(live, ~p"/juries/#{founded_jury.id}")
+
+      # Member
+      {:ok, live, _html} = live(conn, ~p"/juries/personal")
+
+      element(live, "#member-juries li")
+      |> render_click()
+
+      assert_redirect(live, ~p"/juries/#{jury.id}")
     end
   end
 end

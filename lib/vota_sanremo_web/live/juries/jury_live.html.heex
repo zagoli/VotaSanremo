@@ -1,16 +1,24 @@
 <%= if !@jury do %>
   <.header>Jury not found</.header>
 <% else %>
-  <.header>{@jury.name}</.header>
-   <.link navigate={~p"/juries/#{@jury.id}/members"}>Members</.link>
-  <.header class="mt-5">Leaderboard</.header>
+  <div class="flex justify-between items-center">
+    <.header>{@jury.name}</.header>
+    
+    <.link navigate={~p"/juries/#{@jury.id}/members"} title="Members">
+      <.icon name="hero-users" />
+    </.link>
+  </div>
   
-  <section class="mt-2 mb-2">
-    <.form for={nil} id="weighted-score-flag-form" phx-change="weighted-flag-selected">
-      <.input type="checkbox" name="weighted-scores-flag" label="Weighted scores" />
-    </.form>
-  </section>
-   <.performers_scores scores={@scores} />
+  <%= if not Enum.empty?(@scores) do %>
+    <section class="mt-5 mb-2">
+      <.form for={nil} id="weighted-score-flag-form" phx-change="weighted-flag-selected">
+        <.input type="checkbox" name="weighted-scores-flag" label="Weighted scores" />
+      </.form>
+    </section>
+     <.performers_scores scores={@scores} />
+  <% else %>
+    <p class="mt-5">There are no votes yet.</p>
+  <% end %>
 <% end %>
 
 <.back navigate={~p"/juries"}>Back to juries</.back>
