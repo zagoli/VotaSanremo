@@ -9,6 +9,7 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+alias VotaSanremo.Juries
 alias VotaSanremo.Accounts
 alias VotaSanremo.Performances
 alias VotaSanremo.Evenings
@@ -33,6 +34,13 @@ users_attrs = [
 ]
 
 Enum.each(users_attrs, fn attrs -> Accounts.register_user(attrs) end)
+
+# Confirm users
+users = for user_attr <- users_attrs, do: Accounts.get_user_by_email(user_attr.email)
+
+Enum.each(users, fn user ->
+  VotaSanremo.Repo.transaction(VotaSanremo.Accounts.confirm_user_multi(user))
+end)
 
 # Create performance_types
 performance_types_attrs = [
@@ -153,11 +161,16 @@ Enum.each(performances_attrs, fn attrs -> Performances.create_performance(attrs)
 
 # Create votes
 [first_performance, second_performance | _] = Performances.list_performances()
-%{id: user_id} = Accounts.get_user_by_email("gerry@example.com")
+%{id: gerry_id} = Accounts.get_user_by_email("gerry@example.com")
 
 votes_attrs = [
-  %{score: 5.25, multiplier: 1.0, user_id: user_id, performance_id: first_performance.id},
-  %{score: 8.5, multiplier: 1.0, user_id: user_id, performance_id: second_performance.id}
+  %{score: 5.25, multiplier: 1.0, user_id: gerry_id, performance_id: first_performance.id},
+  %{score: 8.5, multiplier: 1.0, user_id: gerry_id, performance_id: second_performance.id}
 ]
 
 Enum.each(votes_attrs, fn attrs -> Votes.create_vote(attrs) end)
+
+# Create juries
+%{id: sam_id} = Accounts.get_user_by_email("sam@example.com")
+{:ok, jury} = Juries.create_jury(%{name: "Sam's Jury", founder: sam_id})
+Juries.add_member(jury, Accounts.get_user!(gerry_id))

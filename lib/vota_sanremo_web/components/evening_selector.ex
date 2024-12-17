@@ -18,7 +18,7 @@ defmodule VotaSanremoWeb.EveningSelector do
 
     ~H"""
     <button type="button" class={@button_class} phx-click="evening-selected" value={@evening.id}>
-      <%= @evening.number %>
+      {@evening.number}
     </button>
     """
   end

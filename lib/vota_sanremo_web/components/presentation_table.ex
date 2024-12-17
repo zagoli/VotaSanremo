@@ -25,14 +25,14 @@ defmodule VotaSanremoWeb.PresentationTable do
 
   def presentation_table(assigns) do
     ~H"""
-    <div class="grid grid-cols-2 gap-y-6 ">
+    <div class="grid grid-cols-2 gap-y-2 ">
       <%= for item <- @items do %>
-        <div class="font-semibold border-b">
-          <%= render_slot(@name, item) %>
+        <div class="border-b">
+          {render_slot(@name, item)}
         </div>
 
         <div class="border-b text-right pr-3">
-          <%= render_slot(@property, item) %>
+          {render_slot(@property, item)}
         </div>
       <% end %>
     </div>
@@ -57,7 +57,7 @@ defmodule VotaSanremoWeb.PresentationTable do
       {@rest}
       style="line-height: normal"
     >
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </button>
     """
   end
@@ -74,7 +74,7 @@ defmodule VotaSanremoWeb.PresentationTable do
   def badge(assigns) do
     ~H"""
     <span class="bg-gray-300 rounded-lg px-2 leading-6">
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </span>
     """
   end

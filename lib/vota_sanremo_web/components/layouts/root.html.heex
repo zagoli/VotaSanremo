@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
     <.live_title>
-      <%= assigns[:page_title] || "VotaSanremo" %>
+      {assigns[:page_title] || "VotaSanremo"}
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
@@ -24,16 +24,25 @@
 
         <nav class="flex flex-col">
           <%= if @current_user do %>
-            <.sidenav_link path={~p"/vote"} text="Vote" />
+            <.sidenav_link path={~p"/vote"}>Vote</.sidenav_link>
           <% end %>
-          <.sidenav_link path={~p"/leaderboard"} text="Leaderboard" />
+
+          <.sidenav_link path={~p"/leaderboard"}>Leaderboard</.sidenav_link>
+
+          <.sidenav_link path={~p"/juries"}>Juries</.sidenav_link>
+
           <%= if @current_user do %>
-            <.sidenav_link path={~p"/search/users"} text="Search users" />
-            <.sidenav_link path={~p"/users/settings"} text="Settings" />
-            <.sidenav_link path={~p"/users/log_out"} text="Log out" method="delete" />
+            <.sidenav_link path={~p"/search/users"}>Search users</.sidenav_link>
+
+            <.sidenav_link path={~p"/users/settings"}>Settings</.sidenav_link>
+
+            <.sidenav_link path={~p"/juries/my_invites"}>My invites</.sidenav_link>
+
+            <.sidenav_link path={~p"/users/log_out"} method="delete">Log out</.sidenav_link>
           <% else %>
-            <.sidenav_link path={~p"/users/register"} text="Register" />
-            <.sidenav_link path={~p"/users/log_in"} text="Log in" />
+            <.sidenav_link path={~p"/users/register"}>Register</.sidenav_link>
+
+            <.sidenav_link path={~p"/users/log_in"}>Log in</.sidenav_link>
           <% end %>
         </nav>
       </div>
@@ -55,6 +64,6 @@
         </div>
       </div>
     </header>
-    <%= @inner_content %>
+    {@inner_content}
   </body>
 </html>

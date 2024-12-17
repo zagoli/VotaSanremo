@@ -1,5 +1,4 @@
 defmodule VotaSanremo.PerformersTest do
-  alias VotaSanremo.AccountsFixtures
   use VotaSanremo.DataCase
 
   alias VotaSanremo.Performers
@@ -21,10 +20,10 @@ defmodule VotaSanremo.PerformersTest do
     end
 
     test "create_performer/1 with valid data creates a performer" do
-      valid_attrs = %{name: "some name"}
+      valid_attrs = %{name: "someName"}
 
       assert {:ok, %Performer{} = performer} = Performers.create_performer(valid_attrs)
-      assert performer.name == "some name"
+      assert performer.name == "someName"
     end
 
     test "create_performer/1 with invalid data returns error changeset" do
@@ -33,12 +32,12 @@ defmodule VotaSanremo.PerformersTest do
 
     test "update_performer/2 with valid data updates the performer" do
       performer = performer_fixture()
-      update_attrs = %{name: "some updated name"}
+      update_attrs = %{name: "someUpdatedName"}
 
       assert {:ok, %Performer{} = performer} =
                Performers.update_performer(performer, update_attrs)
 
-      assert performer.name == "some updated name"
+      assert performer.name == "someUpdatedName"
     end
 
     test "update_performer/2 with invalid data returns error changeset" do
@@ -59,9 +58,12 @@ defmodule VotaSanremo.PerformersTest do
     end
   end
 
-  describe "performers votes" do
+  describe "performers scores" do
     import VotaSanremo.PerformersFixtures
+    import VotaSanremo.JuriesFixtures
+    import VotaSanremo.AccountsFixtures
     alias VotaSanremo.Performers.Performer
+    alias VotaSanremo.Juries
     alias VotaSanremo.TestSetupFixtures
 
     test "list_performers_avg_score_by_edition/1 lists performers with correct avg score" do
@@ -125,7 +127,7 @@ defmodule VotaSanremo.PerformersTest do
     end
 
     test "list_performers_avg_score_by_edition_by_user/2 lists performers with correct avg score of given user" do
-      user = AccountsFixtures.user_fixture()
+      user = user_fixture()
 
       {edition_id, performer_name, first_performance_type, second_performance_type} =
         TestSetupFixtures.setup_for_avg_score_by_user_test(user)
@@ -147,11 +149,43 @@ defmodule VotaSanremo.PerformersTest do
     end
 
     test "list_performers_avg_score_by_edition_by_user/2 uses multiplier" do
-      user = AccountsFixtures.user_fixture()
+      user = user_fixture()
       {edition_id, _, _, _} = TestSetupFixtures.setup_for_avg_score_by_user_test(user, 2.0)
       [avg_score | _] = Performers.list_performers_avg_score_by_edition_by_user(edition_id, user)
 
       assert avg_score.score == 10.0
+    end
+
+    test "list_performers_avg_score_by_edition_by_jury/2 lists scores of performers by jury" do
+      jury = jury_fixture()
+      member = user_fixture()
+      Juries.add_member(jury, member)
+
+      {member_vote, edition_id, performer_name, performance_type} =
+        TestSetupFixtures.setup_for_avg_score_by_jury_test(member)
+
+      [score | _] = Performers.list_performers_avg_score_by_edition_by_jury(edition_id, jury)
+
+      assert score.name == performer_name
+      assert score.performance_type == performance_type
+      assert score.score == member_vote.score
+    end
+
+    test "list_performers_weighted_score_by_edition_by_jury/2 lists scores of performers by jury" do
+      jury = jury_fixture()
+      member = user_fixture()
+      Juries.add_member(jury, member)
+
+      {member_vote, edition_id, performer_name, performance_type} =
+        TestSetupFixtures.setup_for_avg_score_by_jury_test(member)
+
+      [score | _] = Performers.list_performers_weighted_score_by_edition_by_jury(edition_id, jury)
+
+      assert score.name == performer_name
+      assert score.performance_type == performance_type
+      # The weighted average score is the average score multiplied by the sum of the scores.
+      # For this performance there is only one vote, so the score should be the square of the vote.
+      assert score.score == member_vote.score * member_vote.score
     end
   end
 end
