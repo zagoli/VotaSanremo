@@ -8,4 +8,16 @@
   >
     My Juries
   </.link>
+  
+  <.simple_list
+    :if={not Enum.empty?(@top_juries)}
+    id="top_juries"
+    item_click={fn jury -> JS.navigate(~p"/juries/#{jury.id}") end}
+  >
+    <:item :for={%{jury: jury, member_count: member_count} <- @top_juries} click_target={jury}>
+      <div class="flex justify-between">
+        <span>{jury.name}</span> <span class="text-zinc-600">{member_count} members</span>
+      </div>
+    </:item>
+  </.simple_list>
 </section>

@@ -19,9 +19,9 @@ defmodule VotaSanremoWeb.SimpleList do
         :for={item <- @item}
         phx-click={@item_click && @item_click.(item.click_target)}
         role={if @item_click, do: "button", else: "listitem"}
-        class="text-zinc-900 pt-2 pb-2 pl-4"
+        class="text-zinc-900 py-2 px-4"
       >
-        <%= render_slot(item) %>
+        {render_slot(item)}
       </li>
     </ul>
     """
