@@ -5,6 +5,7 @@ defmodule VotaSanremoWeb.UserSearchLive do
 
   def mount(_params, _session, socket) do
     initial_users = Accounts.list_some_users(20)
+
     {:ok,
      socket
      |> assign_form(UserSearch.change_username())

@@ -15,11 +15,11 @@ defmodule VotaSanremoWeb.PerformersScores do
         <.header class="mb-2">
           {performance_type}
         </.header>
-        
+
         <div class="mb-7">
           <.presentation_table items={scores}>
             <:name :let={score_group}>{score_group.name}</:name>
-            
+
             <:property :let={score_group}>
               <.badge>
                 {score_to_string(score_group.score)}

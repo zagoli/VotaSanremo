@@ -192,6 +192,7 @@ defmodule VotaSanremo.Accounts.User do
   """
   def validate_current_password(changeset, password) do
     changeset = cast(changeset, %{current_password: password}, [:current_password])
+
     if valid_password?(changeset.data, password) do
       changeset
     else

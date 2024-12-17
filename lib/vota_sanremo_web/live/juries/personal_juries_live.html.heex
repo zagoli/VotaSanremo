@@ -1,6 +1,6 @@
 <div class="flex justify-between items-center">
   <.header>My Juries</.header>
-  
+
   <.link navigate={~p"/juries/new"} title="Create a new jury">
     <.icon name="hero-plus" />
   </.link>
@@ -9,7 +9,7 @@
 <!-- Founded juries -->
 <%= if not Enum.empty?(@founded_juries) do %>
   <h2 class="mt-5 font-medium">You founded</h2>
-  
+
   <.simple_list
     id="founded-juries"
     item_click={fn jury -> JS.navigate(~p"/juries/#{jury.id}") end}
@@ -21,7 +21,7 @@
 <!-- Member juries -->
 <%= if not Enum.empty?(@member_juries) do %>
   <h2 class="mt-5 font-medium">You are a member of</h2>
-  
+
   <.simple_list id="member-juries" item_click={fn jury -> JS.navigate(~p"/juries/#{jury.id}") end}>
     <:item :for={jury <- @member_juries} click_target={jury}>{jury.name}</:item>
   </.simple_list>

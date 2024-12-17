@@ -37,7 +37,10 @@ Enum.each(users_attrs, fn attrs -> Accounts.register_user(attrs) end)
 
 # Confirm users
 users = for user_attr <- users_attrs, do: Accounts.get_user_by_email(user_attr.email)
-Enum.each(users, fn user -> VotaSanremo.Repo.transaction(VotaSanremo.Accounts.confirm_user_multi(user)) end)
+
+Enum.each(users, fn user ->
+  VotaSanremo.Repo.transaction(VotaSanremo.Accounts.confirm_user_multi(user))
+end)
 
 # Create performance_types
 performance_types_attrs = [
