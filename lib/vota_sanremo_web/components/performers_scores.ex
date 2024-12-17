@@ -10,23 +10,25 @@ defmodule VotaSanremoWeb.PerformersScores do
 
   def performers_scores(assigns) do
     ~H"""
-    <%= for {performance_type, scores} <- order_and_group_scores(@scores) do %>
-      <.header class="mb-2">
-        <%= performance_type %>
-      </.header>
+    <div class="bg-zinc-100 border-4 border-zinc-500 rounded-lg p-3">
+      <%= for {performance_type, scores} <- order_and_group_scores(@scores) do %>
+        <.header class="mb-2">
+          {performance_type}
+        </.header>
 
-      <div class="mb-7">
-        <.presentation_table items={scores}>
-          <:name :let={score_group}><%= score_group.name %></:name>
+        <div class="mb-7">
+          <.presentation_table items={scores}>
+            <:name :let={score_group}>{score_group.name}</:name>
 
-          <:property :let={score_group}>
-            <.badge>
-              <%= score_to_string(score_group.score) %>
-            </.badge>
-          </:property>
-        </.presentation_table>
-      </div>
-    <% end %>
+            <:property :let={score_group}>
+              <.badge>
+                {score_to_string(score_group.score)}
+              </.badge>
+            </:property>
+          </.presentation_table>
+        </div>
+      <% end %>
+    </div>
     """
   end
 

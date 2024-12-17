@@ -7,6 +7,8 @@ defmodule VotaSanremo.Juries.Jury do
 
     belongs_to :user, VotaSanremo.Accounts.User, foreign_key: :founder
 
+    has_many :jury_invites, VotaSanremo.Juries.JuryInvite
+
     many_to_many :members, VotaSanremo.Accounts.User, join_through: "juries_composition"
 
     timestamps(type: :utc_datetime)
@@ -17,6 +19,7 @@ defmodule VotaSanremo.Juries.Jury do
     jury
     |> cast(attrs, [:name, :founder])
     |> validate_required([:name, :founder])
+    |> validate_length(:name, max: 160)
     |> unsafe_validate_unique(:name, VotaSanremo.Repo)
     |> unique_constraint(:name)
   end

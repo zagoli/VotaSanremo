@@ -8,7 +8,7 @@ defmodule VotaSanremo.JuriesFixtures do
   @doc """
   Generate a unique jury name.
   """
-  def unique_jury_name, do: "some name#{System.unique_integer([:positive])}"
+  def unique_jury_name, do: "someName#{System.unique_integer([:positive])}"
 
   @doc """
   Generate a jury.
@@ -25,5 +25,24 @@ defmodule VotaSanremo.JuriesFixtures do
       |> VotaSanremo.Juries.create_jury()
 
     jury
+  end
+
+  @doc """
+  Generate a jury_invite.
+  """
+  def jury_invite_fixture(attrs \\ %{}) do
+    %{id: user_id} = AccountsFixtures.user_fixture()
+    %{id: jury_id} = jury_fixture()
+
+    {:ok, jury_invite} =
+      attrs
+      |> Enum.into(%{
+        status: :accepted,
+        user_id: user_id,
+        jury_id: jury_id
+      })
+      |> VotaSanremo.Juries.create_jury_invite()
+
+    jury_invite
   end
 end

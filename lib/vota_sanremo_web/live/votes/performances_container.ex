@@ -56,11 +56,11 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainerInternal do
     ~H"""
     <section class={@class}>
       <.header class="mb-2">
-        <%= @performances_type %>
+        {@performances_type}
       </.header>
 
       <.presentation_table items={@performances}>
-        <:name :let={performance}><%= performance.performer.name %></:name>
+        <:name :let={performance}>{performance.performer.name}</:name>
 
         <:property :let={performance}>
           <.button_badge
@@ -69,11 +69,11 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainerInternal do
             value={performance.id}
             phx-target={@myself}
           >
-            <%= if Enum.empty?(performance.votes) do
+            {if Enum.empty?(performance.votes) do
               "-"
             else
               performance.votes |> List.first() |> Map.get(:score) |> ScoresUtils.to_string()
-            end %>
+            end}
           </.button_badge>
         </:property>
       </.presentation_table>

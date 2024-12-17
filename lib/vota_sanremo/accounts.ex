@@ -8,7 +8,6 @@ defmodule VotaSanremo.Accounts do
   alias VotaSanremo.Repo
 
   alias VotaSanremo.Accounts.{User, UserToken, UserNotifier}
-  alias VotaSanremo.Accounts.User.Queries
 
   ## Database getters
 
@@ -66,16 +65,29 @@ defmodule VotaSanremo.Accounts do
   List users with a username starting with a string.
   The string to match is extracted from the valid input `changeset`.
   The `changeset` must be created from a `VotaSanremo.UserSearch.Username` struct.
-
-  ## Examples
-
-      iex> list_users_by_username("user")
-      [%User{username: "user1"}, %User{username: "user2"}]
-
+  Limited to a hudred matches.
   """
   def list_users_by_username(%Ecto.Changeset{} = changeset) do
-    {:ok, username} = apply_action(changeset, :get_username)
-    Queries.list_users_by_username(username.username)
+    {:ok, checkedChangeset} = apply_action(changeset, :get_username)
+    like = "#{checkedChangeset.username}%"
+
+    User
+    # TODO use PostgreSQL's `fuzzystrmatch` when available
+    |> where([u], ilike(u.username, ^like))
+    |> order_by(desc: :username)
+    |> limit(100)
+    |> Repo.all()
+  end
+
+  @doc """
+  Returns a list of users limited to the specified number.
+  Returns all users if the number is greater than the total number of users.
+  Returns an empty list if number is 0.
+  """
+  def list_some_users(number) when is_integer(number) and number >= 0 do
+    User
+    |> limit(^number)
+    |> Repo.all()
   end
 
   ## User registration
