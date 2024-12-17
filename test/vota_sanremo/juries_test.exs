@@ -14,6 +14,14 @@ defmodule VotaSanremo.JuriesTest do
       assert Juries.list_juries() == [jury]
     end
 
+    test "list_top_juries/0 returns the ten juries with most members" do
+      juries = for n <- 15..1//-1, do: %{jury: create_jury_with_n_members(n), member_count: n}
+
+      top_juries = Juries.list_top_juries()
+      assert Enum.count(top_juries) == 10
+      assert top_juries == Enum.take(juries, 10)
+    end
+
     test "get_jury!/1 returns the jury with given id" do
       jury = jury_fixture()
       assert Juries.get_jury!(jury.id) == jury
@@ -75,6 +83,17 @@ defmodule VotaSanremo.JuriesTest do
       assert loaded_jury.id == jury.id
       assert [member] = loaded_jury.members
       assert member.id == user.id
+    end
+
+    defp create_jury_with_n_members(n) when is_integer(n) do
+      jury = jury_fixture()
+
+      Enum.each(1..n, fn _ ->
+        user = user_fixture()
+        Juries.add_member(jury, user)
+      end)
+
+      jury
     end
   end
 

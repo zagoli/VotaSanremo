@@ -26,6 +26,28 @@ defmodule VotaSanremo.Juries do
   end
 
   @doc """
+  Returns the list of the ten juries with most members, ordered by the number of members in a decreasing order.
+  If there are less than ten juries, returns all the juries.
+
+  ## Examples
+
+      iex> list_top_juries()
+      [%{jury: %Jury{}, member_count: 10}, ...]
+  """
+  def list_top_juries do
+    Jury
+    |> join(:inner, [j], jc in JuriesComposition, on: jc.jury_id == j.id)
+    |> group_by([j], j.id)
+    |> select([j], %{
+      jury: j,
+      member_count: fragment("count (?) as member_count", j.id)
+    })
+    |> order_by(fragment("member_count DESC"))
+    |> limit(10)
+    |> Repo.all()
+  end
+
+  @doc """
   Returns the juries founded by a user.
 
   ## Examples
