@@ -1,6 +1,14 @@
 <%= if !@jury do %>
   <.header>Jury not found</.header>
 <% else %>
-  <.header><%= @jury.name %></.header>
-  <.link navigate={~p"/juries/#{@jury.id}/members"}>Members</.link>
+  <.header>{@jury.name}</.header>
+   <.link navigate={~p"/juries/#{@jury.id}/members"}>Members</.link>
+  <.header class="mt-5">Leaderboard</.header>
+  
+  <section class="mt-2 mb-2">
+    <.form for={nil} id="weighted-score-flag-form" phx-change="weighted-flag-selected">
+      <.input type="checkbox" name="weighted-scores-flag" label="Weighted scores" />
+    </.form>
+  </section>
+   <.performers_scores scores={@scores} />
 <% end %>
