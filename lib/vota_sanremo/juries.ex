@@ -395,4 +395,16 @@ defmodule VotaSanremo.Juries do
     invite = get_jury_invite_by_jury_and_user!(jury, user)
     delete_jury_invite(invite)
   end
+
+  @doc """
+  Checks if a user is a member of a jury.
+  """
+  def member?(%Jury{} = jury, %User{} = user) do
+    result =
+      JuriesComposition
+      |> where([jc], jc.jury_id == ^jury.id and jc.user_id == ^user.id)
+      |> Repo.one()
+
+    result != nil
+  end
 end

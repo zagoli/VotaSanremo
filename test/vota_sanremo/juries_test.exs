@@ -93,12 +93,26 @@ defmodule VotaSanremo.JuriesTest do
 
       Juries.member_exit(jury, member)
 
-      jury_result = Juries.get_jury_with_members(jury.id)
-      refute Enum.member?(jury_result.members, member)
+      refute Juries.member?(jury, member)
 
       assert_raise Ecto.NoResultsError, fn ->
         Juries.get_jury_invite_by_jury_and_user!(jury, member)
       end
+    end
+
+    test "member?/2 returns true if the user is a member of the jury" do
+      jury = jury_fixture()
+      member = user_fixture()
+      Juries.add_member(jury, member)
+
+      assert Juries.member?(jury, member)
+    end
+
+    test "member?/2 returns false if the user is not a member of the jury" do
+      jury = jury_fixture()
+      user = user_fixture()
+
+      refute Juries.member?(jury, user)
     end
 
     defp create_jury_with_n_members(n) when is_integer(n) do
