@@ -61,4 +61,11 @@ defmodule VotaSanremoWeb.JuriesLiveTest do
       assert_redirect(live, ~p"/juries/#{first_jury.id}")
     end
   end
+
+  describe "No juries" do
+    test "It should render a message saying that there are no juries", %{conn: conn} do
+      {:ok, _live, html} = live(conn, ~p"/juries")
+      assert html =~ "There are no juries yet."
+    end
+  end
 end
