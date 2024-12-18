@@ -85,6 +85,19 @@ defmodule VotaSanremo.JuriesTest do
       assert member.id == user.id
     end
 
+    test "member_exit/2 removes the member and deletes the jury invite" do
+      jury = jury_fixture()
+      member = user_fixture()
+      invite = jury_invite_fixture(%{jury_id: jury.id, user_id: user.id})
+      Juries.add_member(jury, member)
+
+      Juries.member_exit(jury, member)
+
+      jury_result = Juries.get_jury_with_members(jury.id)
+      refute Enum.member?(jury_result.members, member)
+      # assert throw get jury invite
+    end
+
     defp create_jury_with_n_members(n) when is_integer(n) do
       jury = jury_fixture()
 
