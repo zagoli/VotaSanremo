@@ -5,7 +5,7 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
 
   @scores 1..5
 
-  def create_votes(_) do
+  defp create_votes(_) do
     {edition_id, performer_name, first_performance_type, second_performance_type} =
       TestSetupFixtures.setup_for_avg_score_tests(@scores)
 
@@ -78,6 +78,20 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
       :timer.sleep(10)
 
       assert render(live) =~ "4.0"
+    end
+  end
+
+  describe "Leaderboard with no votes" do
+    import VotaSanremo.EditionsFixtures
+
+    setup _ do
+      edition_fixture()
+      :ok
+    end
+
+    test "It should show a message stating that there are no votes", %{conn: conn} do
+      {:ok, _live, html} = live(conn, ~p"/leaderboard")
+      assert html =~ "Nobody voted yet. Be the first!"
     end
   end
 end

@@ -5,9 +5,13 @@
   </:subtitle>
 </.header>
 
-<section class="mt-5 mb-5">
-  <.form for={nil} id="weighted-score-flag-form" phx-change="weighted-flag-selected">
-    <.input type="checkbox" name="weighted-scores-flag" label="Weighted scores" />
-  </.form>
-</section>
-<.performers_scores scores={@scores} />
+<%= if Enum.empty?(@scores) do %>
+  <p class="mt-5">Nobody voted yet. Be the first!</p>
+<% else %>
+  <section class="mt-5 mb-5">
+    <.form for={nil} id="weighted-score-flag-form" phx-change="weighted-flag-selected">
+      <.input type="checkbox" name="weighted-scores-flag" label="Weighted scores" />
+    </.form>
+  </section>
+  <.performers_scores scores={@scores} />
+<% end %>
