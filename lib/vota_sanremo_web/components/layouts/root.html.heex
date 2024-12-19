@@ -24,25 +24,25 @@
 
         <nav class="flex flex-col">
           <%= if @current_user do %>
-            <.sidenav_link path={~p"/vote"}>Vote</.sidenav_link>
+            <.sidenav_link path={~p"/vote"}>{gettext "Vote"}</.sidenav_link>
           <% end %>
 
-          <.sidenav_link path={~p"/leaderboard"}>Leaderboard</.sidenav_link>
+          <.sidenav_link path={~p"/leaderboard"}>{gettext "Leaderboard"}</.sidenav_link>
 
-          <.sidenav_link path={~p"/juries"}>Juries</.sidenav_link>
+          <.sidenav_link path={~p"/juries"}>{gettext "Juries"}</.sidenav_link>
 
           <%= if @current_user do %>
-            <.sidenav_link path={~p"/search/users"}>Search users</.sidenav_link>
+            <.sidenav_link path={~p"/search/users"}>{gettext "Search users"}</.sidenav_link>
 
-            <.sidenav_link path={~p"/users/settings"}>Settings</.sidenav_link>
+            <.sidenav_link path={~p"/users/settings"}>{gettext "Settings"}</.sidenav_link>
 
-            <.sidenav_link path={~p"/juries/my_invites"}>My invites</.sidenav_link>
+            <.sidenav_link path={~p"/juries/my_invites"}>{gettext "My invites"}</.sidenav_link>
 
-            <.sidenav_link path={~p"/users/log_out"} method="delete">Log out</.sidenav_link>
+            <.sidenav_link path={~p"/users/log_out"} method="delete">{gettext "Log out"}</.sidenav_link>
           <% else %>
-            <.sidenav_link path={~p"/users/register"}>Register</.sidenav_link>
+            <.sidenav_link path={~p"/users/register"}>{gettext "Register"}</.sidenav_link>
 
-            <.sidenav_link path={~p"/users/log_in"}>Log in</.sidenav_link>
+            <.sidenav_link path={~p"/users/log_in"}>{gettext "Log in"}</.sidenav_link>
           <% end %>
         </nav>
       </div>
