@@ -4,9 +4,20 @@
   <div class="flex justify-between items-center">
     <.header>{@jury.name}</.header>
 
-    <.link navigate={~p"/juries/#{@jury.id}/members"} title="Members">
-      <.icon name="hero-users" />
-    </.link>
+    <div>
+      <button
+        :if={@is_member}
+        type="button"
+        title="Exit from this jury"
+        id="exit-jury"
+        phx-click="exit-jury"
+      >
+        <.icon name="hero-arrow-right-start-on-rectangle" />
+      </button>
+      <.link navigate={~p"/juries/#{@jury.id}/members"} title="Members">
+        <.icon name="hero-users" />
+      </.link>
+    </div>
   </div>
 
   <%= if not Enum.empty?(@scores) do %>

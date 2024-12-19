@@ -389,11 +389,24 @@ defmodule VotaSanremo.Juries do
 
   @doc """
   Removes a member from a jury, and deletes the jury invite.
+
+
+  ## Examples
+
+      iex> member_exit(jury, user)
+      :ok
+
+      iex> member_exit(jury, bad_user)
+      :error
   """
   def member_exit(%Jury{} = jury, %User{} = user) do
-    remove_member(jury, user)
-    invite = get_jury_invite_by_jury_and_user!(jury, user)
-    delete_jury_invite(invite)
+    with {_, _} <- remove_member(jury, user),
+         invite <- get_jury_invite_by_jury_and_user!(jury, user),
+         {:ok, _} <- delete_jury_invite(invite) do
+      :ok
+    else
+      _ -> :error
+    end
   end
 
   @doc """

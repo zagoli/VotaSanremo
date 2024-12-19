@@ -4,6 +4,7 @@ defmodule VotaSanremoWeb.JuryLiveTest do
   import VotaSanremo.JuriesFixtures
   import VotaSanremo.AccountsFixtures
   import VotaSanremo.VotesFixtures
+  import VotaSanremo.EditionsFixtures
   alias VotaSanremo.Juries
 
   defp create_jury_and_votes(_) do
@@ -30,7 +31,9 @@ defmodule VotaSanremoWeb.JuryLiveTest do
   end
 
   defp add_current_user_to_jury(%{user: user}) do
+    edition_fixture()
     jury = jury_fixture()
+    jury_invite_fixture(%{user_id: user.id, jury_id: jury.id, status: :accepted})
     Juries.add_member(jury, user)
     %{jury: jury}
   end
@@ -41,11 +44,13 @@ defmodule VotaSanremoWeb.JuryLiveTest do
     test "It is possible to exit from the jury", %{conn: conn, jury: jury, user: user} do
       {:ok, live, _html} = live(conn, ~p"/juries/#{jury.id}")
 
-      live
-      |> element("#exit-jury")
-      |> render_click()
+      assert {:ok, _live, html} =
+               live
+               |> element("#exit-jury")
+               |> render_click()
+               |> follow_redirect(conn, ~p"/juries")
 
-      assert_redirect(live, ~p"/juries")
+      assert html =~ "You have successfully exited the jury!"
       refute Juries.member?(jury, user)
     end
   end

@@ -91,7 +91,7 @@ defmodule VotaSanremo.JuriesTest do
       jury_invite_fixture(%{jury_id: jury.id, user_id: member.id})
       Juries.add_member(jury, member)
 
-      Juries.member_exit(jury, member)
+      assert Juries.member_exit(jury, member) == :ok
 
       refute Juries.member?(jury, member)
 
