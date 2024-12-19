@@ -12,7 +12,9 @@
       "extensions": [
        "dbaeumer.vscode-eslint",
        "jakebecker.elixir-ls",
-       "vue.volar"
+       "phoenixframework.phoenix",
+       "github.copilot",
+       "github.copilot-chat"
       ]
      }
     }
