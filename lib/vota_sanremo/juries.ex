@@ -242,6 +242,12 @@ defmodule VotaSanremo.Juries do
   """
   def get_jury_invite!(id), do: Repo.get!(JuryInvite, id)
 
+  def get_jury_invite_by_jury_and_user!(%Jury{} = jury, %User{} = user) do
+    JuryInvite
+    |> where([ji], ji.jury_id == ^jury.id and ji.user_id == ^user.id)
+    |> Repo.one!()
+  end
+
   @doc """
   Creates a jury_invite.
 
@@ -379,5 +385,39 @@ defmodule VotaSanremo.Juries do
     invite
     |> change_jury_invite(%{status: :declined})
     |> Repo.update()
+  end
+
+  @doc """
+  Removes a member from a jury, and deletes the jury invite.
+
+
+  ## Examples
+
+      iex> member_exit(jury, user)
+      :ok
+
+      iex> member_exit(jury, bad_user)
+      :error
+  """
+  def member_exit(%Jury{} = jury, %User{} = user) do
+    with {_, _} <- remove_member(jury, user),
+         invite <- get_jury_invite_by_jury_and_user!(jury, user),
+         {:ok, _} <- delete_jury_invite(invite) do
+      :ok
+    else
+      _ -> :error
+    end
+  end
+
+  @doc """
+  Checks if a user is a member of a jury.
+  """
+  def member?(%Jury{} = jury, %User{} = user) do
+    result =
+      JuriesComposition
+      |> where([jc], jc.jury_id == ^jury.id and jc.user_id == ^user.id)
+      |> Repo.one()
+
+    result != nil
   end
 end

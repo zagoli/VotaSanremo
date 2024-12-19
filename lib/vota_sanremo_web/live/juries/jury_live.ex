@@ -11,7 +11,8 @@ defmodule VotaSanremoWeb.JuryLive do
      |> assign_jury(jury_id)
      |> assign_edition()
      |> assign_weighted_flag(false)
-     |> assign_scores()}
+     |> assign_scores()
+     |> assign_is_member()}
   end
 
   defp assign_jury(socket, jury_id) do
@@ -42,10 +43,31 @@ defmodule VotaSanremoWeb.JuryLive do
     )
   end
 
+  defp assign_is_member(%{assigns: %{current_user: nil}} = socket) do
+    assign(socket, :is_member, false)
+  end
+
+  defp assign_is_member(%{assigns: %{current_user: user, jury: jury}} = socket) do
+    assign(socket, :is_member, Juries.member?(jury, user))
+  end
+
   def handle_event("weighted-flag-selected", %{"weighted-scores-flag" => flag}, socket) do
     {:noreply,
      socket
      |> assign_weighted_flag(flag == "true")
      |> assign_scores()}
+  end
+
+  def handle_event("exit-jury", _params, socket) do
+    case Juries.member_exit(socket.assigns.jury, socket.assigns.current_user) do
+      :ok ->
+        {:noreply,
+         socket
+         |> put_flash(:info, "You have successfully exited the jury!")
+         |> push_navigate(to: ~p"/juries")}
+
+      :error ->
+        {:noreply, socket |> put_flash(:error, "Error exiting the jury")}
+    end
   end
 end
