@@ -1,0 +1,98 @@
+## "msgid"s in this file come from POT (.pot) files.
+###
+### Do not add, change, or remove "msgid"s manually here as
+### they're tied to the ones in the corresponding POT file
+### (with the same domain).
+###
+### Use "mix gettext.extract --merge" or "mix gettext.merge"
+### to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/vota_sanremo_web/components/core_components.ex:553
+#, elixir-autogen, elixir-format
+msgid "Actions"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/core_components.ex:182
+#, elixir-autogen, elixir-format
+msgid "Attempting to reconnect"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/core_components.ex:173
+#, elixir-autogen, elixir-format
+msgid "Error!"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/core_components.ex:194
+#, elixir-autogen, elixir-format
+msgid "Hang in there while we get back on track"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:32
+#, elixir-autogen, elixir-format
+msgid "Juries"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:30
+#, elixir-autogen, elixir-format
+msgid "Leaderboard"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:45
+#, elixir-autogen, elixir-format
+msgid "Log in"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:41
+#, elixir-autogen, elixir-format
+msgid "Log out"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:39
+#, elixir-autogen, elixir-format
+msgid "My invites"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:43
+#, elixir-autogen, elixir-format
+msgid "Register"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:35
+#, elixir-autogen, elixir-format
+msgid "Search users"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:37
+#, elixir-autogen, elixir-format
+msgid "Settings"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/core_components.ex:189
+#, elixir-autogen, elixir-format
+msgid "Something went wrong!"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/core_components.ex:172
+#, elixir-autogen, elixir-format
+msgid "Success!"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:27
+#, elixir-autogen, elixir-format
+msgid "Vote"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/core_components.ex:177
+#, elixir-autogen, elixir-format
+msgid "We can't find the internet"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/core_components.ex:96
+#: lib/vota_sanremo_web/components/core_components.ex:152
+#, elixir-autogen, elixir-format
+msgid "close"
+msgstr ""
