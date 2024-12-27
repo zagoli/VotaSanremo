@@ -10,11 +10,11 @@
 <% else %>
   <.table id="invites" rows={@pending_invites}>
     <:col :let={invite} label={gettext("Jury")}>{invite.jury.name}</:col>
-    
+
     <:action :let={invite}>
       <.button phx-click="accept" value={invite.id}>{gettext("Accept")}</.button>
     </:action>
-    
+
     <:action :let={invite}>
       <.button phx-click="decline" value={invite.id}>{gettext("Decline")}</.button>
     </:action>

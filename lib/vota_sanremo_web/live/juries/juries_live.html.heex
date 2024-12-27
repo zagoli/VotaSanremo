@@ -1,6 +1,6 @@
 <section>
   <.header>{gettext("Juries")}</.header>
-  
+
   <.link
     :if={@current_user}
     class="block mt-3 text-center w-full bg-zinc-600 text-white rounded-lg p-3"
@@ -8,7 +8,7 @@
   >
     {gettext("My Juries")}
   </.link>
-  
+
   <%= if Enum.empty?(@top_juries) do %>
     <p class="mt-5">{gettext("There are no juries yet.")}</p>
   <% else %>
