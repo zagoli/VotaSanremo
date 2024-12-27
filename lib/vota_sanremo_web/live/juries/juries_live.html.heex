@@ -16,7 +16,9 @@
       <:item :for={%{jury: jury, member_count: member_count} <- @top_juries} click_target={jury}>
         <div class="flex justify-between">
           <span>{jury.name}</span>
-          <span class="text-zinc-600">{member_count} {gettext("members")}</span>
+          <span class="text-zinc-600">
+            {ngettext("1 member", "%{count} members", member_count)}
+          </span>
         </div>
       </:item>
     </.simple_list>
