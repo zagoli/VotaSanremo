@@ -1,35 +1,36 @@
 <%= if !@jury do %>
-  <.header>Jury not found</.header>
+  <.header>{gettext("Jury not found")}</.header>
 <% else %>
   <div class="flex justify-between items-center">
     <.header>{@jury.name}</.header>
-
+    
     <div>
       <button
         :if={@is_member}
         type="button"
-        title="Exit from this jury"
+        title={gettext("Exit from this jury")}
         id="exit-jury"
         phx-click="exit-jury"
       >
         <.icon name="hero-arrow-right-start-on-rectangle" />
       </button>
-      <.link navigate={~p"/juries/#{@jury.id}/members"} title="Members">
+      
+      <.link navigate={~p"/juries/#{@jury.id}/members"} title={gettext("Members")}>
         <.icon name="hero-users" />
       </.link>
     </div>
   </div>
-
+  
   <%= if not Enum.empty?(@scores) do %>
     <section class="mt-5 mb-2">
       <.form for={nil} id="weighted-score-flag-form" phx-change="weighted-flag-selected">
-        <.input type="checkbox" name="weighted-scores-flag" label="Weighted scores" />
+        <.input type="checkbox" name="weighted-scores-flag" label={gettext("Weighted scores")} />
       </.form>
     </section>
-    <.performers_scores scores={@scores} />
+     <.performers_scores scores={@scores} />
   <% else %>
-    <p class="mt-5">There are no votes yet.</p>
+    <p class="mt-5">{gettext("There are no votes yet.")}</p>
   <% end %>
 <% end %>
 
-<.back navigate={~p"/juries"}>Back to juries</.back>
+<.back navigate={~p"/juries"}>{gettext("Back to juries")}</.back>

@@ -63,11 +63,11 @@ defmodule VotaSanremoWeb.JuryLive do
       :ok ->
         {:noreply,
          socket
-         |> put_flash(:info, "You have successfully exited the jury!")
+         |> put_flash(:info, gettext("You have successfully exited the jury!"))
          |> push_navigate(to: ~p"/juries")}
 
       :error ->
-        {:noreply, socket |> put_flash(:error, "Error exiting the jury")}
+        {:noreply, socket |> put_flash(:error, gettext("Error exiting the jury"))}
     end
   end
 end
