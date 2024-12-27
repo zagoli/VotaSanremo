@@ -4,7 +4,6 @@ defmodule VotaSanremoWeb.JuriesLive do
   alias VotaSanremo.Juries
 
   def mount(_params, _session, socket) do
-    IO.inspect(Gettext.get_locale(), label: "locale")
     {:ok, socket |> assign_top_juries()}
   end
 
