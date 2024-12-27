@@ -1,7 +1,12 @@
-<.header>Search a user</.header>
+<.header>{gettext("Search a user")}</.header>
 
 <.simple_form for={@form} id="search-users-form" phx-change="search">
-  <.input field={@form[:username]} type="text" placeholder="Username" phx-throttle="1000" />
+  <.input
+    field={@form[:username]}
+    type="text"
+    placeholder={gettext("Username")}
+    phx-throttle="1000"
+  />
 </.simple_form>
 
 <.simple_list
@@ -17,7 +22,7 @@
         :if={@live_action == :invite}
         navigate={~p"/juries/#{@jury_id}/members/invite/#{user.id}"}
       >
-        Invite
+        {gettext("Invite")}
       </.link>
     </div>
   </:item>

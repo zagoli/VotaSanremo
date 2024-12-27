@@ -1,16 +1,16 @@
 <.header>
-  Leaderboard
+  {gettext("Leaderboard")}
   <:subtitle>
-    See the current live leaderboard!
+    {gettext("See the current live leaderboard!")}
   </:subtitle>
 </.header>
 
 <%= if Enum.empty?(@scores) do %>
-  <p class="mt-5">Nobody voted yet. Be the first!</p>
+  <p class="mt-5">{gettext("Nobody voted yet. Be the first!")}</p>
 <% else %>
   <section class="mt-5 mb-5">
     <.form for={nil} id="weighted-score-flag-form" phx-change="weighted-flag-selected">
-      <.input type="checkbox" name="weighted-scores-flag" label="Weighted scores" />
+      <.input type="checkbox" name="weighted-scores-flag" label={gettext("Weighted scores")} />
     </.form>
   </section>
   <.performers_scores scores={@scores} />

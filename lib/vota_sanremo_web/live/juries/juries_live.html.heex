@@ -1,21 +1,24 @@
 <section>
-  <.header>Juries</.header>
+  <.header>{gettext("Juries")}</.header>
 
   <.link
     :if={@current_user}
     class="block mt-3 text-center w-full bg-zinc-600 text-white rounded-lg p-3"
     navigate={~p"/juries/personal"}
   >
-    My Juries
+    {gettext("My Juries")}
   </.link>
 
   <%= if Enum.empty?(@top_juries) do %>
-    <p class="mt-5">There are no juries yet.</p>
+    <p class="mt-5">{gettext("There are no juries yet.")}</p>
   <% else %>
     <.simple_list id="top_juries" item_click={fn jury -> JS.navigate(~p"/juries/#{jury.id}") end}>
       <:item :for={%{jury: jury, member_count: member_count} <- @top_juries} click_target={jury}>
         <div class="flex justify-between">
-          <span>{jury.name}</span> <span class="text-zinc-600">{member_count} members</span>
+          <span>{jury.name}</span>
+          <span class="text-zinc-600">
+            {ngettext("1 member", "%{count} members", member_count)}
+          </span>
         </div>
       </:item>
     </.simple_list>

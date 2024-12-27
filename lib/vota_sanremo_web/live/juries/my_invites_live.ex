@@ -21,11 +21,16 @@ defmodule VotaSanremoWeb.MyInvitesLive do
       {:ok, _} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Invite accepted! You are now part of #{jury_invite.jury.name}")
+         |> put_flash(
+           :info,
+           gettext("Invite accepted! You are now part of %{jury_name}",
+             jury_name: jury_invite.jury.name
+           )
+         )
          |> assign_pending_invites()}
 
       {:error, _} ->
-        socket |> put_flash(:error, "Error while accepting this invite. Sorry!")
+        socket |> put_flash(:error, gettext("Error while accepting this invite. Sorry!"))
     end
   end
 
@@ -40,11 +45,11 @@ defmodule VotaSanremoWeb.MyInvitesLive do
       {:ok, _} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Invite declined.")
+         |> put_flash(:info, gettext("Invite declined."))
          |> assign_pending_invites()}
 
       {:error, _} ->
-        socket |> put_flash(:error, "Error while declining this invite. Sorry!")
+        socket |> put_flash(:error, gettext("Error while declining this invite. Sorry!"))
     end
   end
 

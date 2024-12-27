@@ -1,13 +1,15 @@
 <.header>
-  Create a new Jury
+  {gettext("Create a new jury")}
   <:subtitle>
-    Choose a name. You will be able to invite jurors later.
+    {gettext("Choose a name. You will be able to invite jurors later.")}
   </:subtitle>
 </.header>
 
 <.simple_form for={@form} id="create-jury-form" phx-change="validate" phx-submit="save">
-  <.input field={@form[:name]} label="Jury name" phx-debounce="blur" />
+  <.input field={@form[:name]} label={gettext("Jury name")} phx-debounce="blur" />
   <:actions>
-    <.button type="submit" phx-disable-with="Saving..." class="w-full">Save</.button>
+    <.button type="submit" phx-disable-with={gettext("Saving...")} class="w-full">
+      {gettext("Save")}
+    </.button>
   </:actions>
 </.simple_form>

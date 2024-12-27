@@ -5,6 +5,7 @@ defmodule VotaSanremoWeb.LeaderboardLive do
   alias VotaSanremoWeb.Endpoint
 
   @votes_topic "votes"
+  on_mount {VotaSanremoWeb.SetLocalePlug, :set_locale}
 
   def mount(_params, _session, socket) do
     if connected?(socket) do

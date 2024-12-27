@@ -47,11 +47,11 @@ defmodule VotaSanremoWeb.JuryMembersLive do
     jury = Juries.get_jury!(jury_id)
 
     if jury.founder !== user.id do
-      socket |> put_flash(:error, "You are not allowed to invite a user!")
+      socket |> put_flash(:error, gettext("You are not allowed to invite a user!"))
     else
       case Juries.create_jury_invite(%{status: :pending, jury_id: jury_id, user_id: user_id}) do
-        {:ok, _} -> socket |> put_flash(:info, "User invited")
-        {:error, _} -> socket |> put_flash(:error, "Error inviting user")
+        {:ok, _} -> socket |> put_flash(:info, gettext("User invited"))
+        {:error, _} -> socket |> put_flash(:error, gettext("Error inviting user"))
       end
     end
   end

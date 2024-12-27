@@ -58,7 +58,8 @@ defmodule VotaSanremo.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.2"},
-      {:pbkdf2_elixir, "~> 2.0"}
+      {:pbkdf2_elixir, "~> 2.0"},
+      {:flagpack, "~> 0.5.0"}
     ]
   end
 

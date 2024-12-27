@@ -11,6 +11,7 @@ defmodule VotaSanremoWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
+    plug VotaSanremoWeb.SetLocalePlug
   end
 
   pipeline :api do
@@ -23,7 +24,10 @@ defmodule VotaSanremoWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     live_session :require_authenticated_user,
-      on_mount: [{VotaSanremoWeb.UserAuth, :ensure_authenticated}] do
+      on_mount: [
+        {VotaSanremoWeb.UserAuth, :ensure_authenticated},
+        {VotaSanremoWeb.SetLocalePlug, :set_locale}
+      ] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
       live "/vote", VoteLive, :show
@@ -46,7 +50,10 @@ defmodule VotaSanremoWeb.Router do
     live "/leaderboard", LeaderboardLive
 
     live_session :user_and_guest_routes,
-      on_mount: [{VotaSanremoWeb.UserAuth, :mount_current_user}] do
+      on_mount: [
+        {VotaSanremoWeb.UserAuth, :mount_current_user},
+        {VotaSanremoWeb.SetLocalePlug, :set_locale}
+      ] do
       live "/users/profile/:user_id", UserProfileLive
       live "/juries", JuriesLive
       live "/juries/:jury_id", JuryLive
@@ -60,7 +67,10 @@ defmodule VotaSanremoWeb.Router do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
     live_session :redirect_if_user_is_authenticated,
-      on_mount: [{VotaSanremoWeb.UserAuth, :redirect_if_user_is_authenticated}] do
+      on_mount: [
+        {VotaSanremoWeb.UserAuth, :redirect_if_user_is_authenticated},
+        {VotaSanremoWeb.SetLocalePlug, :set_locale}
+      ] do
       live "/users/register", UserRegistrationLive, :new
       live "/users/log_in", UserLoginLive, :new
       live "/users/reset_password", UserForgotPasswordLive, :new
@@ -76,7 +86,10 @@ defmodule VotaSanremoWeb.Router do
     delete "/users/log_out", UserSessionController, :delete
 
     live_session :current_user,
-      on_mount: [{VotaSanremoWeb.UserAuth, :mount_current_user}] do
+      on_mount: [
+        {VotaSanremoWeb.UserAuth, :mount_current_user},
+        {VotaSanremoWeb.SetLocalePlug, :set_locale}
+      ] do
       live "/users/confirm/:token", UserConfirmationLive, :edit
       live "/users/confirm", UserConfirmationInstructionsLive, :new
     end
