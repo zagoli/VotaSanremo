@@ -29,8 +29,7 @@ defmodule VotaSanremoWeb.JuryMembersLiveTest do
     end
   end
 
-  describe "View members" do
-    alias VotaSanremo.Juries
+  describe "View founder and members" do
     alias VotaSanremo.Juries
 
     setup [:register_and_log_in_user, :create_juries]
