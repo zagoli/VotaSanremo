@@ -7,11 +7,11 @@
     <.live_title>
       {assigns[:page_title] || "VotaSanremo"}
     </.live_title>
-     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  
+
   <body class="bg-white antialiased">
     <aside
       class="z-10 absolute right-0 bg-zinc-700 sm:w-96 w-72 h-full hidden"
@@ -22,44 +22,44 @@
           <button type="button" title="hide menu" phx-click={hide_drawer("aside")}>
             <.icon class="text-white" name="hero-x-mark" />
           </button>
-          
+
           <div class="flex items-center gap-1">
             <.link href={~p"/?lang=en"} title="English language">
               <Flagpack.usa class="w-5 h-4" />
             </.link>
-            
+
             <.link href={~p"/?lang=it"} title="Italian language">
               <Flagpack.ita class="w-5 h-4" />
             </.link>
           </div>
         </div>
-        
+
         <nav class="flex flex-col">
           <.sidenav_link :if={@current_user} path={~p"/vote"}>{gettext("Vote")}</.sidenav_link>
-          
+
           <.sidenav_link path={~p"/leaderboard"}>{gettext("Leaderboard")}</.sidenav_link>
-          
+
           <.sidenav_link path={~p"/juries"}>{gettext("Juries")}</.sidenav_link>
-          
+
           <%= if @current_user do %>
             <.sidenav_link path={~p"/search/users"}>{gettext("Search users")}</.sidenav_link>
-            
+
             <.sidenav_link path={~p"/juries/my_invites"}>{gettext("My invites")}</.sidenav_link>
-            
+
             <.sidenav_link path={~p"/users/settings"}>{gettext("Settings")}</.sidenav_link>
-            
+
             <.sidenav_link path={~p"/users/log_out"} method="delete">
               {gettext("Log out")}
             </.sidenav_link>
           <% else %>
             <.sidenav_link path={~p"/users/register"}>{gettext("Register")}</.sidenav_link>
-            
+
             <.sidenav_link path={~p"/users/log_in"}>{gettext("Log in")}</.sidenav_link>
           <% end %>
         </nav>
       </div>
     </aside>
-    
+
     <header class="px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between border-b border-zinc-100 py-3 text-sm">
         <!-- Items left -->
@@ -76,6 +76,6 @@
         </div>
       </div>
     </header>
-     {@inner_content}
+    {@inner_content}
   </body>
 </html>

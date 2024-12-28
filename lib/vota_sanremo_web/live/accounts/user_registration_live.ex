@@ -30,6 +30,7 @@ defmodule VotaSanremoWeb.UserRegistrationLive do
         <.error :if={@check_errors}>
           {gettext("Oops, something went wrong! Please check the errors below.")}
         </.error>
+
         <.input
           field={@form[:username]}
           type="text"
@@ -43,8 +44,7 @@ defmodule VotaSanremoWeb.UserRegistrationLive do
           label={gettext("Email")}
           phx-debounce="blur"
           required
-        />
-        <.input field={@form[:password]} type="password" label={gettext("Password")} required />
+        /> <.input field={@form[:password]} type="password" label={gettext("Password")} required />
         <:actions>
           <.button phx-disable-with={gettext("Creating account...")} class="w-full">
             {gettext("Create an account")}

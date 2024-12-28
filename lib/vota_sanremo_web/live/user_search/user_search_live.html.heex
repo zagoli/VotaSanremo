@@ -18,7 +18,7 @@
   <:item :for={user <- @users} item_id={"user-#{user.id}"} click_target={user}>
     <span>{user.username}</span>
   </:item>
-  
+
   <:action :let={user}>
     <.link
       :if={@live_action == :invite}
