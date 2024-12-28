@@ -40,7 +40,8 @@ defmodule VotaSanremo.Juries do
     |> group_by([j], j.id)
     |> select([j], %{
       jury: j,
-      member_count: fragment("count (?) as member_count", j.id)
+      # we add one to count the founder
+      member_count: fragment("count (?) + 1 as member_count", j.id)
     })
     |> order_by(fragment("member_count DESC"))
     |> limit(10)

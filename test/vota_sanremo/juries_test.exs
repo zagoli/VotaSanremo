@@ -19,7 +19,13 @@ defmodule VotaSanremo.JuriesTest do
 
       top_juries = Juries.list_top_juries()
       assert Enum.count(top_juries) == 10
-      assert top_juries == Enum.take(juries, 10)
+
+      assert top_juries ==
+               Enum.take(juries, 10)
+               |> Enum.map(fn %{jury: j, member_count: c} ->
+                 # We add one to count the founder
+                 %{jury: j, member_count: c + 1}
+               end)
     end
 
     test "get_jury!/1 returns the jury with given id" do
