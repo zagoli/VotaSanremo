@@ -55,4 +55,16 @@ defmodule VotaSanremoWeb.JuryMembersLive do
       end
     end
   end
+
+  def handle_event("remove-member", %{"value" => member_id}, %{assigns: %{jury: jury}} = socket) do
+    member = jury.members |> Enum.find(&(&1.id === String.to_integer(member_id)))
+
+    case Juries.member_exit(jury, member) do
+      :ok ->
+        {:noreply, socket |> assign_jury(jury.id) |> put_flash(:info, gettext("Member removed!"))}
+
+      :error ->
+        socket |> put_flash(:error, gettext("Error removing member."))
+    end
+  end
 end

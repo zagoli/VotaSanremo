@@ -16,14 +16,15 @@
   }
 >
   <:item :for={user <- @users} click_target={user}>
-    <div id={"user-#{user.id}"} class="flex justify-between pr-4">
-      <span>{user.username}</span>
-      <.link
-        :if={@live_action == :invite}
-        navigate={~p"/juries/#{@jury_id}/members/invite/#{user.id}"}
-      >
-        {gettext("Invite")}
-      </.link>
-    </div>
+    <span>{user.username}</span>
   </:item>
+  
+  <:action :let={user}>
+    <.link
+      :if={@live_action == :invite}
+      navigate={~p"/juries/#{@jury_id}/members/invite/#{user.id}"}
+    >
+      {gettext("Invite")}
+    </.link>
+  </:action>
 </.simple_list>

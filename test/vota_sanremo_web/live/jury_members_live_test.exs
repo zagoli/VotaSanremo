@@ -31,6 +31,7 @@ defmodule VotaSanremoWeb.JuryMembersLiveTest do
 
   describe "View members" do
     alias VotaSanremo.Juries
+    alias VotaSanremo.Juries
 
     setup [:register_and_log_in_user, :create_juries]
 
@@ -138,6 +139,44 @@ defmodule VotaSanremoWeb.JuryMembersLiveTest do
       {:ok, _live, html} = live(conn, ~p"/juries/#{jury.id}/members")
 
       refute html =~ "Pending invites"
+    end
+  end
+
+  describe "Remove a member from a jury" do
+    alias VotaSanremo.Juries
+    setup [:register_and_log_in_user, :create_juries, :create_other_user, :create_invite]
+
+    test "It is possible to remove a member from a jury when founder", %{
+      conn: conn,
+      jury: founded_jury,
+      other_user: member
+    } do
+      Juries.add_member(founded_jury, member)
+
+      {:ok, live, _html} = live(conn, ~p"/juries/#{founded_jury.id}/members")
+
+      html =
+        live
+        |> element("#members li button[title='Remove member']")
+        |> render_click()
+
+      assert html =~ "Member removed!"
+
+      refute html
+             |> Floki.find("#members")
+             |> Floki.text() =~ member.username
+    end
+
+    test "It is not possible to remove a member from a jury when not founder", %{
+      conn: conn,
+      other_jury: jury
+    } do
+      member = user_fixture()
+      Juries.add_member(jury, member)
+
+      {:ok, _live, html} = live(conn, ~p"/juries/#{jury.id}/members")
+
+      assert Enum.empty?(Floki.find(html, "#members li button[title='Remove member']"))
     end
   end
 end
