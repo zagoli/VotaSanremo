@@ -11,4 +11,6 @@ Unfortunately, my UI/UX skills are lacking, so it might not look very polished.
 # Run locally
 1. Install [Elixir](https://elixir-lang.org/install.html)
 2. Install [PostgreSQL](https://www.postgresql.org/download/)
-3. Clone `main` and run `mix phx.server`
+3. Clone `main` and cd in project directory
+4. Run `mix ecto.setup`
+5. Start the server with `mix phx.server`
