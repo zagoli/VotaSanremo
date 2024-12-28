@@ -10,6 +10,9 @@ defmodule VotaSanremoWeb.SimpleList do
 
   slot :item do
     attr :click_target, :any, doc: "the item that will be passed to `item_click` and actions"
+
+    attr :item_id, :string,
+      doc: "The optional id of the html element containing the item and actions"
   end
 
   slot :action, doc: "The actions for each item"
@@ -17,7 +20,11 @@ defmodule VotaSanremoWeb.SimpleList do
   def simple_list(assigns) do
     ~H"""
     <ul class={"mt-4 border border-zinc-300 rounded-lg divide-y divide-zinc-100 " <> @class} id={@id}>
-      <li :for={item <- @item} class="flex items-center justify-between text-zinc-900 py-2 px-4">
+      <li
+        :for={item <- @item}
+        class="flex items-center justify-between text-zinc-900 py-2 px-4"
+        id={Map.get(item, :item_id)}
+      >
         <div
           class="flex-1"
           phx-click={@item_click && @item_click.(item.click_target)}

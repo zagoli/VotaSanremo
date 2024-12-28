@@ -55,7 +55,7 @@ defmodule VotaSanremoWeb.JuriesLiveTest do
     test "Clicking on a jury should navigate to jury page", %{conn: conn, juries: {first_jury, _}} do
       {:ok, live, _html} = live(conn, ~p"/juries")
 
-      element(live, "#top_juries li", first_jury.name)
+      element(live, "#top_juries li div[role=button]", first_jury.name)
       |> render_click()
 
       assert_redirect(live, ~p"/juries/#{first_jury.id}")

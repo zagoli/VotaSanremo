@@ -15,7 +15,7 @@
     @live_action == :search and fn user -> JS.navigate(~p"/users/profile/#{user.id}") end
   }
 >
-  <:item :for={user <- @users} click_target={user}>
+  <:item :for={user <- @users} item_id={"user-#{user.id}"} click_target={user}>
     <span>{user.username}</span>
   </:item>
   
