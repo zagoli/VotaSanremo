@@ -100,3 +100,8 @@ msgstr "deve essere maggiore o uguale a %{number}"
 
 msgid "must be equal to %{number}"
 msgstr "deve essere uguale a %{number}"
+
+#: lib/vota_sanremo_web/controllers/user_session_controller.ex:38
+#, elixir-autogen, elixir-format
+msgid "Invalid email or password"
+msgstr "Email o password non valide"

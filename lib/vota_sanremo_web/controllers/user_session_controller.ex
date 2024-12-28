@@ -1,7 +1,6 @@
-# TODO: translate this file
-
 defmodule VotaSanremoWeb.UserSessionController do
   use VotaSanremoWeb, :controller
+  import VotaSanremoWeb.Gettext
 
   alias VotaSanremo.Accounts
   alias VotaSanremoWeb.UserAuth
@@ -10,18 +9,20 @@ defmodule VotaSanremoWeb.UserSessionController do
     create(
       conn,
       params,
-      "Account created successfully! A confirmation email was sent to your email address."
+      gettext(
+        "Account created successfully! A confirmation email was sent to your email address."
+      )
     )
   end
 
   def create(conn, %{"_action" => "password_updated"} = params) do
     conn
     |> put_session(:user_return_to, ~p"/users/settings")
-    |> create(params, "Password updated successfully!")
+    |> create(params, gettext("Password updated successfully!"))
   end
 
   def create(conn, params) do
-    create(conn, params, "Welcome back!")
+    create(conn, params, gettext("Welcome back!"))
   end
 
   defp create(conn, %{"user" => user_params}, info) do
@@ -34,7 +35,7 @@ defmodule VotaSanremoWeb.UserSessionController do
     else
       # In order to prevent user enumeration attacks, don't disclose whether the email is registered.
       conn
-      |> put_flash(:error, "Invalid email or password")
+      |> put_flash(:error, dgettext("errors", "Invalid email or password"))
       |> put_flash(:email, String.slice(email, 0, 160))
       |> redirect(to: ~p"/users/log_in")
     end
@@ -42,7 +43,7 @@ defmodule VotaSanremoWeb.UserSessionController do
 
   def delete(conn, _params) do
     conn
-    |> put_flash(:info, "Logged out successfully.")
+    |> put_flash(:info, gettext("Logged out successfully."))
     |> UserAuth.log_out_user()
   end
 end

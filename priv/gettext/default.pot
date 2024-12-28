@@ -626,3 +626,23 @@ msgid "One member"
 msgid_plural "%{count} members"
 msgstr[0] ""
 msgstr[1] ""
+
+#: lib/vota_sanremo_web/controllers/user_session_controller.ex:12
+#, elixir-autogen, elixir-format
+msgid "Account created successfully! A confirmation email was sent to your email address."
+msgstr ""
+
+#: lib/vota_sanremo_web/controllers/user_session_controller.ex:46
+#, elixir-autogen, elixir-format
+msgid "Logged out successfully."
+msgstr ""
+
+#: lib/vota_sanremo_web/controllers/user_session_controller.ex:21
+#, elixir-autogen, elixir-format
+msgid "Password updated successfully!"
+msgstr ""
+
+#: lib/vota_sanremo_web/controllers/user_session_controller.ex:25
+#, elixir-autogen, elixir-format
+msgid "Welcome back!"
+msgstr ""
