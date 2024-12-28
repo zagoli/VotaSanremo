@@ -15,15 +15,16 @@
     @live_action == :search and fn user -> JS.navigate(~p"/users/profile/#{user.id}") end
   }
 >
-  <:item :for={user <- @users} click_target={user}>
-    <div id={"user-#{user.id}"} class="flex justify-between pr-4">
-      <span>{user.username}</span>
-      <.link
-        :if={@live_action == :invite}
-        navigate={~p"/juries/#{@jury_id}/members/invite/#{user.id}"}
-      >
-        {gettext("Invite")}
-      </.link>
-    </div>
+  <:item :for={user <- @users} item_id={"user-#{user.id}"} click_target={user}>
+    <span>{user.username}</span>
   </:item>
+
+  <:action :let={user}>
+    <.link
+      :if={@live_action == :invite}
+      navigate={~p"/juries/#{@jury_id}/members/invite/#{user.id}"}
+    >
+      {gettext("Invite")}
+    </.link>
+  </:action>
 </.simple_list>

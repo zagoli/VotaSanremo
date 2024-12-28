@@ -62,14 +62,14 @@ defmodule VotaSanremo.Accounts do
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
-  List users with a username starting with a string.
+  List users with a username containing a string.
   The string to match is extracted from the valid input `changeset`.
   The `changeset` must be created from a `VotaSanremo.UserSearch.Username` struct.
   Limited to a hudred matches.
   """
   def list_users_by_username(%Ecto.Changeset{} = changeset) do
     {:ok, checkedChangeset} = apply_action(changeset, :get_username)
-    like = "#{checkedChangeset.username}%"
+    like = "%#{checkedChangeset.username}%"
 
     User
     # TODO use PostgreSQL's `fuzzystrmatch` when available

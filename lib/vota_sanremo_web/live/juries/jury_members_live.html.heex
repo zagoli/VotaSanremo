@@ -21,6 +21,12 @@
     <:item :for={member <- @jury.members} click_target={member}>
       <span>{member.username}</span>
     </:item>
+
+    <:action :let={member} :if={@is_founder}>
+      <button title={gettext("Remove member")} phx-click="remove-member" value={member.id}>
+        <.icon name="hero-arrow-right-start-on-rectangle" />
+      </button>
+    </:action>
   </.simple_list>
 <% end %>
 

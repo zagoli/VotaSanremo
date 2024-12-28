@@ -229,7 +229,7 @@ defmodule VotaSanremo.Juries do
   @doc """
   Gets a single jury_invite.
 
-  Raises `Ecto.NoResultsError` if the Jury invite does not exist.
+  Returns nil if the Jury invite does not exist.
 
   ## Examples
 
@@ -237,15 +237,15 @@ defmodule VotaSanremo.Juries do
       %JuryInvite{}
 
       iex> get_jury_invite!(456)
-      ** (Ecto.NoResultsError)
+      nil
 
   """
   def get_jury_invite!(id), do: Repo.get!(JuryInvite, id)
 
-  def get_jury_invite_by_jury_and_user!(%Jury{} = jury, %User{} = user) do
+  def get_jury_invite_by_jury_and_user(%Jury{} = jury, %User{} = user) do
     JuryInvite
     |> where([ji], ji.jury_id == ^jury.id and ji.user_id == ^user.id)
-    |> Repo.one!()
+    |> Repo.one()
   end
 
   @doc """
@@ -401,7 +401,7 @@ defmodule VotaSanremo.Juries do
   """
   def member_exit(%Jury{} = jury, %User{} = user) do
     with {_, _} <- remove_member(jury, user),
-         invite <- get_jury_invite_by_jury_and_user!(jury, user),
+         invite when not is_nil(invite) <- get_jury_invite_by_jury_and_user(jury, user),
          {:ok, _} <- delete_jury_invite(invite) do
       :ok
     else

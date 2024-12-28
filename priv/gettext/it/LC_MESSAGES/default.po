@@ -60,7 +60,7 @@ msgstr "Accedi"
 msgid "Log out"
 msgstr "Esci"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:49
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:47
 #: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:2
 #, elixir-autogen, elixir-format
 msgid "My invites"
@@ -80,7 +80,7 @@ msgstr "Registrati"
 msgid "Search users"
 msgstr "Cerca un utente"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:47
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:49
 #, elixir-autogen, elixir-format
 msgid "Settings"
 msgstr "Impostazioni"
@@ -161,7 +161,7 @@ msgstr "Hai già un account?"
 msgid "Back to juries"
 msgstr "Torna alle giurie"
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:40
+#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:46
 #, elixir-autogen, elixir-format
 msgid "Back to jury"
 msgstr "Torna alla giuria"
@@ -316,7 +316,7 @@ msgstr "Se la tua email è nel nostro sistema e non è stata ancora confermata, 
 msgid "If your email is in our system, you will receive instructions to reset your password shortly."
 msgstr "Se la tua email è nel nostro sistema, riceverai a breve le istruzioni per reimpostare la password."
 
-#: lib/vota_sanremo_web/live/user_search/user_search_live.html.heex:25
+#: lib/vota_sanremo_web/live/user_search/user_search_live.html.heex:27
 #, elixir-autogen, elixir-format
 msgid "Invite"
 msgstr "Invita"
@@ -410,7 +410,7 @@ msgstr "Password"
 msgid "Password reset successfully."
 msgstr "Password reimpostata con successo."
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:29
+#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:35
 #, elixir-autogen, elixir-format
 msgid "Pending sent invites"
 msgstr "Inviti in sospeso"
@@ -606,3 +606,18 @@ msgid "1 member"
 msgid_plural "%{count} members"
 msgstr[0] "1 membro"
 msgstr[1] "membri"
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:67
+#, elixir-autogen, elixir-format
+msgid "Error removing member."
+msgstr "Errore durante la rimozione del membro della giuria."
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:64
+#, elixir-autogen, elixir-format
+msgid "Member removed!"
+msgstr "Membro della giuria rimosso!"
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:26
+#, elixir-autogen, elixir-format
+msgid "Remove member"
+msgstr "Rimuovi membro della giuria"

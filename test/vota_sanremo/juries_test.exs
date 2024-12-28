@@ -95,9 +95,15 @@ defmodule VotaSanremo.JuriesTest do
 
       refute Juries.member?(jury, member)
 
-      assert_raise Ecto.NoResultsError, fn ->
-        Juries.get_jury_invite_by_jury_and_user!(jury, member)
-      end
+      assert Juries.get_jury_invite_by_jury_and_user(jury, member) == nil
+    end
+
+    test "member_exit/2 returns :error when invite is not present" do
+      jury = jury_fixture()
+      member = user_fixture()
+      Juries.add_member(jury, member)
+
+      assert Juries.member_exit(jury, member) == :error
     end
 
     test "member?/2 returns true if the user is a member of the jury" do
@@ -147,11 +153,17 @@ defmodule VotaSanremo.JuriesTest do
       assert Juries.get_jury_invite!(jury_invite.id) == jury_invite
     end
 
-    test "get_jury_invite_by_jury_and_user!/2 returns the jury_invite with given user and jury" do
+    test "get_jury_invite_by_jury_and_user/2 returns the jury_invite with given user and jury" do
       jury = jury_fixture()
       user = user_fixture()
       jury_invite = jury_invite_fixture(%{jury_id: jury.id, user_id: user.id})
-      assert Juries.get_jury_invite_by_jury_and_user!(jury, user) == jury_invite
+      assert Juries.get_jury_invite_by_jury_and_user(jury, user) == jury_invite
+    end
+
+    test "get_jury_invite_by_jury_and_user/2 returns nil when the invite is not present" do
+      jury = jury_fixture()
+      user = user_fixture()
+      assert Juries.get_jury_invite_by_jury_and_user(jury, user) == nil
     end
 
     test "create_jury_invite/1 with valid data creates a jury_invite", %{

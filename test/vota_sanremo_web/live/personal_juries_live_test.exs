@@ -52,7 +52,7 @@ defmodule VotaSanremoWeb.PersonalJuriesLiveTest do
       # Founded
       {:ok, live, _html} = live(conn, ~p"/juries/personal")
 
-      element(live, "#founded-juries li")
+      element(live, "#founded-juries li div[role=button]")
       |> render_click()
 
       assert_redirect(live, ~p"/juries/#{founded_jury.id}")
@@ -60,7 +60,7 @@ defmodule VotaSanremoWeb.PersonalJuriesLiveTest do
       # Member
       {:ok, live, _html} = live(conn, ~p"/juries/personal")
 
-      element(live, "#member-juries li")
+      element(live, "#member-juries li div[role=button]")
       |> render_click()
 
       assert_redirect(live, ~p"/juries/#{jury.id}")

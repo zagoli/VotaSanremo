@@ -643,6 +643,16 @@ defmodule VotaSanremo.AccountsTest do
       assert "user5" in found_usernames
     end
 
+    test "find user with username containing text" do
+      changeset = UserSearch.change_username(%{"username" => "1"})
+
+      found_usernames =
+        Accounts.list_users_by_username(changeset)
+        |> Enum.map(& &1.username)
+
+      assert "user1" in found_usernames
+    end
+
     test "returns empty list when no match is found" do
       changeset = UserSearch.change_username(%{"username" => "nothing"})
       found_users = Accounts.list_users_by_username(changeset)

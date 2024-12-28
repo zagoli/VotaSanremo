@@ -44,9 +44,9 @@
           <%= if @current_user do %>
             <.sidenav_link path={~p"/search/users"}>{gettext("Search users")}</.sidenav_link>
 
-            <.sidenav_link path={~p"/users/settings"}>{gettext("Settings")}</.sidenav_link>
-
             <.sidenav_link path={~p"/juries/my_invites"}>{gettext("My invites")}</.sidenav_link>
+
+            <.sidenav_link path={~p"/users/settings"}>{gettext("Settings")}</.sidenav_link>
 
             <.sidenav_link path={~p"/users/log_out"} method="delete">
               {gettext("Log out")}
