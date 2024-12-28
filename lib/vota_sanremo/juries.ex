@@ -36,12 +36,11 @@ defmodule VotaSanremo.Juries do
   """
   def list_top_juries do
     Jury
-    |> join(:inner, [j], jc in JuriesComposition, on: jc.jury_id == j.id)
+    |> join(:left, [j], jc in JuriesComposition, on: jc.jury_id == j.id)
     |> group_by([j], j.id)
-    |> select([j], %{
+    |> select([j, jc], %{
       jury: j,
-      # we add one to count the founder
-      member_count: fragment("count (?) + 1 as member_count", j.id)
+      member_count: fragment("count (?) as member_count", jc.jury_id)
     })
     |> order_by(fragment("member_count DESC"))
     |> limit(10)

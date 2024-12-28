@@ -17,7 +17,10 @@
         <div class="flex justify-between">
           <span>{jury.name}</span>
           <span class="text-zinc-600">
-            {ngettext("1 member", "%{count} members", member_count)}
+            {case member_count do
+              0 -> gettext("No members")
+              _ -> ngettext("One member", "%{count} members", member_count)
+            end}
           </span>
         </div>
       </:item>

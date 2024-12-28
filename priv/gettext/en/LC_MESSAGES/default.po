@@ -111,12 +111,12 @@ msgstr ""
 msgid "close"
 msgstr ""
 
-#: lib/vota_sanremo_web/controllers/page_html/home.html.heex:13
+#: lib/vota_sanremo_web/controllers/page_html/home.html.heex:12
 #, elixir-autogen, elixir-format
 msgid "Log in to vote!"
 msgstr ""
 
-#: lib/vota_sanremo_web/controllers/page_html/home.html.heex:18
+#: lib/vota_sanremo_web/controllers/page_html/home.html.heex:17
 #, elixir-autogen, elixir-format
 msgid "View the live leaderboard!"
 msgstr ""
@@ -156,34 +156,34 @@ msgstr ""
 msgid "Already registered?"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:36
+#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:32
 #, elixir-autogen, elixir-format
 msgid "Back to juries"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:46
+#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:47
 #, elixir-autogen, elixir-format
 msgid "Back to jury"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:45
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:46
 #, elixir-autogen, elixir-format
 msgid "Change Email"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:52
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:91
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:53
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:92
 #, elixir-autogen, elixir-format
 msgid "Change Password"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:25
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:26
 #, elixir-autogen, elixir-format
 msgid "Change your email"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:45
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:91
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:46
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:92
 #, elixir-autogen, elixir-format
 msgid "Changing..."
 msgstr ""
@@ -204,7 +204,7 @@ msgid "Confirm my account"
 msgstr ""
 
 #: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:24
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:79
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:80
 #, elixir-autogen, elixir-format
 msgid "Confirm new password"
 msgstr ""
@@ -230,8 +230,8 @@ msgstr ""
 msgid "Creating account..."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:40
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:85
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:41
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:86
 #, elixir-autogen, elixir-format
 msgid "Current password"
 msgstr ""
@@ -249,8 +249,8 @@ msgstr ""
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:15
 #: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:15
 #: lib/vota_sanremo_web/live/accounts/user_login_live.ex:19
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:43
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:34
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:44
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:35
 #, elixir-autogen, elixir-format
 msgid "Email"
 msgstr ""
@@ -265,7 +265,7 @@ msgstr ""
 msgid "Email changed successfully."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_live.ex:70
+#: lib/vota_sanremo_web/live/juries/jury_live.ex:76
 #, elixir-autogen, elixir-format
 msgid "Error exiting the jury"
 msgstr ""
@@ -285,7 +285,7 @@ msgstr ""
 msgid "Error while declining this invite. Sorry!"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:11
+#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:8
 #, elixir-autogen, elixir-format
 msgid "Exit from this jury"
 msgstr ""
@@ -346,11 +346,6 @@ msgstr ""
 msgid "Jury name"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:2
-#, elixir-autogen, elixir-format
-msgid "Jury not found"
-msgstr ""
-
 #: lib/vota_sanremo_web/live/accounts/user_login_live.ex:22
 #, elixir-autogen, elixir-format
 msgid "Keep me logged in"
@@ -366,7 +361,7 @@ msgstr ""
 msgid "Logging in..."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:18
+#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:15
 #, elixir-autogen, elixir-format
 msgid "Members"
 msgstr ""
@@ -378,7 +373,7 @@ msgid "My Juries"
 msgstr ""
 
 #: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:20
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:73
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:74
 #, elixir-autogen, elixir-format
 msgid "New password"
 msgstr ""
@@ -410,12 +405,12 @@ msgstr ""
 msgid "Password reset successfully."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:35
+#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "Pending sent invites"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:18
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "Private"
 msgstr ""
@@ -497,13 +492,13 @@ msgstr ""
 msgid "There are no juries yet."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:14
+#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:15
 #, elixir-autogen, elixir-format
 msgid "There are no members yet."
 msgstr ""
 
 #: lib/vota_sanremo_web/live/accounts/user_profile_live.html.heex:13
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:32
+#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:29
 #, elixir-autogen, elixir-format
 msgid "There are no votes to show yet."
 msgstr ""
@@ -528,7 +523,7 @@ msgstr ""
 msgid "User invited"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:36
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:37
 #: lib/vota_sanremo_web/live/user_search/user_search_live.html.heex:7
 #, elixir-autogen, elixir-format
 msgid "Username"
@@ -554,7 +549,7 @@ msgstr ""
 msgid "We'll send a password reset link to your inbox"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:27
+#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:24
 #: lib/vota_sanremo_web/live/leaderboard/leaderboard_live.html.heex:13
 #, elixir-autogen, elixir-format
 msgid "Weighted scores"
@@ -585,7 +580,7 @@ msgstr ""
 msgid "You have no pending invites."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_live.ex:66
+#: lib/vota_sanremo_web/live/juries/jury_live.ex:72
 #, elixir-autogen, elixir-format
 msgid "You have successfully exited the jury!"
 msgstr ""
@@ -600,13 +595,6 @@ msgstr ""
 msgid "to your account now."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/juries_live.html.heex:20
-#, elixir-autogen, elixir-format, fuzzy
-msgid "1 member"
-msgid_plural "%{count} members"
-msgstr[0] ""
-msgstr[1] ""
-
 #: lib/vota_sanremo_web/live/juries/jury_members_live.ex:67
 #, elixir-autogen, elixir-format
 msgid "Error removing member."
@@ -617,7 +605,24 @@ msgstr ""
 msgid "Member removed!"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:26
+#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:27
 #, elixir-autogen, elixir-format
 msgid "Remove member"
 msgstr ""
+
+#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:3
+#, elixir-autogen, elixir-format
+msgid "Founded by %{founder}"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/juries/juries_live.html.heex:21
+#, elixir-autogen, elixir-format, fuzzy
+msgid "No members"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/juries/juries_live.html.heex:22
+#, elixir-autogen, elixir-format
+msgid "One member"
+msgid_plural "%{count} members"
+msgstr[0] ""
+msgstr[1] ""

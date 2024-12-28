@@ -45,13 +45,11 @@ defmodule VotaSanremoWeb.JuriesLiveTest do
 
       assert Enum.count(juries_html_items) == 2
 
-      # Jury count includes members and the founder
-
       assert juries_html_items |> Enum.at(0) |> Floki.text() =~ second_jury.name
-      assert juries_html_items |> Enum.at(0) |> Floki.text() =~ "11 members"
+      assert juries_html_items |> Enum.at(0) |> Floki.text() =~ "10 members"
 
       assert juries_html_items |> Enum.at(1) |> Floki.text() =~ first_jury.name
-      assert juries_html_items |> Enum.at(1) |> Floki.text() =~ "6 members"
+      assert juries_html_items |> Enum.at(1) |> Floki.text() =~ "5 members"
     end
 
     test "Clicking on a jury should navigate to jury page", %{conn: conn, juries: {first_jury, _}} do
