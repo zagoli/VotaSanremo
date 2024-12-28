@@ -60,7 +60,7 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:49
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:47
 #: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:2
 #, elixir-autogen, elixir-format
 msgid "My invites"
@@ -80,7 +80,7 @@ msgstr ""
 msgid "Search users"
 msgstr ""
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:47
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:49
 #, elixir-autogen, elixir-format
 msgid "Settings"
 msgstr ""
@@ -161,7 +161,7 @@ msgstr ""
 msgid "Back to juries"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:40
+#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:46
 #, elixir-autogen, elixir-format
 msgid "Back to jury"
 msgstr ""
@@ -316,7 +316,7 @@ msgstr ""
 msgid "If your email is in our system, you will receive instructions to reset your password shortly."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/user_search/user_search_live.html.heex:25
+#: lib/vota_sanremo_web/live/user_search/user_search_live.html.heex:27
 #, elixir-autogen, elixir-format
 msgid "Invite"
 msgstr ""
@@ -410,7 +410,7 @@ msgstr ""
 msgid "Password reset successfully."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:29
+#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:35
 #, elixir-autogen, elixir-format
 msgid "Pending sent invites"
 msgstr ""
@@ -606,3 +606,18 @@ msgid "1 member"
 msgid_plural "%{count} members"
 msgstr[0] ""
 msgstr[1] ""
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:67
+#, elixir-autogen, elixir-format
+msgid "Error removing member."
+msgstr ""
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:64
+#, elixir-autogen, elixir-format
+msgid "Member removed!"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:26
+#, elixir-autogen, elixir-format
+msgid "Remove member"
+msgstr ""
