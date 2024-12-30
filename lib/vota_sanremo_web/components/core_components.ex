@@ -17,7 +17,7 @@ defmodule VotaSanremoWeb.CoreComponents do
   use Phoenix.Component
 
   alias Phoenix.LiveView.JS
-  import VotaSanremoWeb.Gettext
+  use Gettext, backend: VotaSanremoWeb.Gettext
 
   @doc """
   Renders a navigation link for the sidebar that goes to the given path.

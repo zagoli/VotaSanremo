@@ -1,6 +1,6 @@
 defmodule VotaSanremoWeb.UserSessionController do
   use VotaSanremoWeb, :controller
-  import VotaSanremoWeb.Gettext
+  use Gettext, backend: VotaSanremoWeb.Gettext
 
   alias VotaSanremo.Accounts
   alias VotaSanremoWeb.UserAuth
