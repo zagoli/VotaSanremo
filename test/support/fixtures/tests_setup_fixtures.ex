@@ -97,10 +97,11 @@ defmodule VotaSanremo.TestSetupFixtures do
 
   @doc """
   Creates two performances of different types and evenings.
-  For the `member` creates a vote for the first performance which is returned as first element.
+  For the `founder` creates a vote for the first performance wich is returned as first element.
+  For the `member` creates a vote for the first performance which is returned as second element.
   It also creates a vote for the first performance for another user.
   """
-  def setup_for_avg_score_by_jury_test(%User{} = member) do
+  def setup_for_avg_score_by_jury_test(%User{} = founder, %User{} = member) do
     {first_performance_id, _second_performance_id, edition_id, performer_name,
      first_performance_type,
      _second_performance_type} =
@@ -113,9 +114,16 @@ defmodule VotaSanremo.TestSetupFixtures do
         user_id: member.id
       })
 
+    founder_vote =
+      vote_fixture(%{
+        score: 10.0,
+        performance_id: first_performance_id,
+        user_id: founder.id
+      })
+
     # Vote for a different user
     vote_fixture(%{score: 1.0, performance_id: first_performance_id})
 
-    {member_vote, edition_id, performer_name, first_performance_type}
+    {founder_vote, member_vote, edition_id, performer_name, first_performance_type}
   end
 end

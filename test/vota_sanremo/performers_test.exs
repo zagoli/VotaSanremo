@@ -157,35 +157,36 @@ defmodule VotaSanremo.PerformersTest do
     end
 
     test "list_performers_avg_score_by_edition_by_jury/2 lists scores of performers by jury" do
-      jury = jury_fixture()
+      founder = user_fixture()
+      jury = jury_fixture(%{founder_id: founder.id})
       member = user_fixture()
       Juries.add_member(jury, member)
 
-      {member_vote, edition_id, performer_name, performance_type} =
-        TestSetupFixtures.setup_for_avg_score_by_jury_test(member)
+      {founder_vote, member_vote, edition_id, performer_name, performance_type} =
+        TestSetupFixtures.setup_for_avg_score_by_jury_test(founder, member)
 
       [score | _] = Performers.list_performers_avg_score_by_edition_by_jury(edition_id, jury)
 
       assert score.name == performer_name
       assert score.performance_type == performance_type
-      assert score.score == member_vote.score
+      assert score.score == member_vote.score * founder_vote.score / 2
     end
 
     test "list_performers_weighted_score_by_edition_by_jury/2 lists scores of performers by jury" do
-      jury = jury_fixture()
+      founder = user_fixture()
+      jury = jury_fixture(%{founder_id: founder.id})
       member = user_fixture()
       Juries.add_member(jury, member)
 
-      {member_vote, edition_id, performer_name, performance_type} =
-        TestSetupFixtures.setup_for_avg_score_by_jury_test(member)
+      {founder_vote, member_vote, edition_id, performer_name, performance_type} =
+        TestSetupFixtures.setup_for_avg_score_by_jury_test(member, founder)
 
       [score | _] = Performers.list_performers_weighted_score_by_edition_by_jury(edition_id, jury)
 
       assert score.name == performer_name
       assert score.performance_type == performance_type
       # The weighted average score is the average score multiplied by the sum of the scores.
-      # For this performance there is only one vote, so the score should be the square of the vote.
-      assert score.score == member_vote.score * member_vote.score
+      assert score.score == (member_vote.score * founder_vote.score / 2) * (member_vote.score + founder_vote.score)
     end
   end
 end
