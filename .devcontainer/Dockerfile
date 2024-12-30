@@ -19,7 +19,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install
 # Install ASDF and Elixir
 RUN git clone https://github.com/asdf-vm/asdf.git /root/.asdf --branch $ASDF_VERSION
 ENV PATH="/root/.asdf/bin:/root/.asdf/shims:$PATH"
-RUN asdf plugin-add elixir && asdf install elixir 1.17.0 && asdf global elixir 1.17.0
+RUN asdf plugin-add elixir && asdf install elixir 1.18.1 && asdf global elixir 1.18.1
 
 # Set up project folder
 ENV APP_HOME /app
