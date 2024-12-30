@@ -32,6 +32,7 @@ defmodule VotaSanremoWeb.SimpleList do
         >
           {render_slot(item)}
         </div>
+
         <div :if={@action != []}>
           {render_slot(@action, item.click_target)}
         </div>
