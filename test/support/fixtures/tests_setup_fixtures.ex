@@ -107,18 +107,18 @@ defmodule VotaSanremo.TestSetupFixtures do
      _second_performance_type} =
       common_setup_for_avg_scores()
 
-    member_vote =
-      vote_fixture(%{
-        score: 5.0,
-        performance_id: first_performance_id,
-        user_id: member.id
-      })
-
     founder_vote =
       vote_fixture(%{
         score: 10.0,
         performance_id: first_performance_id,
         user_id: founder.id
+      })
+
+    member_vote =
+      vote_fixture(%{
+        score: 5.0,
+        performance_id: first_performance_id,
+        user_id: member.id
       })
 
     # Vote for a different user

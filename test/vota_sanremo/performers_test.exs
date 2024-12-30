@@ -158,7 +158,7 @@ defmodule VotaSanremo.PerformersTest do
 
     test "list_performers_avg_score_by_edition_by_jury/2 lists scores of performers by jury" do
       founder = user_fixture()
-      jury = jury_fixture(%{founder_id: founder.id})
+      jury = jury_fixture(%{founder: founder.id})
       member = user_fixture()
       Juries.add_member(jury, member)
 
@@ -169,12 +169,12 @@ defmodule VotaSanremo.PerformersTest do
 
       assert score.name == performer_name
       assert score.performance_type == performance_type
-      assert score.score == member_vote.score * founder_vote.score / 2
+      assert score.score == (member_vote.score + founder_vote.score) / 2
     end
 
     test "list_performers_weighted_score_by_edition_by_jury/2 lists scores of performers by jury" do
       founder = user_fixture()
-      jury = jury_fixture(%{founder_id: founder.id})
+      jury = jury_fixture(%{founder: founder.id})
       member = user_fixture()
       Juries.add_member(jury, member)
 
@@ -186,7 +186,7 @@ defmodule VotaSanremo.PerformersTest do
       assert score.name == performer_name
       assert score.performance_type == performance_type
       # The weighted average score is the average score multiplied by the sum of the scores.
-      assert score.score == (member_vote.score * founder_vote.score / 2) * (member_vote.score + founder_vote.score)
+      assert score.score == (member_vote.score + founder_vote.score) ** 2 / 2
     end
   end
 end
