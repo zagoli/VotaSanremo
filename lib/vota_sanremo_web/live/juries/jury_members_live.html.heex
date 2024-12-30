@@ -1,14 +1,15 @@
-<div class="flex justify-between items-center">
-  <.header>{gettext("%{jury_name} members", jury_name: @jury.name)}</.header>
-
-  <.link
-    :if={@is_founder}
-    navigate={~p"/juries/#{@jury.id}/members/invite"}
-    title={gettext("Invite a user")}
-  >
-    <.icon name="hero-user-plus" />
-  </.link>
-</div>
+<.header>
+  {gettext("%{jury_name} members", jury_name: @jury.name)}
+  <:actions>
+    <.link
+      :if={@is_founder}
+      navigate={~p"/juries/#{@jury.id}/members/invite"}
+      title={gettext("Invite a user")}
+    >
+      <.icon name="hero-user-plus" />
+    </.link>
+  </:actions>
+</.header>
 
 <%= if Enum.empty?(@jury.members) do %>
   <p class="mt-3">{gettext("There are no members yet.")}</p>

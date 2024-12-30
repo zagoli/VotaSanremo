@@ -30,6 +30,7 @@ defmodule VotaSanremoWeb.Router do
       ] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+      live "/users/profile/:user_id", UserProfileLive
       live "/vote", VoteLive, :show
       live "/vote/performance/:id", VoteLive, :vote
       live "/search/users", UserSearchLive, :search
@@ -54,7 +55,6 @@ defmodule VotaSanremoWeb.Router do
         {VotaSanremoWeb.UserAuth, :mount_current_user},
         {VotaSanremoWeb.SetLocalePlug, :set_locale}
       ] do
-      live "/users/profile/:user_id", UserProfileLive
       live "/juries", JuriesLive
       live "/juries/:jury_id", JuryLive
       live "/juries/:jury_id/members", JuryMembersLive

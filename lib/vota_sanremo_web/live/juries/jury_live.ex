@@ -4,12 +4,14 @@ defmodule VotaSanremoWeb.JuryLive do
   alias VotaSanremo.Juries
   alias VotaSanremo.Editions
   alias VotaSanremo.Performers
+  alias VotaSanremo.Accounts
 
   def mount(%{"jury_id" => jury_id}, _session, socket) do
     {:ok,
      socket
-     |> assign_jury(jury_id)
      |> assign_edition()
+     |> assign_jury(jury_id)
+     |> assign_founder()
      |> assign_weighted_flag(false)
      |> assign_scores()
      |> assign_is_member()}
@@ -17,6 +19,10 @@ defmodule VotaSanremoWeb.JuryLive do
 
   defp assign_jury(socket, jury_id) do
     assign(socket, :jury, Juries.get_jury(jury_id))
+  end
+
+  defp assign_founder(socket) do
+    assign(socket, :founder, Accounts.get_user!(socket.assigns.jury.founder))
   end
 
   defp assign_edition(socket) do

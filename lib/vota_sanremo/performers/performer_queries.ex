@@ -54,10 +54,11 @@ defmodule VotaSanremo.Performers.Performer.Queries do
   def list_performers_avg_score_by_edition_by_jury(edition_id, jury) do
     base()
     |> join_performances()
-    |> join_votes_of_jury(jury)
+    |> join_votes_of_juries()
     |> join_evenings()
     |> join_performance_types()
     |> filter_by_edition(edition_id)
+    |> filter_by_jury(jury)
     |> group_by_performer_and_performance_type()
     |> select_avg_score()
     |> all()
@@ -66,10 +67,11 @@ defmodule VotaSanremo.Performers.Performer.Queries do
   def list_performers_weighted_score_by_edition_by_jury(edition_id, jury) do
     base()
     |> join_performances()
-    |> join_votes_of_jury(jury)
+    |> join_votes_of_juries()
     |> join_evenings()
     |> join_performance_types()
     |> filter_by_edition(edition_id)
+    |> filter_by_jury(jury)
     |> group_by_performer_and_performance_type()
     |> select_weighted_avg_score()
     |> all()
@@ -90,23 +92,28 @@ defmodule VotaSanremo.Performers.Performer.Queries do
     )
   end
 
-  defp join_votes_of_jury(query, jury) do
+  defp join_votes_of_juries(query) do
     query
-    |> join(:left, [p, pp], v in assoc(pp, :votes), on: pp.id == v.performance_id)
-    |> join(:inner, [p, pp, v], u in assoc(v, :user), on: v.user_id == u.id)
-    |> join(:inner, [p, pp, v, u], j in assoc(u, :juries), on: j.id == ^jury.id)
+    |> join(:left, [p, pp], v in assoc(pp, :votes))
+    |> join(:inner, [p, pp, v], u in assoc(v, :user))
+    |> join(:left, [p, pp, v, u], j in assoc(u, :juries))
   end
 
   defp join_evenings(query) do
-    query |> join(:inner, [p, pp, v], e in assoc(pp, :evening))
+    query |> join(:inner, [p, pp, ...], e in assoc(pp, :evening))
   end
 
   defp join_performance_types(query) do
-    query |> join(:inner, [p, pp, v, e], pt in assoc(pp, :performance_type))
+    query |> join(:inner, [p, pp, ...], pt in assoc(pp, :performance_type))
   end
 
   defp filter_by_edition(query, edition_id) do
     query |> where([p, ..., e, pt], e.edition_id == ^edition_id)
+  end
+
+  defp filter_by_jury(query, jury) do
+    query
+    |> where([p, _, _, u, j], u.id == ^jury.founder or j.id == ^jury.id)
   end
 
   defp group_by_performer_and_performance_type(query) do
