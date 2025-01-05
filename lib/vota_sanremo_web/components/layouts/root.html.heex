@@ -54,8 +54,14 @@
             
             <%= if @current_user.user_type === :admin do %>
               <h2 class="text-lg font-bold text-white pl-10 mt-10 mb-5">Admin section</h2>
-               <.sidenav_link path={~p"/admin/editions"} text="Manage editions" />
-              <.sidenav_link path={~p"/admin/performers"} text="Manage performers" />
+              
+              <.sidenav_link path={~p"/admin/editions"}>
+                {gettext("Manage editions")}
+              </.sidenav_link>
+              
+              <.sidenav_link path={~p"/admin/performers"}>
+                {gettext("Manage performers")}
+              </.sidenav_link>
             <% end %>
           <% else %>
             <.sidenav_link path={~p"/users/register"}>{gettext("Register")}</.sidenav_link>

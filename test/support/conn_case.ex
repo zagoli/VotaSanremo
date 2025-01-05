@@ -15,6 +15,7 @@ defmodule VotaSanremoWeb.ConnCase do
   this option is not recommended for other databases.
   """
   alias VotaSanremo.AccountsFixtures
+  alias VotaSanremo.Accounts
 
   use ExUnit.CaseTemplate
 
