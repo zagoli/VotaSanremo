@@ -1,0 +1,30 @@
+<.header>{gettext("Search a user")}</.header>
+
+<.simple_form for={@form} id="search-users-form" phx-change="search">
+  <.input
+    field={@form[:username]}
+    type="text"
+    placeholder={gettext("Username")}
+    phx-throttle="1000"
+  />
+</.simple_form>
+
+<.simple_list
+  :if={not Enum.empty?(@users)}
+  item_click={
+    @live_action == :search and fn user -> JS.navigate(~p"/users/profile/#{user.id}") end
+  }
+>
+  <:item :for={user <- @users} item_id={"user-#{user.id}"} click_target={user}>
+    <span>{user.username}</span>
+  </:item>
+
+  <:action :let={user}>
+    <.link
+      :if={@live_action == :invite}
+      navigate={~p"/juries/#{@jury_id}/members/invite/#{user.id}"}
+    >
+      {gettext("Invite")}
+    </.link>
+  </:action>
+</.simple_list>

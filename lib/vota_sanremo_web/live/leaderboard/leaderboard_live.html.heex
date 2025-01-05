@@ -1,34 +1,17 @@
 <.header>
-  Leaderboard
+  {gettext("Leaderboard")}
   <:subtitle>
-    See the current live leaderboard!
+    {gettext("See the current live leaderboard!")}
   </:subtitle>
 </.header>
 
-<div :if={Enum.empty?(@scores)} class="mt-5">
-  <p>There are no votes to show!</p>
-</div>
-
-<section :if={not Enum.empty?(@scores)} class="mt-5 mb-5">
-  <.form for={nil} id="weighted-score-flag-form" phx-change="weighted-flag-selected">
-    <.input type="checkbox" name="weighted-scores-flag" label="Weighted scores" />
-  </.form>
-</section>
-
-<%= for {performance_type, scores} <- order_and_group_scores(@scores) do %>
-  <.header class="mb-2">
-    <%= performance_type %>
-  </.header>
-
-  <div class="mb-7">
-    <.presentation_table items={scores}>
-      <:name :let={score_group}><%= score_group.name %></:name>
-
-      <:property :let={score_group}>
-        <.badge>
-          <%= Float.round(score_group.score, 2) %>
-        </.badge>
-      </:property>
-    </.presentation_table>
-  </div>
+<%= if Enum.empty?(@scores) do %>
+  <p class="mt-5">{gettext("Nobody voted yet. Be the first!")}</p>
+<% else %>
+  <section class="mt-5 mb-5">
+    <.form for={nil} id="weighted-score-flag-form" phx-change="weighted-flag-selected">
+      <.input type="checkbox" name="weighted-scores-flag" label={gettext("Weighted scores")} />
+    </.form>
+  </section>
+  <.performers_scores scores={@scores} />
 <% end %>

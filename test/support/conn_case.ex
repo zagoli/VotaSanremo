@@ -14,7 +14,7 @@ defmodule VotaSanremoWeb.ConnCase do
   by setting `use VotaSanremoWeb.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
-  alias VotaSanremo.Accounts
+  alias VotaSanremo.AccountsFixtures
 
   use ExUnit.CaseTemplate
 
@@ -70,7 +70,7 @@ defmodule VotaSanremoWeb.ConnCase do
   It returns an updated `conn`.
   """
   def log_in_user(conn, user) do
-    {:ok, user} = Accounts.confirm_user(user)
+    {:ok, user} = AccountsFixtures.confirm_user(user)
     token = VotaSanremo.Accounts.generate_user_session_token(user)
 
     conn

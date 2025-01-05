@@ -1,4 +1,4 @@
-defmodule VotaSanremoWeb.Votes.VoteForm do
+defmodule VotaSanremoWeb.VoteForm do
   @moduledoc """
   Provides a form for voting a performance.
   """
@@ -14,7 +14,7 @@ defmodule VotaSanremoWeb.Votes.VoteForm do
   def vote_form(assigns) do
     ~H"""
     <.live_component
-      module={VotaSanremoWeb.Votes.VoteFormInternal}
+      module={VotaSanremoWeb.VoteFormInternal}
       id="vote-form"
       performance={@performance}
       user={@user}
@@ -24,7 +24,7 @@ defmodule VotaSanremoWeb.Votes.VoteForm do
   end
 end
 
-defmodule VotaSanremoWeb.Votes.VoteFormInternal do
+defmodule VotaSanremoWeb.VoteFormInternal do
   @moduledoc """
   Internal implementation of vote form. Do not use directly
   """
@@ -90,7 +90,7 @@ defmodule VotaSanremoWeb.Votes.VoteFormInternal do
   defp maybe_save_vote(socket, _vote_params, false) do
     {:noreply,
      socket
-     |> put_flash(:error, "You cannot vote now.")
+     |> put_flash(:error, gettext("You cannot vote now."))
      |> push_patch(to: ~p"/vote")}
   end
 
@@ -102,13 +102,13 @@ defmodule VotaSanremoWeb.Votes.VoteFormInternal do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Vote submitted!")
+         |> put_flash(:info, gettext("Vote submitted!"))
          |> push_patch(to: ~p"/vote")}
 
       {:error, %Ecto.Changeset{}} ->
         {:noreply,
          socket
-         |> put_flash(:error, "There was an error while submitting your vote.")
+         |> put_flash(:error, gettext("There was an error while submitting your vote."))
          |> push_patch(to: ~p"/vote")}
     end
   end

@@ -6,6 +6,7 @@ defmodule VotaSanremo.Accounts.User do
     field :email, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
+    field :current_password, :string, virtual: true, redact: true
     field :confirmed_at, :naive_datetime
 
     field :user_type, Ecto.Enum, values: [:user, :admin]
@@ -13,10 +14,11 @@ defmodule VotaSanremo.Accounts.User do
     field :last_name, :string
     field :username, :string
     field :default_vote_multiplier, :float
-    field :votes_privacy, Ecto.Enum, values: [:public, :private, :juries_only]
+    field :votes_privacy, Ecto.Enum, values: [:public, :private]
 
     has_many :founded_juries, VotaSanremo.Juries.Jury, foreign_key: :founder
     has_many :votes, VotaSanremo.Votes.Vote
+    has_many :jury_invites, VotaSanremo.Juries.JuryInvite
 
     many_to_many :juries, VotaSanremo.Juries.Jury, join_through: "juries_composition"
 
@@ -57,7 +59,7 @@ defmodule VotaSanremo.Accounts.User do
       :default_vote_multiplier,
       :votes_privacy
     ])
-    |> validate_inclusion(:votes_privacy, [:public, :private, :juries_only])
+    |> validate_inclusion(:votes_privacy, [:public, :private])
     |> validate_names()
     |> validate_username()
     |> validate_email(opts)
@@ -66,14 +68,17 @@ defmodule VotaSanremo.Accounts.User do
 
   defp validate_names(changeset) do
     changeset
-    |> validate_length(:first_name, max: 160)
-    |> validate_length(:last_name, max: 160)
+    |> validate_length(:first_name, min: 1, max: 160)
+    |> validate_length(:last_name, min: 1, max: 160)
   end
 
   defp validate_username(changeset) do
     changeset
     |> validate_required([:username])
-    |> validate_length(:username, max: 160)
+    |> validate_length(:username, min: 4, max: 160)
+    |> validate_format(:username, ~r"^[a-zA-Z0-9]+$",
+      message: "must contain only letters and numbers"
+    )
     |> unsafe_validate_unique(:username, VotaSanremo.Repo)
     |> unique_constraint(:username)
   end
@@ -186,11 +191,23 @@ defmodule VotaSanremo.Accounts.User do
   Validates the current password otherwise adds an error to the changeset.
   """
   def validate_current_password(changeset, password) do
+    changeset = cast(changeset, %{current_password: password}, [:current_password])
+
     if valid_password?(changeset.data, password) do
       changeset
     else
       add_error(changeset, :current_password, "is not valid")
     end
+  end
+
+  @doc """
+  A user changeset for changing user-modifiables fields.
+  """
+  def user_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:first_name, :last_name, :votes_privacy])
+    |> validate_inclusion(:votes_privacy, [:public, :private])
+    |> validate_names()
   end
 
   @doc """

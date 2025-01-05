@@ -1,0 +1,22 @@
+<.header>
+  {gettext("My invites")}
+  <:subtitle>
+    {gettext("From here you can accept or decline the invites to be a jury member.")}
+  </:subtitle>
+</.header>
+
+<%= if Enum.empty?(@pending_invites) do %>
+  <p class="mt-3">{gettext("You have no pending invites.")}</p>
+<% else %>
+  <.table id="invites" rows={@pending_invites}>
+    <:col :let={invite} label={gettext("Jury")}>{invite.jury.name}</:col>
+
+    <:action :let={invite}>
+      <.button phx-click="accept" value={invite.id}>{gettext("Accept")}</.button>
+    </:action>
+
+    <:action :let={invite}>
+      <.button phx-click="decline" value={invite.id}>{gettext("Decline")}</.button>
+    </:action>
+  </.table>
+<% end %>

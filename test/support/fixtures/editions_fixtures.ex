@@ -13,7 +13,7 @@ defmodule VotaSanremo.EditionsFixtures do
       |> Enum.into(%{
         start_date: ~D[2024-04-24],
         end_date: ~D[2024-04-29],
-        name: "some name #{System.unique_integer()}"
+        name: "someName #{System.unique_integer()}"
       })
       |> VotaSanremo.Editions.create_edition()
 

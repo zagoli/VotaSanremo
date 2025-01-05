@@ -1,0 +1,32 @@
+<.header>
+  {@jury.name}
+  <:subtitle>{gettext("Founded by %{founder}", founder: @founder.username)}</:subtitle>
+  <:actions>
+    <button
+      :if={@is_member}
+      type="button"
+      title={gettext("Exit from this jury")}
+      id="exit-jury"
+      phx-click="exit-jury"
+    >
+      <.icon name="hero-arrow-right-start-on-rectangle" />
+    </button>
+
+    <.link navigate={~p"/juries/#{@jury.id}/members"} title={gettext("Members")}>
+      <.icon name="hero-users" />
+    </.link>
+  </:actions>
+</.header>
+
+<%= if not Enum.empty?(@scores) do %>
+  <section class="mt-5 mb-2">
+    <.form for={nil} id="weighted-score-flag-form" phx-change="weighted-flag-selected">
+      <.input type="checkbox" name="weighted-scores-flag" label={gettext("Weighted scores")} />
+    </.form>
+  </section>
+  <.performers_scores scores={@scores} />
+<% else %>
+  <p class="mt-5">{gettext("There are no votes to show yet.")}</p>
+<% end %>
+
+<.back navigate={~p"/juries"}>{gettext("Back to juries")}</.back>

@@ -20,10 +20,10 @@ defmodule VotaSanremo.EditionsTest do
     end
 
     test "create_edition/1 with valid data creates a edition" do
-      valid_attrs = %{name: "some name", start_date: ~D[2024-04-29], end_date: ~D[2024-04-29]}
+      valid_attrs = %{name: "someName", start_date: ~D[2024-04-29], end_date: ~D[2024-04-29]}
 
       assert {:ok, %Edition{} = edition} = Editions.create_edition(valid_attrs)
-      assert edition.name == "some name"
+      assert edition.name == "someName"
       assert edition.start_date == ~D[2024-04-29]
       assert edition.end_date == ~D[2024-04-29]
     end
@@ -36,13 +36,13 @@ defmodule VotaSanremo.EditionsTest do
       edition = edition_fixture()
 
       update_attrs = %{
-        name: "some updated name",
+        name: "someUpdatedName",
         start_date: ~D[2024-04-30],
         end_date: ~D[2024-04-30]
       }
 
       assert {:ok, %Edition{} = edition} = Editions.update_edition(edition, update_attrs)
-      assert edition.name == "some updated name"
+      assert edition.name == "someUpdatedName"
       assert edition.start_date == ~D[2024-04-30]
       assert edition.end_date == ~D[2024-04-30]
     end

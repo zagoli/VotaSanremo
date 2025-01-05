@@ -7,16 +7,9 @@ defmodule VotaSanremo.TestSetupFixtures do
     EveningsFixtures
   }
 
-  @doc """
-  Creates two performances of different type and evenings, and a vote for each performance for each number in the provided range.
-  Returns a tuple with the edition id, performer name, first and second performance type.
+  alias VotaSanremo.Accounts.User
 
-  ## Examples
-
-      iex> setup_for_avg_score_test(1..10)
-      {1, "Performer", "Type 1", "Type 2"}
-  """
-  def setup_for_avg_score_tests(scores, multiplier \\ 1.0) do
+  defp common_setup_for_avg_scores() do
     %{id: edition_id} = edition_fixture()
     %{id: performer_id, name: performer_name} = performer_fixture()
     %{id: first_performance_type_id, type: first_performance_type} = performance_type_fixture()
@@ -44,11 +37,93 @@ defmodule VotaSanremo.TestSetupFixtures do
         performance_type_id: second_performance_type_id
       })
 
+    {first_performance_id, second_performance_id, edition_id, performer_name,
+     first_performance_type, second_performance_type}
+  end
+
+  @doc """
+  Creates two performances of different types and evenings,
+  and a vote for each performance for each number in the provided range.
+  Returns a tuple with the edition id, performer name, first and second performance type.
+
+  ## Examples
+
+      iex> setup_for_avg_score_test(1..10)
+      {1, "Performer", "Type 1", "Type 2"}
+  """
+  def setup_for_avg_score_tests(scores, multiplier \\ 1.0) do
+    {first_performance_id, second_performance_id, edition_id, performer_name,
+     first_performance_type, second_performance_type} = common_setup_for_avg_scores()
+
     Enum.each(scores, fn score ->
       vote_fixture(%{score: score, performance_id: first_performance_id, multiplier: multiplier})
       vote_fixture(%{score: score, performance_id: second_performance_id, multiplier: multiplier})
     end)
 
     {edition_id, performer_name, first_performance_type, second_performance_type}
+  end
+
+  @doc """
+  Creates two performances of different types and evenings.
+  For each performance, creates one vote for the given user with score five
+  and one vote for another user with a score of one.
+  Returns a tuple with the edition id, performer name, first and second performance type.
+  """
+  def setup_for_avg_score_by_user_test(%User{} = user, multiplier \\ 1.0) do
+    {first_performance_id, second_performance_id, edition_id, performer_name,
+     first_performance_type, second_performance_type} = common_setup_for_avg_scores()
+
+    # Votes of the given user
+    vote_fixture(%{
+      score: 5.0,
+      performance_id: first_performance_id,
+      multiplier: multiplier,
+      user_id: user.id
+    })
+
+    vote_fixture(%{
+      score: 5.0,
+      performance_id: second_performance_id,
+      multiplier: multiplier,
+      user_id: user.id
+    })
+
+    # Vote of different users
+    vote_fixture(%{score: 1.0, performance_id: first_performance_id, multiplier: multiplier})
+    vote_fixture(%{score: 1.0, performance_id: second_performance_id, multiplier: multiplier})
+
+    {edition_id, performer_name, first_performance_type, second_performance_type}
+  end
+
+  @doc """
+  Creates two performances of different types and evenings.
+  For the `founder` creates a vote for the first performance wich is returned as first element.
+  For the `member` creates a vote for the first performance which is returned as second element.
+  It also creates a vote for the first performance for another user.
+  """
+  def setup_for_avg_score_by_jury_test(%User{} = founder, %User{} = member) do
+    {first_performance_id, _second_performance_id, edition_id, performer_name,
+     first_performance_type,
+     _second_performance_type} =
+      common_setup_for_avg_scores()
+
+    founder_vote =
+      vote_fixture(%{
+        score: 10.0,
+        performance_id: first_performance_id,
+        user_id: founder.id
+      })
+
+    member_vote =
+      vote_fixture(%{
+        score: 5.0,
+        performance_id: first_performance_id,
+        user_id: member.id
+      })
+
+    # Vote for a different user
+    vote_fixture(%{score: 1.0, performance_id: first_performance_id})
+
+    {founder_vote, member_vote, edition_id, performer_name, first_performance_type}
   end
 end

@@ -5,7 +5,7 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
 
   @scores 1..5
 
-  def create_votes(_) do
+  defp create_votes(_) do
     {edition_id, performer_name, first_performance_type, second_performance_type} =
       TestSetupFixtures.setup_for_avg_score_tests(@scores)
 
@@ -20,12 +20,17 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
   describe "Leaderboard" do
     setup [:create_votes]
 
-    test "Leaderboard shows no votes message when there are no votes", %{conn: conn} do
+    test "Leaderboard renders hyphens when there are no votes", %{
+      conn: conn,
+      performer_name: performer_name
+    } do
+      # Delete votes created during test setup
       Votes.list_votes()
       |> Enum.each(fn vote -> Votes.delete_vote(vote) end)
 
       {:ok, _live, html} = live(conn, ~p"/leaderboard")
-      assert html =~ "There are no votes to show!"
+      assert html =~ performer_name
+      assert html =~ "-"
     end
 
     test "Leaderboard contains average scores for performers by default", %{
@@ -73,6 +78,20 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
       Process.sleep(10)
 
       assert render(live) =~ "4.0"
+    end
+  end
+
+  describe "Leaderboard with no votes" do
+    import VotaSanremo.EditionsFixtures
+
+    setup _ do
+      edition_fixture()
+      :ok
+    end
+
+    test "It should show a message stating that there are no votes", %{conn: conn} do
+      {:ok, _live, html} = live(conn, ~p"/leaderboard")
+      assert html =~ "Nobody voted yet. Be the first!"
     end
   end
 end

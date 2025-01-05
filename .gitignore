@@ -35,3 +35,6 @@ vota_sanremo-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Ignore language server files.
+.elixir_ls/
+

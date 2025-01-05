@@ -4,6 +4,7 @@ defmodule VotaSanremo.Accounts do
   """
 
   import Ecto.Query, warn: false
+  import Ecto.Changeset, only: [apply_action: 2]
   alias VotaSanremo.Repo
 
   alias VotaSanremo.Accounts.{User, UserToken, UserNotifier}
@@ -59,6 +60,35 @@ defmodule VotaSanremo.Accounts do
 
   """
   def get_user!(id), do: Repo.get!(User, id)
+
+  @doc """
+  List users with a username containing a string.
+  The string to match is extracted from the valid input `changeset`.
+  The `changeset` must be created from a `VotaSanremo.UserSearch.Username` struct.
+  Limited to a hudred matches.
+  """
+  def list_users_by_username(%Ecto.Changeset{} = changeset) do
+    {:ok, checkedChangeset} = apply_action(changeset, :get_username)
+    like = "%#{checkedChangeset.username}%"
+
+    User
+    # TODO use PostgreSQL's `fuzzystrmatch` when available
+    |> where([u], ilike(u.username, ^like))
+    |> order_by(desc: :username)
+    |> limit(100)
+    |> Repo.all()
+  end
+
+  @doc """
+  Returns a list of users limited to the specified number.
+  Returns all users if the number is greater than the total number of users.
+  Returns an empty list if number is 0.
+  """
+  def list_some_users(number) when is_integer(number) and number >= 0 do
+    User
+    |> limit(^number)
+    |> Repo.all()
+  end
 
   ## User registration
 
@@ -127,6 +157,22 @@ defmodule VotaSanremo.Accounts do
   ## Settings
 
   @doc """
+  Returns an `%Ecto.Changeset{}` for changing user-modifiable fields.
+  """
+  def change_user(user, attrs \\ %{}) do
+    User.user_changeset(user, attrs)
+  end
+
+  @doc """
+  Updates a user.
+  Does not update email, password and other non user-changeables fields.
+  """
+  def update_user(user, attrs \\ %{}) do
+    User.user_changeset(user, attrs)
+    |> Repo.update()
+  end
+
+  @doc """
   Returns an `%Ecto.Changeset{}` for changing the user email.
 
   ## Examples
@@ -156,7 +202,7 @@ defmodule VotaSanremo.Accounts do
     user
     |> User.email_changeset(attrs)
     |> User.validate_current_password(password)
-    |> Ecto.Changeset.apply_action(:update)
+    |> apply_action(:update)
   end
 
   @doc """
@@ -303,16 +349,7 @@ defmodule VotaSanremo.Accounts do
 
   If the token matches, the user account is marked as confirmed
   and the token is deleted.
-
-  The version that confirms a user given a User struct should only be used by tests.
   """
-  def confirm_user(%User{} = user) do
-    case Repo.transaction(confirm_user_multi(user)) do
-      {:ok, %{user: user}} -> {:ok, user}
-      _ -> :error
-    end
-  end
-
   def confirm_user(token) do
     with {:ok, query} <- UserToken.verify_email_token_query(token, "confirm"),
          %User{} = user <- Repo.one(query),
@@ -323,7 +360,7 @@ defmodule VotaSanremo.Accounts do
     end
   end
 
-  defp confirm_user_multi(user) do
+  def confirm_user_multi(user) do
     Ecto.Multi.new()
     |> Ecto.Multi.update(:user, User.confirm_changeset(user))
     |> Ecto.Multi.delete_all(:tokens, UserToken.by_user_and_contexts_query(user, ["confirm"]))
