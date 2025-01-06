@@ -103,7 +103,8 @@ defmodule VotaSanremoWeb.Router do
     live_session :require_authenticated_admin,
       on_mount: [
         {VotaSanremoWeb.UserAuth, :ensure_authenticated},
-        {VotaSanremoWeb.UserAuth, :ensure_admin}
+        {VotaSanremoWeb.UserAuth, :ensure_admin},
+        {VotaSanremoWeb.SetLocalePlug, :set_locale}
       ] do
       live "/editions", Admin.ManageEditionsLive
 
