@@ -270,7 +270,7 @@ msgstr ""
 msgid "Error exiting the jury"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:54
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:63
 #, elixir-autogen, elixir-format
 msgid "Error inviting user"
 msgstr ""
@@ -520,7 +520,7 @@ msgstr ""
 msgid "User confirmed successfully."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:53
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:62
 #, elixir-autogen, elixir-format
 msgid "User invited"
 msgstr ""
@@ -562,7 +562,7 @@ msgstr ""
 msgid "You are a member of"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:50
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:59
 #, elixir-autogen, elixir-format
 msgid "You are not allowed to invite a user!"
 msgstr ""
@@ -597,12 +597,12 @@ msgstr ""
 msgid "to your account now."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:67
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:76
 #, elixir-autogen, elixir-format
 msgid "Error removing member."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:64
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:73
 #, elixir-autogen, elixir-format
 msgid "Member removed!"
 msgstr ""
@@ -802,7 +802,7 @@ msgstr ""
 msgid "Save Performer"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.html.heex:15
+#: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.html.heex:16
 #, elixir-autogen, elixir-format, fuzzy
 msgid "There are no editions yet."
 msgstr ""
@@ -865,4 +865,9 @@ msgstr ""
 #: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:23
 #, elixir-autogen, elixir-format, fuzzy
 msgid "save edition"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:51
+#, elixir-autogen, elixir-format
+msgid "You cannot invite yourself!"
 msgstr ""

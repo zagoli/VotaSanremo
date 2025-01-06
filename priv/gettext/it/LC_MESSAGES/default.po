@@ -270,7 +270,7 @@ msgstr "Email modificata con successo."
 msgid "Error exiting the jury"
 msgstr "Errore nell'uscita dalla giuria"
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:54
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:63
 #, elixir-autogen, elixir-format
 msgid "Error inviting user"
 msgstr "Errore nell'invito dell'utente"
@@ -520,7 +520,7 @@ msgstr "Il link di conferma utente non è valido o è scaduto."
 msgid "User confirmed successfully."
 msgstr "Utente confermato con successo."
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:53
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:62
 #, elixir-autogen, elixir-format
 msgid "User invited"
 msgstr "Utente invitato"
@@ -562,7 +562,7 @@ msgstr "Voti ponderati"
 msgid "You are a member of"
 msgstr "Sei membro di"
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:50
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:59
 #, elixir-autogen, elixir-format
 msgid "You are not allowed to invite a user!"
 msgstr "Non sei autorizzato a invitare un utente!"
@@ -597,12 +597,12 @@ msgstr "un account."
 msgid "to your account now."
 msgstr "al tuo account."
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:67
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:76
 #, elixir-autogen, elixir-format
 msgid "Error removing member."
 msgstr "Errore durante la rimozione del membro della giuria."
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:64
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:73
 #, elixir-autogen, elixir-format
 msgid "Member removed!"
 msgstr "Membro della giuria rimosso!"
@@ -802,7 +802,7 @@ msgstr "Artisti"
 msgid "Save Performer"
 msgstr "Salva artista"
 
-#: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.html.heex:15
+#: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.html.heex:16
 #, elixir-autogen, elixir-format
 msgid "There are no editions yet."
 msgstr "Non ci sono ancora edizioni."
@@ -866,3 +866,8 @@ msgstr "modifica serata %{number}"
 #, elixir-autogen, elixir-format
 msgid "save edition"
 msgstr "salva edizione"
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:51
+#, elixir-autogen, elixir-format
+msgid "You cannot invite yourself!"
+msgstr "Non puoi invitare te stesso!"
