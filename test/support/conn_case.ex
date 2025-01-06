@@ -15,6 +15,7 @@ defmodule VotaSanremoWeb.ConnCase do
   this option is not recommended for other databases.
   """
   alias VotaSanremo.AccountsFixtures
+  alias VotaSanremo.Accounts
 
   use ExUnit.CaseTemplate
 
@@ -47,6 +48,20 @@ defmodule VotaSanremoWeb.ConnCase do
   """
   def register_and_log_in_user(%{conn: conn}) do
     user = VotaSanremo.AccountsFixtures.user_fixture()
+    %{conn: log_in_user(conn, user), user: user}
+  end
+
+  @doc """
+  Setup helper that registers and logs in admin users.
+
+      setup :register_and_log_in_admin
+
+  It stores an updated connection and a registered admin user in the
+  test context.
+  """
+  def register_and_log_in_admin(%{conn: conn}) do
+    user = VotaSanremo.AccountsFixtures.user_fixture()
+    {:ok, user} = Accounts.update_user_type(user, :admin)
     %{conn: log_in_user(conn, user), user: user}
   end
 

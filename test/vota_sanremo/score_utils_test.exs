@@ -1,5 +1,5 @@
 defmodule VotaSanremo.ScoreUtilsTest do
-  use VotaSanremo.DataCase
+  use ExUnit.Case
   alias VotaSanremo.ScoresUtils
 
   describe "score utils" do

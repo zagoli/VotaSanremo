@@ -95,6 +95,27 @@ defmodule VotaSanremoWeb.Router do
     end
   end
 
+  ## Admin routes
+
+  scope "/admin", VotaSanremoWeb do
+    pipe_through [:browser, :require_authenticated_user, :require_admin]
+
+    live_session :require_authenticated_admin,
+      on_mount: [
+        {VotaSanremoWeb.UserAuth, :ensure_authenticated},
+        {VotaSanremoWeb.UserAuth, :ensure_admin},
+        {VotaSanremoWeb.SetLocalePlug, :set_locale}
+      ] do
+      live "/editions", Admin.ManageEditionsLive
+
+      live "/performers", Admin.ManagePerformersLive, :index
+      live "/performers/new", Admin.ManagePerformersLive, :new
+      live "/performers/:id/edit", Admin.ManagePerformersLive, :edit
+
+      live "/evening/:id", Admin.ManageEveningLive
+    end
+  end
+
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:vota_sanremo, :dev_routes) do
     # If you want to use the LiveDashboard in production, you should put

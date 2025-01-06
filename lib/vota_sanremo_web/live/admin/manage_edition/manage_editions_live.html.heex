@@ -1,0 +1,17 @@
+<.header class="mb-4">
+  {gettext("Manage editions")}
+  <:actions>
+    <.button
+      id="new-edition"
+      type="button"
+      aria-label={gettext("Create a new edition")}
+      phx-click="new_edition"
+      class="py-0"
+    >
+      +
+    </.button>
+  </:actions>
+</.header>
+
+<p :if={Enum.empty?(@editions)} class="text-center">{gettext("There are no editions yet.")}</p>
+<.edition_editor :for={edition <- @editions} edition={edition} />

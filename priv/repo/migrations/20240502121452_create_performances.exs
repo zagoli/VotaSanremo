@@ -4,8 +4,8 @@ defmodule VotaSanremo.Repo.Migrations.CreatePerformances do
   def change do
     create table(:performances) do
       add :performance_type_id, references(:performance_types, on_delete: :nothing)
-      add :evening_id, references(:evenings, on_delete: :nothing)
-      add :performer_id, references(:performers, on_delete: :nothing)
+      add :evening_id, references(:evenings, on_delete: :delete_all)
+      add :performer_id, references(:performers, on_delete: :delete_all)
 
       timestamps(type: :utc_datetime)
     end

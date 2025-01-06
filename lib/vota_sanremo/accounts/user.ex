@@ -209,4 +209,14 @@ defmodule VotaSanremo.Accounts.User do
     |> validate_inclusion(:votes_privacy, [:public, :private])
     |> validate_names()
   end
+
+  @doc """
+  A user changeset for changing the user type.
+  """
+  def user_type_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:user_type])
+    |> validate_required([:user_type])
+    |> validate_inclusion(:user_type, [:user, :admin])
+  end
 end

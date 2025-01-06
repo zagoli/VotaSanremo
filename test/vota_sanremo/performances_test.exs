@@ -69,6 +69,7 @@ defmodule VotaSanremo.PerformancesTest do
 
   describe "performances" do
     alias VotaSanremo.Performances.Performance
+    alias VotaSanremo.Votes
 
     import VotaSanremo.{
       PerformancesFixtures,
@@ -129,6 +130,15 @@ defmodule VotaSanremo.PerformancesTest do
       performance = performance_fixture()
       assert {:ok, %Performance{}} = Performances.delete_performance(performance)
       assert_raise Ecto.NoResultsError, fn -> Performances.get_performance!(performance.id) end
+    end
+
+    test "delete_performance/1 deletes the performance and its votes" do
+      performance = performance_fixture()
+      user = user_fixture()
+      vote = vote_fixture(%{user_id: user.id, performance_id: performance.id})
+
+      assert {:ok, %Performance{}} = Performances.delete_performance(performance)
+      assert_raise Ecto.NoResultsError, fn -> Votes.get_vote!(vote.id) end
     end
 
     test "change_performance/1 returns a performance changeset" do

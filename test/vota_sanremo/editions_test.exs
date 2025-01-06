@@ -2,10 +2,9 @@ defmodule VotaSanremo.EditionsTest do
   use VotaSanremo.DataCase
 
   alias VotaSanremo.Editions
+  alias VotaSanremo.Editions.Edition
 
   describe "editions" do
-    alias VotaSanremo.Editions.Edition
-
     import VotaSanremo.{EditionsFixtures, EveningsFixtures}
 
     @invalid_attrs %{name: nil, start_date: nil, end_date: nil}
@@ -60,6 +59,13 @@ defmodule VotaSanremo.EditionsTest do
       assert_raise Ecto.NoResultsError, fn -> Editions.get_edition!(edition.id) end
     end
 
+    test "delete_edition/1 deletes the editions and all its evenings" do
+      edition = edition_fixture()
+      evening_fixture(%{edition_id: edition.id})
+      assert {:ok, %Edition{}} = Editions.delete_edition(edition)
+      assert_raise Ecto.NoResultsError, fn -> Editions.get_edition!(edition.id) end
+    end
+
     test "change_edition/1 returns a edition changeset" do
       edition = edition_fixture()
       assert %Ecto.Changeset{} = Editions.change_edition(edition)
@@ -101,6 +107,16 @@ defmodule VotaSanremo.EditionsTest do
 
     test "get_latest_edition_with_evenings!/0 throws error when there are no editions" do
       assert_raise Ecto.NoResultsError, &Editions.get_latest_edition_with_evenings!/0
+    end
+
+    test "list_editions_names/0 returns a list of editions names" do
+      edition_fixture(%{name: "Edition 1"})
+      edition_fixture(%{name: "Edition 2"})
+
+      editions = Editions.list_editions_names()
+
+      assert Enum.member?(editions, "Edition 1")
+      assert Enum.member?(editions, "Edition 2")
     end
   end
 end

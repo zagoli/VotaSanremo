@@ -1,0 +1,44 @@
+<.header>
+  {gettext("Performers")}
+  <:actions>
+    <.link patch={~p"/admin/performers/new"}>
+      <.button>+</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="performers" rows={@streams.performers}>
+  <:col :let={{_id, performer}} label={gettext("Name")}>{performer.name}</:col>
+
+  <:action :let={{_id, performer}}>
+    <.link patch={~p"/admin/performers/#{performer}/edit"} aria-label={gettext("Edit")}>
+      <.icon name="hero-pencil-mini" />
+    </.link>
+  </:action>
+
+  <:action :let={{id, performer}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: performer.id}) |> hide("##{id}")}
+      data-confirm={gettext("Are you sure?")}
+      aria-label={gettext("Delete")}
+    >
+      <.icon name="hero-trash-mini" />
+    </.link>
+  </:action>
+</.table>
+
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="performer-modal"
+  show
+  on_cancel={JS.patch(~p"/admin/performers")}
+>
+  <.live_component
+    module={VotaSanremoWeb.Admin.ManagePerformersLive.FormComponent}
+    id={@performer.id || :new}
+    title={@page_title}
+    action={@live_action}
+    performer={@performer}
+    patch={~p"/admin/performers"}
+  />
+</.modal>

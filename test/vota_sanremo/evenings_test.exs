@@ -6,7 +6,7 @@ defmodule VotaSanremo.EveningsTest do
   describe "evenings" do
     alias VotaSanremo.Evenings.Evening
 
-    import VotaSanremo.{EveningsFixtures, EditionsFixtures}
+    import VotaSanremo.{EveningsFixtures, EditionsFixtures, PerformancesFixtures}
 
     @invalid_attrs %{date: nil, description: nil, number: nil, votes_start: nil, votes_end: nil}
 
@@ -76,9 +76,37 @@ defmodule VotaSanremo.EveningsTest do
       assert_raise Ecto.NoResultsError, fn -> Evenings.get_evening!(evening.id) end
     end
 
+    test "delete_evening/1 deletes the evening and its performances" do
+      evening = evening_fixture()
+      performance_fixture(%{evening_id: evening.id})
+      assert {:ok, %Evening{}} = Evenings.delete_evening(evening)
+      assert_raise Ecto.NoResultsError, fn -> Evenings.get_evening!(evening.id) end
+    end
+
     test "change_evening/1 returns a evening changeset" do
       evening = evening_fixture()
       assert %Ecto.Changeset{} = Evenings.change_evening(evening)
+    end
+
+    test "get_latest_evening_date/0 returns the latest evening date" do
+      evening = evening_fixture(%{date: ~D[2024-01-01]})
+      evening_fixture(%{date: ~D[2023-01-01]})
+      evening_fixture(%{date: ~D[2022-01-01]})
+
+      assert Evenings.get_latest_evening_date() == evening.date
+    end
+
+    test "get_evening_with_performances!/1 returns the evening with performances and associations" do
+      evening = evening_fixture()
+      performance = performance_fixture(%{evening_id: evening.id})
+
+      loaded_evening = Evenings.get_evening_with_performances!(evening.id)
+      assert loaded_evening.id == evening.id
+      assert [loaded_performance] = loaded_evening.performances
+      assert loaded_performance.id == performance.id
+      # Verify the actual performer and performance_type data
+      assert loaded_performance.performer.id == performance.performer_id
+      assert loaded_performance.performance_type.id == performance.performance_type_id
     end
   end
 end

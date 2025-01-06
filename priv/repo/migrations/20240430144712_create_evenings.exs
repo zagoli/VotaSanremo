@@ -8,7 +8,7 @@ defmodule VotaSanremo.Repo.Migrations.CreateEvenings do
       add :date, :date, null: false
       add :votes_start, :utc_datetime, null: false
       add :votes_end, :utc_datetime, null: false
-      add :edition_id, references(:editions, on_delete: :nothing)
+      add :edition_id, references(:editions, on_delete: :delete_all)
 
       timestamps(type: :utc_datetime)
     end
