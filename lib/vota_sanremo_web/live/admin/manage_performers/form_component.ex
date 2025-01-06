@@ -8,8 +8,8 @@ defmodule VotaSanremoWeb.Admin.ManagePerformersLive.FormComponent do
     ~H"""
     <div>
       <.header>
-        <%= @title %>
-        <:subtitle>Add or edit a performer.</:subtitle>
+        {@title}
+        <:subtitle>{gettext("Add or edit a performer.")}</:subtitle>
       </.header>
 
       <.simple_form
@@ -19,9 +19,9 @@ defmodule VotaSanremoWeb.Admin.ManagePerformersLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={@form[:name]} type="text" label="Name" />
+        <.input field={@form[:name]} type="text" label={gettext("Name")} />
         <:actions>
-          <.button phx-disable-with="Saving...">Save Performer</.button>
+          <.button phx-disable-with={gettext("Saving...")}>{gettext("Save Performer")}</.button>
         </:actions>
       </.simple_form>
     </div>
@@ -59,7 +59,7 @@ defmodule VotaSanremoWeb.Admin.ManagePerformersLive.FormComponent do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Performer updated successfully")
+         |> put_flash(:info, gettext("Performer updated successfully"))
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -74,7 +74,7 @@ defmodule VotaSanremoWeb.Admin.ManagePerformersLive.FormComponent do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Performer created successfully")
+         |> put_flash(:info, gettext("Performer created successfully"))
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->

@@ -20,21 +20,26 @@
         class="bg-inherit p-0 border-none max-w-28"
       />
       <div class="flex gap-2 items-center">
-        <button type="submit" title="save edition" class={not @editing && "invisible"}>
+        <button type="submit" title={gettext("save edition")} class={not @editing && "invisible"}>
           <.icon name="hero-check-mini" />
         </button>
 
         <button
           type="button"
-          title="delete edition"
-          data-confirm="Are you sure to delete this edition?"
+          title={gettext("delete edition")}
+          data-confirm={gettext("Are you sure to delete this edition?")}
           phx-click="delete_edition"
           phx-target={@myself}
         >
           <.icon name="hero-trash-mini" />
         </button>
 
-        <button type="button" title="add an evening" phx-click="add_evening" phx-target={@myself}>
+        <button
+          type="button"
+          title={gettext("add an evening")}
+          phx-click="add_evening"
+          phx-target={@myself}
+        >
           <.icon name="hero-plus-mini" />
         </button>
       </div>
@@ -46,22 +51,25 @@
     class="w-full bg-zinc-200 mt-3 mb-3 rounded-xl flex items-center evenings"
   >
     <span class="bg-zinc-300 font-bold rounded-l-xl p-3" name="evening-number">
-      <%= evening.number %>
+      {evening.number}
     </span>
 
     <div class="grid grid-cols-[1fr_1fr_1fr_min-content_min-content] items-center p-3 w-full">
       <span>
-        <%= Calendar.strftime(evening.date, "%d/%m/%Y") %>
+        {Calendar.strftime(evening.date, "%d/%m/%Y")}
       </span>
-      <span>Votes start: <%= Calendar.strftime(evening.votes_start, "%H:%M") %></span>
-      <span>Votes end: <%= Calendar.strftime(evening.votes_end, "%H:%M") %></span>
-      <.link title={"edit evening #{evening.number}"} navigate={~p"/admin/evening/#{evening.id}"}>
+      <span>{gettext("Votes start:")} {Calendar.strftime(evening.votes_start, "%H:%M")}</span>
+      <span>{gettext("Votes end:")} {Calendar.strftime(evening.votes_end, "%H:%M")}</span>
+      <.link
+        title={gettext("edit evening %{number}", number: evening.number)}
+        navigate={~p"/admin/evening/#{evening.id}"}
+      >
         <.icon name="hero-pencil-mini" class="ml-2" />
       </.link>
 
       <button
         type="button"
-        title={"delete evening #{evening.number}"}
+        title={gettext("delete evening %{number}", number: evening.number)}
         phx-click="delete_evening"
         value={evening.id}
         phx-target={@myself}

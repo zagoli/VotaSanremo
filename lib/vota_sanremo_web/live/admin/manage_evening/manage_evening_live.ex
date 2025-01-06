@@ -72,7 +72,7 @@ defmodule VotaSanremoWeb.Admin.ManageEveningLive do
          socket
          |> assign(evening: evening)
          |> assign_evening_form(changeset)
-         |> put_flash(:info, "Evening updated successfully.")}
+         |> put_flash(:info, gettext("Evening updated successfully."))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign_evening_form(socket, changeset)}
@@ -96,7 +96,7 @@ defmodule VotaSanremoWeb.Admin.ManageEveningLive do
          socket
          |> assign(:evening, evening)
          |> assign_performance_form(changeset)
-         |> put_flash(:info, "Performance added successfully.")}
+         |> put_flash(:info, gettext("Performance added successfully."))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign_performance_form(socket, changeset)}
@@ -119,10 +119,10 @@ defmodule VotaSanremoWeb.Admin.ManageEveningLive do
         {:noreply,
          socket
          |> assign(:evening, evening)
-         |> put_flash(:info, "Performance deleted successfully.")}
+         |> put_flash(:info, gettext("Performance deleted successfully."))}
 
       {:error, _changeset} ->
-        {:noreply, socket |> put_flash(:error, "Could not delete performance.")}
+        {:noreply, socket |> put_flash(:error, gettext("Could not delete performance."))}
     end
   end
 end

@@ -11,7 +11,7 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/vota_sanremo_web/components/core_components.ex:553
+#: lib/vota_sanremo_web/components/core_components.ex:560
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr ""
@@ -44,7 +44,7 @@ msgstr ""
 msgid "Leaderboard"
 msgstr ""
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:57
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:71
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:25
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:22
 #: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:25
@@ -66,7 +66,7 @@ msgstr ""
 msgid "My invites"
 msgstr ""
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:55
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:69
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:24
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:21
 #: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:24
@@ -156,7 +156,7 @@ msgstr ""
 msgid "Already registered?"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:32
+#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:33
 #, elixir-autogen, elixir-format
 msgid "Back to juries"
 msgstr ""
@@ -285,7 +285,7 @@ msgstr ""
 msgid "Error while declining this invite. Sorry!"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:8
+#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:9
 #, elixir-autogen, elixir-format
 msgid "Exit from this jury"
 msgstr ""
@@ -361,7 +361,7 @@ msgstr ""
 msgid "Logging in..."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:15
+#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:16
 #, elixir-autogen, elixir-format
 msgid "Members"
 msgstr ""
@@ -446,11 +446,13 @@ msgstr ""
 msgid "Resetting..."
 msgstr ""
 
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:43
 #: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:12
 #, elixir-autogen, elixir-format
 msgid "Save"
 msgstr ""
 
+#: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:24
 #: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:11
 #, elixir-autogen, elixir-format
 msgid "Saving..."
@@ -498,7 +500,7 @@ msgid "There are no members yet."
 msgstr ""
 
 #: lib/vota_sanremo_web/live/accounts/user_profile_live.html.heex:13
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:29
+#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "There are no votes to show yet."
 msgstr ""
@@ -549,7 +551,7 @@ msgstr ""
 msgid "We'll send a password reset link to your inbox"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:24
+#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:25
 #: lib/vota_sanremo_web/live/leaderboard/leaderboard_live.html.heex:13
 #, elixir-autogen, elixir-format
 msgid "Weighted scores"
@@ -645,4 +647,222 @@ msgstr ""
 #: lib/vota_sanremo_web/controllers/user_session_controller.ex:25
 #, elixir-autogen, elixir-format
 msgid "Welcome back!"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:57
+#, elixir-autogen, elixir-format
+msgid "Admin section"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:61
+#: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.html.heex:2
+#, elixir-autogen, elixir-format
+msgid "Manage editions"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:65
+#, elixir-autogen, elixir-format
+msgid "Manage performers"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:12
+#, elixir-autogen, elixir-format
+msgid "Add or edit a performer."
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:30
+#, elixir-autogen, elixir-format
+msgid "Are you sure to delete this edition?"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:22
+#, elixir-autogen, elixir-format
+msgid "Are you sure?"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:97
+#, elixir-autogen, elixir-format
+msgid "Back to all editions"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.ex:125
+#, elixir-autogen, elixir-format
+msgid "Could not delete performance."
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.html.heex:7
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Create a new edition"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:22
+#, elixir-autogen, elixir-format
+msgid "Date"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:23
+#, elixir-autogen, elixir-format
+msgid "Delete"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:26
+#, elixir-autogen, elixir-format
+msgid "Description"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:14
+#, elixir-autogen, elixir-format
+msgid "Edit"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.ex:19
+#, elixir-autogen, elixir-format
+msgid "Edit Performer"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.ex:32
+#, elixir-autogen, elixir-format
+msgid "Error creating the edition"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:16
+#, elixir-autogen, elixir-format
+msgid "Evening Number"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.ex:75
+#, elixir-autogen, elixir-format
+msgid "Evening updated successfully."
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:2
+#, elixir-autogen, elixir-format
+msgid "Manage Evening %{number}"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:22
+#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:11
+#, elixir-autogen, elixir-format
+msgid "Name"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.ex:25
+#, elixir-autogen, elixir-format
+msgid "New Performer"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.ex:21
+#, elixir-autogen, elixir-format, fuzzy
+msgid "New edition"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.ex:99
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Performance added successfully."
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.ex:122
+#, elixir-autogen, elixir-format
+msgid "Performance deleted successfully."
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:64
+#, elixir-autogen, elixir-format
+msgid "Performance type"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:47
+#, elixir-autogen, elixir-format
+msgid "Performances"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:58
+#, elixir-autogen, elixir-format
+msgid "Performer"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:77
+#, elixir-autogen, elixir-format
+msgid "Performer created successfully"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:62
+#, elixir-autogen, elixir-format
+msgid "Performer updated successfully"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.ex:31
+#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:2
+#, elixir-autogen, elixir-format
+msgid "Performers"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:24
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Save Performer"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.html.heex:15
+#, elixir-autogen, elixir-format, fuzzy
+msgid "There are no editions yet."
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:75
+#, elixir-autogen, elixir-format, fuzzy
+msgid "There are no performances yet."
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:37
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Votes End"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:31
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Votes Start"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:62
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Votes end:"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:61
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Votes start:"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:39
+#, elixir-autogen, elixir-format
+msgid "add an evening"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:68
+#, elixir-autogen, elixir-format
+msgid "add performance"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:29
+#, elixir-autogen, elixir-format
+msgid "delete edition"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:72
+#, elixir-autogen, elixir-format
+msgid "delete evening %{number}"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:88
+#, elixir-autogen, elixir-format
+msgid "delete performance"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:64
+#, elixir-autogen, elixir-format
+msgid "edit evening %{number}"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:23
+#, elixir-autogen, elixir-format, fuzzy
+msgid "save edition"
 msgstr ""

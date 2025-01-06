@@ -1,5 +1,5 @@
 <.header>
-  Listing Performers
+  {gettext("Performers")}
   <:actions>
     <.link patch={~p"/admin/performers/new"}>
       <.button>+</.button>
@@ -8,10 +8,10 @@
 </.header>
 
 <.table id="performers" rows={@streams.performers}>
-  <:col :let={{_id, performer}} label="Name"><%= performer.name %></:col>
+  <:col :let={{_id, performer}} label={gettext("Name")}>{performer.name}</:col>
 
   <:action :let={{_id, performer}}>
-    <.link patch={~p"/admin/performers/#{performer}/edit"} aria-label="Edit">
+    <.link patch={~p"/admin/performers/#{performer}/edit"} aria-label={gettext("Edit")}>
       <.icon name="hero-pencil-mini" />
     </.link>
   </:action>
@@ -19,8 +19,8 @@
   <:action :let={{id, performer}}>
     <.link
       phx-click={JS.push("delete", value: %{id: performer.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
-      aria-label="Delete"
+      data-confirm={gettext("Are you sure?")}
+      aria-label={gettext("Delete")}
     >
       <.icon name="hero-trash-mini" />
     </.link>

@@ -18,15 +18,18 @@ defmodule VotaSanremoWeb.Admin.ManageEditionsLive do
   end
 
   def handle_event("new_edition", _params, socket) do
-    new_name = get_fresh_name("New edition", Editions.list_editions_names())
+    new_name = get_fresh_name(gettext("New edition"), Editions.list_editions_names())
 
     case Editions.create_edition(%{
            name: new_name,
            start_date: Date.utc_today(),
            end_date: Date.utc_today()
          }) do
-      {:ok, _} -> {:noreply, assign_editions(socket)}
-      {:error, _} -> {:noreply, socket |> put_flash(:error, "Error creating the edition")}
+      {:ok, _} ->
+        {:noreply, assign_editions(socket)}
+
+      {:error, _} ->
+        {:noreply, socket |> put_flash(:error, gettext("Error creating the edition"))}
     end
   end
 end
