@@ -94,6 +94,22 @@ defmodule VotaSanremoWeb.JuryMembersLiveTest do
       assert html =~ "User invited"
     end
 
+    test "A founder cannot invite himself", %{conn: conn, user: user, jury: jury} do
+      {:ok, live, _html} = live(conn, ~p"/juries/#{jury.id}/members/invite")
+
+      refute live
+             |> has_element?("#user-#{user.id} a", "Invite")
+    end
+
+    test "A founder cannot invite himself via direct link", %{conn: conn, user: user, jury: jury} do
+      {:ok, _live, html} =
+        live(conn, ~p"/juries/#{jury.id}/members/invite/#{user.id}")
+        |> follow_redirect(conn, ~p"/juries/#{jury.id}/members")
+
+      refute html =~ "User invited"
+      assert html =~ "You cannot invite yourself!"
+    end
+
     test "When not a founder, the button to invite a user is not present", %{
       conn: conn,
       other_jury: jury
