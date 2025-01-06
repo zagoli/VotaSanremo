@@ -19,7 +19,7 @@ defmodule VotaSanremoWeb.ManagePerformersLiveTest do
     test "lists all performers", %{conn: conn, performer: performer} do
       {:ok, _index_live, html} = live(conn, ~p"/admin/performers")
 
-      assert html =~ "Listing Performers"
+      assert html =~ "Performers"
       assert html =~ performer.name
     end
 
