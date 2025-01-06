@@ -24,8 +24,9 @@ defmodule VotaSanremoWeb.UserSearchLive do
     assign(socket, :form, to_form(changeset))
   end
 
-  defp assign_users(socket, users) do
-    assign(socket, :users, users)
+  defp assign_users(%{assigns: %{current_user: user}} = socket, users) do
+    # Current user should not be included in the searched users
+    assign(socket, :users, List.delete(users, user))
   end
 
   def handle_event("search", %{"username" => params}, socket) do

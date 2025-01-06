@@ -31,7 +31,11 @@ defmodule VotaSanremoWeb.JuryMembersLive do
     assign(socket, :pending_invites, Juries.list_jury_pending_invites(jury))
   end
 
-  def handle_params(%{"jury_id" => jury_id, "user_id" => user_id}, _uri, socket) do
+  def handle_params(
+        %{"jury_id" => jury_id, "user_id" => user_id},
+        _uri,
+        socket
+      ) do
     {:noreply,
      socket
      |> invite_member(String.to_integer(jury_id), String.to_integer(user_id))
@@ -40,6 +44,11 @@ defmodule VotaSanremoWeb.JuryMembersLive do
 
   def handle_params(_params, _uri, socket) do
     {:noreply, socket}
+  end
+
+  defp invite_member(%{assigns: %{current_user: %{id: current_user_id}}} = socket, _, user_id)
+       when is_integer(user_id) and user_id == current_user_id do
+    socket |> put_flash(:error, gettext("You cannot invite yourself!"))
   end
 
   defp invite_member(%{assigns: %{current_user: user}} = socket, jury_id, user_id)
