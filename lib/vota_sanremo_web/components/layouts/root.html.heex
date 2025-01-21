@@ -64,6 +64,10 @@
               <.sidenav_link path={~p"/admin/performers"}>
                 {gettext("Manage performers")}
               </.sidenav_link>
+
+              <.sidenav_link path={~p"/admin/performance_types"}>
+                {gettext("Manage performance types")}
+              </.sidenav_link>
             <% end %>
           <% else %>
             <.sidenav_link path={~p"/users/register"}>{gettext("Register")}</.sidenav_link>
