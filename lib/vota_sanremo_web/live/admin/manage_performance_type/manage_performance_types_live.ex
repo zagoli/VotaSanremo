@@ -16,19 +16,19 @@ defmodule VotaSanremoWeb.Admin.ManagePerformanceTypesLive do
 
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
-    |> assign(:page_title, "Edit Performance type")
+    |> assign(:page_title, gettext("Edit performance type"))
     |> assign(:performance_type, Performances.get_performance_type!(id))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "New Performance type")
+    |> assign(:page_title, gettext("New performance type"))
     |> assign(:performance_type, %PerformanceType{})
   end
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Listing Performancetypes")
+    |> assign(:page_title, gettext("Performance types"))
     |> assign(:performance_type, nil)
   end
 

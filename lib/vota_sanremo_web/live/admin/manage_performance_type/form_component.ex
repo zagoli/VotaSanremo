@@ -18,9 +18,9 @@ defmodule VotaSanremoWeb.PerformanceTypeLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={@form[:type]} type="text" label="Type" />
+        <.input field={@form[:type]} type="text" label={gettext("Name")} />
         <:actions>
-          <.button phx-disable-with="Saving...">Save Performance type</.button>
+          <.button phx-disable-with={gettext("Saving...")}>{gettext("Save performance type")}</.button>
         </:actions>
       </.simple_form>
     </div>
@@ -54,7 +54,7 @@ defmodule VotaSanremoWeb.PerformanceTypeLive.FormComponent do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Performance type updated successfully")
+         |> put_flash(:info, gettext("Performance type updated"))
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -69,7 +69,7 @@ defmodule VotaSanremoWeb.PerformanceTypeLive.FormComponent do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Performance type created successfully")
+         |> put_flash(:info, gettext("Performance type created"))
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->

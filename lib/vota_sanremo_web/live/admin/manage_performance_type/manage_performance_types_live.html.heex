@@ -1,14 +1,14 @@
 <.header>
-  Listing Performancetypes
+  {gettext("Performance types")}
   <:actions>
-    <.link patch={~p"/admin/performance_types/new"}>
-      <.button title="New performance type">+</.button>
+    <.link patch={~p"/admin/performance_types/new"} aria-label={gettext("New performance type")}>
+      <.button>+</.button>
     </.link>
   </:actions>
 </.header>
 
 <.table id="performance_types" rows={@streams.performance_types}>
-  <:col :let={{_id, performance_type}} label="Type">{performance_type.type}</:col>
+  <:col :let={{_id, performance_type}} label={gettext("Name")}>{performance_type.type}</:col>
   
   <:action :let={{_id, performance_type}}>
     <.link patch={~p"/admin/performance_types/#{performance_type}/edit"} aria-label={gettext("Edit")}>
@@ -19,7 +19,7 @@
   <:action :let={{id, performance_type}}>
     <.link
       phx-click={JS.push("delete", value: %{id: performance_type.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
+      data-confirm={gettext("Are you sure?")}
       aria-label={gettext("Delete")}
     >
       <.icon name="hero-trash-mini" />
