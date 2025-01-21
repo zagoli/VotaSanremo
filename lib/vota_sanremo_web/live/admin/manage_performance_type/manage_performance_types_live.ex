@@ -33,7 +33,10 @@ defmodule VotaSanremoWeb.Admin.ManagePerformanceTypesLive do
   end
 
   @impl true
-  def handle_info({VotaSanremoWeb.PerformanceTypeLive.FormComponent, {:saved, performance_type}}, socket) do
+  def handle_info(
+        {VotaSanremoWeb.PerformanceTypeLive.FormComponent, {:saved, performance_type}},
+        socket
+      ) do
     {:noreply, stream_insert(socket, :performance_types, performance_type)}
   end
 

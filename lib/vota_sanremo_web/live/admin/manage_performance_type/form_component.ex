@@ -20,7 +20,9 @@ defmodule VotaSanremoWeb.PerformanceTypeLive.FormComponent do
       >
         <.input field={@form[:type]} type="text" label={gettext("Name")} />
         <:actions>
-          <.button phx-disable-with={gettext("Saving...")}>{gettext("Save performance type")}</.button>
+          <.button phx-disable-with={gettext("Saving...")}>
+            {gettext("Save performance type")}
+          </.button>
         </:actions>
       </.simple_form>
     </div>
@@ -39,7 +41,12 @@ defmodule VotaSanremoWeb.PerformanceTypeLive.FormComponent do
 
   @impl true
   def handle_event("validate", %{"performance_type" => performance_type_params}, socket) do
-    changeset = Performances.change_performance_type(socket.assigns.performance_type, performance_type_params)
+    changeset =
+      Performances.change_performance_type(
+        socket.assigns.performance_type,
+        performance_type_params
+      )
+
     {:noreply, assign(socket, form: to_form(changeset, action: :validate))}
   end
 
@@ -48,7 +55,10 @@ defmodule VotaSanremoWeb.PerformanceTypeLive.FormComponent do
   end
 
   defp save_performance_type(socket, :edit, performance_type_params) do
-    case Performances.update_performance_type(socket.assigns.performance_type, performance_type_params) do
+    case Performances.update_performance_type(
+           socket.assigns.performance_type,
+           performance_type_params
+         ) do
       {:ok, performance_type} ->
         notify_parent({:saved, performance_type})
 

@@ -9,13 +9,16 @@
 
 <.table id="performance_types" rows={@streams.performance_types}>
   <:col :let={{_id, performance_type}} label={gettext("Name")}>{performance_type.type}</:col>
-  
+
   <:action :let={{_id, performance_type}}>
-    <.link patch={~p"/admin/performance_types/#{performance_type}/edit"} aria-label={gettext("Edit")}>
+    <.link
+      patch={~p"/admin/performance_types/#{performance_type}/edit"}
+      aria-label={gettext("Edit")}
+    >
       <.icon name="hero-pencil-mini" />
     </.link>
   </:action>
-  
+
   <:action :let={{id, performance_type}}>
     <.link
       phx-click={JS.push("delete", value: %{id: performance_type.id}) |> hide("##{id}")}
