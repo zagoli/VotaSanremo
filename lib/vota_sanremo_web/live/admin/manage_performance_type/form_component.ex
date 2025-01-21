@@ -9,7 +9,6 @@ defmodule VotaSanremoWeb.PerformanceTypeLive.FormComponent do
     <div>
       <.header>
         {@title}
-        <:subtitle>Use this form to manage performance_type records in your database.</:subtitle>
       </.header>
 
       <.simple_form
