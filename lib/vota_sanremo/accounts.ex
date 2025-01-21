@@ -90,6 +90,24 @@ defmodule VotaSanremo.Accounts do
     |> Repo.all()
   end
 
+  @doc """
+  Returns the total number of registered users with role "user"
+  """
+  def count_users() do
+    User
+    |> where([u], u.user_type == :user)
+    |> Repo.aggregate(:count)
+  end
+
+  @doc """
+  Returns the number of confirmed users with role "user"
+  """
+  def count_confirmed_users() do
+    User
+    |> where([u], u.user_type == :user and not is_nil(u.confirmed_at))
+    |> Repo.aggregate(:count)
+  end
+
   ## User registration
 
   @doc """

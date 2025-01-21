@@ -719,4 +719,36 @@ defmodule VotaSanremo.AccountsTest do
       assert Accounts.list_some_users(0) == []
     end
   end
+
+  defp create_users_for_counting(_) do
+    user1 = user_fixture()
+    user2 = user_fixture()
+    user3 = user_fixture()
+    admin = user_fixture()
+    Accounts.update_user_type(admin, :admin)
+    %{users: [user1, user2, user3]}
+  end
+
+  defp confirm_some_users(%{users: [user1, user2, _user3]} = context) do
+    # Confirm two of the three users
+    {:ok, _} = confirm_user(user1)
+    {:ok, _} = confirm_user(user2)
+    context
+  end
+
+  describe "count_users/0" do
+    setup [:create_users_for_counting]
+
+    test "returns total number of users with role user", %{users: users} do
+      assert Accounts.count_users() == Enum.count(users)
+    end
+  end
+
+  describe "count_confirmed_users/0" do
+    setup [:create_users_for_counting, :confirm_some_users]
+
+    test "returns number of confirmed users with role user" do
+      assert Accounts.count_confirmed_users() == 2
+    end
+  end
 end
