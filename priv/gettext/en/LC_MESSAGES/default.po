@@ -44,7 +44,7 @@ msgstr ""
 msgid "Leaderboard"
 msgstr ""
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:71
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:75
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:25
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:22
 #: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:25
@@ -66,7 +66,7 @@ msgstr ""
 msgid "My invites"
 msgstr ""
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:69
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:73
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:24
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:21
 #: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:24
@@ -654,13 +654,13 @@ msgstr ""
 msgid "Admin section"
 msgstr ""
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:61
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:65
 #: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.html.heex:2
 #, elixir-autogen, elixir-format
 msgid "Manage editions"
 msgstr ""
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:65
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:69
 #, elixir-autogen, elixir-format
 msgid "Manage performers"
 msgstr ""
@@ -680,7 +680,7 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:97
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:99
 #, elixir-autogen, elixir-format
 msgid "Back to all editions"
 msgstr ""
@@ -852,7 +852,7 @@ msgstr ""
 msgid "delete evening %{number}"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:88
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:90
 #, elixir-autogen, elixir-format
 msgid "delete performance"
 msgstr ""
@@ -870,4 +870,20 @@ msgstr ""
 #: lib/vota_sanremo_web/live/juries/jury_members_live.ex:51
 #, elixir-autogen, elixir-format
 msgid "You cannot invite yourself!"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:61
+#: lib/vota_sanremo_web/live/admin/manage_users/manage_users_live.html.heex:1
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Manage users"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_users/manage_users_live.html.heex:7
+#, elixir-autogen, elixir-format
+msgid "Number of confirmed users"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_users/manage_users_live.html.heex:4
+#, elixir-autogen, elixir-format
+msgid "Number of registered users"
 msgstr ""

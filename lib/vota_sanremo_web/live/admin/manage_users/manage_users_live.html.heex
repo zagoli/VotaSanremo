@@ -1,4 +1,10 @@
 <.header>{gettext("Manage users")}</.header>
 
-<.info_data_badge>2</.info_data_badge>
-<.info_data_badge label="Ciao">2</.info_data_badge>
+<div class="mt-3 flex gap-2">
+    <.info_data_badge label={gettext("Number of registered users")}>
+        {@users_number}
+    </.info_data_badge>
+    <.info_data_badge label={gettext("Number of confirmed users")}>
+        {@confirmed_users_number}
+    </.info_data_badge>
+</div>
