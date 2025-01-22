@@ -118,11 +118,12 @@
   <p>
     {gettext("The juries you founded and your votes will also be deleted.")}
   </p>
-  <.button
+  <.link
+    href={~p"/users/settings/delete_account/confirmed"}
+    method="delete"
     id="delete-account-confirm"
-    class="mt-3 text-white bg-red-600 hover:bg-red-700"
-    phx-click="delete_account"
+    class="rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-3 inline-block mt-3 text-sm"
   >
     {gettext("I understand, delete my account")}
-  </.button>
+  </.link>
 </.modal>

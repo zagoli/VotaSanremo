@@ -85,6 +85,7 @@ defmodule VotaSanremoWeb.Router do
     pipe_through [:browser]
 
     delete "/users/log_out", UserSessionController, :delete
+    delete "/users/settings/delete_account/confirmed", UserSessionController, :delete_account
 
     live_session :current_user,
       on_mount: [

@@ -248,7 +248,9 @@ defmodule VotaSanremoWeb.UserSettingsLiveTest do
       |> element("#delete-account-confirm")
       |> render_click()
 
-      assert_redirected(live, ~p"/")
+      assert_redirect(live, ~p"/users/settings/delete_account/confirmed")
+      assert redirected_to(conn) == ~p"/"
+
       refute get_session(conn, :user_token)
     end
   end
