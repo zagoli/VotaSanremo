@@ -44,7 +44,7 @@ msgstr ""
 msgid "Leaderboard"
 msgstr ""
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:75
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:79
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:25
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:22
 #: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:25
@@ -66,8 +66,7 @@ msgstr ""
 msgid "My invites"
 msgstr ""
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:73
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:73
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:77
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:24
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:21
 #: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:24
@@ -677,13 +676,12 @@ msgstr ""
 msgid "Are you sure to delete this edition?"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:22
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:25
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:22
 #, elixir-autogen, elixir-format
 msgid "Are you sure?"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:99
 #: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:99
 #, elixir-autogen, elixir-format
 msgid "Back to all editions"
@@ -704,7 +702,7 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:23
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:26
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:23
 #, elixir-autogen, elixir-format
 msgid "Delete"
@@ -715,7 +713,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:14
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:16
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:14
 #, elixir-autogen, elixir-format
 msgid "Edit"
@@ -861,7 +859,6 @@ msgid "delete evening %{number}"
 msgstr ""
 
 #: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:90
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:90
 #, elixir-autogen, elixir-format
 msgid "delete performance"
 msgstr ""
@@ -881,10 +878,26 @@ msgstr ""
 msgid "You cannot invite yourself!"
 msgstr ""
 
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.ex:19
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Edit performance type"
+msgstr ""
+
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:73
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Manage performance types"
+msgstr ""
+
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:61
 #: lib/vota_sanremo_web/live/admin/manage_users/manage_users_live.html.heex:1
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Manage users"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.ex:25
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:4
+#, elixir-autogen, elixir-format
+msgid "New performance type"
 msgstr ""
 
 #: lib/vota_sanremo_web/live/admin/manage_users/manage_users_live.html.heex:7
@@ -895,4 +908,25 @@ msgstr ""
 #: lib/vota_sanremo_web/live/admin/manage_users/manage_users_live.html.heex:4
 #, elixir-autogen, elixir-format
 msgid "Number of registered users"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:82
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Performance type created"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:67
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Performance type updated"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.ex:31
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:2
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Performance types"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:24
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Save performance type"
 msgstr ""
