@@ -4,10 +4,13 @@ defmodule VotaSanremo.TestSetupFixtures do
     PerformancesFixtures,
     VotesFixtures,
     EditionsFixtures,
-    EveningsFixtures
+    EveningsFixtures,
+    AccountsFixtures,
+    JuriesFixtures
   }
 
   alias VotaSanremo.Accounts.User
+  alias VotaSanremo.Juries
 
   defp common_setup_for_avg_scores() do
     %{id: edition_id} = edition_fixture()
@@ -125,5 +128,35 @@ defmodule VotaSanremo.TestSetupFixtures do
     vote_fixture(%{score: 1.0, performance_id: first_performance_id})
 
     {founder_vote, member_vote, edition_id, performer_name, first_performance_type}
+  end
+
+  @doc """
+  Creates a user, a jury, an invite and a vote.
+  Also add the created user as a member of another jury.
+  """
+  def setup_for_delete_user_test() do
+    %{id: edition_id} = edition_fixture()
+    %{id: performer_id} = performer_fixture()
+    %{id: performance_type_id} = performance_type_fixture()
+
+    %{id: evening_id} =
+      evening_fixture(%{edition_id: edition_id, date: ~D[2024-12-13], number: 1})
+
+    %{id: performance_id} =
+      performance_fixture(%{
+        performer_id: performer_id,
+        evening_id: evening_id,
+        performance_type_id: performance_type_id
+      })
+
+    user = user_fixture()
+    founded_jury = jury_fixture(%{founder: user.id})
+    jury = jury_fixture()
+    Juries.add_member(jury, user)
+    invited_user = user_fixture()
+    invite = jury_invite_fixture(%{jury_id: founded_jury.id, user_id: invited_user.id})
+    vote = vote_fixture(%{performance_id: performance_id})
+
+    {user, founded_jury, jury, invite, vote}
   end
 end
