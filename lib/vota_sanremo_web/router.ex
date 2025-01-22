@@ -114,6 +114,10 @@ defmodule VotaSanremoWeb.Router do
       live "/performers/new", Admin.ManagePerformersLive, :new
       live "/performers/:id/edit", Admin.ManagePerformersLive, :edit
 
+      live "/performance_types", Admin.ManagePerformanceTypesLive, :index
+      live "/performance_types/new", Admin.ManagePerformanceTypesLive, :new
+      live "/performance_types/:id/edit", Admin.ManagePerformanceTypesLive, :edit
+
       live "/evening/:id", Admin.ManageEveningLive
     end
   end

@@ -1,0 +1,47 @@
+<.header>
+  {gettext("Performance types")}
+  <:actions>
+    <.link patch={~p"/admin/performance_types/new"} aria-label={gettext("New performance type")}>
+      <.button>+</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="performance_types" rows={@streams.performance_types}>
+  <:col :let={{_id, performance_type}} label={gettext("Name")}>{performance_type.type}</:col>
+
+  <:action :let={{_id, performance_type}}>
+    <.link
+      patch={~p"/admin/performance_types/#{performance_type}/edit"}
+      aria-label={gettext("Edit")}
+    >
+      <.icon name="hero-pencil-mini" />
+    </.link>
+  </:action>
+
+  <:action :let={{id, performance_type}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: performance_type.id}) |> hide("##{id}")}
+      data-confirm={gettext("Are you sure?")}
+      aria-label={gettext("Delete")}
+    >
+      <.icon name="hero-trash-mini" />
+    </.link>
+  </:action>
+</.table>
+
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="performance_type-modal"
+  show
+  on_cancel={JS.patch(~p"/admin/performance_types")}
+>
+  <.live_component
+    module={VotaSanremoWeb.PerformanceTypeLive.FormComponent}
+    id={@performance_type.id || :new}
+    title={@page_title}
+    action={@live_action}
+    performance_type={@performance_type}
+    patch={~p"/admin/performance_types"}
+  />
+</.modal>

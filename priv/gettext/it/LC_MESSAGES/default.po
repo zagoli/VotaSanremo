@@ -452,6 +452,7 @@ msgstr "Reimpostazione in corso..."
 msgid "Save"
 msgstr "Salva"
 
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:23
 #: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:24
 #: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:11
 #, elixir-autogen, elixir-format
@@ -675,6 +676,7 @@ msgstr "Aggiungi o modifica un artista."
 msgid "Are you sure to delete this edition?"
 msgstr "Sei sicuro di voler eliminare questa edizione?"
 
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:22
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:22
 #, elixir-autogen, elixir-format
 msgid "Are you sure?"
@@ -700,6 +702,7 @@ msgstr "Crea una nuova edizione"
 msgid "Date"
 msgstr "Data"
 
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:23
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:23
 #, elixir-autogen, elixir-format
 msgid "Delete"
@@ -710,6 +713,7 @@ msgstr "Elimina"
 msgid "Description"
 msgstr "Descrizione"
 
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:14
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:14
 #, elixir-autogen, elixir-format
 msgid "Edit"
@@ -740,6 +744,8 @@ msgstr "Serata aggiornata con successo."
 msgid "Manage Evening %{number}"
 msgstr "Gestisci Serata %{number}"
 
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:21
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:11
 #: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:22
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:11
 #, elixir-autogen, elixir-format
@@ -871,19 +877,3 @@ msgstr "salva edizione"
 #, elixir-autogen, elixir-format
 msgid "You cannot invite yourself!"
 msgstr "Non puoi invitare te stesso!"
-
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:61
-#: lib/vota_sanremo_web/live/admin/manage_users/manage_users_live.html.heex:1
-#, elixir-autogen, elixir-format
-msgid "Manage users"
-msgstr "Gestisci utenti"
-
-#: lib/vota_sanremo_web/live/admin/manage_users/manage_users_live.html.heex:7
-#, elixir-autogen, elixir-format
-msgid "Number of confirmed users"
-msgstr "Numero di utenti confermati"
-
-#: lib/vota_sanremo_web/live/admin/manage_users/manage_users_live.html.heex:4
-#, elixir-autogen, elixir-format
-msgid "Number of registered users"
-msgstr "Numero di utenti registrati"

@@ -67,6 +67,7 @@ msgid "My invites"
 msgstr ""
 
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:73
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:73
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:24
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:21
 #: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:24
@@ -452,6 +453,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:23
 #: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:24
 #: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:11
 #, elixir-autogen, elixir-format
@@ -675,11 +677,13 @@ msgstr ""
 msgid "Are you sure to delete this edition?"
 msgstr ""
 
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:22
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:22
 #, elixir-autogen, elixir-format
 msgid "Are you sure?"
 msgstr ""
 
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:99
 #: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:99
 #, elixir-autogen, elixir-format
 msgid "Back to all editions"
@@ -700,6 +704,7 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:23
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:23
 #, elixir-autogen, elixir-format
 msgid "Delete"
@@ -710,6 +715,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:14
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:14
 #, elixir-autogen, elixir-format
 msgid "Edit"
@@ -740,6 +746,8 @@ msgstr ""
 msgid "Manage Evening %{number}"
 msgstr ""
 
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:21
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:11
 #: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:22
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:11
 #, elixir-autogen, elixir-format
@@ -852,6 +860,7 @@ msgstr ""
 msgid "delete evening %{number}"
 msgstr ""
 
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:90
 #: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:90
 #, elixir-autogen, elixir-format
 msgid "delete performance"
