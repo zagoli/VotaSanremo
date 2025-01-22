@@ -44,7 +44,7 @@ msgstr "Giurie"
 msgid "Leaderboard"
 msgstr "Classifica"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:75
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:79
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:25
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:22
 #: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:25
@@ -66,7 +66,7 @@ msgstr "Esci"
 msgid "My invites"
 msgstr "I miei inviti"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:73
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:77
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:24
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:21
 #: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:24
@@ -676,7 +676,7 @@ msgstr "Aggiungi o modifica un artista."
 msgid "Are you sure to delete this edition?"
 msgstr "Sei sicuro di voler eliminare questa edizione?"
 
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:22
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:25
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:22
 #, elixir-autogen, elixir-format
 msgid "Are you sure?"
@@ -702,7 +702,7 @@ msgstr "Crea una nuova edizione"
 msgid "Date"
 msgstr "Data"
 
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:23
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:26
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:23
 #, elixir-autogen, elixir-format
 msgid "Delete"
@@ -713,7 +713,7 @@ msgstr "Elimina"
 msgid "Description"
 msgstr "Descrizione"
 
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:14
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:16
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:14
 #, elixir-autogen, elixir-format
 msgid "Edit"
@@ -877,3 +877,56 @@ msgstr "salva edizione"
 #, elixir-autogen, elixir-format
 msgid "You cannot invite yourself!"
 msgstr "Non puoi invitare te stesso!"
+
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.ex:19
+#, elixir-autogen, elixir-format
+msgid "Edit performance type"
+msgstr "Modifica tipo di performance"
+
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:73
+#, elixir-autogen, elixir-format
+msgid "Manage performance types"
+msgstr "Gestisci tipi di performance"
+
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:61
+#: lib/vota_sanremo_web/live/admin/manage_users/manage_users_live.html.heex:1
+#, elixir-autogen, elixir-format
+msgid "Manage users"
+msgstr "Gestisci utenti"
+
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.ex:25
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:4
+#, elixir-autogen, elixir-format
+msgid "New performance type"
+msgstr "Nuovo tipo di performance"
+
+#: lib/vota_sanremo_web/live/admin/manage_users/manage_users_live.html.heex:7
+#, elixir-autogen, elixir-format
+msgid "Number of confirmed users"
+msgstr "Numero di utenti confermati"
+
+#: lib/vota_sanremo_web/live/admin/manage_users/manage_users_live.html.heex:4
+#, elixir-autogen, elixir-format
+msgid "Number of registered users"
+msgstr "Numero di utenti registrati"
+
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:82
+#, elixir-autogen, elixir-format
+msgid "Performance type created"
+msgstr "Tipo di performance creato"
+
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:67
+#, elixir-autogen, elixir-format
+msgid "Performance type updated"
+msgstr "Tipo di performance aggiornato"
+
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.ex:31
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:2
+#, elixir-autogen, elixir-format
+msgid "Performance types"
+msgstr "Tipi di performance"
+
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:24
+#, elixir-autogen, elixir-format
+msgid "Save performance type"
+msgstr "Salva tipo di performance"
