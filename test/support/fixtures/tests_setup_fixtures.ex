@@ -155,7 +155,7 @@ defmodule VotaSanremo.TestSetupFixtures do
     Juries.add_member(jury, user)
     invited_user = user_fixture()
     invite = jury_invite_fixture(%{jury_id: founded_jury.id, user_id: invited_user.id})
-    vote = vote_fixture(%{performance_id: performance_id})
+    vote = vote_fixture(%{user_id: user.id, performance_id: performance_id})
 
     {user, founded_jury, jury, invite, vote}
   end

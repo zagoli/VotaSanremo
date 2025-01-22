@@ -759,10 +759,11 @@ defmodule VotaSanremo.AccountsTest do
 
     test "deletes the user" do
       {user, founded_jury, jury, invite, vote} = setup_for_delete_user_test()
-      {:ok, %User{}} = Accounts.delete_user(user)
+      assert {:ok, %User{}} = Accounts.delete_user(user)
+
+      assert %Jury{} = Juries.get_jury!(jury.id)
       assert_raise Ecto.NoResultsError, fn -> Accounts.get_user!(user.id) end
       assert_raise Ecto.NoResultsError, fn -> Juries.get_jury!(founded_jury.id) end
-      assert %Jury{} = Juries.get_jury!(jury.id)
       assert_raise Ecto.NoResultsError, fn -> Juries.get_jury_invite!(invite.id) end
       assert_raise Ecto.NoResultsError, fn -> Votes.get_vote!(vote.id) end
     end
