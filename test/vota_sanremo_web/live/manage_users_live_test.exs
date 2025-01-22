@@ -25,10 +25,12 @@ defmodule VotaSanremoWeb.ManageUsersLiveTest do
       {:ok, _live, html} = live(conn, ~p"/admin/users")
 
       assert html =~ "Number of registered users"
-      assert Floki.find(html, "#users-number") |> Floki.text() =~ @users_number
+      assert Floki.find(html, "#users-number") |> Floki.text() =~ Integer.to_string(@users_number)
 
       assert html =~ "Number of confirmed users"
-      assert Floki.find(html, "#confirmed-users-number") |> Floki.text() =~ @confirmed_users_number
+
+      assert Floki.find(html, "#confirmed-users-number") |> Floki.text() =~
+               Integer.to_string(@confirmed_users_number)
     end
   end
 end
