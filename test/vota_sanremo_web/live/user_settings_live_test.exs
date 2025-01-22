@@ -234,7 +234,7 @@ defmodule VotaSanremoWeb.UserSettingsLiveTest do
   describe "Delete account" do
     setup [:register_and_log_in_user]
 
-    test "deletes the account", %{conn: conn, user: user} do
+    test "deletes the account", %{conn: conn} do
       {:ok, live, _html} = live(conn, ~p"/users/settings")
 
       live
@@ -244,6 +244,12 @@ defmodule VotaSanremoWeb.UserSettingsLiveTest do
 
       {:ok, live, _html} = live(conn, path)
 
+      live
+      |> element("#delete-account-confirm")
+      |> render_click()
+
+      assert_redirected(live, ~p"/")
+      refute get_session(conn, :user_token)
     end
   end
 end
