@@ -1,5 +1,6 @@
 defmodule VotaSanremoWeb.Admin.ManageUsersLive do
   use VotaSanremoWeb, :live_view
+  import VotaSanremoWeb.InfoDataBadge
   alias VotaSanremo.Accounts
 
   def mount(_, _, socket) do
