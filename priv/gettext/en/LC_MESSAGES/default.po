@@ -383,11 +383,6 @@ msgstr ""
 msgid "No confirmation instructions received?"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/leaderboard/leaderboard_live.html.heex:9
-#, elixir-autogen, elixir-format
-msgid "Nobody voted yet. Be the first!"
-msgstr ""
-
 #: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:31
 #: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:18
 #, elixir-autogen, elixir-format
@@ -501,7 +496,6 @@ msgid "There are no members yet."
 msgstr ""
 
 #: lib/vota_sanremo_web/live/accounts/user_profile_live.html.heex:13
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "There are no votes to show yet."
 msgstr ""
@@ -929,4 +923,10 @@ msgstr ""
 #: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:24
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Save performance type"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:30
+#: lib/vota_sanremo_web/live/leaderboard/leaderboard_live.html.heex:9
+#, elixir-autogen, elixir-format, fuzzy
+msgid "There are no artists yet."
 msgstr ""
