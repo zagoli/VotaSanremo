@@ -62,6 +62,8 @@ defmodule VotaSanremo.PerformersTest do
     import VotaSanremo.PerformersFixtures
     import VotaSanremo.JuriesFixtures
     import VotaSanremo.AccountsFixtures
+    import VotaSanremo.EveningsFixtures
+    import VotaSanremo.PerformancesFixtures
     alias VotaSanremo.Performers.Performer
     alias VotaSanremo.Juries
     alias VotaSanremo.TestSetupFixtures

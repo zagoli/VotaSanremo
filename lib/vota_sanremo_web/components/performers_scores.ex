@@ -32,13 +32,25 @@ defmodule VotaSanremoWeb.PerformersScores do
     """
   end
 
-  defp order_and_group_scores(scores) do
+  def order_and_group_scores(scores) do
     scores
-    |> Enum.sort(&(&1.score >= &2.score and &1 != nil and &2 == nil))
+    |> Enum.sort(&compare_scores(&1, &2))
     |> Enum.group_by(& &1.performance_type)
     # order group types
-    |> Enum.sort(&(elem(&1, 0) >= elem(&2, 0)))
+    |> Enum.sort(&(elem(&1, 0) < elem(&2, 0)))
   end
+
+  # When scores are equal (including both nil), compare names
+  defp compare_scores(%{score: score, name: name1}, %{score: score, name: name2}),
+    do: name1 <= name2
+
+  # When one score is nil, nil goes last
+  defp compare_scores(%{score: score1}, %{score: score2}) when is_nil(score1) or is_nil(score2),
+    do: is_nil(score2)
+
+  # When scores are different (and not nil), higher score goes first
+  defp compare_scores(%{score: score1}, %{score: score2}),
+    do: score1 >= score2
 
   defp score_to_string(nil), do: "-"
 
