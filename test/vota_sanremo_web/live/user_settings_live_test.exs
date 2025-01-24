@@ -232,14 +232,16 @@ defmodule VotaSanremoWeb.UserSettingsLiveTest do
   end
 
   describe "Delete account" do
+    alias VotaSanremo.Accounts
     setup [:register_and_log_in_user]
 
-    test "deletes the account", %{conn: conn} do
+    test "clicking on button calls controller", %{conn: conn} do
       {:ok, live, _html} = live(conn, ~p"/users/settings")
 
       live
       |> element("#delete-account")
       |> render_click()
+
       path = assert_patch(live)
 
       {:ok, live, _html} = live(conn, path)
@@ -249,9 +251,14 @@ defmodule VotaSanremoWeb.UserSettingsLiveTest do
       |> render_click()
 
       assert_redirect(live, ~p"/users/settings/delete_account/confirmed")
-      assert redirected_to(conn) == ~p"/"
+    end
 
+    test "user auth controller deletes account, logs out", %{conn: conn} do
+      conn = delete(conn, ~p"/users/settings/delete_account/confirmed")
+
+      assert redirected_to(conn) == ~p"/"
       refute get_session(conn, :user_token)
+      refute Accounts.get_user_by_email(conn.assigns.current_user.email)
     end
   end
 end
