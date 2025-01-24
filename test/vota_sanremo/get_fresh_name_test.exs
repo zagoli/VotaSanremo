@@ -1,5 +1,5 @@
 defmodule VotaSanremo.GetFreshNameTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   import VotaSanremo.GetFreshName
 
   describe "get_fresh_name/2" do

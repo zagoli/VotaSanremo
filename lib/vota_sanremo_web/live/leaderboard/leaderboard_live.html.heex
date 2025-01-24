@@ -6,7 +6,7 @@
 </.header>
 
 <%= if Enum.empty?(@scores) do %>
-  <p class="mt-5">{gettext("Nobody voted yet. Be the first!")}</p>
+  <p class="mt-5">{gettext("There are no artists yet.")}</p>
 <% else %>
   <section class="mt-5 mb-5">
     <.form for={nil} id="weighted-score-flag-form" phx-change="weighted-flag-selected">

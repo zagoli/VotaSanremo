@@ -81,7 +81,7 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
     end
   end
 
-  describe "Leaderboard with no votes" do
+  describe "Leaderboard with no performers" do
     import VotaSanremo.EditionsFixtures
 
     setup _ do
@@ -91,7 +91,7 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
 
     test "It should show a message stating that there are no votes", %{conn: conn} do
       {:ok, _live, html} = live(conn, ~p"/leaderboard")
-      assert html =~ "Nobody voted yet. Be the first!"
+      assert html =~ "There are no artists yet."
     end
   end
 end
