@@ -28,8 +28,9 @@ defmodule VotaSanremoWeb.Router do
         {VotaSanremoWeb.UserAuth, :ensure_authenticated},
         {VotaSanremoWeb.SetLocalePlug, :set_locale}
       ] do
-      live "/users/settings", UserSettingsLive, :edit
-      live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+      live "/users/settings", UserSettingsLive
+      live "/users/settings/confirm_email/:token", UserSettingsLive
+      live "/users/settings/delete_account", UserSettingsLive, :delete_account
       live "/users/profile/:user_id", UserProfileLive
       live "/vote", VoteLive, :show
       live "/vote/performance/:id", VoteLive, :vote
@@ -84,6 +85,7 @@ defmodule VotaSanremoWeb.Router do
     pipe_through [:browser]
 
     delete "/users/log_out", UserSessionController, :delete
+    delete "/users/settings/delete_account/confirmed", UserSessionController, :delete_account
 
     live_session :current_user,
       on_mount: [

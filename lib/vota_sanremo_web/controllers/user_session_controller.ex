@@ -46,4 +46,18 @@ defmodule VotaSanremoWeb.UserSessionController do
     |> put_flash(:info, gettext("Logged out successfully."))
     |> UserAuth.log_out_user()
   end
+
+  def delete_account(%{assigns: %{current_user: user}} = conn, _params) do
+    case Accounts.delete_user(user) do
+      {:ok, _} ->
+        conn
+        |> put_flash(:info, gettext("Account deleted successfully."))
+        |> UserAuth.log_out_user()
+
+      {:error, _} ->
+        conn
+        |> put_flash(:error, gettext("An error occurred while deleting your account."))
+        |> redirect(to: ~p"/users/settings")
+    end
+  end
 end

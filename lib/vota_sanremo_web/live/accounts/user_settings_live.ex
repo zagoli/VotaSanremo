@@ -35,6 +35,10 @@ defmodule VotaSanremoWeb.UserSettingsLive do
     {:ok, socket}
   end
 
+  def handle_params(_unsigned_params, _uri, socket) do
+    {:noreply, socket}
+  end
+
   def handle_event("validate_email", params, socket) do
     %{"current_password" => password, "user" => user_params} = params
 
@@ -114,5 +118,9 @@ defmodule VotaSanremoWeb.UserSettingsLive do
       {:error, changeset} ->
         {:noreply, assign(socket, :votes_privacy_form, to_form(changeset))}
     end
+  end
+
+  def handle_event("delete_account", _params, socket) do
+    {:noreply, socket}
   end
 end

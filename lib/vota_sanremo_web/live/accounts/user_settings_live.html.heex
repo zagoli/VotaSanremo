@@ -13,7 +13,7 @@
     id="votes_privacy_form"
     phx-change="update_votes_privacy"
   >
-    <.radio_group field={@votes_privacy_form[:votes_privacy]} class="flex gap-5">
+    <.radio_group field={@votes_privacy_form[:votes_privacy]} class="flex gap-5 mt-3">
       <:radio value={:public}>{gettext("Public")}</:radio>
 
       <:radio value={:private}>{gettext("Private")}</:radio>
@@ -93,3 +93,37 @@
     </:actions>
   </.simple_form>
 </div>
+<hr />
+<div class="my-5">
+  <.header>{gettext("Other settings")}</.header>
+  <.link
+    id="delete-account"
+    patch={~p"/users/settings/delete_account"}
+    class="rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-3 inline-block mt-3 text-sm"
+  >
+    {gettext("Delete account")}
+  </.link>
+</div>
+
+<.modal
+  :if={@live_action == :delete_account}
+  id="delete-account-modal"
+  show
+  on_cancel={JS.patch(~p"/users/settings")}
+>
+  <.header>{gettext("Are you sure?")}</.header>
+  <p>
+    {gettext("You are about to delete your account.")}
+  </p>
+  <p>
+    {gettext("The juries you founded and your votes will also be deleted.")}
+  </p>
+  <.link
+    href={~p"/users/settings/delete_account/confirmed"}
+    method="delete"
+    id="delete-account-confirm"
+    class="rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-3 inline-block mt-3 text-sm"
+  >
+    {gettext("I understand, delete my account")}
+  </.link>
+</.modal>

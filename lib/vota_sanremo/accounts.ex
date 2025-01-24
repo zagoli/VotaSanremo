@@ -445,4 +445,11 @@ defmodule VotaSanremo.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  @doc """
+  Deletes a user.
+  """
+  def delete_user(%User{} = user) do
+    Repo.delete(user)
+  end
 end

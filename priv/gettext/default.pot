@@ -141,7 +141,7 @@ msgstr ""
 msgid "%{username} does not want to disclose his/her votes."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.ex:62
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.ex:66
 #, elixir-autogen, elixir-format
 msgid "A link to confirm your email change has been sent to the new address."
 msgstr ""
@@ -670,6 +670,7 @@ msgstr ""
 msgid "Are you sure to delete this edition?"
 msgstr ""
 
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:114
 #: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:25
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:22
 #, elixir-autogen, elixir-format
@@ -894,7 +895,7 @@ msgstr ""
 msgid "New performance type"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_users/manage_users_live.html.heex:7
+#: lib/vota_sanremo_web/live/admin/manage_users/manage_users_live.html.heex:8
 #, elixir-autogen, elixir-format
 msgid "Number of confirmed users"
 msgstr ""
@@ -929,4 +930,39 @@ msgstr ""
 #: lib/vota_sanremo_web/live/leaderboard/leaderboard_live.html.heex:9
 #, elixir-autogen, elixir-format
 msgid "There are no artists yet."
+msgstr ""
+
+#: lib/vota_sanremo_web/controllers/user_session_controller.ex:54
+#, elixir-autogen, elixir-format
+msgid "Account deleted successfully."
+msgstr ""
+
+#: lib/vota_sanremo_web/controllers/user_session_controller.ex:59
+#, elixir-autogen, elixir-format
+msgid "An error occurred while deleting your account."
+msgstr ""
+
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:104
+#, elixir-autogen, elixir-format
+msgid "Delete account"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:127
+#, elixir-autogen, elixir-format
+msgid "I understand, delete my account"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:98
+#, elixir-autogen, elixir-format
+msgid "Other settings"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:119
+#, elixir-autogen, elixir-format
+msgid "The juries you founded and your votes will also be deleted."
+msgstr ""
+
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:116
+#, elixir-autogen, elixir-format
+msgid "You are about to delete your account."
 msgstr ""

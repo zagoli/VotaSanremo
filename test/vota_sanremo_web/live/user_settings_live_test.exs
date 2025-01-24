@@ -25,7 +25,7 @@ defmodule VotaSanremoWeb.UserSettingsLiveTest do
     end
   end
 
-  describe "update email form" do
+  describe "Update email form" do
     setup %{conn: conn} do
       password = valid_user_password()
       user = user_fixture(%{password: password})
@@ -82,7 +82,7 @@ defmodule VotaSanremoWeb.UserSettingsLiveTest do
     end
   end
 
-  describe "update password form" do
+  describe "Update password form" do
     setup %{conn: conn} do
       password = valid_user_password()
       user = user_fixture(%{password: password})
@@ -158,7 +158,7 @@ defmodule VotaSanremoWeb.UserSettingsLiveTest do
     end
   end
 
-  describe "confirm email" do
+  describe "Confirm email" do
     setup %{conn: conn} do
       user = user_fixture()
       email = unique_user_email()
@@ -208,7 +208,7 @@ defmodule VotaSanremoWeb.UserSettingsLiveTest do
     end
   end
 
-  describe "votes privacy form" do
+  describe "Votes privacy form" do
     setup [:register_and_log_in_user]
 
     test "renders form", %{conn: conn} do
@@ -228,6 +228,37 @@ defmodule VotaSanremoWeb.UserSettingsLiveTest do
 
       user = Accounts.get_user!(user.id)
       assert user.votes_privacy == :private
+    end
+  end
+
+  describe "Delete account" do
+    alias VotaSanremo.Accounts
+    setup [:register_and_log_in_user]
+
+    test "clicking on button calls controller", %{conn: conn} do
+      {:ok, live, _html} = live(conn, ~p"/users/settings")
+
+      live
+      |> element("#delete-account")
+      |> render_click()
+
+      path = assert_patch(live)
+
+      {:ok, live, _html} = live(conn, path)
+
+      live
+      |> element("#delete-account-confirm")
+      |> render_click()
+
+      assert_redirect(live, ~p"/users/settings/delete_account/confirmed")
+    end
+
+    test "user auth controller deletes account, logs out", %{conn: conn} do
+      conn = delete(conn, ~p"/users/settings/delete_account/confirmed")
+
+      assert redirected_to(conn) == ~p"/"
+      refute get_session(conn, :user_token)
+      refute Accounts.get_user_by_email(conn.assigns.current_user.email)
     end
   end
 end
