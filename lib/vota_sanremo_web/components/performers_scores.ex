@@ -45,8 +45,8 @@ defmodule VotaSanremoWeb.PerformersScores do
     do: name1 <= name2
 
   # When one score is nil, nil goes last
-  defp compare_scores(%{score: score1}, %{score: score2}) when is_nil(score1) or is_nil(score2),
-    do: is_nil(score2)
+  defp compare_scores(%{score: nil}, _), do: false
+  defp compare_scores(_, %{score: nil}), do: true
 
   # When scores are different (and not nil), higher score goes first
   defp compare_scores(%{score: score1}, %{score: score2}),
