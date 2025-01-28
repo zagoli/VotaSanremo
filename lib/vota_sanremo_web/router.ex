@@ -38,7 +38,9 @@ defmodule VotaSanremoWeb.Router do
       live "/juries/:jury_id/members/invite", UserSearchLive, :invite
       live "/juries/personal", PersonalJuriesLive
       live "/juries/new", NewJuryLive
-      live "/juries/my_invites", MyInvitesLive
+      live "/juries/my_invites", MyInvitesLive, :index
+      live "/juries/my_invites/accept/:jury_invite_id", MyInvitesLive, :accept
+      live "/juries/my_invites/decline/:jury_invite_id", MyInvitesLive, :decline
       live "/juries/:jury_id/members/invite/:user_id", JuryMembersLive
     end
   end

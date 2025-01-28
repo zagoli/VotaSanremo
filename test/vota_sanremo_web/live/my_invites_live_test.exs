@@ -14,7 +14,7 @@ defmodule VotaSanremoWeb.MyInvitesLiveTest do
   describe "My Invites" do
     setup [:register_and_log_in_user, :create_invites]
 
-    test "User can see their pending invites", %{conn: conn, invites: {pending, _, _}} do
+    test "users can see their pending invites", %{conn: conn, invites: {pending, _, _}} do
       {:ok, _live, html} = live(conn, ~p"/juries/my_invites")
 
       assert html =~ "My invites"
@@ -22,7 +22,7 @@ defmodule VotaSanremoWeb.MyInvitesLiveTest do
       assert html =~ jury_name
     end
 
-    test "Users cannot see invites that are not pending", %{
+    test "users cannot see invites that are not pending", %{
       conn: conn,
       invites: {pending, accepted, declined}
     } do
@@ -38,7 +38,7 @@ defmodule VotaSanremoWeb.MyInvitesLiveTest do
       refute html =~ jury_name
     end
 
-    test "Users can accept pending invites", %{
+    test "users can accept pending invites", %{
       conn: conn,
       invites: {pending, _, _}
     } do
@@ -48,7 +48,7 @@ defmodule VotaSanremoWeb.MyInvitesLiveTest do
 
       html =
         live
-        |> element("#invites button", "Accept")
+        |> element("#invites a", "Accept")
         |> render_click()
 
       jury_name = Juries.get_jury!(pending.jury_id).name
@@ -56,7 +56,7 @@ defmodule VotaSanremoWeb.MyInvitesLiveTest do
       refute Floki.find(html, "#invites") |> Floki.text() =~ jury_name
     end
 
-    test "Users can decline pending invites", %{
+    test "users can decline pending invites", %{
       conn: conn,
       invites: {pending, _, _}
     } do
@@ -64,7 +64,7 @@ defmodule VotaSanremoWeb.MyInvitesLiveTest do
 
       html =
         live
-        |> element("#invites button", "Decline")
+        |> element("#invites a", "Decline")
         |> render_click()
 
       assert html =~ "Invite declined."
