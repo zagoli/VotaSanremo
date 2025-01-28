@@ -33,7 +33,8 @@ msgstr ""
 
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:42
 #: lib/vota_sanremo_web/live/juries/juries_live.html.heex:2
-#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:30
+#: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:17
+#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:32
 #, elixir-autogen, elixir-format
 msgid "Juries"
 msgstr ""
@@ -270,7 +271,7 @@ msgstr ""
 msgid "Error exiting the jury"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:73
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:75
 #, elixir-autogen, elixir-format
 msgid "Error inviting user"
 msgstr ""
@@ -518,7 +519,7 @@ msgstr ""
 msgid "User confirmed successfully."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:70
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:72
 #, elixir-autogen, elixir-format
 msgid "User invited"
 msgstr ""
@@ -555,12 +556,12 @@ msgstr ""
 msgid "Weighted scores"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:23
+#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:25
 #, elixir-autogen, elixir-format
 msgid "You are a member of"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:59
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:60
 #, elixir-autogen, elixir-format
 msgid "You are not allowed to invite a user!"
 msgstr ""
@@ -570,7 +571,7 @@ msgstr ""
 msgid "You cannot vote now."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:11
+#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:13
 #, elixir-autogen, elixir-format
 msgid "You founded"
 msgstr ""
@@ -595,12 +596,12 @@ msgstr ""
 msgid "to your account now."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:86
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:88
 #, elixir-autogen, elixir-format
 msgid "Error removing member."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:83
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:85
 #, elixir-autogen, elixir-format
 msgid "Member removed!"
 msgstr ""
@@ -871,7 +872,7 @@ msgstr ""
 msgid "save edition"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:51
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:52
 #, elixir-autogen, elixir-format
 msgid "You cannot invite yourself!"
 msgstr ""
@@ -967,4 +968,9 @@ msgstr ""
 #: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:116
 #, elixir-autogen, elixir-format
 msgid "You are about to delete your account."
+msgstr ""
+
+#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:9
+#, elixir-autogen, elixir-format
+msgid "You have not created any juries and you are not a member of any jury."
 msgstr ""

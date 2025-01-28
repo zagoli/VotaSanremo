@@ -5,7 +5,13 @@
   </:subtitle>
 </.header>
 
-<.simple_form for={@form} id="create-jury-form" phx-change="validate" phx-submit="save">
+<.simple_form
+  for={@form}
+  id="create-jury-form"
+  phx-change="validate"
+  phx-submit="save"
+  class="mt-5"
+>
   <.input field={@form[:name]} label={gettext("Jury name")} phx-debounce="blur" />
   <:actions>
     <.button type="submit" phx-disable-with={gettext("Saving...")} class="w-full">
@@ -13,3 +19,5 @@
     </.button>
   </:actions>
 </.simple_form>
+
+<.back navigate={~p"/juries"}>{gettext("Juries")}</.back>

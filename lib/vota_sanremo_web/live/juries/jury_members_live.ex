@@ -2,6 +2,7 @@ defmodule VotaSanremoWeb.JuryMembersLive do
   use VotaSanremoWeb, :live_view
   import VotaSanremoWeb.SimpleList
   alias VotaSanremo.Juries
+  alias VotaSanremo.Accounts
 
   def mount(%{"jury_id" => jury_id}, _session, socket) do
     {:ok,
@@ -60,7 +61,9 @@ defmodule VotaSanremoWeb.JuryMembersLive do
     else
       case Juries.create_jury_invite(%{status: :pending, jury_id: jury_id, user_id: user_id}) do
         {:ok, invite} ->
-          Juries.deliver_user_invite(user, %{
+          recipient = Accounts.get_user!(user_id)
+
+          Juries.deliver_user_invite(recipient, %{
             jury_name: jury.name,
             accept_url: url(~p"/juries/my_invites/accept/#{invite.id}"),
             decline_url: url(~p"/juries/my_invites/decline/#{invite.id}"),
