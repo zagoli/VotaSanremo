@@ -6,6 +6,10 @@
   </.link>
 </div>
 
+<p class="mt-5">
+  {gettext("You have not created any juries and you are not a member of any jury.")}
+</p>
+
 <!-- Founded juries -->
 <%= if not Enum.empty?(@founded_juries) do %>
   <h2 class="mt-5 font-medium">{gettext("You founded")}</h2>
