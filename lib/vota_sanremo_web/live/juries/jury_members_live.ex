@@ -73,7 +73,7 @@ defmodule VotaSanremoWeb.JuryMembersLive do
         {:noreply, socket |> assign_jury(jury.id) |> put_flash(:info, gettext("Member removed!"))}
 
       :error ->
-        socket |> put_flash(:error, gettext("Error removing member."))
+        {:noreply, socket |> put_flash(:error, gettext("Error removing member."))}
     end
   end
 end
