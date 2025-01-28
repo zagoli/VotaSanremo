@@ -307,13 +307,17 @@ defmodule VotaSanremo.JuriesTest do
     end
 
     test "deliver_user_invite/2 delivers the invite email", %{user: user} do
-      invite = jury_invite_fixture(%{user_id: user.id})
-      {:ok, email} = Juries.deliver_user_invite(user, invite)
+      {:ok, email} =
+        Juries.deliver_user_invite(user, %{
+          jury_name: "someJury",
+          accept_url: "acceptUrl",
+          decline_url: "declineUrl",
+          my_invites_url: "myInvitesUrl"
+        })
 
       {accept_url, decline_url} = extract_urls_from_invite_email(email)
-      url = VotaSanremoWeb.Endpoint.url()
-      assert accept_url == "#{url}/juries/my_invites/accept/#{invite.id}"
-      assert decline_url == "#{url}/juries/my_invites/decline/#{invite.id}"
+      assert accept_url == "acceptUrl"
+      assert decline_url == "declineUrl"
     end
   end
 
