@@ -270,17 +270,19 @@ msgstr "Email modificata con successo."
 msgid "Error exiting the jury"
 msgstr "Errore nell'uscita dalla giuria"
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:63
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:73
 #, elixir-autogen, elixir-format
 msgid "Error inviting user"
 msgstr "Errore nell'invito dell'utente"
 
 #: lib/vota_sanremo_web/live/juries/my_invites_live.ex:34
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:37
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:54
 #, elixir-autogen, elixir-format
 msgid "Error while accepting this invite. Sorry!"
 msgstr "Errore nell'accettare l'invito. Ci dispiace!"
 
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:48
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:51
 #, elixir-autogen, elixir-format
 msgid "Error while declining this invite. Sorry!"
 msgstr "Errore nel rifiutare l'invito. Ci dispiace!"
@@ -331,7 +333,7 @@ msgstr "Invita un utente"
 msgid "Invite accepted! You are now part of %{jury_name}"
 msgstr "Invito accettato! Ora fai parte di %{jury_name}"
 
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:44
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:47
 #, elixir-autogen, elixir-format
 msgid "Invite declined."
 msgstr "Invito rifiutato."
@@ -516,7 +518,7 @@ msgstr "Il link di conferma utente non è valido o è scaduto."
 msgid "User confirmed successfully."
 msgstr "Utente confermato con successo."
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:62
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:70
 #, elixir-autogen, elixir-format
 msgid "User invited"
 msgstr "Utente invitato"
@@ -593,12 +595,12 @@ msgstr "un account."
 msgid "to your account now."
 msgstr "al tuo account."
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:76
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:86
 #, elixir-autogen, elixir-format
 msgid "Error removing member."
 msgstr "Errore durante la rimozione del membro della giuria."
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:73
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:83
 #, elixir-autogen, elixir-format
 msgid "Member removed!"
 msgstr "Membro della giuria rimosso!"
