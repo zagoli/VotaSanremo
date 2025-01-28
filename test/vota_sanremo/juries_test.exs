@@ -296,12 +296,7 @@ defmodule VotaSanremo.JuriesTest do
     end
 
     test "decline_invite/1 declines the invite", %{user: user, jury: jury} do
-      invite =
-        jury_invite_fixture(%{
-          user_id: user.id,
-          jury_id: jury.id,
-          status: :pending
-        })
+      invite = jury_invite_fixture(%{user_id: user.id, jury_id: jury.id})
 
       assert {:ok, declined_invite} = Juries.decline_invite(invite)
       assert declined_invite.status == :declined
@@ -309,6 +304,10 @@ defmodule VotaSanremo.JuriesTest do
       # Use existing function to check user's juries
       user_juries = Juries.list_member_juries(user)
       refute Enum.any?(user_juries, fn j -> j.id == jury.id end)
+    end
+
+    test "deliver_user_invite/2 delivers the invite email", %{user: user, jury: jury} do
+      invite = jury_invite_fixture(%{user_id: user.id, jury_id: jury.id})
     end
   end
 end

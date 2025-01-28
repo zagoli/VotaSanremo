@@ -37,7 +37,7 @@ defmodule VotaSanremo.JuriesFixtures do
     {:ok, jury_invite} =
       attrs
       |> Enum.into(%{
-        status: :accepted,
+        status: :pending,
         user_id: user_id,
         jury_id: jury_id
       })
