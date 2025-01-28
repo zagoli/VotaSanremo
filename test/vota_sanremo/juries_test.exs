@@ -311,6 +311,7 @@ defmodule VotaSanremo.JuriesTest do
       {:ok, email} = Juries.deliver_user_invite(user, invite)
 
       {accept_url, decline_url} = extract_urls_from_invite_email(email)
+      # TODO: The url should start from the root of the app
       assert accept_url == "/juries/my_invites/accept/#{invite.id}"
       assert decline_url == "/juries/my_invites/decline/#{invite.id}"
     end

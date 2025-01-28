@@ -32,6 +32,9 @@ defmodule VotaSanremoWeb.MyInvitesLive do
 
       {:error, _} ->
         socket |> put_flash(:error, gettext("Error while accepting this invite. Sorry!"))
+
+      nil ->
+        socket |> put_flash(:error, gettext("Error while accepting this invite. Sorry!"))
     end
   end
 
@@ -46,6 +49,9 @@ defmodule VotaSanremoWeb.MyInvitesLive do
 
       {:error, _} ->
         socket |> put_flash(:error, gettext("Error while declining this invite. Sorry!"))
+
+      nil ->
+        socket |> put_flash(:error, gettext("Error while accepting this invite. Sorry!"))
     end
   end
 
