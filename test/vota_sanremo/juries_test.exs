@@ -306,8 +306,23 @@ defmodule VotaSanremo.JuriesTest do
       refute Enum.any?(user_juries, fn j -> j.id == jury.id end)
     end
 
-    test "deliver_user_invite/2 delivers the invite email", %{user: user, jury: jury} do
-      invite = jury_invite_fixture(%{user_id: user.id, jury_id: jury.id})
+    test "deliver_user_invite/2 delivers the invite email", %{user: user} do
+      invite = jury_invite_fixture(%{user_id: user.id})
+      {:ok, email} = Juries.deliver_user_invite(user, invite)
+
+      {accept_url, decline_url} = extract_urls_from_invite_email(email)
+      assert accept_url == "/juries/my_invites/accept/#{invite.id}"
+      assert decline_url == "/juries/my_invites/decline/#{invite.id}"
     end
+  end
+
+  defp extract_urls_from_invite_email(email) do
+    %{
+      provider_options: %{
+        dynamic_template_data: %{accept_url: accept_url, decline_url: decline_url}
+      }
+    } = email
+
+    {accept_url, decline_url}
   end
 end
