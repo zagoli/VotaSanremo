@@ -12,11 +12,15 @@
     <:col :let={invite} label={gettext("Jury")}>{invite.jury.name}</:col>
 
     <:action :let={invite}>
-      <.button phx-click="accept" value={invite.id}>{gettext("Accept")}</.button>
+      <.button_link path={~p"/juries/my_invites/accept/#{invite.id}"}>
+        {gettext("Accept")}
+      </.button_link>
     </:action>
 
     <:action :let={invite}>
-      <.button phx-click="decline" value={invite.id}>{gettext("Decline")}</.button>
+      <.button_link path={~p"/juries/my_invites/decline/#{invite.id}"}>
+        {gettext("Decline")}
+      </.button_link>
     </:action>
   </.table>
 <% end %>

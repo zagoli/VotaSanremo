@@ -212,6 +212,7 @@ defmodule VotaSanremo.Juries do
   end
 
   alias VotaSanremo.Juries.JuryInvite
+  alias VotaSanremo.Accounts.UserNotifier
 
   @doc """
   Returns the list of jury_invites.
@@ -419,5 +420,9 @@ defmodule VotaSanremo.Juries do
       |> Repo.one()
 
     result != nil
+  end
+
+  def deliver_user_invite(%User{} = user, params) when is_map(params) do
+    UserNotifier.deliver_user_invite(user, params)
   end
 end

@@ -59,8 +59,18 @@ defmodule VotaSanremoWeb.JuryMembersLive do
       socket |> put_flash(:error, gettext("You are not allowed to invite a user!"))
     else
       case Juries.create_jury_invite(%{status: :pending, jury_id: jury_id, user_id: user_id}) do
-        {:ok, _} -> socket |> put_flash(:info, gettext("User invited"))
-        {:error, _} -> socket |> put_flash(:error, gettext("Error inviting user"))
+        {:ok, invite} ->
+          Juries.deliver_user_invite(user, %{
+            jury_name: jury.name,
+            accept_url: url(~p"/juries/my_invites/accept/#{invite.id}"),
+            decline_url: url(~p"/juries/my_invites/decline/#{invite.id}"),
+            my_invites_url: url(~p"/juries/my_invites")
+          })
+
+          socket |> put_flash(:info, gettext("User invited"))
+
+        {:error, _} ->
+          socket |> put_flash(:error, gettext("Error inviting user"))
       end
     end
   end
@@ -73,7 +83,7 @@ defmodule VotaSanremoWeb.JuryMembersLive do
         {:noreply, socket |> assign_jury(jury.id) |> put_flash(:info, gettext("Member removed!"))}
 
       :error ->
-        socket |> put_flash(:error, gettext("Error removing member."))
+        {:noreply, socket |> put_flash(:error, gettext("Error removing member."))}
     end
   end
 end

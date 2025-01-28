@@ -11,7 +11,7 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/vota_sanremo_web/components/core_components.ex:560
+#: lib/vota_sanremo_web/components/core_components.ex:585
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr ""
@@ -146,7 +146,7 @@ msgstr ""
 msgid "A link to confirm your email change has been sent to the new address."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:15
+#: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:16
 #, elixir-autogen, elixir-format
 msgid "Accept"
 msgstr ""
@@ -236,7 +236,7 @@ msgstr ""
 msgid "Current password"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:19
+#: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:22
 #, elixir-autogen, elixir-format
 msgid "Decline"
 msgstr ""
@@ -270,17 +270,19 @@ msgstr ""
 msgid "Error exiting the jury"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:63
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:73
 #, elixir-autogen, elixir-format
 msgid "Error inviting user"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:33
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:34
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:37
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:54
 #, elixir-autogen, elixir-format
 msgid "Error while accepting this invite. Sorry!"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:52
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:51
 #, elixir-autogen, elixir-format
 msgid "Error while declining this invite. Sorry!"
 msgstr ""
@@ -326,12 +328,12 @@ msgstr ""
 msgid "Invite a user"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:26
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:27
 #, elixir-autogen, elixir-format
 msgid "Invite accepted! You are now part of %{jury_name}"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:48
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:47
 #, elixir-autogen, elixir-format
 msgid "Invite declined."
 msgstr ""
@@ -496,6 +498,7 @@ msgid "There are no members yet."
 msgstr ""
 
 #: lib/vota_sanremo_web/live/accounts/user_profile_live.html.heex:13
+#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "There are no votes to show yet."
 msgstr ""
@@ -515,7 +518,7 @@ msgstr ""
 msgid "User confirmed successfully."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:62
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:70
 #, elixir-autogen, elixir-format
 msgid "User invited"
 msgstr ""
@@ -592,12 +595,12 @@ msgstr ""
 msgid "to your account now."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:76
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:86
 #, elixir-autogen, elixir-format
 msgid "Error removing member."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:73
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:83
 #, elixir-autogen, elixir-format
 msgid "Member removed!"
 msgstr ""
@@ -926,7 +929,6 @@ msgstr ""
 msgid "Save performance type"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:30
 #: lib/vota_sanremo_web/live/leaderboard/leaderboard_live.html.heex:9
 #, elixir-autogen, elixir-format, fuzzy
 msgid "There are no artists yet."

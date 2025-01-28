@@ -296,12 +296,7 @@ defmodule VotaSanremo.JuriesTest do
     end
 
     test "decline_invite/1 declines the invite", %{user: user, jury: jury} do
-      invite =
-        jury_invite_fixture(%{
-          user_id: user.id,
-          jury_id: jury.id,
-          status: :pending
-        })
+      invite = jury_invite_fixture(%{user_id: user.id, jury_id: jury.id})
 
       assert {:ok, declined_invite} = Juries.decline_invite(invite)
       assert declined_invite.status == :declined
@@ -310,5 +305,29 @@ defmodule VotaSanremo.JuriesTest do
       user_juries = Juries.list_member_juries(user)
       refute Enum.any?(user_juries, fn j -> j.id == jury.id end)
     end
+
+    test "deliver_user_invite/2 delivers the invite email", %{user: user} do
+      {:ok, email} =
+        Juries.deliver_user_invite(user, %{
+          jury_name: "someJury",
+          accept_url: "acceptUrl",
+          decline_url: "declineUrl",
+          my_invites_url: "myInvitesUrl"
+        })
+
+      {accept_url, decline_url} = extract_urls_from_invite_email(email)
+      assert accept_url == "acceptUrl"
+      assert decline_url == "declineUrl"
+    end
+  end
+
+  defp extract_urls_from_invite_email(email) do
+    %{
+      provider_options: %{
+        dynamic_template_data: %{accept_url: accept_url, decline_url: decline_url}
+      }
+    } = email
+
+    {accept_url, decline_url}
   end
 end

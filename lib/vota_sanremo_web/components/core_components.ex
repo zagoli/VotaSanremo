@@ -268,6 +268,31 @@ defmodule VotaSanremoWeb.CoreComponents do
   end
 
   @doc """
+  Renders a navigation link with the style of a button.
+  """
+  attr :path, :any, required: true, doc: "the path to navigate to"
+  attr :class, :string, default: nil
+  attr :rest, :global
+
+  slot :inner_block, required: true, doc: "the text to display"
+
+  def button_link(assigns) do
+    ~H"""
+    <.link
+      patch={@path}
+      class={[
+        "phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
+        "text-sm font-semibold leading-6 text-white active:text-white/80",
+        @class
+      ]}
+      {@rest}
+    >
+      {render_slot(@inner_block)}
+    </.link>
+    """
+  end
+
+  @doc """
   Renders an input with label and error messages.
 
   A `Phoenix.HTML.FormField` may be passed as argument,
