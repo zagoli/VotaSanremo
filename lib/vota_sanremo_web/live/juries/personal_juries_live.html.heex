@@ -6,7 +6,7 @@
   </.link>
 </div>
 
-<p class="mt-5">
+<p :if={Enum.empty?(@founded_juries) and Enum.empty?(@member_juries)} class="mt-5">
   {gettext("You have not created any juries and you are not a member of any jury.")}
 </p>
 
