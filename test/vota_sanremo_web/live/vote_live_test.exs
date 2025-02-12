@@ -304,5 +304,32 @@ defmodule VotaSanremoWeb.VoteLiveTest do
 
       assert Enum.empty?(Floki.find(html, "#delete-vote"))
     end
+
+    test "Delete vote button deletes existing vote",
+         %{
+           conn: conn,
+           edition: edition,
+           user: user
+         } do
+      %{id: evening_id} =
+        evening_fixture(%{
+          edition_id: edition.id,
+          votes_start: DateTime.utc_now() |> DateTime.add(-10, :minute),
+          votes_end: DateTime.utc_now() |> DateTime.add(10, :minute)
+        })
+
+      %{id: performance_id} = performance_fixture(%{evening_id: evening_id})
+      vote_fixture(%{score: 1.0, performance_id: performance_id, user_id: user.id})
+
+      {:ok, live, _html} = live(conn, ~p"/vote/performance/#{performance_id}")
+
+      live
+      |> element("#delete-vote")
+      |> render_click()
+
+      path = assert_patch(live)
+      {:ok, _live, html} = live(conn, path)
+      refute html =~ "1"
+    end
   end
 end
