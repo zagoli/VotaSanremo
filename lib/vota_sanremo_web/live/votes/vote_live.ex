@@ -36,7 +36,7 @@ defmodule VotaSanremoWeb.VoteLive do
     assign(socket, :evenings, evenings)
   end
 
-  defp assign_selected_evening_with_performances(socket, evening) do
+  defp assign_evening_with_performances(socket, evening) do
     socket
     |> assign(:selected_evening, evening)
     |> assign_can_user_vote()
@@ -67,7 +67,7 @@ defmodule VotaSanremoWeb.VoteLive do
     today = DateTime.utc_now() |> DateTime.to_date()
     default_evening = Enum.find(evenings, first_evening, fn e -> e.date == today end)
 
-    assign_selected_evening_with_performances(socket, default_evening)
+    assign_evening_with_performances(socket, default_evening)
   end
 
   def handle_event("evening-selected", %{"value" => evening_id}, socket) do
@@ -78,7 +78,7 @@ defmodule VotaSanremoWeb.VoteLive do
 
     {:noreply,
      socket
-     |> assign_selected_evening_with_performances(evening)}
+     |> assign_evening_with_performances(evening)}
   end
 
   def handle_info({VotaSanremoWeb.VoteFormInternal, {:saved, performance_id, vote}}, socket) do
