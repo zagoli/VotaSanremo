@@ -1,8 +1,9 @@
 <div class="my-5">
   <.header>
-    {gettext("Set your votes privacy")}
+    {dgettext("accounts", "Set your votes privacy")}
     <:subtitle>
-      {gettext(
+      {dgettext(
+        "accounts",
         "If you set your votes privacy to public, every registered user will be able to see them."
       )}
     </:subtitle>
@@ -14,16 +15,16 @@
     phx-change="update_votes_privacy"
   >
     <.radio_group field={@votes_privacy_form[:votes_privacy]} class="flex gap-5 mt-3">
-      <:radio value={:public}>{gettext("Public")}</:radio>
+      <:radio value={:public}>{dgettext("accounts", "Public")}</:radio>
 
-      <:radio value={:private}>{gettext("Private")}</:radio>
+      <:radio value={:private}>{dgettext("accounts", "Private")}</:radio>
     </.radio_group>
   </.simple_form>
 </div>
 <hr />
 <div class="my-5">
   <.header>
-    {gettext("Change your email")}
+    {dgettext("accounts", "Change your email")}
   </.header>
 
   <.simple_form
@@ -38,19 +39,21 @@
       name="current_password"
       id="current_password_for_email"
       type="password"
-      label={gettext("Current password")}
+      label={dgettext("accounts", "Current password")}
       value={@email_form_current_password}
       required
     />
     <:actions>
-      <.button phx-disable-with={gettext("Changing...")}>{gettext("Change Email")}</.button>
+      <.button phx-disable-with={gettext("Changing...")}>
+        {dgettext("accounts", "Change Email")}
+      </.button>
     </:actions>
   </.simple_form>
 </div>
 <hr />
 <div class="my-5">
   <.header>
-    {gettext("Change Password")}
+    {dgettext("accounts", "Change Password")}
   </.header>
 
   <.simple_form
@@ -71,37 +74,39 @@
     <.input
       field={@password_form[:password]}
       type="password"
-      label={gettext("New password")}
+      label={dgettext("accounts", "New password")}
       required
     />
     <.input
       field={@password_form[:password_confirmation]}
       type="password"
-      label={gettext("Confirm new password")}
+      label={dgettext("accounts", "Confirm new password")}
     />
     <.input
       field={@password_form[:current_password]}
       name="current_password"
       type="password"
-      label={gettext("Current password")}
+      label={dgettext("accounts", "Current password")}
       id="current_password_for_password"
       value={@current_password}
       required
     />
     <:actions>
-      <.button phx-disable-with={gettext("Changing...")}>{gettext("Change Password")}</.button>
+      <.button phx-disable-with={gettext("Changing...")}>
+        {dgettext("accounts", "Change Password")}
+      </.button>
     </:actions>
   </.simple_form>
 </div>
 <hr />
 <div class="my-5">
-  <.header>{gettext("Other settings")}</.header>
+  <.header>{dgettext("accounts", "Other settings")}</.header>
   <.link
     id="delete-account"
     patch={~p"/users/settings/delete_account"}
     class="rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-3 inline-block mt-3 text-sm"
   >
-    {gettext("Delete account")}
+    {dgettext("accounts", "Delete account")}
   </.link>
 </div>
 
@@ -113,10 +118,10 @@
 >
   <.header>{gettext("Are you sure?")}</.header>
   <p>
-    {gettext("You are about to delete your account.")}
+    {dgettext("accounts", "You are about to delete your account.")}
   </p>
   <p>
-    {gettext("The juries you founded and your votes will also be deleted.")}
+    {dgettext("accounts", "The juries you founded and your votes will also be deleted.")}
   </p>
   <.link
     href={~p"/users/settings/delete_account/confirmed"}
@@ -124,6 +129,6 @@
     id="delete-account-confirm"
     class="rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-3 inline-block mt-3 text-sm"
   >
-    {gettext("I understand, delete my account")}
+    {dgettext("accounts", "I understand, delete my account")}
   </.link>
 </.modal>

@@ -1,10 +1,10 @@
-<.header>{gettext("Search a user")}</.header>
+<.header>{dgettext("accounts", "Search a user")}</.header>
 
 <.simple_form for={@form} id="search-users-form" phx-change="search">
   <.input
     field={@form[:username]}
     type="text"
-    placeholder={gettext("Username")}
+    placeholder={dgettext("accounts", "Username")}
     phx-throttle="1000"
   />
 </.simple_form>
@@ -24,7 +24,7 @@
       :if={@live_action == :invite}
       navigate={~p"/juries/#{@jury_id}/members/invite/#{user.id}"}
     >
-      {gettext("Invite")}
+      {dgettext("juries", "Invite")}
     </.link>
   </:action>
 </.simple_list>

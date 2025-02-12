@@ -20,14 +20,18 @@
         class="bg-inherit p-0 border-none max-w-28"
       />
       <div class="flex gap-2 items-center">
-        <button type="submit" title={gettext("save edition")} class={not @editing && "invisible"}>
+        <button
+          type="submit"
+          title={dgettext("editions", "save edition")}
+          class={not @editing && "invisible"}
+        >
           <.icon name="hero-check-mini" />
         </button>
 
         <button
           type="button"
-          title={gettext("delete edition")}
-          data-confirm={gettext("Are you sure to delete this edition?")}
+          title={dgettext("editions", "delete edition")}
+          data-confirm={dgettext("editions", "Are you sure to delete this edition?")}
           phx-click="delete_edition"
           phx-target={@myself}
         >
@@ -36,7 +40,7 @@
 
         <button
           type="button"
-          title={gettext("add an evening")}
+          title={dgettext("evenings", "add an evening")}
           phx-click="add_evening"
           phx-target={@myself}
         >
@@ -58,10 +62,14 @@
       <span>
         {Calendar.strftime(evening.date, "%d/%m/%Y")}
       </span>
-      <span>{gettext("Votes start:")} {Calendar.strftime(evening.votes_start, "%H:%M")}</span>
-      <span>{gettext("Votes end:")} {Calendar.strftime(evening.votes_end, "%H:%M")}</span>
+      <span>
+        {dgettext("evenings", "Votes start:")} {Calendar.strftime(evening.votes_start, "%H:%M")}
+      </span>
+      <span>
+        {dgettext("evenings", "Votes end:")} {Calendar.strftime(evening.votes_end, "%H:%M")}
+      </span>
       <.link
-        title={gettext("edit evening %{number}", number: evening.number)}
+        title={dgettext("evenings", "edit evening %{number}", number: evening.number)}
         navigate={~p"/admin/evening/#{evening.id}"}
       >
         <.icon name="hero-pencil-mini" class="ml-2" />
@@ -69,7 +77,7 @@
 
       <button
         type="button"
-        title={gettext("delete evening %{number}", number: evening.number)}
+        title={dgettext("evenings", "delete evening %{number}", number: evening.number)}
         phx-click="delete_evening"
         value={evening.id}
         phx-target={@myself}

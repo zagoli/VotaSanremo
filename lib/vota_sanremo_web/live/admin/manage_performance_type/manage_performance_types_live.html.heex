@@ -1,7 +1,10 @@
 <.header>
-  {gettext("Performance types")}
+  {dgettext("performances", "Performance types")}
   <:actions>
-    <.link patch={~p"/admin/performance_types/new"} aria-label={gettext("New performance type")}>
+    <.link
+      patch={~p"/admin/performance_types/new"}
+      aria-label={dgettext("performances", "New performance type")}
+    >
       <.button>+</.button>
     </.link>
   </:actions>

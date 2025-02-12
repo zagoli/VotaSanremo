@@ -9,7 +9,8 @@ defmodule VotaSanremoWeb.UserSessionController do
     create(
       conn,
       params,
-      gettext(
+      dgettext(
+        "accounts",
         "Account created successfully! A confirmation email was sent to your email address."
       )
     )
@@ -18,11 +19,11 @@ defmodule VotaSanremoWeb.UserSessionController do
   def create(conn, %{"_action" => "password_updated"} = params) do
     conn
     |> put_session(:user_return_to, ~p"/users/settings")
-    |> create(params, gettext("Password updated successfully!"))
+    |> create(params, dgettext("accounts", "Password updated successfully!"))
   end
 
   def create(conn, params) do
-    create(conn, params, gettext("Welcome back!"))
+    create(conn, params, dgettext("accounts", "Welcome back!"))
   end
 
   defp create(conn, %{"user" => user_params}, info) do
@@ -43,7 +44,7 @@ defmodule VotaSanremoWeb.UserSessionController do
 
   def delete(conn, _params) do
     conn
-    |> put_flash(:info, gettext("Logged out successfully."))
+    |> put_flash(:info, dgettext("accounts", "Logged out successfully."))
     |> UserAuth.log_out_user()
   end
 
@@ -51,12 +52,15 @@ defmodule VotaSanremoWeb.UserSessionController do
     case Accounts.delete_user(user) do
       {:ok, _} ->
         conn
-        |> put_flash(:info, gettext("Account deleted successfully."))
+        |> put_flash(:info, dgettext("accounts", "Account deleted successfully."))
         |> UserAuth.log_out_user()
 
       {:error, _} ->
         conn
-        |> put_flash(:error, gettext("An error occurred while deleting your account."))
+        |> put_flash(
+          :error,
+          dgettext("accounts", "An error occurred while deleting your account.")
+        )
         |> redirect(to: ~p"/users/settings")
     end
   end

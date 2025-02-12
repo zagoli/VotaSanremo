@@ -49,7 +49,7 @@ defmodule VotaSanremoWeb.JuryMembersLive do
 
   defp invite_member(%{assigns: %{current_user: %{id: current_user_id}}} = socket, _, user_id)
        when is_integer(user_id) and user_id == current_user_id do
-    socket |> put_flash(:error, gettext("You cannot invite yourself!"))
+    socket |> put_flash(:error, dgettext("juries", "You cannot invite yourself!"))
   end
 
   defp invite_member(%{assigns: %{current_user: user}} = socket, jury_id, user_id)
@@ -57,7 +57,7 @@ defmodule VotaSanremoWeb.JuryMembersLive do
     jury = Juries.get_jury!(jury_id)
 
     if jury.founder !== user.id do
-      socket |> put_flash(:error, gettext("You are not allowed to invite a user!"))
+      socket |> put_flash(:error, dgettext("juries", "You are not allowed to invite a user!"))
     else
       case Juries.create_jury_invite(%{status: :pending, jury_id: jury_id, user_id: user_id}) do
         {:ok, invite} ->
@@ -70,10 +70,10 @@ defmodule VotaSanremoWeb.JuryMembersLive do
             my_invites_url: url(~p"/juries/my_invites")
           })
 
-          socket |> put_flash(:info, gettext("User invited"))
+          socket |> put_flash(:info, dgettext("juries", "User invited"))
 
         {:error, _} ->
-          socket |> put_flash(:error, gettext("Error inviting user"))
+          socket |> put_flash(:error, dgettext("juries", "Error inviting user"))
       end
     end
   end
@@ -83,10 +83,11 @@ defmodule VotaSanremoWeb.JuryMembersLive do
 
     case Juries.member_exit(jury, member) do
       :ok ->
-        {:noreply, socket |> assign_jury(jury.id) |> put_flash(:info, gettext("Member removed!"))}
+        {:noreply,
+         socket |> assign_jury(jury.id) |> put_flash(:info, dgettext("juries", "Member removed!"))}
 
       :error ->
-        {:noreply, socket |> put_flash(:error, gettext("Error removing member."))}
+        {:noreply, socket |> put_flash(:error, dgettext("juries", "Error removing member."))}
     end
   end
 end

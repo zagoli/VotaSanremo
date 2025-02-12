@@ -16,19 +16,19 @@ defmodule VotaSanremoWeb.Admin.ManagePerformersLive do
 
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
-    |> assign(:page_title, gettext("Edit Performer"))
+    |> assign(:page_title, dgettext("performers", "Edit Performer"))
     |> assign(:performer, Performers.get_performer!(id))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, gettext("New Performer"))
+    |> assign(:page_title, dgettext("performers", "New Performer"))
     |> assign(:performer, %Performer{})
   end
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, gettext("Performers"))
+    |> assign(:page_title, dgettext("performers", "Performers"))
     |> assign(:performer, nil)
   end
 

@@ -8,13 +8,13 @@ defmodule VotaSanremoWeb.UserRegistrationLive do
     ~H"""
     <div class="mx-auto max-w-sm">
       <.header class="text-center">
-        {gettext("Register for an account")}
+        {dgettext("accounts", "Register for an account")}
         <:subtitle>
-          {gettext("Already registered?")}
+          {dgettext("accounts", "Already registered?")}
           <.link navigate={~p"/users/log_in"} class="font-semibold text-brand hover:underline">
             {gettext("Log in")}
           </.link>
-          {gettext("to your account now.")}
+          {dgettext("accounts", "to your account now.")}
         </:subtitle>
       </.header>
 
@@ -46,8 +46,8 @@ defmodule VotaSanremoWeb.UserRegistrationLive do
           required
         /> <.input field={@form[:password]} type="password" label={gettext("Password")} required />
         <:actions>
-          <.button phx-disable-with={gettext("Creating account...")} class="w-full">
-            {gettext("Create an account")}
+          <.button phx-disable-with={dgettext("accounts", "Creating account...")} class="w-full">
+            {dgettext("accounts", "Create an account")}
           </.button>
         </:actions>
       </.simple_form>
