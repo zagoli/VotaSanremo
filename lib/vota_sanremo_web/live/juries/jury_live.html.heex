@@ -22,7 +22,12 @@
 <%= if not Enum.empty?(@scores) do %>
   <section class="mt-5 mb-2">
     <.form for={nil} id="weighted-score-flag-form" phx-change="weighted-flag-selected">
-      <.input type="checkbox" name="weighted-scores-flag" label={gettext("Weighted scores")} />
+      <.input
+        type="checkbox"
+        name="weighted-scores-flag"
+        checked={@weighted?}
+        label={gettext("Weighted scores")}
+      />
     </.form>
   </section>
   <.performers_scores scores={@scores} />
