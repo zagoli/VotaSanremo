@@ -12,7 +12,7 @@ defmodule VotaSanremoWeb.JuryLive do
      |> assign_edition()
      |> assign_jury(jury_id)
      |> assign_founder()
-     |> assign_weighted_flag(false)
+     |> assign_weighted_flag(true)
      |> assign_scores()
      |> assign_is_member()}
   end

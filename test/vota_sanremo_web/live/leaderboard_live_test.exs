@@ -17,6 +17,15 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
     }
   end
 
+  defp get_avg(scores) do
+    Enum.sum(scores) / Enum.count(scores)
+  end
+
+  defp get_weighted_avg(scores) do
+    mean_score = Enum.sum(scores) / Enum.count(scores)
+    mean_score * Enum.sum(scores)
+  end
+
   describe "Leaderboard" do
     setup [:create_votes]
 
@@ -33,7 +42,7 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
       assert html =~ "-"
     end
 
-    test "Leaderboard contains average scores for performers by default", %{
+    test "Leaderboard contains performers and performance types", %{
       conn: conn,
       performer_name: performer_name,
       first_performance_type: first_performance_type,
@@ -43,29 +52,39 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
       assert html =~ performer_name
       assert html =~ first_performance_type
       assert html =~ second_performance_type
-      mean_score = Enum.sum(@scores) / Enum.count(@scores)
-      assert html =~ Float.to_string(mean_score)
     end
 
-    test "User can switch to weighted average scores", %{conn: conn} do
+    test "Leaderboard contains weighted scores for performers by default", %{
+      conn: conn
+    } do
+      {:ok, _live, html} = live(conn, ~p"/leaderboard")
+      mean_weighted_score = get_weighted_avg(@scores)
+      assert html =~ Float.to_string(mean_weighted_score)
+    end
+
+    test "Weighted checkbox is checked by default", %{conn: conn} do
+      {:ok, _live, html} = live(conn, ~p"/leaderboard")
+      assert Floki.attribute(html, "input[name=weighted-scores-flag]", "checked") == ["checked"]
+    end
+
+    test "User can switch to average average scores", %{conn: conn} do
       {:ok, live, _html} = live(conn, ~p"/leaderboard")
 
       html =
         live
         |> form("#weighted-score-flag-form")
-        |> render_change(%{"weighted-scores-flag" => true})
+        |> render_change(%{"weighted-scores-flag" => false})
 
-      mean_score = Enum.sum(@scores) / Enum.count(@scores)
-      refute html =~ Float.to_string(mean_score)
-      mean_weighted_score = mean_score * Enum.sum(@scores)
-      assert html =~ Float.to_string(mean_weighted_score)
+      mean_score = get_avg(@scores)
+      assert html =~ Float.to_string(mean_score)
+      mean_weighted_score = get_weighted_avg(@scores)
+      refute html =~ Float.to_string(mean_weighted_score)
     end
 
     test "Leaderboards updates when a user adds a new vote", %{conn: conn} do
       {:ok, live, html} = live(conn, ~p"/leaderboard")
-      initial_mean_score = Enum.sum(@scores) / Enum.count(@scores)
-      assert html =~ Float.to_string(initial_mean_score)
-      refute html =~ "4.0"
+      initial_weighted_score = get_weighted_avg(@scores)
+      assert html =~ Float.to_string(initial_weighted_score)
 
       vote =
         Votes.list_votes()
@@ -77,7 +96,9 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
       send(live.pid, %{event: "vote_added", payload: :ok})
       Process.sleep(10)
 
-      assert render(live) =~ "4.0"
+      assert render(live) =~
+               get_weighted_avg(@scores |> Enum.to_list() |> List.replace_at(0, 6))
+               |> Float.to_string()
     end
   end
 

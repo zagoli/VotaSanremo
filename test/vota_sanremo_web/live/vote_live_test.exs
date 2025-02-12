@@ -253,7 +253,6 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       |> form("#vote-form")
       |> render_change(%{"score" => "5.25"})
 
-      assert render(live) =~ "Vote submitted!"
       path = assert_patch(live)
       {:ok, _live, html} = live(conn, path)
 
@@ -282,7 +281,6 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       |> form("#vote-form")
       |> render_change(%{"score" => "5.25"})
 
-      assert render(live) =~ "Vote submitted!"
       path = assert_patch(live)
       {:ok, _live, html} = live(conn, path)
       assert html =~ "5+"

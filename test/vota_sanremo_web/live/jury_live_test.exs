@@ -22,7 +22,14 @@ defmodule VotaSanremoWeb.JuryLiveTest do
     test "Can view the jury leaderboard", %{conn: conn, jury: jury, vote: vote} do
       {:ok, _live, html} = live(conn, ~p"/juries/#{jury.id}")
       assert html =~ "Leaderboard"
-      assert Floki.find(html, ".grid") |> Floki.text() =~ "#{vote.score}"
+      # Weighted score of one vote is mean * sum = score * sum = score * score = score^2
+      assert Floki.find(html, ".grid") |> Floki.text() =~ (vote.score ** 2) |> Float.to_string()
+    end
+
+    test "Weighted flag is checked by default", %{conn: conn, jury: jury} do
+      {:ok, _live, html} = live(conn, ~p"/juries/#{jury.id}")
+
+      assert Floki.attribute(html, "input[name=weighted-scores-flag]", "checked") == ["checked"]
     end
 
     test "Do not see the exit jury option", %{conn: conn, jury: jury} do

@@ -102,7 +102,6 @@ defmodule VotaSanremoWeb.VoteFormInternal do
 
         {:noreply,
          socket
-         |> put_flash(:info, gettext("Vote submitted!"))
          |> push_patch(to: ~p"/vote")}
 
       {:error, %Ecto.Changeset{}} ->

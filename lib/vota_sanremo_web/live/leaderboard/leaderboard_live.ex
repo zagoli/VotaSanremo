@@ -15,7 +15,7 @@ defmodule VotaSanremoWeb.LeaderboardLive do
     {:ok,
      socket
      |> assign_edition()
-     |> assign_weighted_flag(false)
+     |> assign_weighted_flag(true)
      |> assign_scores()}
   end
 
