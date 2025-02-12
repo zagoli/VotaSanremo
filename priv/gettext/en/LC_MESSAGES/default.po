@@ -504,7 +504,7 @@ msgstr ""
 msgid "There are no votes to show yet."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/votes/vote_form.ex:110
+#: lib/vota_sanremo_web/live/votes/vote_form.ex:118
 #, elixir-autogen, elixir-format
 msgid "There was an error while submitting your vote."
 msgstr ""
@@ -561,7 +561,8 @@ msgstr ""
 msgid "You are not allowed to invite a user!"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/votes/vote_form.ex:93
+#: lib/vota_sanremo_web/live/votes/vote_form.ex:101
+#: lib/vota_sanremo_web/live/votes/vote_form.ex:126
 #, elixir-autogen, elixir-format
 msgid "You cannot vote now."
 msgstr ""
@@ -963,4 +964,14 @@ msgstr ""
 #: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:10
 #, elixir-autogen, elixir-format
 msgid "You have not created any juries and you are not a member of any jury."
+msgstr ""
+
+#: lib/vota_sanremo_web/live/votes/vote_form_internal.html.heex:23
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Delete vote"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/votes/vote_form.ex:143
+#, elixir-autogen, elixir-format, fuzzy
+msgid "There was an error while deleting your vote."
 msgstr ""
