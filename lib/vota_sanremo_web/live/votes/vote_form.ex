@@ -106,7 +106,7 @@ defmodule VotaSanremoWeb.VoteFormInternal do
     case Votes.create_or_update_vote(vote_params) do
       {:ok, vote} ->
         notify_parent({:saved, socket.assigns.performance.id, vote})
-        broadcast_vote_added()
+        broadcast_vote_changed()
 
         {:noreply,
          socket
@@ -130,6 +130,9 @@ defmodule VotaSanremoWeb.VoteFormInternal do
   defp maybe_delete_vote(%{assigns: %{performance: performance, user: user}} = socket, true) do
     case Votes.delete_vote(performance.id, user.id) do
       :ok ->
+        notify_parent({:deleted, performance.id})
+        broadcast_vote_changed()
+
         {:noreply,
          socket
          |> push_patch(to: ~p"/vote")}
@@ -143,5 +146,5 @@ defmodule VotaSanremoWeb.VoteFormInternal do
   end
 
   defp notify_parent(msg), do: send(self(), {__MODULE__, msg})
-  defp broadcast_vote_added(), do: Endpoint.broadcast(@votes_topic, "vote_added", :ok)
+  defp broadcast_vote_changed(), do: Endpoint.broadcast(@votes_topic, "vote_changed", :ok)
 end
