@@ -90,7 +90,6 @@ defmodule VotaSanremoWeb.ManageEveningsLiveTest do
       form = form(live, "#add-performance", performance: attrs)
       html = render_submit(form)
 
-      assert html =~ "Performance added successfully."
       performance_html = Floki.find(html, "#performances div") |> List.first() |> Floki.text()
       assert performance_html =~ performer.name
       assert performance_html =~ performance_type.type

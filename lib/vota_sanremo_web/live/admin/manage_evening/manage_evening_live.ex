@@ -95,8 +95,7 @@ defmodule VotaSanremoWeb.Admin.ManageEveningLive do
         {:noreply,
          socket
          |> assign(:evening, evening)
-         |> assign_performance_form(changeset)
-         |> put_flash(:info, gettext("Performance added successfully."))}
+         |> assign_performance_form(changeset)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign_performance_form(socket, changeset)}
