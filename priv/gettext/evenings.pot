@@ -1,0 +1,72 @@
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new messages manually only if they're dynamic
+## messages that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here has no
+## effect: edit them in PO (.po) files instead.
+#
+msgid ""
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:22
+#, elixir-autogen, elixir-format
+msgid "Date"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:29
+#, elixir-autogen, elixir-format
+msgid "Description"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:16
+#, elixir-autogen, elixir-format
+msgid "Evening Number"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.ex:75
+#, elixir-autogen, elixir-format
+msgid "Evening updated successfully."
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:2
+#, elixir-autogen, elixir-format
+msgid "Manage Evening %{number}"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:41
+#, elixir-autogen, elixir-format
+msgid "Votes End"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:35
+#, elixir-autogen, elixir-format
+msgid "Votes Start"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:69
+#, elixir-autogen, elixir-format
+msgid "Votes end:"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:66
+#, elixir-autogen, elixir-format
+msgid "Votes start:"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:43
+#, elixir-autogen, elixir-format
+msgid "add an evening"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:80
+#, elixir-autogen, elixir-format
+msgid "delete evening %{number}"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:72
+#, elixir-autogen, elixir-format
+msgid "edit evening %{number}"
+msgstr ""

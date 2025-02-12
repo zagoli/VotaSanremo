@@ -1,0 +1,48 @@
+## "msgid"s in this file come from POT (.pot) files.
+###
+### Do not add, change, or remove "msgid"s manually here as
+### they're tied to the ones in the corresponding POT file
+### (with the same domain).
+###
+### Use "mix gettext.extract --merge" or "mix gettext.merge"
+### to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:12
+#, elixir-autogen, elixir-format
+msgid "Add or edit a performer."
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.ex:19
+#, elixir-autogen, elixir-format
+msgid "Edit Performer"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.ex:25
+#, elixir-autogen, elixir-format
+msgid "New Performer"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:79
+#, elixir-autogen, elixir-format
+msgid "Performer created successfully"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:64
+#, elixir-autogen, elixir-format
+msgid "Performer updated successfully"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.ex:31
+#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:2
+#, elixir-autogen, elixir-format
+msgid "Performers"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:25
+#, elixir-autogen, elixir-format
+msgid "Save Performer"
+msgstr ""

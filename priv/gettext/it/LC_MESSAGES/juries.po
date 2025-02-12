@@ -1,0 +1,210 @@
+## "msgid"s in this file come from POT (.pot) files.
+###
+### Do not add, change, or remove "msgid"s manually here as
+### they're tied to the ones in the corresponding POT file
+### (with the same domain).
+###
+### Use "mix gettext.extract --merge" or "mix gettext.merge"
+### to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:2
+#, elixir-autogen, elixir-format
+msgid "%{jury_name} members"
+msgstr "Membri di %{jury_name}"
+
+#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:38
+#, elixir-autogen, elixir-format
+msgid "Back to juries"
+msgstr "Torna alle giurie"
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:51
+#, elixir-autogen, elixir-format
+msgid "Back to jury"
+msgstr "Torna alla giuria"
+
+#: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:4
+#, elixir-autogen, elixir-format
+msgid "Choose a name. You will be able to invite jurors later."
+msgstr "Scegli un nome. Potrai invitare i giurati più tardi."
+
+#: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:2
+#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:4
+#, elixir-autogen, elixir-format
+msgid "Create a new jury"
+msgstr "Crea una nuova giuria"
+
+#: lib/vota_sanremo_web/live/juries/jury_live.ex:76
+#, elixir-autogen, elixir-format
+msgid "Error exiting the jury"
+msgstr "Errore nell'uscita dalla giuria"
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:76
+#, elixir-autogen, elixir-format
+msgid "Error inviting user"
+msgstr "Errore nell'invito dell'utente"
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:90
+#, elixir-autogen, elixir-format
+msgid "Error removing member."
+msgstr "Errore durante la rimozione del membro della giuria."
+
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:35
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:39
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:58
+#, elixir-autogen, elixir-format
+msgid "Error while accepting this invite. Sorry!"
+msgstr "Errore nell'accettare l'invito. Ci dispiace!"
+
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:54
+#, elixir-autogen, elixir-format
+msgid "Error while declining this invite. Sorry!"
+msgstr "Errore nel rifiutare l'invito. Ci dispiace!"
+
+#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:9
+#, elixir-autogen, elixir-format
+msgid "Exit from this jury"
+msgstr "Esci da questa giuria"
+
+#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:3
+#, elixir-autogen, elixir-format
+msgid "Founded by %{founder}"
+msgstr "Fondata da %{founder}"
+
+#: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:4
+#, elixir-autogen, elixir-format
+msgid "From here you can accept or decline the invites to be a jury member."
+msgstr "Da qui puoi accettare o rifiutare gli inviti per diventare membro di una giuria."
+
+#: lib/vota_sanremo_web/live/user_search/user_search_live.html.heex:27
+#, elixir-autogen, elixir-format
+msgid "Invite"
+msgstr "Invita"
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:7
+#, elixir-autogen, elixir-format
+msgid "Invite a user"
+msgstr "Invita un utente"
+
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:27
+#, elixir-autogen, elixir-format
+msgid "Invite accepted! You are now part of %{jury_name}"
+msgstr "Invito accettato! Ora fai parte di %{jury_name}"
+
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:49
+#, elixir-autogen, elixir-format
+msgid "Invite declined."
+msgstr "Invito rifiutato."
+
+#: lib/vota_sanremo_web/live/juries/juries_live.html.heex:2
+#: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:23
+#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:34
+#, elixir-autogen, elixir-format
+msgid "Juries"
+msgstr "Giurie"
+
+#: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:12
+#, elixir-autogen, elixir-format
+msgid "Jury"
+msgstr "Giuria"
+
+#: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:15
+#, elixir-autogen, elixir-format
+msgid "Jury name"
+msgstr "Nome della giuria"
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:87
+#, elixir-autogen, elixir-format
+msgid "Member removed!"
+msgstr "Membro della giuria rimosso!"
+
+#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:16
+#, elixir-autogen, elixir-format
+msgid "Members"
+msgstr "Membri"
+
+#: lib/vota_sanremo_web/live/juries/juries_live.html.heex:9
+#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:2
+#, elixir-autogen, elixir-format
+msgid "My Juries"
+msgstr "Le mie Giurie"
+
+#: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:2
+#, elixir-autogen, elixir-format
+msgid "My invites"
+msgstr "I miei inviti"
+
+#: lib/vota_sanremo_web/live/juries/juries_live.html.heex:21
+#, elixir-autogen, elixir-format
+msgid "No members"
+msgstr "Nessun membro"
+
+#: lib/vota_sanremo_web/live/juries/juries_live.html.heex:22
+#, elixir-autogen, elixir-format
+msgid "One member"
+msgid_plural "%{count} members"
+msgstr[0] "Un membro"
+msgstr[1] "%{count} membri"
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:40
+#, elixir-autogen, elixir-format
+msgid "Pending sent invites"
+msgstr "Inviti in sospeso"
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:28
+#, elixir-autogen, elixir-format
+msgid "Remove member"
+msgstr "Rimuovi membro della giuria"
+
+#: lib/vota_sanremo_web/live/juries/juries_live.html.heex:13
+#, elixir-autogen, elixir-format
+msgid "There are no juries yet."
+msgstr "Non ci sono ancora giurie."
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:15
+#, elixir-autogen, elixir-format
+msgid "There are no members yet."
+msgstr "Non ci sono ancora membri."
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:73
+#, elixir-autogen, elixir-format
+msgid "User invited"
+msgstr "Utente invitato"
+
+#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:27
+#, elixir-autogen, elixir-format
+msgid "You are a member of"
+msgstr "Sei membro di"
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:60
+#, elixir-autogen, elixir-format
+msgid "You are not allowed to invite a user!"
+msgstr "Non sei autorizzato a invitare un utente!"
+
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:52
+#, elixir-autogen, elixir-format
+msgid "You cannot invite yourself!"
+msgstr "Non puoi invitare te stesso!"
+
+#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:15
+#, elixir-autogen, elixir-format
+msgid "You founded"
+msgstr "Hai fondato"
+
+#: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:9
+#, elixir-autogen, elixir-format
+msgid "You have no pending invites."
+msgstr "Non hai inviti in sospeso."
+
+#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:10
+#, elixir-autogen, elixir-format
+msgid "You have not created any juries and you are not a member of any jury."
+msgstr "Non hai creato nessuna giuria, e non sei membro di nessuna giuria."
+
+#: lib/vota_sanremo_web/live/juries/jury_live.ex:72
+#, elixir-autogen, elixir-format
+msgid "You have successfully exited the jury!"
+msgstr "Sei uscito dalla giuria!"

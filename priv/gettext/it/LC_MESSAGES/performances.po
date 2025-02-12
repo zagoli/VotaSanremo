@@ -1,0 +1,84 @@
+## "msgid"s in this file come from POT (.pot) files.
+###
+### Do not add, change, or remove "msgid"s manually here as
+### they're tied to the ones in the corresponding POT file
+### (with the same domain).
+###
+### Use "mix gettext.extract --merge" or "mix gettext.merge"
+### to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.ex:125
+#, elixir-autogen, elixir-format
+msgid "Could not delete performance."
+msgstr "Impossibile eliminare la performance."
+
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.ex:19
+#, elixir-autogen, elixir-format
+msgid "Edit performance type"
+msgstr "Modifica tipo di performance"
+
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.ex:25
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:6
+#, elixir-autogen, elixir-format
+msgid "New performance type"
+msgstr "Nuovo tipo di performance"
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.ex:121
+#, elixir-autogen, elixir-format
+msgid "Performance deleted successfully."
+msgstr "Performance eliminata con successo."
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:68
+#, elixir-autogen, elixir-format
+msgid "Performance type"
+msgstr "Tipo di performance"
+
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:82
+#, elixir-autogen, elixir-format
+msgid "Performance type created"
+msgstr "Tipo di performance creato"
+
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:67
+#, elixir-autogen, elixir-format
+msgid "Performance type updated"
+msgstr "Tipo di performance aggiornato"
+
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.ex:31
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:2
+#, elixir-autogen, elixir-format
+msgid "Performance types"
+msgstr "Tipi di performance"
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:51
+#, elixir-autogen, elixir-format
+msgid "Performances"
+msgstr "Performance"
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:62
+#, elixir-autogen, elixir-format
+msgid "Performer"
+msgstr "Artista"
+
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:24
+#, elixir-autogen, elixir-format
+msgid "Save performance type"
+msgstr "Salva tipo di performance"
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:83
+#, elixir-autogen, elixir-format
+msgid "There are no performances yet."
+msgstr "Non ci sono ancora performance."
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:74
+#, elixir-autogen, elixir-format
+msgid "add performance"
+msgstr "aggiungi una performance"
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:98
+#, elixir-autogen, elixir-format
+msgid "delete performance"
+msgstr "elimina performance"
