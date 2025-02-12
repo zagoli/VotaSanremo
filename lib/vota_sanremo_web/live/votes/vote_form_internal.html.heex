@@ -11,4 +11,14 @@
       <% end %>
     </fieldset>
   </.form>
+  <!-- Delete vote -->
+  <button
+    :if={not Enum.empty?(@performance.votes)}
+    type="button"
+    class="w-full bg-red-200 hover:bg-red-300 rounded-lg text-lg py-2 mt-2"
+    id="delete-vote"
+    phx-click="delete-vote"
+  >
+    {gettext("Delete vote")}
+  </button>
 </div>
