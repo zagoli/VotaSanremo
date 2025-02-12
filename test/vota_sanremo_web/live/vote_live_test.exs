@@ -319,7 +319,7 @@ defmodule VotaSanremoWeb.VoteLiveTest do
         })
 
       %{id: performance_id} = performance_fixture(%{evening_id: evening_id})
-      vote_fixture(%{score: 1.0, performance_id: performance_id, user_id: user.id})
+      vote_fixture(%{score: 5.25, performance_id: performance_id, user_id: user.id})
 
       {:ok, live, _html} = live(conn, ~p"/vote/performance/#{performance_id}")
 
@@ -329,7 +329,7 @@ defmodule VotaSanremoWeb.VoteLiveTest do
 
       path = assert_patch(live)
       {:ok, _live, html} = live(conn, path)
-      refute html =~ "1"
+      refute html =~ "5+"
     end
   end
 end

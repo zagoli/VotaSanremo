@@ -64,6 +64,14 @@ defmodule VotaSanremoWeb.VoteFormInternal do
     assign(socket, :scores, scores)
   end
 
+  def handle_event("delete-vote", _params, %{assigns: %{evening: evening}} = socket) do
+    can_user_vote =
+      DateTime.after?(DateTime.utc_now(), evening.votes_start) and
+        DateTime.before?(DateTime.utc_now(), evening.votes_end)
+
+    maybe_delete_vote(socket, can_user_vote)
+  end
+
   def handle_event(
         "score-selected",
         %{"score" => score},
@@ -108,6 +116,28 @@ defmodule VotaSanremoWeb.VoteFormInternal do
         {:noreply,
          socket
          |> put_flash(:error, gettext("There was an error while submitting your vote."))
+         |> push_patch(to: ~p"/vote")}
+    end
+  end
+
+  defp maybe_delete_vote(socket, false) do
+    {:noreply,
+     socket
+     |> put_flash(:error, gettext("You cannot vote now."))
+     |> push_patch(to: ~p"/vote")}
+  end
+
+  defp maybe_delete_vote(%{assigns: %{performance: performance, user: user}} = socket, true) do
+    case Votes.delete_vote(performance.id, user.id) do
+      :ok ->
+        {:noreply,
+         socket
+         |> push_patch(to: ~p"/vote")}
+
+      :error ->
+        {:noreply,
+         socket
+         |> put_flash(:error, gettext("There was an error while deleting your vote."))
          |> push_patch(to: ~p"/vote")}
     end
   end
