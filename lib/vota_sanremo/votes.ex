@@ -111,6 +111,27 @@ defmodule VotaSanremo.Votes do
   end
 
   @doc """
+  Deletes a vote given a performance and a user.
+
+  ## Examples
+
+      iex> delete_vote(performance_id, user_id)
+      :ok
+
+      iex> delete_vote(performance_id, user_id)
+      :error
+  """
+  def delete_vote(performance_id, user_id)
+      when is_integer(performance_id) and is_integer(user_id) do
+    case Vote
+         |> where([v], v.performance_id == ^performance_id and v.user_id == ^user_id)
+         |> Repo.delete_all() do
+      {1, _} -> :ok
+      _ -> :error
+    end
+  end
+
+  @doc """
   Returns an `%Ecto.Changeset{}` for tracking vote changes.
 
   ## Examples

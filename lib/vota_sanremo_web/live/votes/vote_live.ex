@@ -90,6 +90,15 @@ defmodule VotaSanremoWeb.VoteLive do
      end)}
   end
 
+  def handle_info({VotaSanremoWeb.VoteFormInternal, {:deleted, performance_id}}, socket) do
+    {:noreply,
+     socket
+     |> update(:performances, fn performances ->
+       performance_index = Enum.find_index(performances, &(&1.id == performance_id))
+       List.update_at(performances, performance_index, &Map.put(&1, :votes, []))
+     end)}
+  end
+
   defp group_performances(performances) do
     Enum.group_by(performances, & &1.performance_type)
     |> Enum.map(fn {performance_type, performance} -> {performance_type.type, performance} end)

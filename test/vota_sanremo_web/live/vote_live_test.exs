@@ -285,5 +285,51 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       {:ok, _live, html} = live(conn, path)
       assert html =~ "5+"
     end
+
+    test "Delete vote button is not rendered if there is no vote",
+         %{
+           conn: conn,
+           edition: edition
+         } do
+      %{id: evening_id} =
+        evening_fixture(%{
+          edition_id: edition.id,
+          votes_start: DateTime.utc_now() |> DateTime.add(-10, :minute),
+          votes_end: DateTime.utc_now() |> DateTime.add(10, :minute)
+        })
+
+      %{id: performance_id} = performance_fixture(%{evening_id: evening_id})
+
+      {:ok, _live, html} = live(conn, ~p"/vote/performance/#{performance_id}")
+
+      assert Enum.empty?(Floki.find(html, "#delete-vote"))
+    end
+
+    test "Delete vote button deletes existing vote",
+         %{
+           conn: conn,
+           edition: edition,
+           user: user
+         } do
+      %{id: evening_id} =
+        evening_fixture(%{
+          edition_id: edition.id,
+          votes_start: DateTime.utc_now() |> DateTime.add(-10, :minute),
+          votes_end: DateTime.utc_now() |> DateTime.add(10, :minute)
+        })
+
+      %{id: performance_id} = performance_fixture(%{evening_id: evening_id})
+      vote_fixture(%{score: 5.25, performance_id: performance_id, user_id: user.id})
+
+      {:ok, live, _html} = live(conn, ~p"/vote/performance/#{performance_id}")
+
+      live
+      |> element("#delete-vote")
+      |> render_click()
+
+      path = assert_patch(live)
+      {:ok, _live, html} = live(conn, path)
+      refute html =~ "5+"
+    end
   end
 end

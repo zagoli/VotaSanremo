@@ -42,7 +42,7 @@ defmodule VotaSanremoWeb.LeaderboardLive do
      |> assign_scores()}
   end
 
-  def handle_info(%{event: "vote_added", payload: :ok}, socket) do
+  def handle_info(%{event: "vote_changed", payload: :ok}, socket) do
     {:noreply, assign_scores(socket)}
   end
 end

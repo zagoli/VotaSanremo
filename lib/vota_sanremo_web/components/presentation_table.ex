@@ -53,7 +53,7 @@ defmodule VotaSanremoWeb.PresentationTable do
     ~H"""
     <button
       type="button"
-      class="bg-gray-300 rounded-lg px-2 disabled:text-gray-500"
+      class="bg-gray-300 disabled:bg-gray-100 rounded-lg px-2 disabled:text-gray-300"
       {@rest}
       style="line-height: normal"
     >
