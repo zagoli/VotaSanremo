@@ -88,6 +88,12 @@ defmodule VotaSanremo.VotesTest do
       assert_raise Ecto.NoResultsError, fn -> Votes.get_vote!(vote.id) end
     end
 
+    test "delete_vote/2 deletes the vote given performance and user" do
+      vote = vote_fixture()
+      assert :ok = Votes.delete_vote(vote.performance_id, vote.user_id)
+      assert_raise Ecto.NoResultsError, fn -> Votes.get_vote!(vote.id) end
+    end
+
     test "change_vote/1 returns a vote changeset" do
       vote = vote_fixture()
       assert %Ecto.Changeset{} = Votes.change_vote(vote)
