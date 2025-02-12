@@ -1,7 +1,7 @@
 <.header>
-  {gettext("Create a new jury")}
+  {dgettext("juries", "Create a new jury")}
   <:subtitle>
-    {gettext("Choose a name. You will be able to invite jurors later.")}
+    {dgettext("juries", "Choose a name. You will be able to invite jurors later.")}
   </:subtitle>
 </.header>
 
@@ -12,7 +12,7 @@
   phx-submit="save"
   class="mt-5"
 >
-  <.input field={@form[:name]} label={gettext("Jury name")} phx-debounce="blur" />
+  <.input field={@form[:name]} label={dgettext("juries", "Jury name")} phx-debounce="blur" />
   <:actions>
     <.button type="submit" phx-disable-with={gettext("Saving...")} class="w-full">
       {gettext("Save")}
@@ -20,4 +20,4 @@
   </:actions>
 </.simple_form>
 
-<.back navigate={~p"/juries"}>{gettext("Juries")}</.back>
+<.back navigate={~p"/juries"}>{dgettext("juries", "Juries")}</.back>

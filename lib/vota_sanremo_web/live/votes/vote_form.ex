@@ -98,7 +98,7 @@ defmodule VotaSanremoWeb.VoteFormInternal do
   defp maybe_save_vote(socket, _vote_params, false) do
     {:noreply,
      socket
-     |> put_flash(:error, gettext("You cannot vote now."))
+     |> put_flash(:error, dgettext("votes", "You cannot vote now."))
      |> push_patch(to: ~p"/vote")}
   end
 
@@ -115,7 +115,7 @@ defmodule VotaSanremoWeb.VoteFormInternal do
       {:error, %Ecto.Changeset{}} ->
         {:noreply,
          socket
-         |> put_flash(:error, gettext("There was an error while submitting your vote."))
+         |> put_flash(:error, dgettext("votes", "There was an error while submitting your vote."))
          |> push_patch(to: ~p"/vote")}
     end
   end
@@ -123,7 +123,7 @@ defmodule VotaSanremoWeb.VoteFormInternal do
   defp maybe_delete_vote(socket, false) do
     {:noreply,
      socket
-     |> put_flash(:error, gettext("You cannot vote now."))
+     |> put_flash(:error, dgettext("votes", "You cannot vote now."))
      |> push_patch(to: ~p"/vote")}
   end
 
@@ -140,7 +140,7 @@ defmodule VotaSanremoWeb.VoteFormInternal do
       :error ->
         {:noreply,
          socket
-         |> put_flash(:error, gettext("There was an error while deleting your vote."))
+         |> put_flash(:error, dgettext("votes", "There was an error while deleting your vote."))
          |> push_patch(to: ~p"/vote")}
     end
   end

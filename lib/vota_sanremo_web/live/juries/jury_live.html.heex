@@ -1,19 +1,19 @@
 <.header>
   {@jury.name}
-  <:subtitle>{gettext("Founded by %{founder}", founder: @founder.username)}</:subtitle>
+  <:subtitle>{dgettext("juries", "Founded by %{founder}", founder: @founder.username)}</:subtitle>
 
   <:actions>
     <button
       :if={@is_member}
       type="button"
-      title={gettext("Exit from this jury")}
+      title={dgettext("juries", "Exit from this jury")}
       id="exit-jury"
       phx-click="exit-jury"
     >
       <.icon name="hero-arrow-right-start-on-rectangle" />
     </button>
 
-    <.link navigate={~p"/juries/#{@jury.id}/members"} title={gettext("Members")}>
+    <.link navigate={~p"/juries/#{@jury.id}/members"} title={dgettext("juries", "Members")}>
       <.icon name="hero-users" />
     </.link>
   </:actions>
@@ -26,13 +26,13 @@
         type="checkbox"
         name="weighted-scores-flag"
         checked={@weighted?}
-        label={gettext("Weighted scores")}
+        label={dgettext("votes", "Weighted scores")}
       />
     </.form>
   </section>
   <.performers_scores scores={@scores} />
 <% else %>
-  <p class="mt-5">{gettext("There are no votes to show yet.")}</p>
+  <p class="mt-5">{dgettext("votes", "There are no votes to show yet.")}</p>
 <% end %>
 
-<.back navigate={~p"/juries"}>{gettext("Back to juries")}</.back>
+<.back navigate={~p"/juries"}>{dgettext("juries", "Back to juries")}</.back>

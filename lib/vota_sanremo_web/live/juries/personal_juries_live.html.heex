@@ -1,18 +1,18 @@
 <div class="flex justify-between items-center">
-  <.header>{gettext("My Juries")}</.header>
+  <.header>{dgettext("juries", "My Juries")}</.header>
 
-  <.link navigate={~p"/juries/new"} title={gettext("Create a new jury")}>
+  <.link navigate={~p"/juries/new"} title={dgettext("juries", "Create a new jury")}>
     <.icon name="hero-plus" />
   </.link>
 </div>
 
 <p :if={Enum.empty?(@founded_juries) and Enum.empty?(@member_juries)} class="mt-5">
-  {gettext("You have not created any juries and you are not a member of any jury.")}
+  {dgettext("juries", "You have not created any juries and you are not a member of any jury.")}
 </p>
 
 <!-- Founded juries -->
 <%= if not Enum.empty?(@founded_juries) do %>
-  <h2 class="mt-5 font-medium">{gettext("You founded")}</h2>
+  <h2 class="mt-5 font-medium">{dgettext("juries", "You founded")}</h2>
 
   <.simple_list
     id="founded-juries"
@@ -24,11 +24,11 @@
 
 <!-- Member juries -->
 <%= if not Enum.empty?(@member_juries) do %>
-  <h2 class="mt-5 font-medium">{gettext("You are a member of")}</h2>
+  <h2 class="mt-5 font-medium">{dgettext("juries", "You are a member of")}</h2>
 
   <.simple_list id="member-juries" item_click={fn jury -> JS.navigate(~p"/juries/#{jury.id}") end}>
     <:item :for={jury <- @member_juries} click_target={jury}>{jury.name}</:item>
   </.simple_list>
 <% end %>
 
-<.back navigate={~p"/juries"}>{gettext("Juries")}</.back>
+<.back navigate={~p"/juries"}>{dgettext("juries", "Juries")}</.back>

@@ -1,5 +1,5 @@
 <.header>
-  {gettext("Manage Evening %{number}", number: @evening.number)}
+  {dgettext("evenings", "Manage Evening %{number}", number: @evening.number)}
 </.header>
 
 <.simple_form
@@ -13,28 +13,32 @@
     <.input
       field={@evening_form[:number]}
       type="number"
-      label={gettext("Evening Number")}
+      label={dgettext("evenings", "Evening Number")}
       container_class="flex-1"
     />
     <.input
       field={@evening_form[:date]}
       type="date"
-      label={gettext("Date")}
+      label={dgettext("evenings", "Date")}
       container_class="flex-1"
     />
   </div>
-  <.input field={@evening_form[:description]} type="textarea" label={gettext("Description")} />
+  <.input
+    field={@evening_form[:description]}
+    type="textarea"
+    label={dgettext("evenings", "Description")}
+  />
   <div class="flex gap-3">
     <.input
       field={@evening_form[:votes_start]}
       type="datetime-local"
-      label={gettext("Votes Start")}
+      label={dgettext("evenings", "Votes Start")}
       container_class="flex-1"
     />
     <.input
       field={@evening_form[:votes_end]}
       type="datetime-local"
-      label={gettext("Votes End")}
+      label={dgettext("evenings", "Votes End")}
       container_class="flex-1"
     />
   </div>
@@ -44,7 +48,7 @@
   </:actions>
 </.simple_form>
 
-<.header>{gettext("Performances")}</.header>
+<.header>{dgettext("performances", "Performances")}</.header>
 
 <.form
   for={@performance_form}
@@ -55,24 +59,28 @@
   <div class="grid grid-cols-[1fr_1fr_min-content] gap-3">
     <.input
       field={@performance_form[:performer_id]}
-      label={gettext("Performer")}
+      label={dgettext("performances", "Performer")}
       type="select"
       options={@performers}
     />
     <.input
       field={@performance_form[:performance_type_id]}
-      label={gettext("Performance type")}
+      label={dgettext("performances", "Performance type")}
       type="select"
       options={@performance_types}
     />
-    <.button type="submit" title={gettext("add performance")} class="!p-1 h-min self-end mb-1">
+    <.button
+      type="submit"
+      title={dgettext("performances", "add performance")}
+      class="!p-1 h-min self-end mb-1"
+    >
       <.icon name="hero-plus-mini" />
     </.button>
   </div>
 </.form>
 
 <p :if={Enum.empty?(@evening.performances)} class="text-center">
-  {gettext("There are no performances yet.")}
+  {dgettext("performances", "There are no performances yet.")}
 </p>
 
 <div id="performances">
@@ -87,7 +95,7 @@
 
     <button
       type="button"
-      title={gettext("delete performance")}
+      title={dgettext("performances", "delete performance")}
       phx-click="delete_performance"
       value={performance.id}
     >
@@ -96,4 +104,4 @@
   </div>
 </div>
 
-<.back navigate={~p"/admin/editions"}>{gettext("Back to all editions")}</.back>
+<.back navigate={~p"/admin/editions"}>{dgettext("editions", "Back to all editions")}</.back>

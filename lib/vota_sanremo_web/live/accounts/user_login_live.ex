@@ -5,13 +5,13 @@ defmodule VotaSanremoWeb.UserLoginLive do
     ~H"""
     <div class="mx-auto max-w-sm">
       <.header class="text-center">
-        {gettext("Log in to account")}
+        {dgettext("accounts", "Log in to account")}
         <:subtitle>
-          {gettext("Don't have an account?")}
+          {dgettext("accounts", "Don't have an account?")}
           <.link navigate={~p"/users/register"} class="font-semibold text-brand hover:underline">
             {gettext("Sign up")}
           </.link>
-          {gettext("for an account now.")}
+          {dgettext("accounts", "for an account now.")}
         </:subtitle>
       </.header>
 
@@ -19,14 +19,18 @@ defmodule VotaSanremoWeb.UserLoginLive do
         <.input field={@form[:email]} type="email" label={gettext("Email")} required />
         <.input field={@form[:password]} type="password" label={gettext("Password")} required />
         <:actions>
-          <.input field={@form[:remember_me]} type="checkbox" label={gettext("Keep me logged in")} />
+          <.input
+            field={@form[:remember_me]}
+            type="checkbox"
+            label={dgettext("accounts", "Keep me logged in")}
+          />
           <.link href={~p"/users/reset_password"} class="text-sm font-semibold">
-            {gettext("Forgot your password?")}
+            {dgettext("accounts", "Forgot your password?")}
           </.link>
         </:actions>
 
         <:actions>
-          <.button phx-disable-with={gettext("Logging in...")} class="w-full">
+          <.button phx-disable-with={dgettext("accounts", "Logging in...")} class="w-full">
             {gettext("Log in")} <span aria-hidden="true">→</span>
           </.button>
         </:actions>

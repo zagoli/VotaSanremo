@@ -7,15 +7,17 @@ defmodule VotaSanremoWeb.UserConfirmationInstructionsLive do
     ~H"""
     <div class="mx-auto max-w-sm">
       <.header class="text-center">
-        {gettext("No confirmation instructions received?")}
-        <:subtitle>{gettext("We'll send a new confirmation link to your inbox")}</:subtitle>
+        {dgettext("accounts", "No confirmation instructions received?")}
+        <:subtitle>
+          {dgettext("accounts", "We'll send a new confirmation link to your inbox")}
+        </:subtitle>
       </.header>
 
       <.simple_form for={@form} id="resend_confirmation_form" phx-submit="send_instructions">
         <.input field={@form[:email]} type="email" placeholder={gettext("Email")} required />
         <:actions>
           <.button phx-disable-with={gettext("Sending...")} class="w-full">
-            {gettext("Resend confirmation instructions")}
+            {dgettext("accounts", "Resend confirmation instructions")}
           </.button>
         </:actions>
       </.simple_form>
@@ -41,7 +43,8 @@ defmodule VotaSanremoWeb.UserConfirmationInstructionsLive do
     end
 
     info =
-      gettext(
+      dgettext(
+        "accounts",
         "If your email is in our system and it has not been confirmed yet, you will receive an email with instructions shortly."
       )
 

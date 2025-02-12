@@ -24,17 +24,19 @@ defmodule VotaSanremoWeb.MyInvitesLive do
         socket
         |> put_flash(
           :info,
-          gettext("Invite accepted! You are now part of %{jury_name}",
+          dgettext("juries", "Invite accepted! You are now part of %{jury_name}",
             jury_name: jury_invite.jury.name
           )
         )
         |> assign_pending_invites()
 
       {:error, _} ->
-        socket |> put_flash(:error, gettext("Error while accepting this invite. Sorry!"))
+        socket
+        |> put_flash(:error, dgettext("juries", "Error while accepting this invite. Sorry!"))
 
       nil ->
-        socket |> put_flash(:error, gettext("Error while accepting this invite. Sorry!"))
+        socket
+        |> put_flash(:error, dgettext("juries", "Error while accepting this invite. Sorry!"))
     end
   end
 
@@ -44,14 +46,16 @@ defmodule VotaSanremoWeb.MyInvitesLive do
     case Juries.decline_invite(jury_invite) do
       {:ok, _} ->
         socket
-        |> put_flash(:info, gettext("Invite declined."))
+        |> put_flash(:info, dgettext("juries", "Invite declined."))
         |> assign_pending_invites()
 
       {:error, _} ->
-        socket |> put_flash(:error, gettext("Error while declining this invite. Sorry!"))
+        socket
+        |> put_flash(:error, dgettext("juries", "Error while declining this invite. Sorry!"))
 
       nil ->
-        socket |> put_flash(:error, gettext("Error while accepting this invite. Sorry!"))
+        socket
+        |> put_flash(:error, dgettext("juries", "Error while accepting this invite. Sorry!"))
     end
   end
 

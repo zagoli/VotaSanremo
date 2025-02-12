@@ -1,15 +1,15 @@
 <.header>
-  {gettext("My invites")}
+  {dgettext("juries", "My invites")}
   <:subtitle>
-    {gettext("From here you can accept or decline the invites to be a jury member.")}
+    {dgettext("juries", "From here you can accept or decline the invites to be a jury member.")}
   </:subtitle>
 </.header>
 
 <%= if Enum.empty?(@pending_invites) do %>
-  <p class="mt-3">{gettext("You have no pending invites.")}</p>
+  <p class="mt-3">{dgettext("juries", "You have no pending invites.")}</p>
 <% else %>
   <.table id="invites" rows={@pending_invites}>
-    <:col :let={invite} label={gettext("Jury")}>{invite.jury.name}</:col>
+    <:col :let={invite} label={dgettext("juries", "Jury")}>{invite.jury.name}</:col>
 
     <:action :let={invite}>
       <.button_link path={~p"/juries/my_invites/accept/#{invite.id}"}>

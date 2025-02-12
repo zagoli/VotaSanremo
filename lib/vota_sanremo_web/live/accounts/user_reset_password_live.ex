@@ -6,7 +6,7 @@ defmodule VotaSanremoWeb.UserResetPasswordLive do
   def render(assigns) do
     ~H"""
     <div class="mx-auto max-w-sm">
-      <.header class="text-center">{gettext("Reset Password")}</.header>
+      <.header class="text-center">{dgettext("accounts", "Reset Password")}</.header>
 
       <.simple_form
         for={@form}
@@ -17,16 +17,21 @@ defmodule VotaSanremoWeb.UserResetPasswordLive do
         <.error :if={@form.errors != []}>
           {gettext("Oops, something went wrong! Please check the errors below.")}
         </.error>
-        <.input field={@form[:password]} type="password" label={gettext("New password")} required />
+        <.input
+          field={@form[:password]}
+          type="password"
+          label={dgettext("accounts", "New password")}
+          required
+        />
         <.input
           field={@form[:password_confirmation]}
           type="password"
-          label={gettext("Confirm new password")}
+          label={dgettext("accounts", "Confirm new password")}
           required
         />
         <:actions>
           <.button phx-disable-with={gettext("Resetting...")} class="w-full">
-            {gettext("Reset Password")}
+            {dgettext("accounts", "Reset Password")}
           </.button>
         </:actions>
       </.simple_form>
@@ -61,7 +66,7 @@ defmodule VotaSanremoWeb.UserResetPasswordLive do
       {:ok, _} ->
         {:noreply,
          socket
-         |> put_flash(:info, gettext("Password reset successfully."))
+         |> put_flash(:info, dgettext("accounts", "Password reset successfully."))
          |> redirect(to: ~p"/users/log_in")}
 
       {:error, changeset} ->
@@ -79,7 +84,10 @@ defmodule VotaSanremoWeb.UserResetPasswordLive do
       assign(socket, user: user, token: token)
     else
       socket
-      |> put_flash(:error, gettext("Reset password link is invalid or it has expired."))
+      |> put_flash(
+        :error,
+        dgettext("accounts", "Reset password link is invalid or it has expired.")
+      )
       |> redirect(to: ~p"/")
     end
   end

@@ -32,26 +32,22 @@ msgid "Hang in there while we get back on track"
 msgstr "Aspetta un attimo mentre ci riprendiamo"
 
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:42
-#: lib/vota_sanremo_web/live/juries/juries_live.html.heex:2
-#: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:23
-#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:34
 #, elixir-autogen, elixir-format
 msgid "Juries"
 msgstr "Giurie"
 
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:40
-#: lib/vota_sanremo_web/live/leaderboard/leaderboard_live.html.heex:2
 #, elixir-autogen, elixir-format
 msgid "Leaderboard"
 msgstr "Classifica"
 
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:79
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:25
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:27
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:22
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:25
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:30
+#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:27
+#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:34
 #: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:15
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:36
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:41
 #, elixir-autogen, elixir-format
 msgid "Log in"
 msgstr "Accedi"
@@ -62,16 +58,15 @@ msgid "Log out"
 msgstr "Esci"
 
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:47
-#: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:2
 #, elixir-autogen, elixir-format
 msgid "My invites"
 msgstr "I miei inviti"
 
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:77
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:24
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:26
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:21
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:24
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:35
+#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:26
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:40
 #, elixir-autogen, elixir-format
 msgid "Register"
 msgstr "Registrati"
@@ -132,259 +127,35 @@ msgstr "Partecipa alla classifica votando i tuoi artisti preferiti ogni sera. Pu
 msgid "Rate your favourite artists every night!"
 msgstr "Vota i tuoi artisti preferiti ogni sera!"
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:2
-#, elixir-autogen, elixir-format
-msgid "%{jury_name} members"
-msgstr "Membri di %{jury_name}"
-
-#: lib/vota_sanremo_web/live/accounts/user_profile_live.html.heex:9
-#, elixir-autogen, elixir-format
-msgid "%{username} does not want to disclose his/her votes."
-msgstr "%{username} non vuole rendere pubblici i suoi voti."
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.ex:66
-#, elixir-autogen, elixir-format
-msgid "A link to confirm your email change has been sent to the new address."
-msgstr "Un link per confermare il cambio email è stato inviato al nuovo indirizzo."
-
 #: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:16
 #, elixir-autogen, elixir-format
 msgid "Accept"
 msgstr "Accetta"
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:13
-#, elixir-autogen, elixir-format
-msgid "Already registered?"
-msgstr "Hai già un account?"
-
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:38
-#, elixir-autogen, elixir-format
-msgid "Back to juries"
-msgstr "Torna alle giurie"
-
-#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:47
-#, elixir-autogen, elixir-format
-msgid "Back to jury"
-msgstr "Torna alla giuria"
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:46
-#, elixir-autogen, elixir-format
-msgid "Change Email"
-msgstr "Cambia email"
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:53
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:92
-#, elixir-autogen, elixir-format
-msgid "Change Password"
-msgstr "Cambia password"
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:26
-#, elixir-autogen, elixir-format
-msgid "Change your email"
-msgstr "Cambia la tua email"
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:46
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:92
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:47
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:95
 #, elixir-autogen, elixir-format
 msgid "Changing..."
 msgstr "Cambiamento in corso..."
-
-#: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:4
-#, elixir-autogen, elixir-format
-msgid "Choose a name. You will be able to invite jurors later."
-msgstr "Scegli un nome. Potrai invitare i giurati più tardi."
-
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:9
-#, elixir-autogen, elixir-format
-msgid "Confirm Account"
-msgstr "Conferma Account"
-
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:15
-#, elixir-autogen, elixir-format
-msgid "Confirm my account"
-msgstr "Conferma il mio account"
-
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:24
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:80
-#, elixir-autogen, elixir-format
-msgid "Confirm new password"
-msgstr "Conferma nuova password"
 
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:14
 #, elixir-autogen, elixir-format
 msgid "Confirming..."
 msgstr "Confermando..."
 
-#: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:2
-#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:4
-#, elixir-autogen, elixir-format
-msgid "Create a new jury"
-msgstr "Crea una nuova giuria"
-
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:50
-#, elixir-autogen, elixir-format
-msgid "Create an account"
-msgstr "Crea un account"
-
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:49
-#, elixir-autogen, elixir-format
-msgid "Creating account..."
-msgstr "Sto creando un account..."
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:41
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:86
-#, elixir-autogen, elixir-format
-msgid "Current password"
-msgstr "Password attuale"
-
 #: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:22
 #, elixir-autogen, elixir-format
 msgid "Decline"
 msgstr "Rifiuta"
 
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:10
-#, elixir-autogen, elixir-format
-msgid "Don't have an account?"
-msgstr "Non hai un account?"
-
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:15
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:15
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:17
+#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:17
 #: lib/vota_sanremo_web/live/accounts/user_login_live.ex:19
 #: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:44
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:35
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "Email"
 msgstr "Email"
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.ex:13
-#, elixir-autogen, elixir-format
-msgid "Email change link is invalid or it has expired."
-msgstr "Il link per il cambio email non è valido o è scaduto."
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.ex:10
-#, elixir-autogen, elixir-format
-msgid "Email changed successfully."
-msgstr "Email modificata con successo."
-
-#: lib/vota_sanremo_web/live/juries/jury_live.ex:76
-#, elixir-autogen, elixir-format
-msgid "Error exiting the jury"
-msgstr "Errore nell'uscita dalla giuria"
-
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:76
-#, elixir-autogen, elixir-format
-msgid "Error inviting user"
-msgstr "Errore nell'invito dell'utente"
-
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:34
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:37
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:54
-#, elixir-autogen, elixir-format
-msgid "Error while accepting this invite. Sorry!"
-msgstr "Errore nell'accettare l'invito. Ci dispiace!"
-
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:51
-#, elixir-autogen, elixir-format
-msgid "Error while declining this invite. Sorry!"
-msgstr "Errore nel rifiutare l'invito. Ci dispiace!"
-
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:9
-#, elixir-autogen, elixir-format
-msgid "Exit from this jury"
-msgstr "Esci da questa giuria"
-
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:10
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:24
-#, elixir-autogen, elixir-format
-msgid "Forgot your password?"
-msgstr "Password dimenticata?"
-
-#: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:4
-#, elixir-autogen, elixir-format
-msgid "From here you can accept or decline the invites to be a jury member."
-msgstr "Da qui puoi accettare o rifiutare gli inviti per diventare membro di una giuria."
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:5
-#, elixir-autogen, elixir-format
-msgid "If you set your votes privacy to public, every registered user will be able to see them."
-msgstr "Se imposti i tuoi voti come pubblici, tutti gli utenti registrati potranno vederli."
-
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:44
-#, elixir-autogen, elixir-format
-msgid "If your email is in our system and it has not been confirmed yet, you will receive an email with instructions shortly."
-msgstr "Se la tua email è nel nostro sistema e non è stata ancora confermata, riceverai a breve un'email con le istruzioni."
-
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:44
-#, elixir-autogen, elixir-format
-msgid "If your email is in our system, you will receive instructions to reset your password shortly."
-msgstr "Se la tua email è nel nostro sistema, riceverai a breve le istruzioni per reimpostare la password."
-
-#: lib/vota_sanremo_web/live/user_search/user_search_live.html.heex:27
-#, elixir-autogen, elixir-format
-msgid "Invite"
-msgstr "Invita"
-
-#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:7
-#, elixir-autogen, elixir-format
-msgid "Invite a user"
-msgstr "Invita un utente"
-
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:27
-#, elixir-autogen, elixir-format
-msgid "Invite accepted! You are now part of %{jury_name}"
-msgstr "Invito accettato! Ora fai parte di %{jury_name}"
-
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:47
-#, elixir-autogen, elixir-format
-msgid "Invite declined."
-msgstr "Invito rifiutato."
-
-#: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:12
-#, elixir-autogen, elixir-format
-msgid "Jury"
-msgstr "Giuria"
-
-#: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:15
-#, elixir-autogen, elixir-format
-msgid "Jury name"
-msgstr "Nome della giuria"
-
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:22
-#, elixir-autogen, elixir-format
-msgid "Keep me logged in"
-msgstr "Ricordami"
-
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:8
-#, elixir-autogen, elixir-format
-msgid "Log in to account"
-msgstr "Accedi al tuo account"
-
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:29
-#, elixir-autogen, elixir-format
-msgid "Logging in..."
-msgstr "Accesso in corso..."
-
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:16
-#, elixir-autogen, elixir-format
-msgid "Members"
-msgstr "Membri"
-
-#: lib/vota_sanremo_web/live/juries/juries_live.html.heex:9
-#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:2
-#, elixir-autogen, elixir-format
-msgid "My Juries"
-msgstr "Le mie Giurie"
-
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:20
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:74
-#, elixir-autogen, elixir-format
-msgid "New password"
-msgstr "Nuova password"
-
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:10
-#, elixir-autogen, elixir-format
-msgid "No confirmation instructions received?"
-msgstr "Non hai ricevuto le istruzioni di conferma?"
 
 #: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:31
 #: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:18
@@ -398,53 +169,12 @@ msgstr "Ops, qualcosa è andato storto! Controlla gli errori qui sotto."
 msgid "Password"
 msgstr "Password"
 
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:64
-#, elixir-autogen, elixir-format
-msgid "Password reset successfully."
-msgstr "Password reimpostata con successo."
-
-#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:36
-#, elixir-autogen, elixir-format
-msgid "Pending sent invites"
-msgstr "Inviti in sospeso"
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:19
-#, elixir-autogen, elixir-format
-msgid "Private"
-msgstr "Privati"
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:17
-#, elixir-autogen, elixir-format
-msgid "Public"
-msgstr "Pubblici"
-
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:11
-#, elixir-autogen, elixir-format
-msgid "Register for an account"
-msgstr "Registra un account"
-
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:18
-#, elixir-autogen, elixir-format
-msgid "Resend confirmation instructions"
-msgstr "Reinvia istruzioni di conferma"
-
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:9
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:29
-#, elixir-autogen, elixir-format
-msgid "Reset Password"
-msgstr "Reimposta Password"
-
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:82
-#, elixir-autogen, elixir-format
-msgid "Reset password link is invalid or it has expired."
-msgstr "Il link per reimpostare la password non è valido o è scaduto."
-
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:28
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:33
 #, elixir-autogen, elixir-format
 msgid "Resetting..."
 msgstr "Reimpostazione in corso..."
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:43
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:47
 #: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:18
 #, elixir-autogen, elixir-format
 msgid "Save"
@@ -457,192 +187,21 @@ msgstr "Salva"
 msgid "Saving..."
 msgstr "Salvataggio in corso..."
 
-#: lib/vota_sanremo_web/live/user_search/user_search_live.html.heex:1
-#, elixir-autogen, elixir-format
-msgid "Search a user"
-msgstr "Cerca un utente"
-
-#: lib/vota_sanremo_web/live/leaderboard/leaderboard_live.html.heex:4
-#, elixir-autogen, elixir-format
-msgid "See the current live leaderboard!"
-msgstr "Guarda la classifica in tempo reale!"
-
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:18
-#, elixir-autogen, elixir-format
-msgid "Send password reset instructions"
-msgstr "Invia istruzioni per reimpostare la password"
-
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:17
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:17
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:19
+#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:19
 #, elixir-autogen, elixir-format
 msgid "Sending..."
 msgstr "Invio in corso..."
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:3
-#, elixir-autogen, elixir-format
-msgid "Set your votes privacy"
-msgstr "Imposta la privacy dei tuoi voti"
 
 #: lib/vota_sanremo_web/live/accounts/user_login_live.ex:12
 #, elixir-autogen, elixir-format
 msgid "Sign up"
 msgstr "Registrati"
 
-#: lib/vota_sanremo_web/live/juries/juries_live.html.heex:13
-#, elixir-autogen, elixir-format
-msgid "There are no juries yet."
-msgstr "Non ci sono ancora giurie."
-
-#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:15
-#, elixir-autogen, elixir-format
-msgid "There are no members yet."
-msgstr "Non ci sono ancora membri."
-
-#: lib/vota_sanremo_web/live/accounts/user_profile_live.html.heex:13
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:35
-#, elixir-autogen, elixir-format
-msgid "There are no votes to show yet."
-msgstr "Non ci sono ancora voti da mostrare."
-
-#: lib/vota_sanremo_web/live/votes/vote_form.ex:118
-#, elixir-autogen, elixir-format
-msgid "There was an error while submitting your vote."
-msgstr "C'è stato un errore nell'invio del tuo voto."
-
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:55
-#, elixir-autogen, elixir-format
-msgid "User confirmation link is invalid or it has expired."
-msgstr "Il link di conferma utente non è valido o è scaduto."
-
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:40
-#, elixir-autogen, elixir-format
-msgid "User confirmed successfully."
-msgstr "Utente confermato con successo."
-
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:73
-#, elixir-autogen, elixir-format
-msgid "User invited"
-msgstr "Utente invitato"
-
 #: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:37
-#: lib/vota_sanremo_web/live/user_search/user_search_live.html.heex:7
 #, elixir-autogen, elixir-format
 msgid "Username"
 msgstr "Nome utente"
-
-#: lib/vota_sanremo_web/live/accounts/user_profile_live.html.heex:5
-#, elixir-autogen, elixir-format
-msgid "Votes"
-msgstr "Voti"
-
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:11
-#, elixir-autogen, elixir-format
-msgid "We'll send a new confirmation link to your inbox"
-msgstr "Ti invieremo un nuovo link di conferma nella tua casella email"
-
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:11
-#, elixir-autogen, elixir-format
-msgid "We'll send a password reset link to your inbox"
-msgstr "Ti invieremo un link per reimpostare la password nella tua casella email"
-
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:29
-#: lib/vota_sanremo_web/live/leaderboard/leaderboard_live.html.heex:17
-#, elixir-autogen, elixir-format
-msgid "Weighted scores"
-msgstr "Voti ponderati"
-
-#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:27
-#, elixir-autogen, elixir-format
-msgid "You are a member of"
-msgstr "Sei membro di"
-
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:60
-#, elixir-autogen, elixir-format
-msgid "You are not allowed to invite a user!"
-msgstr "Non sei autorizzato a invitare un utente!"
-
-#: lib/vota_sanremo_web/live/votes/vote_form.ex:101
-#: lib/vota_sanremo_web/live/votes/vote_form.ex:126
-#, elixir-autogen, elixir-format
-msgid "You cannot vote now."
-msgstr "Non puoi votare ora."
-
-#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:15
-#, elixir-autogen, elixir-format
-msgid "You founded"
-msgstr "Hai fondato"
-
-#: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:9
-#, elixir-autogen, elixir-format
-msgid "You have no pending invites."
-msgstr "Non hai inviti in sospeso."
-
-#: lib/vota_sanremo_web/live/juries/jury_live.ex:72
-#, elixir-autogen, elixir-format
-msgid "You have successfully exited the jury!"
-msgstr "Sei uscito dalla giuria!"
-
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:14
-#, elixir-autogen, elixir-format
-msgid "for an account now."
-msgstr "un account."
-
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:17
-#, elixir-autogen, elixir-format
-msgid "to your account now."
-msgstr "al tuo account."
-
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:89
-#, elixir-autogen, elixir-format
-msgid "Error removing member."
-msgstr "Errore durante la rimozione del membro della giuria."
-
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:86
-#, elixir-autogen, elixir-format
-msgid "Member removed!"
-msgstr "Membro della giuria rimosso!"
-
-#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:27
-#, elixir-autogen, elixir-format
-msgid "Remove member"
-msgstr "Rimuovi membro della giuria"
-
-#: lib/vota_sanremo_web/live/juries/jury_live.html.heex:3
-#, elixir-autogen, elixir-format
-msgid "Founded by %{founder}"
-msgstr "Fondata da %{founder}"
-
-#: lib/vota_sanremo_web/live/juries/juries_live.html.heex:21
-#, elixir-autogen, elixir-format
-msgid "No members"
-msgstr "Nessun membro"
-
-#: lib/vota_sanremo_web/live/juries/juries_live.html.heex:22
-#, elixir-autogen, elixir-format
-msgid "One member"
-msgid_plural "%{count} members"
-msgstr[0] "Un membro"
-msgstr[1] "%{count} membri"
-
-#: lib/vota_sanremo_web/controllers/user_session_controller.ex:12
-#, elixir-autogen, elixir-format
-msgid "Account created successfully! A confirmation email was sent to your email address."
-msgstr "Account creato con successo! Un'email di conferma è stata inviata al tuo indirizzo email."
-
-#: lib/vota_sanremo_web/controllers/user_session_controller.ex:46
-#, elixir-autogen, elixir-format
-msgid "Logged out successfully."
-msgstr "Disconnesso con successo."
-
-#: lib/vota_sanremo_web/controllers/user_session_controller.ex:21
-#, elixir-autogen, elixir-format
-msgid "Password updated successfully!"
-msgstr "Password reimpostata con successo."
-
-#: lib/vota_sanremo_web/controllers/user_session_controller.ex:25
-#, elixir-autogen, elixir-format
-msgid "Welcome back!"
-msgstr "Bentornato!"
 
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:57
 #, elixir-autogen, elixir-format
@@ -650,7 +209,6 @@ msgid "Admin section"
 msgstr "Sezione amministratori"
 
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:65
-#: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.html.heex:2
 #, elixir-autogen, elixir-format
 msgid "Manage editions"
 msgstr "Gestisci edizioni"
@@ -660,218 +218,32 @@ msgstr "Gestisci edizioni"
 msgid "Manage performers"
 msgstr "Gestisci artisti"
 
-#: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:12
-#, elixir-autogen, elixir-format
-msgid "Add or edit a performer."
-msgstr "Aggiungi o modifica un artista."
-
-#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:30
-#, elixir-autogen, elixir-format
-msgid "Are you sure to delete this edition?"
-msgstr "Sei sicuro di voler eliminare questa edizione?"
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:114
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:25
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:119
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:28
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:22
 #, elixir-autogen, elixir-format
 msgid "Are you sure?"
 msgstr "Sei sicuro?"
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:99
-#, elixir-autogen, elixir-format
-msgid "Back to all editions"
-msgstr "Torna a tutte le edizioni"
-
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.ex:124
-#, elixir-autogen, elixir-format
-msgid "Could not delete performance."
-msgstr "Impossibile eliminare la performance."
-
-#: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.html.heex:7
-#, elixir-autogen, elixir-format
-msgid "Create a new edition"
-msgstr "Crea una nuova edizione"
-
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:22
-#, elixir-autogen, elixir-format
-msgid "Date"
-msgstr "Data"
-
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:26
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:29
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:23
 #, elixir-autogen, elixir-format
 msgid "Delete"
 msgstr "Elimina"
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:26
-#, elixir-autogen, elixir-format
-msgid "Description"
-msgstr "Descrizione"
-
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:16
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:19
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:14
 #, elixir-autogen, elixir-format
 msgid "Edit"
 msgstr "Modifica"
 
-#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.ex:19
-#, elixir-autogen, elixir-format
-msgid "Edit Performer"
-msgstr "Modifica artista"
-
-#: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.ex:32
-#, elixir-autogen, elixir-format
-msgid "Error creating the edition"
-msgstr "Error durante la creazione dell'edizione"
-
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:16
-#, elixir-autogen, elixir-format
-msgid "Evening Number"
-msgstr "Numero di serata"
-
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.ex:75
-#, elixir-autogen, elixir-format
-msgid "Evening updated successfully."
-msgstr "Serata aggiornata con successo."
-
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:2
-#, elixir-autogen, elixir-format
-msgid "Manage Evening %{number}"
-msgstr "Gestisci Serata %{number}"
-
 #: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:21
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:11
+#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:14
 #: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:22
 #: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:11
 #, elixir-autogen, elixir-format
 msgid "Name"
 msgstr "Nome"
-
-#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.ex:25
-#, elixir-autogen, elixir-format
-msgid "New Performer"
-msgstr "Nuovo Artista"
-
-#: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.ex:21
-#, elixir-autogen, elixir-format
-msgid "New edition"
-msgstr "Nuova edizione"
-
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.ex:121
-#, elixir-autogen, elixir-format
-msgid "Performance deleted successfully."
-msgstr "Performance eliminata con successo."
-
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:64
-#, elixir-autogen, elixir-format
-msgid "Performance type"
-msgstr "Tipo di performance"
-
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:47
-#, elixir-autogen, elixir-format
-msgid "Performances"
-msgstr ""
-
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:58
-#, elixir-autogen, elixir-format
-msgid "Performer"
-msgstr "Artista"
-
-#: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:77
-#, elixir-autogen, elixir-format
-msgid "Performer created successfully"
-msgstr "Artista creato con successo"
-
-#: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:62
-#, elixir-autogen, elixir-format
-msgid "Performer updated successfully"
-msgstr "Artista aggiornato con successo"
-
-#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.ex:31
-#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:2
-#, elixir-autogen, elixir-format
-msgid "Performers"
-msgstr "Artisti"
-
-#: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:24
-#, elixir-autogen, elixir-format
-msgid "Save Performer"
-msgstr "Salva artista"
-
-#: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.html.heex:16
-#, elixir-autogen, elixir-format
-msgid "There are no editions yet."
-msgstr "Non ci sono ancora edizioni."
-
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:75
-#, elixir-autogen, elixir-format
-msgid "There are no performances yet."
-msgstr "Non ci sono ancora performances."
-
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:37
-#, elixir-autogen, elixir-format
-msgid "Votes End"
-msgstr "Fine votazioni"
-
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:31
-#, elixir-autogen, elixir-format
-msgid "Votes Start"
-msgstr "Inizio votazioni"
-
-#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:62
-#, elixir-autogen, elixir-format
-msgid "Votes end:"
-msgstr "Fine votazioni:"
-
-#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:61
-#, elixir-autogen, elixir-format
-msgid "Votes start:"
-msgstr "Inizio votazioni:"
-
-#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:39
-#, elixir-autogen, elixir-format
-msgid "add an evening"
-msgstr "aggiungi una serata"
-
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:68
-#, elixir-autogen, elixir-format
-msgid "add performance"
-msgstr "aggiungi una performance"
-
-#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:29
-#, elixir-autogen, elixir-format
-msgid "delete edition"
-msgstr "elimina edizione"
-
-#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:72
-#, elixir-autogen, elixir-format
-msgid "delete evening %{number}"
-msgstr "elimina serata %{number}"
-
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:90
-#, elixir-autogen, elixir-format
-msgid "delete performance"
-msgstr "elimina performance"
-
-#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:64
-#, elixir-autogen, elixir-format
-msgid "edit evening %{number}"
-msgstr "modifica serata %{number}"
-
-#: lib/vota_sanremo_web/live/admin/manage_edition/edition_editor_internal.html.heex:23
-#, elixir-autogen, elixir-format
-msgid "save edition"
-msgstr "salva edizione"
-
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:52
-#, elixir-autogen, elixir-format
-msgid "You cannot invite yourself!"
-msgstr "Non puoi invitare te stesso!"
-
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.ex:19
-#, elixir-autogen, elixir-format
-msgid "Edit performance type"
-msgstr "Modifica tipo di performance"
 
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:73
 #, elixir-autogen, elixir-format
@@ -879,99 +251,11 @@ msgid "Manage performance types"
 msgstr "Gestisci tipi di performance"
 
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:61
-#: lib/vota_sanremo_web/live/admin/manage_users/manage_users_live.html.heex:1
 #, elixir-autogen, elixir-format
 msgid "Manage users"
 msgstr "Gestisci utenti"
-
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.ex:25
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:4
-#, elixir-autogen, elixir-format
-msgid "New performance type"
-msgstr "Nuovo tipo di performance"
-
-#: lib/vota_sanremo_web/live/admin/manage_users/manage_users_live.html.heex:8
-#, elixir-autogen, elixir-format
-msgid "Number of confirmed users"
-msgstr "Numero di utenti confermati"
-
-#: lib/vota_sanremo_web/live/admin/manage_users/manage_users_live.html.heex:4
-#, elixir-autogen, elixir-format
-msgid "Number of registered users"
-msgstr "Numero di utenti registrati"
-
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:82
-#, elixir-autogen, elixir-format
-msgid "Performance type created"
-msgstr "Tipo di performance creato"
-
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:67
-#, elixir-autogen, elixir-format
-msgid "Performance type updated"
-msgstr "Tipo di performance aggiornato"
-
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.ex:31
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:2
-#, elixir-autogen, elixir-format
-msgid "Performance types"
-msgstr "Tipi di performance"
-
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:24
-#, elixir-autogen, elixir-format
-msgid "Save performance type"
-msgstr "Salva tipo di performance"
-
-#: lib/vota_sanremo_web/live/leaderboard/leaderboard_live.html.heex:9
-#, elixir-autogen, elixir-format
-msgid "There are no artists yet."
-msgstr "Non ci sono ancora artisti."
-
-#: lib/vota_sanremo_web/controllers/user_session_controller.ex:54
-#, elixir-autogen, elixir-format
-msgid "Account deleted successfully."
-msgstr "Account eliminato con successo."
-
-#: lib/vota_sanremo_web/controllers/user_session_controller.ex:59
-#, elixir-autogen, elixir-format
-msgid "An error occurred while deleting your account."
-msgstr "Si è verificato un errore durante l'eliminazione del tuo account."
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:104
-#, elixir-autogen, elixir-format
-msgid "Delete account"
-msgstr "Elimina account"
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:127
-#, elixir-autogen, elixir-format
-msgid "I understand, delete my account"
-msgstr "Ho capito, elimina il mio account"
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:98
-#, elixir-autogen, elixir-format
-msgid "Other settings"
-msgstr "Altre impostazioni"
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:119
-#, elixir-autogen, elixir-format
-msgid "The juries you founded and your votes will also be deleted."
-msgstr "Anche le giurie che hai fondato e i tuoi voti verranno eliminati."
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:116
-#, elixir-autogen, elixir-format
-msgid "You are about to delete your account."
-msgstr "Stai per eliminare il tuo account."
-
-#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:10
-#, elixir-autogen, elixir-format
-msgid "You have not created any juries and you are not a member of any jury."
-msgstr "Non hai creato nessuna giuria, e non sei membro di nessuna giuria."
 
 #: lib/vota_sanremo_web/live/votes/vote_form_internal.html.heex:23
 #, elixir-autogen, elixir-format
 msgid "Delete vote"
 msgstr "Elimina voto"
-
-#: lib/vota_sanremo_web/live/votes/vote_form.ex:143
-#, elixir-autogen, elixir-format
-msgid "There was an error while deleting your vote."
-msgstr "C'è stato un errore nell'eliminazione del tuo voto."

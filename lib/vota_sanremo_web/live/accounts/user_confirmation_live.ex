@@ -6,13 +6,13 @@ defmodule VotaSanremoWeb.UserConfirmationLive do
   def render(%{live_action: :edit} = assigns) do
     ~H"""
     <div class="mx-auto max-w-sm">
-      <.header class="text-center">{gettext("Confirm Account")}</.header>
+      <.header class="text-center">{dgettext("accounts", "Confirm Account")}</.header>
 
       <.simple_form for={@form} id="confirmation_form" phx-submit="confirm_account">
         <input type="hidden" name={@form[:token].name} value={@form[:token].value} />
         <:actions>
           <.button phx-disable-with={gettext("Confirming...")} class="w-full">
-            {gettext("Confirm my account")}
+            {dgettext("accounts", "Confirm my account")}
           </.button>
         </:actions>
       </.simple_form>
@@ -37,7 +37,7 @@ defmodule VotaSanremoWeb.UserConfirmationLive do
       {:ok, _} ->
         {:noreply,
          socket
-         |> put_flash(:info, gettext("User confirmed successfully."))
+         |> put_flash(:info, dgettext("accounts", "User confirmed successfully."))
          |> redirect(to: ~p"/")}
 
       :error ->
@@ -52,7 +52,10 @@ defmodule VotaSanremoWeb.UserConfirmationLive do
           %{} ->
             {:noreply,
              socket
-             |> put_flash(:error, gettext("User confirmation link is invalid or it has expired."))
+             |> put_flash(
+               :error,
+               dgettext("accounts", "User confirmation link is invalid or it has expired.")
+             )
              |> redirect(to: ~p"/")}
         end
     end
