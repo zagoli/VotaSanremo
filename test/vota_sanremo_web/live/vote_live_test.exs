@@ -103,7 +103,45 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       assert html =~ "First evening"
     end
 
-    test "If the votes are open, the user sees a message saying so", %{
+    test "When the votes are not open yet, the countdown attribute is populated with the votes start datetime",
+         %{
+           conn: conn,
+           edition: edition
+         } do
+      evening =
+        evening_fixture(%{
+          edition_id: edition.id,
+          votes_start: DateTime.utc_now() |> DateTime.add(10, :minute)
+        })
+
+      {:ok, _live, html} = live(conn, ~p"/vote")
+      assert html =~ "Voting will open in"
+
+      assert Floki.attribute(html, "#countdown", "data-votes-start-datetime") |> List.first() ==
+               DateTime.to_string(evening.votes_start)
+    end
+
+    test "When the votes are not open yet, the view automatically updates when the voting start time is reached",
+         %{
+           conn: conn,
+           edition: edition
+         } do
+      evening =
+        evening_fixture(%{
+          edition_id: edition.id,
+          votes_start: DateTime.utc_now() |> DateTime.add(1, :second),
+          votes_end: DateTime.utc_now() |> DateTime.add(10, :minute)
+        })
+
+      {:ok, live, _html} = live(conn, ~p"/vote")
+      assert live |> element("#countdown") |> has_element?()
+
+      Process.sleep(1000)
+
+      assert render(live) =~ "Voting is now open!"
+    end
+
+    test "When the votes are open, the user sees a message saying so", %{
       conn: conn,
       edition: edition
     } do
@@ -117,7 +155,7 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       assert html =~ "Voting is now open!"
     end
 
-    test "If the voting is over, the user sees a message saying so", %{
+    test "When the voting is over, the user sees a message saying so", %{
       conn: conn,
       edition: edition
     } do
