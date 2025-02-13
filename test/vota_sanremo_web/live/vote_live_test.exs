@@ -117,8 +117,9 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       {:ok, _live, html} = live(conn, ~p"/vote")
       assert html =~ "Voting will open in"
 
-      assert Floki.attribute(html, "#countdown", "data-votes-start-datetime") |> List.first() ==
+      assert Floki.attribute(html, "#countdown", "data-votes-start-datetime") == [
                DateTime.to_string(evening.votes_start)
+             ]
     end
 
     test "When the votes are not open yet, the view automatically updates when the voting start time is reached",
@@ -126,12 +127,11 @@ defmodule VotaSanremoWeb.VoteLiveTest do
            conn: conn,
            edition: edition
          } do
-      evening =
-        evening_fixture(%{
-          edition_id: edition.id,
-          votes_start: DateTime.utc_now() |> DateTime.add(1, :second),
-          votes_end: DateTime.utc_now() |> DateTime.add(10, :minute)
-        })
+      evening_fixture(%{
+        edition_id: edition.id,
+        votes_start: DateTime.utc_now() |> DateTime.add(1, :second),
+        votes_end: DateTime.utc_now() |> DateTime.add(10, :minute)
+      })
 
       {:ok, live, _html} = live(conn, ~p"/vote")
       assert live |> element("#countdown") |> has_element?()
@@ -166,6 +166,121 @@ defmodule VotaSanremoWeb.VoteLiveTest do
 
       {:ok, _live, html} = live(conn, ~p"/vote")
       assert html =~ "Voting for this evening is over."
+    end
+
+    test "When changing from an evening with votes to be opened to an evening with votes closed, the countdown is removed",
+         %{
+           conn: conn,
+           edition: edition
+         } do
+      evening_fixture(%{
+        edition_id: edition.id,
+        number: 1,
+        date: ~D[2024-01-01],
+        votes_start: DateTime.utc_now() |> DateTime.add(10, :minute)
+      })
+
+      evening_fixture(%{
+        edition_id: edition.id,
+        number: 2,
+        date: ~D[2024-01-02],
+        votes_end: DateTime.utc_now() |> DateTime.add(-10, :minute)
+      })
+
+      {:ok, live, _html} = live(conn, ~p"/vote")
+      assert live |> element("#countdown") |> has_element?()
+
+      html =
+        live
+        |> element("button", "2")
+        |> render_click()
+
+      assert html =~ "Voting for this evening is over."
+      refute html =~ "#countdown"
+    end
+
+    test "When changing from an evening with votes to be opened to another, the countdown attribute is updated",
+         %{conn: conn, edition: edition} do
+      evening_fixture(%{
+        edition_id: edition.id,
+        number: 1,
+        date: ~D[2024-01-01],
+        votes_start: DateTime.utc_now() |> DateTime.add(10, :minute)
+      })
+
+      evening =
+        evening_fixture(%{
+          edition_id: edition.id,
+          number: 2,
+          date: ~D[2024-01-02],
+          votes_start: DateTime.utc_now() |> DateTime.add(20, :minute)
+        })
+
+      {:ok, live, _html} = live(conn, ~p"/vote")
+
+      html =
+        live
+        |> element("button", "2")
+        |> render_click()
+
+      assert Floki.attribute(html, "#countdown", "data-votes-start-datetime") == [
+               DateTime.to_string(evening.votes_start)
+             ]
+    end
+
+    test "When changing from evening with votes to be opened to one with votes closed, after waiting, the view does not open votes",
+         %{conn: conn, edition: edition} do
+      evening_fixture(%{
+        edition_id: edition.id,
+        number: 1,
+        date: ~D[2024-01-01],
+        votes_start: DateTime.utc_now() |> DateTime.add(1, :second)
+      })
+
+      evening_fixture(%{
+        edition_id: edition.id,
+        number: 2,
+        date: ~D[2024-01-02],
+        votes_end: DateTime.utc_now() |> DateTime.add(-10, :minute)
+      })
+
+      {:ok, live, _html} = live(conn, ~p"/vote")
+
+      live
+      |> element("button", "2")
+      |> render_click()
+
+      Process.sleep(1000)
+
+      assert render(live) =~ "Voting for this evening is over."
+    end
+
+    test "When changing from evening with votes to be opened to another that opens soon, after waiting, the view updates",
+         %{conn: conn, edition: edition} do
+      evening_fixture(%{
+        edition_id: edition.id,
+        number: 1,
+        date: ~D[2024-01-01],
+        votes_start: DateTime.utc_now() |> DateTime.add(10, :minute)
+      })
+
+      evening_fixture(%{
+        edition_id: edition.id,
+        number: 2,
+        date: ~D[2024-01-02],
+        votes_start: DateTime.utc_now() |> DateTime.add(1, :second),
+        votes_end: DateTime.utc_now() |> DateTime.add(10, :minute)
+      })
+
+      {:ok, live, _html} = live(conn, ~p"/vote")
+
+      live
+      |> element("button", "2")
+      |> render_click()
+
+      Process.sleep(1000)
+
+      assert render(live) =~ "Voting for this evening is now open!"
     end
   end
 
