@@ -102,6 +102,20 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       {:ok, _live, html} = live(conn, ~p"/vote")
       assert html =~ "First evening"
     end
+
+    test "If the votes are open, the user sees a message saying so", %{
+      conn: conn,
+      edition: edition
+    } do
+      evening_fixture(%{
+        edition_id: edition.id,
+        votes_start: DateTime.utc_now() |> DateTime.add(-10, :minute),
+        votes_end: DateTime.utc_now() |> DateTime.add(10, :minute)
+      })
+
+      {:ok, _live, html} = live(conn, ~p"/vote")
+      assert html =~ "Voting is now open!"
+    end
   end
 
   describe "Performances container" do
