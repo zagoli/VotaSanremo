@@ -116,6 +116,19 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       {:ok, _live, html} = live(conn, ~p"/vote")
       assert html =~ "Voting is now open!"
     end
+
+    test "If the voting is over, the user sees a message saying so", %{
+      conn: conn,
+      edition: edition
+    } do
+      evening_fixture(%{
+        edition_id: edition.id,
+        votes_end: DateTime.utc_now() |> DateTime.add(-10, :minute)
+      })
+
+      {:ok, _live, html} = live(conn, ~p"/vote")
+      assert html =~ "Voting for this evening is over."
+    end
   end
 
   describe "Performances container" do
