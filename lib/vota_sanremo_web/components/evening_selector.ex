@@ -5,19 +5,19 @@ defmodule VotaSanremoWeb.EveningSelector do
   attr :selected, :boolean, default: false
 
   defp evening_button(assigns) do
-    assigns =
-      assign(
-        assigns,
-        :button_class,
-        if assigns.selected do
-          "bg-zinc-700 text-white hover:bg-zinc-600 px-4 text-lg font-semibold border border-black rounded"
-        else
-          "bg-white hover:bg-zinc-100 px-4 text-lg font-semibold border border-black rounded"
-        end
-      )
-
     ~H"""
-    <button type="button" class={@button_class} phx-click="evening-selected" value={@evening.id}>
+    <button
+      type="button"
+      class={"px-4 py-1 text-lg first:rounded-tl-lg last:rounded-tr-lg flex-1 border hover:bg-zinc-200" <>
+            if assigns.selected do
+              " bg-zinc-100 text-zinc-700 font-semibold"
+            else
+              ""
+            end
+      }
+      phx-click="evening-selected"
+      value={@evening.id}
+    >
       {@evening.number}
     </button>
     """
@@ -29,12 +29,17 @@ defmodule VotaSanremoWeb.EveningSelector do
 
   def evening_selector(assigns) do
     ~H"""
-    <div class={["grid grid-rows-1 grid-flow-col gap-4", @class]}>
-      <.evening_button
-        :for={evening <- @evenings}
-        evening={evening}
-        selected={evening == @selected_evening}
-      />
+    <div class={["rounded-lg flex flex-col", @class]}>
+      <div class="flex flex-1">
+        <.evening_button
+          :for={evening <- @evenings}
+          evening={evening}
+          selected={evening == @selected_evening}
+        />
+      </div>
+      <span class="flex-1 py-1 rounded-b-lg text-center border-l border-r border-b">
+        My message to you
+      </span>
     </div>
     """
   end
