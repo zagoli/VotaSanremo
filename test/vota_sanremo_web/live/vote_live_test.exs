@@ -138,7 +138,24 @@ defmodule VotaSanremoWeb.VoteLiveTest do
 
       Process.sleep(1000)
 
-      assert render(live) =~ "Voting is now open!"
+      assert render(live) =~ "Voting for this evening is now open!"
+    end
+
+    test "When the votes are open, the view automatically updates on closing time", %{
+      conn: conn,
+      edition: edition
+    } do
+      evening_fixture(%{
+        edition_id: edition.id,
+        votes_start: DateTime.utc_now() |> DateTime.add(-10, :minute),
+        votes_end: DateTime.utc_now() |> DateTime.add(1, :second)
+      })
+
+      {:ok, live, _html} = live(conn, ~p"/vote")
+
+      Process.sleep(1000)
+
+      assert render(live) =~ "Voting for this evening is over."
     end
 
     test "When the votes are open, the user sees a message saying so", %{
@@ -152,10 +169,10 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       })
 
       {:ok, _live, html} = live(conn, ~p"/vote")
-      assert html =~ "Voting is now open!"
+      assert html =~ "Voting for this evening is now open!"
     end
 
-    test "When the voting is over, the user sees a message saying so", %{
+    test "When the voting for this evening is over, the user sees a message saying so", %{
       conn: conn,
       edition: edition
     } do
@@ -370,7 +387,7 @@ defmodule VotaSanremoWeb.VoteLiveTest do
   describe "Vote form" do
     setup [:create_edition, :register_and_log_in_user]
 
-    test "Navigating to add vote route shows modal when voting is permitted", %{
+    test "Navigating to add vote route shows modal when Voting for this evening is permitted", %{
       conn: conn,
       edition: edition
     } do
@@ -387,7 +404,7 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       assert live |> has_element?("#submit-vote-modal")
     end
 
-    test "Cannot add vote when voting is prohibited",
+    test "Cannot add vote when Voting for this evening is prohibited",
          %{conn: conn, edition: edition} do
       %{id: evening_id} =
         evening_fixture(%{

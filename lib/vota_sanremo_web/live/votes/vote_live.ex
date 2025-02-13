@@ -4,6 +4,7 @@ defmodule VotaSanremoWeb.VoteLive do
   import VotaSanremoWeb.{PerformancesContainer, VoteForm}
   alias VotaSanremo.Editions
   alias VotaSanremo.Performances
+  alias VotaSanremo.Evenings
 
   def mount(_params, _session, socket) do
     {:ok,
@@ -39,16 +40,17 @@ defmodule VotaSanremoWeb.VoteLive do
   defp assign_evening_with_performances(socket, evening) do
     socket
     |> assign(:selected_evening, evening)
+    |> assign_voting_status()
     |> assign_can_user_vote()
     |> assign_performances()
   end
 
-  defp assign_can_user_vote(%{assigns: %{selected_evening: evening}} = socket) do
-    can_user_vote =
-      DateTime.after?(DateTime.utc_now(), evening.votes_start) and
-        DateTime.before?(DateTime.utc_now(), evening.votes_end)
+  defp assign_voting_status(%{assigns: %{selected_evening: evening}} = socket) do
+    assign(socket, :voting_status, Evenings.get_voting_status(evening))
+  end
 
-    assign(socket, :can_user_vote, can_user_vote)
+  defp assign_can_user_vote(%{assigns: %{voting_status: voting_status}} = socket) do
+    assign(socket, :can_user_vote, voting_status == :open)
   end
 
   defp assign_performances(

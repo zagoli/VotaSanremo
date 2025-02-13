@@ -1,5 +1,11 @@
 <div>
-  <.evening_selector class="mt-4 " evenings={@evenings} selected_evening={@selected_evening} />
+  <.evening_selector
+    class="mt-4 "
+    evenings={@evenings}
+    selected_evening={@selected_evening}
+    voting_status={@voting_status}
+  />
+
   <h3 class="text-2xl mt-4">
     {@selected_evening.description}
   </h3>

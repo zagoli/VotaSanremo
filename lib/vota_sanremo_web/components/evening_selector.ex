@@ -1,5 +1,6 @@
 defmodule VotaSanremoWeb.EveningSelector do
   use Phoenix.Component
+  use Gettext, backend: VotaSanremoWeb.Gettext
 
   attr :evening, VotaSanremo.Evenings.Evening, required: true
   attr :selected, :boolean, default: false
@@ -25,6 +26,7 @@ defmodule VotaSanremoWeb.EveningSelector do
 
   attr :evenings, :list, default: []
   attr :selected_evening, VotaSanremo.Evenings.Evening, default: nil
+  attr :voting_status, :atom, required: true
   attr :class, :string, default: nil
 
   def evening_selector(assigns) do
@@ -38,7 +40,19 @@ defmodule VotaSanremoWeb.EveningSelector do
         />
       </div>
       <span class="flex-1 py-1 rounded-b-lg text-center border-l border-r border-b">
-        My message to you
+        {case @voting_status do
+          :before ->
+            [
+              dgettext("votes", "Voting for this evening will open in "),
+              ~H"<span id='countdown'></span>"
+            ]
+
+          :open ->
+            dgettext("votes", "Voting for this evening is now open!")
+
+          :after ->
+            dgettext("votes", "Voting for this evening is over.")
+        end}
       </span>
     </div>
     """
