@@ -1,23 +1,24 @@
 defmodule VotaSanremoWeb.EveningSelector do
   use Phoenix.Component
+  use Gettext, backend: VotaSanremoWeb.Gettext
 
   attr :evening, VotaSanremo.Evenings.Evening, required: true
   attr :selected, :boolean, default: false
 
   defp evening_button(assigns) do
-    assigns =
-      assign(
-        assigns,
-        :button_class,
-        if assigns.selected do
-          "bg-zinc-700 text-white hover:bg-zinc-600 px-4 text-lg font-semibold border border-black rounded"
-        else
-          "bg-white hover:bg-zinc-100 px-4 text-lg font-semibold border border-black rounded"
-        end
-      )
-
     ~H"""
-    <button type="button" class={@button_class} phx-click="evening-selected" value={@evening.id}>
+    <button
+      type="button"
+      class={"px-4 py-1 text-lg first:rounded-l-lg last:rounded-r-lg flex-1 border hover:bg-zinc-200" <>
+            if assigns.selected do
+              " bg-zinc-100 text-zinc-700 font-semibold"
+            else
+              ""
+            end
+      }
+      phx-click="evening-selected"
+      value={@evening.id}
+    >
       {@evening.number}
     </button>
     """
@@ -29,7 +30,7 @@ defmodule VotaSanremoWeb.EveningSelector do
 
   def evening_selector(assigns) do
     ~H"""
-    <div class={["grid grid-rows-1 grid-flow-col gap-4", @class]}>
+    <div class={["flex", @class]}>
       <.evening_button
         :for={evening <- @evenings}
         evening={evening}

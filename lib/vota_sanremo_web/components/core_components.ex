@@ -522,7 +522,11 @@ defmodule VotaSanremoWeb.CoreComponents do
   attr :class, :string, default: nil
 
   slot :inner_block, required: true
-  slot :subtitle
+
+  slot :subtitle do
+    attr :class, :string
+  end
+
   slot :actions
 
   def header(assigns) do
@@ -533,8 +537,11 @@ defmodule VotaSanremoWeb.CoreComponents do
           {render_slot(@inner_block)}
         </h1>
 
-        <p :if={@subtitle != []} class="mt-2 text-sm leading-6 text-zinc-600">
-          {render_slot(@subtitle)}
+        <p
+          :for={subtitle <- @subtitle}
+          class={["mt-2 text-sm leading-6 text-zinc-600", Map.get(subtitle, :class, "")]}
+        >
+          {render_slot(subtitle)}
         </p>
       </div>
 

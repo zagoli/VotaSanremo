@@ -1,8 +1,25 @@
 <div>
-  <.evening_selector class="mt-4 " evenings={@evenings} selected_evening={@selected_evening} />
-  <h3 class="text-2xl mt-4">
+  <.evening_selector class="mb-4" evenings={@evenings} selected_evening={@selected_evening} />
+
+  <.header class="text-center">
     {@selected_evening.description}
-  </h3>
+    <:subtitle class="!mt-0">
+      <%= case @voting_status do %>
+        <% :before -> %>
+          {dgettext("votes", "Voting for this evening will open in ")}
+          <span
+            id="countdown"
+            data-votes-start-datetime={DateTime.to_string(@selected_evening.votes_start)}
+            phx-hook="Countdown"
+          >
+          </span>
+        <% :open -> %>
+          {dgettext("votes", "Voting for this evening is now open!")}
+        <% :after -> %>
+          {dgettext("votes", "Voting for this evening is over.")}
+      <% end %>
+    </:subtitle>
+  </.header>
 
   <%= for {performance_type, performances} <- group_performances(@performances) do %>
     <.performances_container

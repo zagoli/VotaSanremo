@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 
-#: lib/vota_sanremo_web/components/core_components.ex:585
+#: lib/vota_sanremo_web/components/core_components.ex:592
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr ""

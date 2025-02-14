@@ -138,4 +138,26 @@ defmodule VotaSanremo.Evenings do
     |> select([e], max(e.date))
     |> Repo.one()
   end
+
+  @doc """
+  Determines the voting status for a given evening.
+
+  Returns one of three atoms:
+    * `:before` - if current time is before votes start time
+    * `:open` - if current time is between votes start and end time
+    * `:after` - if current time is after votes end time
+
+  ## Examples
+
+      iex> get_voting_status(%Evening{votes_start: ~U[2024-02-06 20:00:00Z], votes_end: ~U[2024-02-06 23:59:59Z]})
+      :before
+
+  """
+  def get_voting_status(%Evening{} = evening, %DateTime{} = current_time \\ DateTime.utc_now()) do
+    cond do
+      DateTime.before?(current_time, evening.votes_start) -> :before
+      DateTime.after?(current_time, evening.votes_end) -> :after
+      true -> :open
+    end
+  end
 end

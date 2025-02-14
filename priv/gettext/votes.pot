@@ -63,3 +63,18 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "You cannot vote now."
 msgstr ""
+
+#: lib/vota_sanremo_web/live/votes/vote_live.html.heex:17
+#, elixir-autogen, elixir-format
+msgid "Voting for this evening is now open!"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/votes/vote_live.html.heex:19
+#, elixir-autogen, elixir-format
+msgid "Voting for this evening is over."
+msgstr ""
+
+#: lib/vota_sanremo_web/live/votes/vote_live.html.heex:9
+#, elixir-autogen, elixir-format
+msgid "Voting for this evening will open in "
+msgstr ""
