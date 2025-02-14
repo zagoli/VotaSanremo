@@ -6,11 +6,14 @@ defmodule VotaSanremoWeb.VoteLive do
   alias VotaSanremo.Performances
   alias VotaSanremo.Evenings
 
+  @update_voting_msg :update_voting_status
+
   def mount(_params, _session, socket) do
     {:ok,
      socket
      |> assign_evenings()
-     |> assign_default_selected_evening()}
+     |> assign_default_selected_evening()
+     |> assign(:timer, nil)}
   end
 
   def handle_params(
@@ -42,6 +45,7 @@ defmodule VotaSanremoWeb.VoteLive do
     |> assign(:selected_evening, evening)
     |> assign_voting_status()
     |> assign_can_user_vote()
+    |> assign_timer()
     |> assign_performances()
   end
 
@@ -72,6 +76,41 @@ defmodule VotaSanremoWeb.VoteLive do
     assign_evening_with_performances(socket, default_evening)
   end
 
+  # ----------- SET TIMER -------------------------------------------------------------------------------------------
+
+  # If the timer is already set, cancel it and set a new one
+  defp assign_timer(%{assigns: %{timer: t}} = socket) when is_reference(t) do
+    Process.cancel_timer(t)
+
+    assign(socket, :timer, nil)
+    |> assign_timer()
+  end
+
+  # Set a timer to open the voting when it expires
+  defp assign_timer(%{assigns: %{voting_status: :before, selected_evening: evening}} = socket) do
+    time = DateTime.diff(evening.votes_start, DateTime.utc_now(), :millisecond)
+    set_timer(socket, time)
+  end
+
+  # Set a timer to close the voting when it expires
+  defp assign_timer(%{assigns: %{voting_status: :open, selected_evening: evening}} = socket) do
+    time = DateTime.diff(evening.votes_end, DateTime.utc_now(), :millisecond)
+    set_timer(socket, time)
+  end
+
+  # Do not set a timer if the voting is already closed
+  defp assign_timer(%{assigns: %{voting_status: :after}} = socket) do
+    socket
+  end
+
+  # Sends @update_voting_msg to the current process after a given time
+  defp set_timer(socket, time) do
+    timer = Process.send_after(self(), @update_voting_msg, time)
+    assign(socket, :timer, timer)
+  end
+
+  # ----------- HANDLE EVENING SELECTED ------------------------------------------------------------------------------
+
   def handle_event("evening-selected", %{"value" => evening_id}, socket) do
     evening =
       Enum.find(socket.assigns.evenings, List.first(socket.assigns.evenings), fn evening ->
@@ -82,6 +121,8 @@ defmodule VotaSanremoWeb.VoteLive do
      socket
      |> assign_evening_with_performances(evening)}
   end
+
+  # ----------- HANDLE VOTE FORM MESSAGES ----------------------------------------------------------------------------
 
   def handle_info({VotaSanremoWeb.VoteFormInternal, {:saved, performance_id, vote}}, socket) do
     {:noreply,
@@ -99,6 +140,17 @@ defmodule VotaSanremoWeb.VoteLive do
        performance_index = Enum.find_index(performances, &(&1.id == performance_id))
        List.update_at(performances, performance_index, &Map.put(&1, :votes, []))
      end)}
+  end
+
+  # ----------- HANDLE TIMER MESSAGES ---------------------------------------------------------------------------------
+
+  def handle_info(@update_voting_msg, socket) do
+    {:noreply,
+     socket
+     |> assign(:timer, nil)
+     |> assign_voting_status()
+     |> assign_can_user_vote()
+     |> assign_timer()}
   end
 
   defp group_performances(performances) do

@@ -9,7 +9,7 @@ defmodule VotaSanremoWeb.EveningSelector do
     ~H"""
     <button
       type="button"
-      class={"px-4 py-1 text-lg first:rounded-tl-lg last:rounded-tr-lg flex-1 border hover:bg-zinc-200" <>
+      class={"px-4 py-1 text-lg first:rounded-l-lg last:rounded-r-lg flex-1 border hover:bg-zinc-200" <>
             if assigns.selected do
               " bg-zinc-100 text-zinc-700 font-semibold"
             else
@@ -26,34 +26,16 @@ defmodule VotaSanremoWeb.EveningSelector do
 
   attr :evenings, :list, default: []
   attr :selected_evening, VotaSanremo.Evenings.Evening, default: nil
-  attr :voting_status, :atom, required: true
   attr :class, :string, default: nil
 
   def evening_selector(assigns) do
     ~H"""
-    <div class={["rounded-lg flex flex-col", @class]}>
-      <div class="flex flex-1">
-        <.evening_button
-          :for={evening <- @evenings}
-          evening={evening}
-          selected={evening == @selected_evening}
-        />
-      </div>
-      <span class="flex-1 py-1 rounded-b-lg text-center border-l border-r border-b">
-        {case @voting_status do
-          :before ->
-            [
-              dgettext("votes", "Voting for this evening will open in "),
-              ~H"<span id='countdown'></span>"
-            ]
-
-          :open ->
-            dgettext("votes", "Voting for this evening is now open!")
-
-          :after ->
-            dgettext("votes", "Voting for this evening is over.")
-        end}
-      </span>
+    <div class={["flex", @class]}>
+      <.evening_button
+        :for={evening <- @evenings}
+        evening={evening}
+        selected={evening == @selected_evening}
+      />
     </div>
     """
   end

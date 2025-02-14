@@ -102,6 +102,10 @@ defmodule VotaSanremoWeb.VoteLiveTest do
       {:ok, _live, html} = live(conn, ~p"/vote")
       assert html =~ "First evening"
     end
+  end
+
+  describe "Automatic voting opening and closing" do
+    setup [:create_edition, :register_and_log_in_user]
 
     test "When the votes are not open yet, the countdown attribute is populated with the votes start datetime",
          %{
@@ -115,7 +119,7 @@ defmodule VotaSanremoWeb.VoteLiveTest do
         })
 
       {:ok, _live, html} = live(conn, ~p"/vote")
-      assert html =~ "Voting will open in"
+      assert html =~ "Voting for this evening will open in"
 
       assert Floki.attribute(html, "#countdown", "data-votes-start-datetime") == [
                DateTime.to_string(evening.votes_start)
