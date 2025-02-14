@@ -10,6 +10,7 @@
           <span
             id="countdown"
             data-votes-start-datetime={DateTime.to_string(@selected_evening.votes_start)}
+            phx-hook="Countdown"
           >
           </span>
         <% :open -> %>
