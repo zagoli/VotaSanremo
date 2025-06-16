@@ -6,7 +6,6 @@ This website allows you to vote for each artist every evening during the
 
 It's a personal project, not affiliated with the Festival in any way. 
 I created it for my friends and to learn Elixir and Phoenix LiveView. 
-Unfortunately, my UI/UX skills are lacking, so it might not look very polished.
 
 # Run locally
 1. Install [Elixir](https://elixir-lang.org/install.html)
