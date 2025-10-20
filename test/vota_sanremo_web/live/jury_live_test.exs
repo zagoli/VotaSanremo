@@ -19,11 +19,11 @@ defmodule VotaSanremoWeb.JuryLiveTest do
   describe "Guest users" do
     setup [:create_jury_and_votes]
 
-    test "Can view the jury leaderboard", %{conn: conn, jury: jury, vote: vote} do
+    test "Can view the jury leaderboard", %{conn: conn, jury: jury} do
       {:ok, _live, html} = live(conn, ~p"/juries/#{jury.id}")
       assert html =~ "Leaderboard"
-      # Weighted score of one vote is mean * sum = score * sum = score * score = score^2
-      assert Floki.find(html, ".grid") |> Floki.text() =~ (vote.score ** 2) |> Float.to_string()
+      # 100 is the weighted vote
+      assert Floki.find(html, ".grid") |> Floki.text() =~ "100"
     end
 
     test "Weighted flag is checked by default", %{conn: conn, jury: jury} do

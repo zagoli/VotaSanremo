@@ -27,7 +27,7 @@ defmodule VotaSanremo.Performers.Performer.Queries do
     |> all()
   end
 
-  def list_performers_weighted_avg_score_by_edition(edition_id) do
+  def list_performers_sum_score_by_edition(edition_id) do
     base()
     |> join_performances()
     |> join_votes()
@@ -35,7 +35,7 @@ defmodule VotaSanremo.Performers.Performer.Queries do
     |> join_performance_types()
     |> filter_by_edition(edition_id)
     |> group_by_performer_and_performance_type()
-    |> select_weighted_avg_score()
+    |> select_sum_score()
     |> all()
   end
 
@@ -64,7 +64,7 @@ defmodule VotaSanremo.Performers.Performer.Queries do
     |> all()
   end
 
-  def list_performers_weighted_score_by_edition_by_jury(edition_id, jury) do
+  def list_performers_sum_score_by_edition_by_jury(edition_id, jury) do
     base()
     |> join_performances()
     |> join_votes_of_juries()
@@ -73,7 +73,7 @@ defmodule VotaSanremo.Performers.Performer.Queries do
     |> filter_by_edition(edition_id)
     |> filter_by_jury(jury)
     |> group_by_performer_and_performance_type()
-    |> select_weighted_avg_score()
+    |> select_sum_score()
     |> all()
   end
 
@@ -129,12 +129,12 @@ defmodule VotaSanremo.Performers.Performer.Queries do
     })
   end
 
-  defp select_weighted_avg_score(query) do
+  defp select_sum_score(query) do
     query
     |> select([performer, _, vote, ..., performance_type], %{
       performance_type: performance_type.type,
       name: performer.name,
-      score: avg(vote.score * vote.multiplier) * sum(vote.score)
+      score: sum(vote.score)
     })
   end
 end
