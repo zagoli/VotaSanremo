@@ -162,7 +162,10 @@ defmodule VotaSanremo.Performers do
   end
 
   defp get_max(scores) when is_list(scores) do
-    scores |> Enum.map(& &1.score) |> Enum.reject(&(&1 == nil)) |> Enum.max(nil)
+    scores
+    |> Enum.map(& &1.score)
+    |> Enum.reject(&(&1 == nil))
+    |> Enum.max(&Kernel.>=/2, fn -> nil end)
   end
 
   defp scale_score(%{score: nil}, _), do: nil
