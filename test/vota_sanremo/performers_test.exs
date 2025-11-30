@@ -114,8 +114,8 @@ defmodule VotaSanremo.PerformersTest do
                second_performance_type
              ]
 
-      assert first_avg_score.score == Enum.sum(scores) / Enum.count(scores) * Enum.sum(scores)
-      assert second_avg_score.score == Enum.sum(scores) / Enum.count(scores) * Enum.sum(scores)
+      assert first_avg_score.score == 100
+      assert second_avg_score.score == 100
     end
 
     test "list_performers_weighted_avg_score_by_edition/1 uses multiplier" do
@@ -123,7 +123,7 @@ defmodule VotaSanremo.PerformersTest do
       {edition_id, _, _, _} = TestSetupFixtures.setup_for_avg_score_tests(scores, 2.0)
       [avg_score | _] = Performers.list_performers_weighted_avg_score_by_edition(edition_id)
 
-      assert avg_score.score == Enum.sum(scores) * 2 / Enum.count(scores) * Enum.sum(scores)
+      assert avg_score.score == 100
     end
 
     test "list_performers_avg_score_by_edition_by_user/2 lists performers with correct avg score of given user" do
@@ -178,15 +178,14 @@ defmodule VotaSanremo.PerformersTest do
       member = user_fixture()
       Juries.add_member(jury, member)
 
-      {founder_vote, member_vote, edition_id, performer_name, performance_type} =
+      {_, _, edition_id, performer_name, performance_type} =
         TestSetupFixtures.setup_for_avg_score_by_jury_test(member, founder)
 
       [score | _] = Performers.list_performers_weighted_score_by_edition_by_jury(edition_id, jury)
 
       assert score.name == performer_name
       assert score.performance_type == performance_type
-      # The weighted average score is the average score multiplied by the sum of the scores.
-      assert score.score == (member_vote.score + founder_vote.score) ** 2 / 2
+      assert score.score == 100
     end
   end
 end

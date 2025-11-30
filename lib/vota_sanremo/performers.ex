@@ -116,39 +116,59 @@ defmodule VotaSanremo.Performers do
     do: Queries.list_performers_avg_score_by_edition(edition_id)
 
   @doc """
-  Returns the average weighted scores of performers as maps.
-  The average score is multiplied by the sum of the scores.
-  These maps contain the performer name, the performance type
-  and the weighted average score the performer got in the performance
-  type in the edition corresponding to edition_id.
+  Get the sum of all the scores of a performer, scaled from 0 to 100.
+  Returns a list of maps containing the performer name, the performance type
+  and the scaled score the performer got in the `performance_type` in the edition corresponding to `edition_id`.
 
   ## Examples
 
       iex> list_performers_weighted_avg_score_by_edition(1)
-      [%{name: "Performer_1", performance_type: "Song", score: 12.33},
-      %{name: "Performer_1", performance_type: "Song", score: 12.33}]
+      [%{name: "Performer_1", performance_type: "Song", score: 50},
+      %{name: "Performer_1", performance_type: "Song", score: 100}]
   """
-  def list_performers_weighted_avg_score_by_edition(edition_id) when is_integer(edition_id),
-    do: Queries.list_performers_weighted_avg_score_by_edition(edition_id)
+  def list_performers_weighted_avg_score_by_edition(edition_id) when is_integer(edition_id) do
+    sum_scores = Queries.list_performers_sum_score_by_edition(edition_id)
+    scale_scores(sum_scores)
+  end
 
   @doc """
-  Same as the version without `user` as the parameter, but with only the votes of the given `user`.
+  Same as the version without `user` as the parameter, but only with the votes of the given `user`.
   """
   def list_performers_avg_score_by_edition_by_user(edition_id, %User{} = user)
       when is_integer(edition_id),
       do: Queries.list_performers_avg_score_by_edition_by_user(edition_id, user)
 
   @doc """
-  Same as the version without `jury` as the parameter, but with only the votes of the users who are members of the given `jury`.
+  Same as the version without `jury` as the parameter, but only with the votes of the users who are members of the given `jury`.
   """
   def list_performers_avg_score_by_edition_by_jury(edition_id, %Jury{} = jury)
       when is_integer(edition_id),
       do: Queries.list_performers_avg_score_by_edition_by_jury(edition_id, jury)
 
   @doc """
-  Same as the version without `jury` as the parameter, but with only the votes of the users who are members of the given `jury`.
+  Same as the version without `jury` as the parameter, but only with the votes of the users who are members of the given `jury`.
   """
   def list_performers_weighted_score_by_edition_by_jury(edition_id, %Jury{} = jury)
-      when is_integer(edition_id),
-      do: Queries.list_performers_weighted_score_by_edition_by_jury(edition_id, jury)
+      when is_integer(edition_id) do
+    sum_scores = Queries.list_performers_sum_score_by_edition_by_jury(edition_id, jury)
+    scale_scores(sum_scores)
+  end
+
+  defp scale_scores([]), do: []
+
+  defp scale_scores(scores) when is_list(scores) do
+    max = get_max(scores)
+    scores |> Enum.map(&%{&1 | score: scale_score(&1, max)})
+  end
+
+  defp get_max(scores) when is_list(scores) do
+    scores
+    |> Enum.map(& &1.score)
+    |> Enum.reject(&(&1 == nil))
+    |> Enum.max(&Kernel.>=/2, fn -> nil end)
+  end
+
+  defp scale_score(%{score: nil}, _), do: nil
+  # Returns a float
+  defp scale_score(%{score: score}, max), do: score / max * 100
 end

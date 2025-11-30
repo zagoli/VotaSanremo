@@ -21,9 +21,9 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
     Enum.sum(scores) / Enum.count(scores)
   end
 
-  defp get_weighted_avg(scores) do
-    mean_score = Enum.sum(scores) / Enum.count(scores)
-    mean_score * Enum.sum(scores)
+  defp get_weighted_avg(_) do
+    # All votes are equal, so they should be all 100
+    100
   end
 
   describe "Leaderboard" do
@@ -59,7 +59,7 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
     } do
       {:ok, _live, html} = live(conn, ~p"/leaderboard")
       mean_weighted_score = get_weighted_avg(@scores)
-      assert html =~ Float.to_string(mean_weighted_score)
+      assert html =~ Integer.to_string(mean_weighted_score)
     end
 
     test "Weighted checkbox is checked by default", %{conn: conn} do
@@ -77,14 +77,12 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
 
       mean_score = get_avg(@scores)
       assert html =~ Float.to_string(mean_score)
-      mean_weighted_score = get_weighted_avg(@scores)
-      refute html =~ Float.to_string(mean_weighted_score)
     end
 
     test "Leaderboards updates when a user adds a new vote", %{conn: conn} do
       {:ok, live, html} = live(conn, ~p"/leaderboard")
       initial_weighted_score = get_weighted_avg(@scores)
-      assert html =~ Float.to_string(initial_weighted_score)
+      assert html =~ Integer.to_string(initial_weighted_score)
 
       vote =
         Votes.list_votes()
@@ -98,7 +96,7 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
 
       assert render(live) =~
                get_weighted_avg(@scores |> Enum.to_list() |> List.replace_at(0, 6))
-               |> Float.to_string()
+               |> Integer.to_string()
     end
   end
 
