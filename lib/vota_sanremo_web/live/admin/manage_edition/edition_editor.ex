@@ -92,7 +92,7 @@ defmodule VotaSanremoWeb.Admin.EditionEditorInternal do
   defp get_unique_evening_number(edition = %Edition{}) do
     latest_number =
       Enum.map(edition.evenings, & &1.number)
-      |> Enum.max()
+      |> Enum.max(&Kernel.>=/2, fn -> 0 end)
 
     latest_number + 1
   end
