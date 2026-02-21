@@ -20,21 +20,21 @@ defmodule VotaSanremoWeb.JuryLiveTest do
     setup [:create_jury_and_votes]
 
     test "Can view the jury leaderboard", %{conn: conn, jury: jury} do
-      {:ok, _live, html} = live(conn, ~p"/juries/#{jury.id}")
-      assert html =~ "Leaderboard"
+      {:ok, live, _html} = live(conn, ~p"/juries/#{jury.id}")
+      # The weighted score form and scores grid are visible
+      assert has_element?(live, "#weighted-score-flag-form")
       # 100 is the weighted vote
-      assert Floki.find(html, ".grid") |> Floki.text() =~ "100"
+      assert has_element?(live, ".grid", "100")
     end
 
     test "Weighted flag is checked by default", %{conn: conn, jury: jury} do
-      {:ok, _live, html} = live(conn, ~p"/juries/#{jury.id}")
-
-      assert Floki.attribute(html, "input[name=weighted-scores-flag]", "checked") == ["checked"]
+      {:ok, live, _html} = live(conn, ~p"/juries/#{jury.id}")
+      assert has_element?(live, "input[name='weighted-scores-flag'][checked]")
     end
 
     test "Do not see the exit jury option", %{conn: conn, jury: jury} do
-      {:ok, _live, html} = live(conn, ~p"/juries/#{jury.id}")
-      assert Floki.find(html, "#exit-jury") |> Enum.empty?()
+      {:ok, live, _html} = live(conn, ~p"/juries/#{jury.id}")
+      refute has_element?(live, "#exit-jury")
     end
 
     test "Can view the founder", %{conn: conn, founder: founder, jury: founded_jury} do

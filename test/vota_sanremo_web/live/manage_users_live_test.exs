@@ -22,15 +22,18 @@ defmodule VotaSanremoWeb.ManageUsersLiveTest do
     setup [:register_and_log_in_admin, :create_users]
 
     test "it is possible to view the number of registered users with role user", %{conn: conn} do
-      {:ok, _live, html} = live(conn, ~p"/admin/users")
+      {:ok, live, _html} = live(conn, ~p"/admin/users")
 
-      assert html =~ "Number of registered users"
-      assert Floki.find(html, "#users-number") |> Floki.text() =~ Integer.to_string(@users_number)
+      assert has_element?(live, "span", "Number of registered users")
+      assert has_element?(live, "#users-number", Integer.to_string(@users_number))
 
-      assert html =~ "Number of confirmed users"
+      assert has_element?(live, "span", "Number of confirmed users")
 
-      assert Floki.find(html, "#confirmed-users-number") |> Floki.text() =~
+      assert has_element?(
+               live,
+               "#confirmed-users-number",
                Integer.to_string(@confirmed_users_number)
+             )
     end
   end
 end

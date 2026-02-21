@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang={@locale |> String.replace("_", "-")}>
+<html lang={@locale |> String.replace("_", "-")} data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,96 +8,188 @@
       {assigns[:page_title] || "VotaSanremo"}
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
-    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/js/app.js"}>
     </script>
   </head>
 
-  <body class="bg-white antialiased">
-    <aside
-      class="z-10 absolute right-0 bg-zinc-700 sm:w-96 w-72 h-full hidden"
-      phx-click-away={hide_drawer("aside")}
-    >
-      <div class="w-full">
-        <div class="flex justify-between items-center p-4">
-          <button type="button" title="hide menu" phx-click={hide_drawer("aside")}>
-            <.icon class="text-white" name="hero-x-mark" />
-          </button>
+  <body class="bg-base-100 antialiased min-h-screen">
+    <!-- DaisyUI Drawer for mobile/side navigation -->
+    <div class="drawer">
+      <input id="nav-drawer" type="checkbox" class="drawer-toggle" />
 
-          <div class="flex items-center gap-1">
-            <.link href={~p"/?lang=en"} title="English language">
-              <Flagpack.usa class="w-5 h-4" />
-            </.link>
+      <div class="drawer-content flex flex-col">
+        <!-- Navbar -->
+        <div class="navbar bg-base-100 border-b border-base-200 sticky top-0 z-30">
+          <div class="flex-none">
+            <label for="nav-drawer" class="btn btn-ghost btn-circle" aria-label={gettext("Open menu")}>
+              <.icon name="hero-bars-3" class="size-6" />
+            </label>
+          </div>
 
-            <.link href={~p"/?lang=it"} title="Italian language">
-              <Flagpack.ita class="w-5 h-4" />
+          <div class="flex-1">
+            <.link navigate="/" class="btn btn-ghost text-xl font-bold">
+              VotaSanremo
             </.link>
+          </div>
+
+          <!-- Desktop quick links -->
+          <div class="flex-none hidden md:flex items-center gap-1">
+            <.link :if={@current_user} navigate={~p"/vote"} class="btn btn-ghost btn-sm">
+              {gettext("Vote")}
+            </.link>
+            <.link navigate={~p"/leaderboard"} class="btn btn-ghost btn-sm">
+              {gettext("Leaderboard")}
+            </.link>
+            <.link navigate={~p"/juries"} class="btn btn-ghost btn-sm">
+              {gettext("Juries")}
+            </.link>
+          </div>
+
+          <!-- Language switcher & theme toggle -->
+          <div class="flex-none flex items-center gap-1 ml-2">
+            <div class="flex items-center gap-1">
+              <.link href={~p"/?lang=en"} title="English" class="btn btn-ghost btn-xs px-1">
+                <Flagpack.usa class="w-5 h-4" />
+              </.link>
+              <.link href={~p"/?lang=it"} title="Italiano" class="btn btn-ghost btn-xs px-1">
+                <Flagpack.ita class="w-5 h-4" />
+              </.link>
+            </div>
+
+            <!-- Theme toggle (light/dark) -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle" title={gettext("Toggle theme")}>
+              <input
+                type="checkbox"
+                class="theme-controller"
+                value="dark"
+                aria-label={gettext("Toggle dark mode")}
+              />
+              <!-- sun icon (shown in light mode) -->
+              <.icon name="hero-sun" class="swap-off size-5" />
+              <!-- moon icon (shown in dark mode) -->
+              <.icon name="hero-moon" class="swap-on size-5" />
+            </label>
           </div>
         </div>
 
-        <nav class="flex flex-col">
-          <.sidenav_link :if={@current_user} path={~p"/vote"}>{gettext("Vote")}</.sidenav_link>
+        <!-- Page content -->
+        {@inner_content}
+      </div>
 
-          <.sidenav_link path={~p"/leaderboard"}>{gettext("Leaderboard")}</.sidenav_link>
+      <!-- Drawer sidebar -->
+      <div class="drawer-side z-40">
+        <label for="nav-drawer" aria-label={gettext("Close menu")} class="drawer-overlay"></label>
 
-          <.sidenav_link path={~p"/juries"}>{gettext("Juries")}</.sidenav_link>
+        <aside class="bg-base-200 min-h-full w-72 flex flex-col">
+          <div class="p-4 flex items-center justify-between border-b border-base-300">
+            <span class="font-bold text-lg">VotaSanremo</span>
+            <label for="nav-drawer" class="btn btn-ghost btn-circle btn-sm">
+              <.icon name="hero-x-mark" class="size-5" />
+            </label>
+          </div>
 
-          <%= if @current_user do %>
-            <.sidenav_link path={~p"/search/users"}>{gettext("Search users")}</.sidenav_link>
+          <ul class="menu flex-1 p-4 gap-1">
+            <li :if={@current_user}>
+              <.link href={~p"/vote"}>
+                <.icon name="hero-star" class="size-4" />
+                {gettext("Vote")}
+              </.link>
+            </li>
 
-            <.sidenav_link path={~p"/juries/my_invites"}>{gettext("My invites")}</.sidenav_link>
+            <li>
+              <.link href={~p"/leaderboard"}>
+                <.icon name="hero-chart-bar" class="size-4" />
+                {gettext("Leaderboard")}
+              </.link>
+            </li>
 
-            <.sidenav_link path={~p"/users/settings"}>{gettext("Settings")}</.sidenav_link>
+            <li>
+              <.link href={~p"/juries"}>
+                <.icon name="hero-user-group" class="size-4" />
+                {gettext("Juries")}
+              </.link>
+            </li>
 
-            <.sidenav_link path={~p"/users/log_out"} method="delete">
-              {gettext("Log out")}
-            </.sidenav_link>
+            <%= if @current_user do %>
+              <li>
+                <.link href={~p"/search/users"}>
+                  <.icon name="hero-magnifying-glass" class="size-4" />
+                  {gettext("Search users")}
+                </.link>
+              </li>
 
-            <%= if @current_user.user_type === :admin do %>
-              <h2 class="text-lg font-bold text-white pl-10 mt-10 mb-5">
-                {gettext("Admin section")}
-              </h2>
+              <li>
+                <.link href={~p"/juries/my_invites"}>
+                  <.icon name="hero-envelope" class="size-4" />
+                  {gettext("My invites")}
+                </.link>
+              </li>
 
-              <.sidenav_link path={~p"/admin/users"}>
-                {gettext("Manage users")}
-              </.sidenav_link>
+              <li>
+                <.link href={~p"/users/settings"}>
+                  <.icon name="hero-cog-6-tooth" class="size-4" />
+                  {gettext("Settings")}
+                </.link>
+              </li>
 
-              <.sidenav_link path={~p"/admin/editions"}>
-                {gettext("Manage editions")}
-              </.sidenav_link>
+              <li>
+                <.link href={~p"/users/log_out"} method="delete">
+                  <.icon name="hero-arrow-right-on-rectangle" class="size-4" />
+                  {gettext("Log out")}
+                </.link>
+              </li>
 
-              <.sidenav_link path={~p"/admin/performers"}>
-                {gettext("Manage performers")}
-              </.sidenav_link>
+              <%= if @current_user.user_type === :admin do %>
+                <div class="divider my-2 text-xs font-semibold opacity-60">
+                  {gettext("Admin")}
+                </div>
 
-              <.sidenav_link path={~p"/admin/performance_types"}>
-                {gettext("Manage performance types")}
-              </.sidenav_link>
+                <li>
+                  <.link href={~p"/admin/users"}>
+                    <.icon name="hero-users" class="size-4" />
+                    {gettext("Manage users")}
+                  </.link>
+                </li>
+
+                <li>
+                  <.link href={~p"/admin/editions"}>
+                    <.icon name="hero-calendar-days" class="size-4" />
+                    {gettext("Manage editions")}
+                  </.link>
+                </li>
+
+                <li>
+                  <.link href={~p"/admin/performers"}>
+                    <.icon name="hero-musical-note" class="size-4" />
+                    {gettext("Manage performers")}
+                  </.link>
+                </li>
+
+                <li>
+                  <.link href={~p"/admin/performance_types"}>
+                    <.icon name="hero-tag" class="size-4" />
+                    {gettext("Manage performance types")}
+                  </.link>
+                </li>
+              <% end %>
+            <% else %>
+              <li>
+                <.link href={~p"/users/register"}>
+                  <.icon name="hero-user-plus" class="size-4" />
+                  {gettext("Register")}
+                </.link>
+              </li>
+
+              <li>
+                <.link href={~p"/users/log_in"}>
+                  <.icon name="hero-arrow-left-on-rectangle" class="size-4" />
+                  {gettext("Log in")}
+                </.link>
+              </li>
             <% end %>
-          <% else %>
-            <.sidenav_link path={~p"/users/register"}>{gettext("Register")}</.sidenav_link>
-
-            <.sidenav_link path={~p"/users/log_in"}>{gettext("Log in")}</.sidenav_link>
-          <% end %>
-        </nav>
+          </ul>
+        </aside>
       </div>
-    </aside>
-
-    <header class="px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between border-b border-zinc-100 py-3 text-sm">
-        <!-- Items left -->
-        <div class="flex items-center gap-4">
-          <.link navigate="/" class="font-bold text-xl">
-            VotaSanremo
-          </.link>
-        </div>
-        <!-- Items right -->
-        <div class="flex items-center">
-          <button type="button" title="show menu" phx-click={show_drawer("aside", "flex")}>
-            <.icon name="hero-bars-3" />
-          </button>
-        </div>
-      </div>
-    </header>
-    {@inner_content}
+    </div>
   </body>
 </html>

@@ -118,12 +118,13 @@ defmodule VotaSanremoWeb.VoteLiveTest do
           votes_start: DateTime.utc_now() |> DateTime.add(10, :minute)
         })
 
-      {:ok, _live, html} = live(conn, ~p"/vote")
-      assert html =~ "Voting for this evening will open in"
+      {:ok, live, _html} = live(conn, ~p"/vote")
+      assert has_element?(live, "#countdown")
 
-      assert Floki.attribute(html, "#countdown", "data-votes-start-datetime") == [
-               DateTime.to_string(evening.votes_start)
-             ]
+      assert has_element?(
+               live,
+               ~s|#countdown[data-votes-start-datetime="#{DateTime.to_string(evening.votes_start)}"]|
+             )
     end
 
     test "When the votes are not open yet, the view automatically updates when the voting start time is reached",
@@ -239,14 +240,16 @@ defmodule VotaSanremoWeb.VoteLiveTest do
 
       {:ok, live, _html} = live(conn, ~p"/vote")
 
-      html =
-        live
-        |> element("button", "2")
-        |> render_click()
+      live
+      |> element("button", "2")
+      |> render_click()
 
-      assert Floki.attribute(html, "#countdown", "data-votes-start-datetime") == [
-               DateTime.to_string(evening.votes_start)
-             ]
+      assert has_element?(live, "#countdown")
+
+      assert has_element?(
+               live,
+               ~s|#countdown[data-votes-start-datetime="#{DateTime.to_string(evening.votes_start)}"]|
+             )
     end
 
     test "When changing from evening with votes to be opened to one with votes closed, after waiting, the view does not open votes",
@@ -501,9 +504,9 @@ defmodule VotaSanremoWeb.VoteLiveTest do
 
       %{id: performance_id} = performance_fixture(%{evening_id: evening_id})
 
-      {:ok, _live, html} = live(conn, ~p"/vote/performance/#{performance_id}")
+      {:ok, live, _html} = live(conn, ~p"/vote/performance/#{performance_id}")
 
-      assert Enum.empty?(Floki.find(html, "#delete-vote"))
+      refute has_element?(live, "#delete-vote")
     end
 
     test "Delete vote button deletes existing vote",

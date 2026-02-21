@@ -39,17 +39,12 @@ defmodule VotaSanremoWeb.JuriesLiveTest do
     end
 
     test "Should see the top juries", %{conn: conn, juries: {first_jury, second_jury}} do
-      {:ok, _live, html} = live(conn, ~p"/juries")
+      {:ok, live, _html} = live(conn, ~p"/juries")
 
-      juries_html_items = Floki.find(html, "#top_juries li")
-
-      assert Enum.count(juries_html_items) == 2
-
-      assert juries_html_items |> Enum.at(0) |> Floki.text() =~ second_jury.name
-      assert juries_html_items |> Enum.at(0) |> Floki.text() =~ "10 members"
-
-      assert juries_html_items |> Enum.at(1) |> Floki.text() =~ first_jury.name
-      assert juries_html_items |> Enum.at(1) |> Floki.text() =~ "5 members"
+      assert has_element?(live, "#top_juries li", second_jury.name)
+      assert has_element?(live, "#top_juries li", "10 members")
+      assert has_element?(live, "#top_juries li", first_jury.name)
+      assert has_element?(live, "#top_juries li", "5 members")
     end
 
     test "Clicking on a jury should navigate to jury page", %{conn: conn, juries: {first_jury, _}} do

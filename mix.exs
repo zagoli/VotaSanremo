@@ -32,17 +32,17 @@ defmodule VotaSanremo.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.7"},
+      {:phoenix, "~> 1.8"},
       {:phoenix_ecto, "~> 4.5"},
       {:ecto_sql, "~> 3.12"},
       {:postgrex, "~> 0.19"},
       {:phoenix_html, "~> 4.2"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 1.0.1"},
-      {:floki, "~> 0.37", only: :test},
+      {:phoenix_live_view, "~> 1.1"},
+      {:lazy_html, ">= 0.1.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.8.5"},
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
-      {:tailwind, "~> 0.2.4", runtime: Mix.env() == :dev},
+      {:tailwind, "~> 0.4", runtime: Mix.env() == :dev},
       {:heroicons,
        github: "tailwindlabs/heroicons",
        tag: "v2.1.1",
@@ -75,9 +75,18 @@ defmodule VotaSanremo.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["tailwind vota_sanremo", "esbuild vota_sanremo"],
+      "assets.setup": [
+        "cmd --cd assets npm install",
+        "tailwind.install --if-missing",
+        "esbuild.install --if-missing"
+      ],
+      "assets.build": [
+        "cmd --cd assets npm install",
+        "tailwind vota_sanremo",
+        "esbuild vota_sanremo"
+      ],
       "assets.deploy": [
+        "cmd --cd assets npm install",
         "tailwind vota_sanremo --minify",
         "esbuild vota_sanremo --minify",
         "phx.digest"

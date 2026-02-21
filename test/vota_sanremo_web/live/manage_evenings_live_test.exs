@@ -64,16 +64,13 @@ defmodule VotaSanremoWeb.ManageEveningsLiveTest do
 
     test "The page renders the performanes of the evening", %{conn: conn, evening: evening} do
       performance = performance_fixture(%{evening_id: evening.id})
-      {:ok, _live, html} = live(conn, ~p"/admin/evening/#{evening.id}")
+      {:ok, live, _html} = live(conn, ~p"/admin/evening/#{evening.id}")
 
       performance_type = Performances.get_performance_type!(performance.performance_type_id)
       performer = Performers.get_performer!(performance.performer_id)
 
-      performance_html =
-        Floki.find(html, "#performance-#{performance.id}") |> List.first() |> Floki.text()
-
-      assert performance_html =~ performance_type.type
-      assert performance_html =~ performer.name
+      assert has_element?(live, "#performance-#{performance.id}", performance_type.type)
+      assert has_element?(live, "#performance-#{performance.id}", performer.name)
     end
 
     test "It is possible to add a performance", %{conn: conn, evening: evening} do
@@ -88,26 +85,22 @@ defmodule VotaSanremoWeb.ManageEveningsLiveTest do
       {:ok, live, _html} = live(conn, ~p"/admin/evening/#{evening.id}")
 
       form = form(live, "#add-performance", performance: attrs)
-      html = render_submit(form)
+      render_submit(form)
 
-      performance_html = Floki.find(html, "#performances div") |> List.first() |> Floki.text()
-      assert performance_html =~ performer.name
-      assert performance_html =~ performance_type.type
+      assert has_element?(live, "#performances", performer.name)
+      assert has_element?(live, "#performances", performance_type.type)
     end
 
     test "It is possible to delete a performance", %{conn: conn, evening: evening} do
       performance = performance_fixture(%{evening_id: evening.id})
       {:ok, live, _html} = live(conn, ~p"/admin/evening/#{evening.id}")
 
-      html =
-        live
-        |> element("#performance-#{performance.id} button[title='delete performance']")
-        |> render_click()
+      live
+      |> element("#performance-#{performance.id} button[title='delete performance']")
+      |> render_click()
 
-      performance_html = Floki.find(html, "#performance-#{performance.id}") |> List.first()
-
-      assert html =~ "Performance deleted successfully."
-      assert performance_html == nil
+      assert has_element?(live, "[role='alert']", "Performance deleted successfully.")
+      refute has_element?(live, "#performance-#{performance.id}")
     end
   end
 end

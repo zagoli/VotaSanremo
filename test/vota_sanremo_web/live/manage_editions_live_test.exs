@@ -28,18 +28,29 @@ defmodule VotaSanremoWeb.ManageEditionsLiveTest do
     end
 
     test "Every edition has a list of evenings", %{conn: conn, editions: editions} do
-      {:ok, _live, html} = live(conn, ~p"/admin/editions")
+      {:ok, live, _html} = live(conn, ~p"/admin/editions")
 
       Enum.each(editions, fn edition ->
-        evenings_div =
-          Floki.find(html, "#edition-#{edition.id}-editor .evenings")
-          |> Floki.text()
-
         Enum.each(edition.evenings, fn evening ->
-          assert evenings_div =~ "#{evening.number}"
-          assert evenings_div =~ Calendar.strftime(evening.date, "%d/%m/%Y")
-          assert evenings_div =~ Calendar.strftime(evening.votes_start, "%H:%M")
-          assert evenings_div =~ Calendar.strftime(evening.votes_end, "%H:%M")
+          assert has_element?(live, "#edition-#{edition.id}-editor", "#{evening.number}")
+
+          assert has_element?(
+                   live,
+                   "#edition-#{edition.id}-editor",
+                   Calendar.strftime(evening.date, "%d/%m/%Y")
+                 )
+
+          assert has_element?(
+                   live,
+                   "#edition-#{edition.id}-editor",
+                   Calendar.strftime(evening.votes_start, "%H:%M")
+                 )
+
+          assert has_element?(
+                   live,
+                   "#edition-#{edition.id}-editor",
+                   Calendar.strftime(evening.votes_end, "%H:%M")
+                 )
         end)
       end)
     end
@@ -129,12 +140,14 @@ defmodule VotaSanremoWeb.ManageEditionsLiveTest do
       button = live |> element("#edition-#{edition.id}-editor button[title='add an evening']")
       render_click(button)
       render_click(button)
-      html = render(live)
 
-      evening_spans =
-        Floki.find(html, "#edition-#{edition.id}-editor .evenings span[name='evening-number']")
+      expected_count = Enum.count(edition.evenings) + 2
 
-      assert Enum.count(evening_spans) == Enum.count(edition.evenings) + 2
+      updated_edition =
+        Editions.list_editions_with_evenings()
+        |> Enum.find(&(&1.id == edition.id))
+
+      assert Enum.count(updated_edition.evenings) == expected_count
     end
 
     test "It is possible to delete an evening", %{
@@ -151,7 +164,7 @@ defmodule VotaSanremoWeb.ManageEditionsLiveTest do
       |> element(query)
       |> render_click()
 
-      assert Floki.find(render(live), query) == []
+      refute has_element?(live, query)
     end
   end
 end

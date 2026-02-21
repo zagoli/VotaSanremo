@@ -45,11 +45,10 @@ defmodule VotaSanremoWeb.JuryMembersLiveTest do
     end
 
     test "It is possible to view jury members", %{conn: conn, other_jury: jury, members: members} do
-      {:ok, _live, html} = live(conn, ~p"/juries/#{jury.id}/members")
-      members_html = Floki.find(html, "#members") |> Floki.text()
+      {:ok, live, _html} = live(conn, ~p"/juries/#{jury.id}/members")
 
       Enum.each(members, fn member ->
-        assert members_html =~ member.username
+        assert has_element?(live, "#members", member.username)
       end)
     end
 
@@ -140,11 +139,9 @@ defmodule VotaSanremoWeb.JuryMembersLiveTest do
       jury: jury,
       other_user: other_user
     } do
-      {:ok, _live, html} = live(conn, ~p"/juries/#{jury.id}/members")
-
-      assert html =~ "Pending sent invites"
-      invites_div = Floki.find(html, "#pending-invites") |> List.first() |> Floki.text()
-      assert invites_div =~ other_user.username
+      {:ok, live, _html} = live(conn, ~p"/juries/#{jury.id}/members")
+      assert has_element?(live, "h3", "Pending sent invites")
+      assert has_element?(live, "#pending-invites", other_user.username)
     end
 
     test "When not a founder, the pending invites section is not present", %{
@@ -177,9 +174,7 @@ defmodule VotaSanremoWeb.JuryMembersLiveTest do
 
       assert html =~ "Member removed!"
 
-      refute html
-             |> Floki.find("#members")
-             |> Floki.text() =~ member.username
+      refute has_element?(live, "#members", member.username)
     end
 
     test "It is not possible to remove a member from a jury when not founder", %{
@@ -189,9 +184,9 @@ defmodule VotaSanremoWeb.JuryMembersLiveTest do
       member = user_fixture()
       Juries.add_member(jury, member)
 
-      {:ok, _live, html} = live(conn, ~p"/juries/#{jury.id}/members")
+      {:ok, live, _html} = live(conn, ~p"/juries/#{jury.id}/members")
 
-      assert Enum.empty?(Floki.find(html, "#members li button[title='Remove member']"))
+      refute has_element?(live, "#members li button[title='Remove member']")
     end
   end
 end
