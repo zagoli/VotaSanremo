@@ -3,6 +3,7 @@ defmodule VotaSanremoWeb.UserResetPasswordLive do
 
   alias VotaSanremo.Accounts
 
+  @impl true
   def render(assigns) do
     ~H"""
     <div class="mx-auto max-w-sm">
@@ -44,6 +45,7 @@ defmodule VotaSanremoWeb.UserResetPasswordLive do
     """
   end
 
+  @impl true
   def mount(params, _session, socket) do
     socket = assign_user_and_token(socket, params)
 

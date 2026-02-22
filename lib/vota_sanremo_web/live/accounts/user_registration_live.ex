@@ -4,6 +4,7 @@ defmodule VotaSanremoWeb.UserRegistrationLive do
   alias VotaSanremo.Accounts
   alias VotaSanremo.Accounts.User
 
+  @impl true
   def render(assigns) do
     ~H"""
     <div class="mx-auto max-w-sm">

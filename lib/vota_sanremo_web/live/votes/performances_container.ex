@@ -53,6 +53,7 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainerInternal do
      |> assign(assigns)}
   end
 
+  @impl true
   def render(assigns) do
     ~H"""
     <section class={@class}>

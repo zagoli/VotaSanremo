@@ -1,6 +1,7 @@
 defmodule VotaSanremoWeb.UserLoginLive do
   use VotaSanremoWeb, :live_view
 
+  @impl true
   def render(assigns) do
     ~H"""
     <div class="mx-auto max-w-sm">

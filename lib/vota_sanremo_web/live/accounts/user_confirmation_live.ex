@@ -3,6 +3,7 @@ defmodule VotaSanremoWeb.UserConfirmationLive do
 
   alias VotaSanremo.Accounts
 
+  @impl true
   def render(%{live_action: :edit} = assigns) do
     ~H"""
     <div class="mx-auto max-w-sm">
