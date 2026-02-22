@@ -24,6 +24,7 @@ defmodule VotaSanremoWeb.Admin.EditionEditorInternal do
   alias VotaSanremo.Evenings
   use VotaSanremoWeb, :live_component
 
+  @impl true
   def update(assigns, socket) do
     {:ok,
      socket
@@ -41,10 +42,12 @@ defmodule VotaSanremoWeb.Admin.EditionEditorInternal do
     assign(socket, :editing, editing)
   end
 
+  @impl true
   def handle_event("editing", _params, socket) do
     {:noreply, assign_editing(socket, true)}
   end
 
+  @impl true
   def handle_event("update_edition", %{"edition" => params}, socket) do
     {:ok, _edition} = Editions.update_edition(socket.assigns.edition, params)
     notify_parent(:edition_updated)
@@ -54,6 +57,7 @@ defmodule VotaSanremoWeb.Admin.EditionEditorInternal do
      |> assign_editing(false)}
   end
 
+  @impl true
   def handle_event("delete_edition", _params, socket) do
     {:ok, _edition} = Editions.delete_edition(socket.assigns.edition)
     notify_parent(:edition_updated)
@@ -61,6 +65,7 @@ defmodule VotaSanremoWeb.Admin.EditionEditorInternal do
     {:noreply, socket}
   end
 
+  @impl true
   def handle_event("add_evening", _params, socket) do
     new_edition_attrs = %{
       edition_id: socket.assigns.edition.id,
@@ -76,6 +81,7 @@ defmodule VotaSanremoWeb.Admin.EditionEditorInternal do
     {:noreply, socket}
   end
 
+  @impl true
   def handle_event(
         "delete_evening",
         %{"value" => evening_id},

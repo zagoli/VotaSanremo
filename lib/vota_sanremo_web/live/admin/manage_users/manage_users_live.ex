@@ -3,6 +3,7 @@ defmodule VotaSanremoWeb.Admin.ManageUsersLive do
   import VotaSanremoWeb.InfoDataBadge
   alias VotaSanremo.Accounts
 
+  @impl true
   def mount(_, _, socket) do
     {:ok,
      socket

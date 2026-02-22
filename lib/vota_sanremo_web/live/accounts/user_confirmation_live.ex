@@ -25,6 +25,7 @@ defmodule VotaSanremoWeb.UserConfirmationLive do
     """
   end
 
+  @impl true
   def mount(%{"token" => token}, _session, socket) do
     form = to_form(%{"token" => token}, as: "user")
     {:ok, assign(socket, form: form), temporary_assigns: [form: nil]}
@@ -32,6 +33,7 @@ defmodule VotaSanremoWeb.UserConfirmationLive do
 
   # Do not log in the user after confirmation to avoid a
   # leaked token giving the user access to the account.
+  @impl true
   def handle_event("confirm_account", %{"user" => %{"token" => token}}, socket) do
     case Accounts.confirm_user(token) do
       {:ok, _} ->

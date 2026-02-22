@@ -30,10 +30,12 @@ defmodule VotaSanremoWeb.UserConfirmationInstructionsLive do
     """
   end
 
+  @impl true
   def mount(_params, _session, socket) do
     {:ok, assign(socket, form: to_form(%{}, as: "user"))}
   end
 
+  @impl true
   def handle_event("send_instructions", %{"user" => %{"email" => email}}, socket) do
     if user = Accounts.get_user_by_email(email) do
       Accounts.deliver_user_confirmation_instructions(

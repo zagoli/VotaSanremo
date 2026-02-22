@@ -3,6 +3,7 @@ defmodule VotaSanremoWeb.UserSettingsLive do
 
   alias VotaSanremo.Accounts
 
+  @impl true
   def mount(%{"token" => token}, _session, socket) do
     socket =
       case Accounts.update_user_email(socket.assigns.current_user, token) do
@@ -20,6 +21,7 @@ defmodule VotaSanremoWeb.UserSettingsLive do
     {:ok, push_navigate(socket, to: ~p"/users/settings")}
   end
 
+  @impl true
   def mount(_params, _session, socket) do
     user = socket.assigns.current_user
     email_changeset = Accounts.change_user_email(user)
@@ -39,10 +41,12 @@ defmodule VotaSanremoWeb.UserSettingsLive do
     {:ok, socket}
   end
 
+  @impl true
   def handle_params(_unsigned_params, _uri, socket) do
     {:noreply, socket}
   end
 
+  @impl true
   def handle_event("validate_email", params, socket) do
     %{"current_password" => password, "user" => user_params} = params
 
@@ -55,6 +59,7 @@ defmodule VotaSanremoWeb.UserSettingsLive do
     {:noreply, assign(socket, email_form: email_form, email_form_current_password: password)}
   end
 
+  @impl true
   def handle_event("update_email", params, socket) do
     %{"current_password" => password, "user" => user_params} = params
     user = socket.assigns.current_user
@@ -80,6 +85,7 @@ defmodule VotaSanremoWeb.UserSettingsLive do
     end
   end
 
+  @impl true
   def handle_event("validate_password", params, socket) do
     %{"current_password" => password, "user" => user_params} = params
 
@@ -92,6 +98,7 @@ defmodule VotaSanremoWeb.UserSettingsLive do
     {:noreply, assign(socket, password_form: password_form, current_password: password)}
   end
 
+  @impl true
   def handle_event("update_password", params, socket) do
     %{"current_password" => password, "user" => user_params} = params
     user = socket.assigns.current_user
@@ -110,6 +117,7 @@ defmodule VotaSanremoWeb.UserSettingsLive do
     end
   end
 
+  @impl true
   def handle_event(
         "update_votes_privacy",
         %{"user" => user_params},
@@ -129,6 +137,7 @@ defmodule VotaSanremoWeb.UserSettingsLive do
     end
   end
 
+  @impl true
   def handle_event("delete_account", _params, socket) do
     {:noreply, socket}
   end

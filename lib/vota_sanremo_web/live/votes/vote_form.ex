@@ -36,6 +36,7 @@ defmodule VotaSanremoWeb.VoteFormInternal do
 
   @votes_topic "votes"
 
+  @impl true
   def update(assigns, socket) do
     changeset =
       assigns.performance
@@ -64,6 +65,7 @@ defmodule VotaSanremoWeb.VoteFormInternal do
     assign(socket, :scores, scores)
   end
 
+  @impl true
   def handle_event("delete-vote", _params, %{assigns: %{evening: evening}} = socket) do
     can_user_vote =
       DateTime.after?(DateTime.utc_now(), evening.votes_start) and
@@ -72,6 +74,7 @@ defmodule VotaSanremoWeb.VoteFormInternal do
     maybe_delete_vote(socket, can_user_vote)
   end
 
+  @impl true
   def handle_event(
         "score-selected",
         %{"score" => score},

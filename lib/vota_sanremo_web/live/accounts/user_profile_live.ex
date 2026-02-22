@@ -5,6 +5,7 @@ defmodule VotaSanremoWeb.UserProfileLive do
   alias VotaSanremo.Editions
   alias VotaSanremo.Performers
 
+  @impl true
   def mount(%{"user_id" => user_id}, _session, socket) do
     {:ok,
      socket

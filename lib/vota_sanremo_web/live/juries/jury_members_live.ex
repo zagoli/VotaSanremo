@@ -4,6 +4,7 @@ defmodule VotaSanremoWeb.JuryMembersLive do
   alias VotaSanremo.Juries
   alias VotaSanremo.Accounts
 
+  @impl true
   def mount(%{"jury_id" => jury_id}, _session, socket) do
     {:ok,
      socket
@@ -32,6 +33,7 @@ defmodule VotaSanremoWeb.JuryMembersLive do
     assign(socket, :pending_invites, Juries.list_jury_pending_invites(jury))
   end
 
+  @impl true
   def handle_params(
         %{"jury_id" => jury_id, "user_id" => user_id},
         _uri,
@@ -43,6 +45,7 @@ defmodule VotaSanremoWeb.JuryMembersLive do
      |> push_navigate(to: ~p"/juries/#{jury_id}/members")}
   end
 
+  @impl true
   def handle_params(_params, _uri, socket) do
     {:noreply, socket}
   end
@@ -78,6 +81,7 @@ defmodule VotaSanremoWeb.JuryMembersLive do
     end
   end
 
+  @impl true
   def handle_event("remove-member", %{"value" => member_id}, %{assigns: %{jury: jury}} = socket) do
     member = jury.members |> Enum.find(&(&1.id === String.to_integer(member_id)))
 

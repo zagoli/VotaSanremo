@@ -61,6 +61,7 @@ defmodule VotaSanremoWeb.UserResetPasswordLive do
 
   # Do not log in the user after reset password to avoid a
   # leaked token giving the user access to the account.
+  @impl true
   def handle_event("reset_password", %{"user" => user_params}, socket) do
     case Accounts.reset_user_password(socket.assigns.user, user_params) do
       {:ok, _} ->
@@ -74,6 +75,7 @@ defmodule VotaSanremoWeb.UserResetPasswordLive do
     end
   end
 
+  @impl true
   def handle_event("validate", %{"user" => user_params}, socket) do
     changeset = Accounts.change_user_password(socket.assigns.user, user_params)
     {:noreply, assign_form(socket, Map.put(changeset, :action, :validate))}

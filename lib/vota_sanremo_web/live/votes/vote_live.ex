@@ -8,6 +8,7 @@ defmodule VotaSanremoWeb.VoteLive do
 
   @update_voting_msg :update_voting_status
 
+  @impl true
   def mount(_params, _session, socket) do
     {:ok,
      socket
@@ -16,6 +17,7 @@ defmodule VotaSanremoWeb.VoteLive do
      |> assign(:timer, nil)}
   end
 
+  @impl true
   def handle_params(
         %{"id" => performance_id},
         _uri,
@@ -31,6 +33,7 @@ defmodule VotaSanremoWeb.VoteLive do
      end}
   end
 
+  @impl true
   def handle_params(_params, _uri, socket) do
     {:noreply, socket}
   end
@@ -111,6 +114,7 @@ defmodule VotaSanremoWeb.VoteLive do
 
   # ----------- HANDLE EVENING SELECTED ------------------------------------------------------------------------------
 
+  @impl true
   def handle_event("evening-selected", %{"value" => evening_id}, socket) do
     evening =
       Enum.find(socket.assigns.evenings, List.first(socket.assigns.evenings), fn evening ->
@@ -124,6 +128,7 @@ defmodule VotaSanremoWeb.VoteLive do
 
   # ----------- HANDLE VOTE FORM MESSAGES ----------------------------------------------------------------------------
 
+  @impl true
   def handle_info({VotaSanremoWeb.VoteFormInternal, {:saved, performance_id, vote}}, socket) do
     {:noreply,
      socket
@@ -133,6 +138,7 @@ defmodule VotaSanremoWeb.VoteLive do
      end)}
   end
 
+  @impl true
   def handle_info({VotaSanremoWeb.VoteFormInternal, {:deleted, performance_id}}, socket) do
     {:noreply,
      socket
@@ -144,6 +150,7 @@ defmodule VotaSanremoWeb.VoteLive do
 
   # ----------- HANDLE TIMER MESSAGES ---------------------------------------------------------------------------------
 
+  @impl true
   def handle_info(@update_voting_msg, socket) do
     {:noreply,
      socket

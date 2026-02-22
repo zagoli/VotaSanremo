@@ -7,6 +7,7 @@ defmodule VotaSanremoWeb.LeaderboardLive do
   @votes_topic "votes"
   on_mount {VotaSanremoWeb.SetLocalePlug, :set_locale}
 
+  @impl true
   def mount(_params, _session, socket) do
     if connected?(socket) do
       Endpoint.subscribe(@votes_topic)
@@ -35,6 +36,7 @@ defmodule VotaSanremoWeb.LeaderboardLive do
     assign(socket, :scores, Performers.list_performers_weighted_avg_score_by_edition(edition.id))
   end
 
+  @impl true
   def handle_event("weighted-flag-selected", %{"weighted-scores-flag" => flag}, socket) do
     {:noreply,
      socket
@@ -42,6 +44,7 @@ defmodule VotaSanremoWeb.LeaderboardLive do
      |> assign_scores()}
   end
 
+  @impl true
   def handle_info(%{event: "vote_changed", payload: :ok}, socket) do
     {:noreply, assign_scores(socket)}
   end
