@@ -140,7 +140,11 @@ defmodule VotaSanremoWeb.CoreComponents do
         <span class="text-sm">{msg}</span>
       </div>
 
-      <button type="button" class="btn btn-ghost btn-circle btn-xs ml-auto" aria-label={gettext("close")}>
+      <button
+        type="button"
+        class="btn btn-ghost btn-circle btn-xs ml-auto"
+        aria-label={gettext("close")}
+      >
         <.icon name="hero-x-mark-solid" class="size-4" />
       </button>
     </div>
@@ -498,7 +502,10 @@ defmodule VotaSanremoWeb.CoreComponents do
     <fieldset class={["fieldset", @class]}>
       <legend :if={@label} class="fieldset-legend">{@label}</legend>
       {render_slot(@inner_block)}
-      <div :for={{%{value: value} = rad, idx} <- Enum.with_index(@radio)} class="flex items-center gap-2">
+      <div
+        :for={{%{value: value} = rad, idx} <- Enum.with_index(@radio)}
+        class="flex items-center gap-2"
+      >
         <input
           type="radio"
           name={@field.name}

@@ -21,7 +21,11 @@
         <!-- Navbar -->
         <div class="navbar bg-base-100 border-b border-base-200 sticky top-0 z-30">
           <div class="flex-none">
-            <label for="nav-drawer" class="btn btn-ghost btn-circle" aria-label={gettext("Open menu")}>
+            <label
+              for="nav-drawer"
+              class="btn btn-ghost btn-circle"
+              aria-label={gettext("Open menu")}
+            >
               <.icon name="hero-bars-3" class="size-6" />
             </label>
           </div>
@@ -31,8 +35,8 @@
               VotaSanremo
             </.link>
           </div>
-
-          <!-- Desktop quick links -->
+          
+<!-- Desktop quick links -->
           <div class="flex-none hidden md:flex items-center gap-1">
             <.link :if={@current_user} navigate={~p"/vote"} class="btn btn-ghost btn-sm">
               {gettext("Vote")}
@@ -44,8 +48,8 @@
               {gettext("Juries")}
             </.link>
           </div>
-
-          <!-- Language switcher & theme toggle -->
+          
+<!-- Language switcher & theme toggle -->
           <div class="flex-none flex items-center gap-1 ml-2">
             <div class="flex items-center gap-1">
               <.link href={~p"/?lang=en"} title="English" class="btn btn-ghost btn-xs px-1">
@@ -55,9 +59,12 @@
                 <Flagpack.ita class="w-5 h-4" />
               </.link>
             </div>
-
-            <!-- Theme toggle (light/dark) -->
-            <label class="swap swap-rotate btn btn-ghost btn-circle" title={gettext("Toggle theme")}>
+            
+<!-- Theme toggle (light/dark) -->
+            <label
+              class="swap swap-rotate btn btn-ghost btn-circle"
+              title={gettext("Toggle theme")}
+            >
               <input
                 type="checkbox"
                 class="theme-controller"
@@ -71,12 +78,12 @@
             </label>
           </div>
         </div>
-
-        <!-- Page content -->
+        
+<!-- Page content -->
         {@inner_content}
       </div>
-
-      <!-- Drawer sidebar -->
+      
+<!-- Drawer sidebar -->
       <div class="drawer-side z-40">
         <label for="nav-drawer" aria-label={gettext("Close menu")} class="drawer-overlay"></label>
 
