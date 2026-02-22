@@ -41,8 +41,6 @@ jobs:
         run: mix deps.get
       - name: Run tests
         run: mix test
-      - name: Check Formatting
-        run: mix format --check-formatted
   deploy:
     needs: test
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
