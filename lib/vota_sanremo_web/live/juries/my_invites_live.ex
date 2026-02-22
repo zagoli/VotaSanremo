@@ -2,6 +2,7 @@ defmodule VotaSanremoWeb.MyInvitesLive do
   use VotaSanremoWeb, :live_view
   alias VotaSanremo.Juries
 
+  @impl true
   def mount(_params, _session, socket) do
     {:ok, socket |> assign_pending_invites()}
   end
@@ -10,6 +11,7 @@ defmodule VotaSanremoWeb.MyInvitesLive do
     assign(socket, :pending_invites, Juries.list_user_pending_invites(user))
   end
 
+  @impl true
   def handle_params(params, _uri, socket) do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end

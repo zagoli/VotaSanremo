@@ -63,7 +63,7 @@ defmodule VotaSanremoWeb.UserLoginLiveTest do
 
       {:ok, _login_live, login_html} =
         lv
-        |> element(~s|main a:fl-contains("Sign up")|)
+        |> element("a[href='/users/register']")
         |> render_click()
         |> follow_redirect(conn, ~p"/users/register")
 
@@ -77,7 +77,7 @@ defmodule VotaSanremoWeb.UserLoginLiveTest do
 
       {:ok, conn} =
         lv
-        |> element(~s|main a:fl-contains("Forgot your password?")|)
+        |> element("a[href='/users/reset_password']")
         |> render_click()
         |> follow_redirect(conn, ~p"/users/reset_password")
 

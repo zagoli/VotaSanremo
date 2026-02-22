@@ -4,6 +4,7 @@ defmodule VotaSanremoWeb.NewJuryLive do
   alias VotaSanremo.Juries
   alias VotaSanremo.Juries.Jury
 
+  @impl true
   def mount(_params, _session, socket) do
     {:ok,
      socket
@@ -14,11 +15,13 @@ defmodule VotaSanremoWeb.NewJuryLive do
     assign(socket, :form, to_form(changeset))
   end
 
+  @impl true
   def handle_event("validate", %{"jury" => jury_params}, socket) do
     changeset = Juries.change_jury(%Jury{}, jury_params)
     {:noreply, assign_form(socket, Map.put(changeset, :action, :validate))}
   end
 
+  @impl true
   def handle_event("save", %{"jury" => jury_params}, socket) do
     jury_params = jury_params_with_founder(socket, jury_params)
 

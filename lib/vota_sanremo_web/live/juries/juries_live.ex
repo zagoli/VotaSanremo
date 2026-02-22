@@ -3,6 +3,7 @@ defmodule VotaSanremoWeb.JuriesLive do
   import VotaSanremoWeb.SimpleList
   alias VotaSanremo.Juries
 
+  @impl true
   def mount(_params, _session, socket) do
     {:ok, socket |> assign_top_juries()}
   end

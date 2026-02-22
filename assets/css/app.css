@@ -1,6 +1,45 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import "tailwindcss";
+@plugin "../vendor/heroicons.js";
 
-/* This file is for your main application CSS */
-@import "vote_form.css"
+@source "../../lib/vota_sanremo_web";
+
+/* DaisyUI theme configuration */
+@plugin "daisyui" {
+    themes:
+        light --default,
+        dark --prefersdark;
+    logs: false;
+}
+
+/* LiveView loading state variants */
+@variant phx-click-loading {
+    &.phx-click-loading,
+    .phx-click-loading & {
+        @slot;
+    }
+}
+
+@variant phx-submit-loading {
+    &.phx-submit-loading,
+    .phx-submit-loading & {
+        @slot;
+    }
+}
+
+@variant phx-change-loading {
+    &.phx-change-loading,
+    .phx-change-loading & {
+        @slot;
+    }
+}
+
+/* Vote form radio grid layout */
+fieldset.vote-form-radio-group {
+    display: grid;
+    grid-template: repeat(9, 1fr) 1fr / repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+fieldset.vote-form-radio-group label:last-child {
+    grid-column: 1 / span 4;
+}

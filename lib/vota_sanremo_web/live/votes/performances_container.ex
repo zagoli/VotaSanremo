@@ -46,12 +46,14 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainerInternal do
   import VotaSanremoWeb.CoreComponents, only: [header: 1]
   alias VotaSanremo.ScoresUtils
 
+  @impl true
   def update(assigns, socket) do
     {:ok,
      socket
      |> assign(assigns)}
   end
 
+  @impl true
   def render(assigns) do
     ~H"""
     <section class={@class}>
@@ -81,6 +83,7 @@ defmodule VotaSanremoWeb.Votes.PerformancesContainerInternal do
     """
   end
 
+  @impl true
   def handle_event("vote-clicked", %{"value" => performance_id}, socket) do
     {:noreply, push_patch(socket, to: ~p"/vote/performance/#{performance_id}")}
   end

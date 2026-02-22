@@ -50,6 +50,7 @@ defmodule VotaSanremoWeb.PerformanceTypeLive.FormComponent do
     {:noreply, assign(socket, form: to_form(changeset, action: :validate))}
   end
 
+  @impl true
   def handle_event("save", %{"performance_type" => performance_type_params}, socket) do
     save_performance_type(socket, socket.assigns.action, performance_type_params)
   end

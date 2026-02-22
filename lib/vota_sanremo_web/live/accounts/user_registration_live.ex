@@ -4,6 +4,7 @@ defmodule VotaSanremoWeb.UserRegistrationLive do
   alias VotaSanremo.Accounts
   alias VotaSanremo.Accounts.User
 
+  @impl true
   def render(assigns) do
     ~H"""
     <div class="mx-auto max-w-sm">
@@ -55,6 +56,7 @@ defmodule VotaSanremoWeb.UserRegistrationLive do
     """
   end
 
+  @impl true
   def mount(_params, _session, socket) do
     changeset = Accounts.change_user_registration(%User{})
 
@@ -66,6 +68,7 @@ defmodule VotaSanremoWeb.UserRegistrationLive do
     {:ok, socket, temporary_assigns: [form: nil]}
   end
 
+  @impl true
   def handle_event("save", %{"user" => user_params}, socket) do
     case Accounts.register_user(user_params) do
       {:ok, user} ->
@@ -87,6 +90,7 @@ defmodule VotaSanremoWeb.UserRegistrationLive do
     end
   end
 
+  @impl true
   def handle_event("validate", %{"user" => user_params}, socket) do
     changeset = Accounts.change_user_registration(%User{}, user_params)
     {:noreply, assign_form(socket, Map.put(changeset, :action, :validate))}

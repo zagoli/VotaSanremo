@@ -1,6 +1,6 @@
 defmodule VotaSanremoWeb.CoreComponents do
   @moduledoc """
-  Provides core UI components.
+  Provides core UI components built on DaisyUI v5 and Tailwind CSS v4.
 
   At first glance, this module may seem daunting, but its goal is to provide
   core building blocks for your application, such as modals, tables, and
@@ -8,10 +8,7 @@ defmodule VotaSanremoWeb.CoreComponents do
   with doc strings and declarative assigns. You may customize and style
   them in any way you want, based on your application growth and needs.
 
-  The default components use Tailwind CSS, a utility-first CSS framework.
-  See the [Tailwind CSS documentation](https://tailwindcss.com) to learn
-  how to customize them or feel free to swap in another framework altogether.
-
+  Components use DaisyUI v5 for theming and Tailwind CSS v4 for utilities.
   Icons are provided by [heroicons](https://heroicons.com). See `icon/1` for usage.
   """
   use Phoenix.Component
@@ -21,26 +18,27 @@ defmodule VotaSanremoWeb.CoreComponents do
 
   @doc """
   Renders a navigation link for the sidebar that goes to the given path.
+  Intended to be used inside a DaisyUI `<ul class="menu">` list.
   """
   attr :path, :any, required: true, doc: "the path to navigate to"
   attr :method, :string, default: "get", doc: "the optional method used to navigate"
+  attr :icon, :string, default: nil, doc: "optional heroicon name (e.g. hero-home)"
 
   slot :inner_block, required: true, doc: "the text to display"
 
   def sidenav_link(assigns) do
     ~H"""
-    <.link
-      href={@path}
-      method={@method}
-      class="pl-10 h-10 text-white font-semibold hover:bg-zinc-600 flex flex-wrap content-center"
-    >
-      {render_slot(@inner_block)}
-    </.link>
+    <li>
+      <.link href={@path} method={@method}>
+        <.icon :if={@icon} name={@icon} class="size-4" />
+        {render_slot(@inner_block)}
+      </.link>
+    </li>
     """
   end
 
   @doc """
-  Renders a modal.
+  Renders a DaisyUI modal dialog.
 
   ## Examples
 
@@ -68,50 +66,42 @@ defmodule VotaSanremoWeb.CoreComponents do
       phx-mounted={@show && show_modal(@id)}
       phx-remove={hide_modal(@id)}
       data-cancel={JS.exec(@on_cancel, "phx-remove")}
-      class="relative z-50 hidden"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
     >
-      <div id={"#{@id}-bg"} class="bg-zinc-50/90 fixed inset-0 transition-opacity" aria-hidden="true" />
-      <div
-        class="fixed inset-0 overflow-y-auto"
-        aria-labelledby={"#{@id}-title"}
-        aria-describedby={"#{@id}-description"}
-        role="dialog"
-        aria-modal="true"
-        tabindex="0"
+      <.focus_wrap
+        id={"#{@id}-container"}
+        phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
+        phx-key="escape"
+        class="modal-box relative w-full max-w-2xl"
       >
-        <div class="flex min-h-full items-center justify-center">
-          <div class="w-full max-w-3xl p-4 sm:p-6 lg:py-8">
-            <.focus_wrap
-              id={"#{@id}-container"}
-              phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
-              phx-key="escape"
-              phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
-              class="shadow-zinc-700/10 ring-zinc-700/10 relative hidden rounded-2xl bg-white p-14 shadow-lg ring-1 transition"
-            >
-              <div class="absolute top-6 right-5">
-                <button
-                  phx-click={JS.exec("data-cancel", to: "##{@id}")}
-                  type="button"
-                  class="-m-3 flex-none p-3 opacity-20 hover:opacity-40"
-                  aria-label={gettext("close")}
-                >
-                  <.icon name="hero-x-mark-solid" class="h-5 w-5" />
-                </button>
-              </div>
+        <button
+          phx-click={JS.exec("data-cancel", to: "##{@id}")}
+          type="button"
+          class="btn btn-ghost btn-circle btn-sm absolute right-3 top-3"
+          aria-label={gettext("close")}
+        >
+          <.icon name="hero-x-mark-solid" class="size-5" />
+        </button>
 
-              <div id={"#{@id}-content"}>
-                {render_slot(@inner_block)}
-              </div>
-            </.focus_wrap>
-          </div>
+        <div id={"#{@id}-content"} class="mt-2">
+          {render_slot(@inner_block)}
         </div>
+      </.focus_wrap>
+
+      <div
+        class="modal-backdrop"
+        phx-click={JS.exec("data-cancel", to: "##{@id}")}
+      >
+        <button type="button">{gettext("close")}</button>
       </div>
     </div>
     """
   end
 
   @doc """
-  Renders flash notices.
+  Renders flash notices using DaisyUI alert components.
 
   ## Examples
 
@@ -136,21 +126,26 @@ defmodule VotaSanremoWeb.CoreComponents do
       phx-click={JS.push("lv:clear-flash", value: %{key: @kind}) |> hide("##{@id}")}
       role="alert"
       class={[
-        "fixed top-2 right-2 mr-2 w-80 sm:w-96 z-50 rounded-lg p-3 ring-1",
-        @kind == :info && "bg-emerald-50 text-emerald-800 ring-emerald-500 fill-cyan-900",
-        @kind == :error && "bg-rose-50 text-rose-900 shadow-md ring-rose-500 fill-rose-900"
+        "alert shadow-lg cursor-pointer w-80 sm:w-96",
+        @kind == :info && "alert-success",
+        @kind == :error && "alert-error"
       ]}
       {@rest}
     >
-      <p :if={@title} class="flex items-center gap-1.5 text-sm font-semibold leading-6">
-        <.icon :if={@kind == :info} name="hero-information-circle-mini" class="h-4 w-4" />
-        <.icon :if={@kind == :error} name="hero-exclamation-circle-mini" class="h-4 w-4" /> {@title}
-      </p>
+      <.icon :if={@kind == :info} name="hero-information-circle-mini" class="size-5 shrink-0" />
+      <.icon :if={@kind == :error} name="hero-exclamation-circle-mini" class="size-5 shrink-0" />
 
-      <p class="mt-2 text-sm leading-5">{msg}</p>
+      <div class="flex flex-col gap-0.5 min-w-0">
+        <span :if={@title} class="font-semibold text-sm">{@title}</span>
+        <span class="text-sm">{msg}</span>
+      </div>
 
-      <button type="button" class="group absolute top-1 right-1 p-2" aria-label={gettext("close")}>
-        <.icon name="hero-x-mark-solid" class="h-5 w-5 opacity-40 group-hover:opacity-70" />
+      <button
+        type="button"
+        class="btn btn-ghost btn-circle btn-xs ml-auto"
+        aria-label={gettext("close")}
+      >
+        <.icon name="hero-x-mark-solid" class="size-4" />
       </button>
     </div>
     """
@@ -158,6 +153,7 @@ defmodule VotaSanremoWeb.CoreComponents do
 
   @doc """
   Shows the flash group with standard titles and content.
+  Uses DaisyUI `toast` positioning for stacked alerts.
 
   ## Examples
 
@@ -168,7 +164,7 @@ defmodule VotaSanremoWeb.CoreComponents do
 
   def flash_group(assigns) do
     ~H"""
-    <div id={@id}>
+    <div id={@id} class="toast toast-top toast-end z-50">
       <.flash kind={:info} title={gettext("Success!")} flash={@flash} />
       <.flash kind={:error} title={gettext("Error!")} flash={@flash} />
       <.flash
@@ -180,7 +176,7 @@ defmodule VotaSanremoWeb.CoreComponents do
         hidden
       >
         {gettext("Attempting to reconnect")}
-        <.icon name="hero-arrow-path" class="ml-1 h-3 w-3 animate-spin" />
+        <.icon name="hero-arrow-path" class="ml-1 size-3 animate-spin" />
       </.flash>
 
       <.flash
@@ -192,7 +188,7 @@ defmodule VotaSanremoWeb.CoreComponents do
         hidden
       >
         {gettext("Hang in there while we get back on track")}
-        <.icon name="hero-arrow-path" class="ml-1 h-3 w-3 animate-spin" />
+        <.icon name="hero-arrow-path" class="ml-1 size-3 animate-spin" />
       </.flash>
     </div>
     """
@@ -224,11 +220,11 @@ defmodule VotaSanremoWeb.CoreComponents do
   def simple_form(assigns) do
     ~H"""
     <.form :let={f} for={@for} as={@as} {@rest}>
-      <div class="space-y-3">
+      <div class="space-y-4">
         {render_slot(@inner_block, f)}
         <div
           :for={action <- @actions}
-          class="mt-2 flex flex-row-reverse items-center justify-between gap-6"
+          class="mt-4 flex flex-row-reverse items-center justify-between gap-6"
         >
           {render_slot(action, f)}
         </div>
@@ -238,15 +234,22 @@ defmodule VotaSanremoWeb.CoreComponents do
   end
 
   @doc """
-  Renders a button.
+  Renders a DaisyUI button.
 
   ## Examples
 
       <.button>Send!</.button>
       <.button phx-click="go" class="ml-2">Send!</.button>
+      <.button variant="outline">Cancel</.button>
   """
   attr :type, :string, default: nil
   attr :class, :string, default: nil
+
+  attr :variant, :string,
+    default: "primary",
+    values: ~w(primary secondary accent neutral ghost outline error warning success info)
+
+  attr :size, :string, default: nil, values: [nil, "xs", "sm", "md", "lg", "xl"]
   attr :rest, :global, include: ~w(disabled form name value)
 
   slot :inner_block, required: true
@@ -256,8 +259,10 @@ defmodule VotaSanremoWeb.CoreComponents do
     <button
       type={@type}
       class={[
-        "phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
-        "text-sm font-semibold leading-6 text-white active:text-white/80",
+        "btn",
+        variant_class(@variant),
+        size_class(@size),
+        "phx-submit-loading:opacity-75",
         @class
       ]}
       {@rest}
@@ -268,10 +273,16 @@ defmodule VotaSanremoWeb.CoreComponents do
   end
 
   @doc """
-  Renders a navigation link with the style of a button.
+  Renders a navigation link styled as a DaisyUI button.
   """
   attr :path, :any, required: true, doc: "the path to navigate to"
   attr :class, :string, default: nil
+
+  attr :variant, :string,
+    default: "primary",
+    values: ~w(primary secondary accent neutral ghost outline error warning success info)
+
+  attr :size, :string, default: nil, values: [nil, "xs", "sm", "md", "lg", "xl"]
   attr :rest, :global
 
   slot :inner_block, required: true, doc: "the text to display"
@@ -281,8 +292,10 @@ defmodule VotaSanremoWeb.CoreComponents do
     <.link
       patch={@path}
       class={[
-        "phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
-        "text-sm font-semibold leading-6 text-white active:text-white/80",
+        "btn",
+        variant_class(@variant),
+        size_class(@size),
+        "phx-submit-loading:opacity-75",
         @class
       ]}
       {@rest}
@@ -291,6 +304,25 @@ defmodule VotaSanremoWeb.CoreComponents do
     </.link>
     """
   end
+
+  defp variant_class("primary"), do: "btn-primary"
+  defp variant_class("secondary"), do: "btn-secondary"
+  defp variant_class("accent"), do: "btn-accent"
+  defp variant_class("neutral"), do: "btn-neutral"
+  defp variant_class("ghost"), do: "btn-ghost"
+  defp variant_class("outline"), do: "btn-outline"
+  defp variant_class("error"), do: "btn-error"
+  defp variant_class("warning"), do: "btn-warning"
+  defp variant_class("success"), do: "btn-success"
+  defp variant_class("info"), do: "btn-info"
+  defp variant_class(_), do: "btn-primary"
+
+  defp size_class(nil), do: nil
+  defp size_class("xs"), do: "btn-xs"
+  defp size_class("sm"), do: "btn-sm"
+  defp size_class("md"), do: "btn-md"
+  defp size_class("lg"), do: "btn-lg"
+  defp size_class("xl"), do: "btn-xl"
 
   @doc """
   Renders an input with label and error messages.
@@ -362,8 +394,8 @@ defmodule VotaSanremoWeb.CoreComponents do
       end)
 
     ~H"""
-    <div>
-      <label class="flex items-center gap-4 text-sm leading-6 text-zinc-600">
+    <fieldset class={["fieldset", @container_class]}>
+      <label class="label cursor-pointer justify-start gap-3">
         <input type="hidden" name={@name} value="false" />
         <input
           type="checkbox"
@@ -371,63 +403,60 @@ defmodule VotaSanremoWeb.CoreComponents do
           name={@name}
           value="true"
           checked={@checked}
-          class="rounded border-zinc-300 text-zinc-900 focus:ring-0"
+          class={["checkbox", @errors != [] && "checkbox-error", @class]}
           {@rest}
-        /> {@label}
+        />
+        <span class="label-text">{@label}</span>
       </label>
-
       <.error :for={msg <- @errors}>{msg}</.error>
-    </div>
+    </fieldset>
     """
   end
 
   def input(%{type: "select"} = assigns) do
     ~H"""
-    <div>
-      <.label for={@id}>{@label}</.label>
-
+    <fieldset class={["fieldset", @container_class]}>
+      <legend :if={@label} class="fieldset-legend">{@label}</legend>
       <select
         id={@id}
         name={@name}
-        class="mt-2 block w-full rounded-md border border-gray-300 bg-white shadow-sm focus:border-zinc-400 focus:ring-0 sm:text-sm"
+        class={["select w-full", @errors != [] && "select-error", @class]}
         multiple={@multiple}
         {@rest}
       >
         <option :if={@prompt} value="">{@prompt}</option>
         {Phoenix.HTML.Form.options_for_select(@options, @value)}
       </select>
-
       <.error :for={msg <- @errors}>{msg}</.error>
-    </div>
+    </fieldset>
     """
   end
 
   def input(%{type: "textarea"} = assigns) do
     ~H"""
-    <div>
-      <.label for={@id}>{@label}</.label>
+    <fieldset class={["fieldset", @container_class]}>
+      <legend :if={@label} class="fieldset-legend">{@label}</legend>
       <textarea
         id={@id}
         name={@name}
         class={[
-          "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
-          "min-h-[6rem]  ",
-          @errors == [] && "border-zinc-300 focus:border-zinc-400",
-          @errors != [] && "border-rose-400 focus:border-rose-400"
+          "textarea w-full min-h-24",
+          @errors == [] && "textarea",
+          @errors != [] && "textarea-error",
+          @class
         ]}
         {@rest}
       ><%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
       <.error :for={msg <- @errors}>{msg}</.error>
-    </div>
+    </fieldset>
     """
   end
 
   # All other inputs text, datetime-local, url, password, etc. are handled here...
   def input(assigns) do
     ~H"""
-    <div>
-      <.label for={@id}>{@label}</.label>
-
+    <fieldset class={["fieldset", @container_class]}>
+      <legend :if={@label} class="fieldset-legend">{@label}</legend>
       <input
         type={@type}
         name={@name}
@@ -436,20 +465,19 @@ defmodule VotaSanremoWeb.CoreComponents do
         class={
           @class ||
             [
-              "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
-              @errors == [] && "border-zinc-300 focus:border-zinc-400",
-              @errors != [] && "border-rose-400 focus:border-rose-400"
+              "input w-full",
+              @errors != [] && "input-error"
             ]
         }
         {@rest}
       />
       <.error :for={msg <- @errors}>{msg}</.error>
-    </div>
+    </fieldset>
     """
   end
 
   @doc """
-  Provides a radio group input for a given form field.
+  Provides a radio group input for a given form field using DaisyUI radio buttons.
 
   ## Examples
 
@@ -461,6 +489,7 @@ defmodule VotaSanremoWeb.CoreComponents do
   """
   attr :field, Phoenix.HTML.FormField, required: true
   attr :class, :string, default: ""
+  attr :label, :string, default: nil
 
   slot :radio, required: true do
     attr :value, :any, required: true
@@ -470,18 +499,24 @@ defmodule VotaSanremoWeb.CoreComponents do
 
   def radio_group(assigns) do
     ~H"""
-    <fieldset class={@class}>
+    <fieldset class={["fieldset", @class]}>
+      <legend :if={@label} class="fieldset-legend">{@label}</legend>
       {render_slot(@inner_block)}
-      <div :for={{%{value: value} = rad, idx} <- Enum.with_index(@radio)}>
-        <label for={"#{@field.id}-#{idx}"}>{render_slot(rad)}</label>
+      <div
+        :for={{%{value: value} = rad, idx} <- Enum.with_index(@radio)}
+        class="flex items-center gap-2"
+      >
         <input
           type="radio"
           name={@field.name}
           id={"#{@field.id}-#{idx}"}
           value={value}
           checked={to_string(@field.value) == to_string(value)}
-          class="rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6"
+          class="radio radio-primary"
         />
+        <label for={"#{@field.id}-#{idx}"} class="label-text cursor-pointer">
+          {render_slot(rad)}
+        </label>
       </div>
     </fieldset>
     """
@@ -495,7 +530,7 @@ defmodule VotaSanremoWeb.CoreComponents do
 
   def label(assigns) do
     ~H"""
-    <label for={@for} class="block text-sm font-semibold leading-6 text-zinc-800">
+    <label for={@for} class="label label-text font-semibold">
       {render_slot(@inner_block)}
     </label>
     """
@@ -508,10 +543,9 @@ defmodule VotaSanremoWeb.CoreComponents do
 
   def error(assigns) do
     ~H"""
-    <p class="mt-3 flex gap-3 text-sm leading-6 text-rose-600 ">
-      <.icon name="hero-exclamation-circle-mini" class="mt-0.5 h-5 w-5 flex-none" /> {render_slot(
-        @inner_block
-      )}
+    <p class="fieldset-label text-error flex items-center gap-2 mt-1">
+      <.icon name="hero-exclamation-circle-mini" class="size-4 shrink-0" />
+      {render_slot(@inner_block)}
     </p>
     """
   end
@@ -533,13 +567,13 @@ defmodule VotaSanremoWeb.CoreComponents do
     ~H"""
     <header class={[@actions != [] && "flex items-center justify-between gap-6", @class]}>
       <div>
-        <h1 class="text-lg font-semibold leading-8 text-zinc-800">
+        <h1 class="text-xl font-semibold leading-8">
           {render_slot(@inner_block)}
         </h1>
 
         <p
           :for={subtitle <- @subtitle}
-          class={["mt-2 text-sm leading-6 text-zinc-600", Map.get(subtitle, :class, "")]}
+          class={["mt-1 text-sm opacity-70", Map.get(subtitle, :class, "")]}
         >
           {render_slot(subtitle)}
         </p>
@@ -551,7 +585,7 @@ defmodule VotaSanremoWeb.CoreComponents do
   end
 
   @doc ~S"""
-  Renders a table with generic styling.
+  Renders a DaisyUI table with generic styling.
 
   ## Examples
 
@@ -582,13 +616,12 @@ defmodule VotaSanremoWeb.CoreComponents do
       end
 
     ~H"""
-    <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
-      <table class="mt-11 w-full">
-        <thead class="text-sm text-left leading-6 text-zinc-500">
+    <div class="overflow-x-auto">
+      <table class="table table-zebra w-full">
+        <thead>
           <tr>
-            <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal">{col[:label]}</th>
-
-            <th :if={@action != []} class="relative p-0 pb-4">
+            <th :for={col <- @col} class="font-semibold">{col[:label]}</th>
+            <th :if={@action != []}>
               <span class="sr-only">{gettext("Actions")}</span>
             </th>
           </tr>
@@ -597,26 +630,26 @@ defmodule VotaSanremoWeb.CoreComponents do
         <tbody
           id={@id}
           phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}
-          class="divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6 text-zinc-700"
         >
-          <tr :for={row <- @rows} id={@row_id && @row_id.(row)} class="hover:bg-zinc-50">
+          <tr
+            :for={row <- @rows}
+            id={@row_id && @row_id.(row)}
+            class={[@row_click && "hover cursor-pointer"]}
+          >
             <td
               :for={{col, i} <- Enum.with_index(@col)}
               phx-click={@row_click && @row_click.(row)}
-              class={[@row_click && "hover:cursor-pointer"]}
             >
-              <div class="block py-4">
-                <span class={[i == 0 && "font-semibold text-zinc-900"]}>
-                  {render_slot(col, @row_item.(row))}
-                </span>
-              </div>
+              <span class={[i == 0 && "font-semibold"]}>
+                {render_slot(col, @row_item.(row))}
+              </span>
             </td>
 
             <td :if={@action != []}>
-              <div class="flex justify-end">
+              <div class="flex justify-end gap-2">
                 <span
                   :for={action <- @action}
-                  class="ml-4 font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
+                  class="font-semibold"
                 >
                   {render_slot(action, @row_item.(row))}
                 </span>
@@ -645,12 +678,11 @@ defmodule VotaSanremoWeb.CoreComponents do
 
   def list(assigns) do
     ~H"""
-    <div class="mt-14">
-      <dl class="-my-4 divide-y divide-zinc-100">
-        <div :for={item <- @item} class="flex gap-4 py-4 text-sm leading-6 sm:gap-8">
-          <dt class="w-1/4 flex-none text-zinc-500">{item.title}</dt>
-
-          <dd class="text-zinc-700">{render_slot(item)}</dd>
+    <div class="mt-8">
+      <dl class="divide-y divide-base-200">
+        <div :for={item <- @item} class="flex gap-4 py-4 text-sm sm:gap-8">
+          <dt class="w-1/4 flex-none font-semibold opacity-70">{item.title}</dt>
+          <dd>{render_slot(item)}</dd>
         </div>
       </dl>
     </div>
@@ -669,12 +701,13 @@ defmodule VotaSanremoWeb.CoreComponents do
 
   def back(assigns) do
     ~H"""
-    <div class="mt-16">
+    <div class="mt-8">
       <.link
         navigate={@navigate}
-        class="text-sm font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
+        class="link link-hover text-sm font-semibold flex items-center gap-1"
       >
-        <.icon name="hero-arrow-left-solid" class="h-3 w-3" /> {render_slot(@inner_block)}
+        <.icon name="hero-arrow-left-solid" class="size-3" />
+        {render_slot(@inner_block)}
       </.link>
     </div>
     """
@@ -690,13 +723,12 @@ defmodule VotaSanremoWeb.CoreComponents do
   You can customize the size and colors of the icons by setting
   width, height, and background color classes.
 
-  Icons are extracted from the `deps/heroicons` directory and bundled within
-  your compiled app.css by the plugin in your `assets/tailwind.config.js`.
+  Icons are injected via the heroicons Tailwind v4 plugin configured in app.css.
 
   ## Examples
 
       <.icon name="hero-x-mark-solid" />
-      <.icon name="hero-arrow-path" class="ml-1 w-3 h-3 animate-spin" />
+      <.icon name="hero-arrow-path" class="ml-1 size-3 animate-spin" />
   """
   attr :name, :string, required: true
   attr :class, :string, default: nil
@@ -730,26 +762,22 @@ defmodule VotaSanremoWeb.CoreComponents do
     )
   end
 
+  @doc """
+  Shows a DaisyUI modal by adding the `modal-open` class.
+  """
   def show_modal(js \\ %JS{}, id) when is_binary(id) do
     js
-    |> JS.show(to: "##{id}")
-    |> JS.show(
-      to: "##{id}-bg",
-      transition: {"transition-all transform ease-out duration-300", "opacity-0", "opacity-100"}
-    )
-    |> show("##{id}-container")
+    |> JS.add_class("modal-open", to: "##{id}")
     |> JS.add_class("overflow-hidden", to: "body")
     |> JS.focus_first(to: "##{id}-content")
   end
 
+  @doc """
+  Hides a DaisyUI modal by removing the `modal-open` class.
+  """
   def hide_modal(js \\ %JS{}, id) do
     js
-    |> JS.hide(
-      to: "##{id}-bg",
-      transition: {"transition-all transform ease-in duration-200", "opacity-100", "opacity-0"}
-    )
-    |> hide("##{id}-container")
-    |> JS.hide(to: "##{id}", transition: {"block", "block", "hidden"})
+    |> JS.remove_class("modal-open", to: "##{id}")
     |> JS.remove_class("overflow-hidden", to: "body")
     |> JS.pop_focus()
   end
@@ -783,7 +811,7 @@ defmodule VotaSanremoWeb.CoreComponents do
   end
 
   @doc """
-  Helper function to show a side drawer
+  Helper function to show a side drawer.
   """
   def show_drawer(selector, display \\ "block") do
     JS.show(%JS{},
@@ -795,7 +823,7 @@ defmodule VotaSanremoWeb.CoreComponents do
   end
 
   @doc """
-  Helper function to hide a side drawer
+  Helper function to hide a side drawer.
   """
   def hide_drawer(selector) do
     JS.hide(%JS{},

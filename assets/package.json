@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "daisyui": "^5",
     "simplycountdown.js": "^3.0.1"
   }
 }

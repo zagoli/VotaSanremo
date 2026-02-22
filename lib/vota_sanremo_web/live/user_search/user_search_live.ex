@@ -3,6 +3,7 @@ defmodule VotaSanremoWeb.UserSearchLive do
   import VotaSanremoWeb.SimpleList
   alias VotaSanremo.{UserSearch, Accounts}
 
+  @impl true
   def mount(_params, _session, socket) do
     initial_users = Accounts.list_some_users(20)
 
@@ -12,10 +13,12 @@ defmodule VotaSanremoWeb.UserSearchLive do
      |> assign_users(initial_users)}
   end
 
+  @impl true
   def handle_params(%{"jury_id" => jury_id}, _uri, socket) do
     {:noreply, assign(socket, :jury_id, jury_id)}
   end
 
+  @impl true
   def handle_params(_params, _uri, socket) do
     {:noreply, socket}
   end
@@ -29,6 +32,7 @@ defmodule VotaSanremoWeb.UserSearchLive do
     assign(socket, :users, List.delete(users, user))
   end
 
+  @impl true
   def handle_event("search", %{"username" => params}, socket) do
     changeset =
       UserSearch.change_username(params)

@@ -1,6 +1,7 @@
 defmodule VotaSanremoWeb.UserLoginLive do
   use VotaSanremoWeb, :live_view
 
+  @impl true
   def render(assigns) do
     ~H"""
     <div class="mx-auto max-w-sm">
@@ -39,6 +40,7 @@ defmodule VotaSanremoWeb.UserLoginLive do
     """
   end
 
+  @impl true
   def mount(_params, _session, socket) do
     email = Phoenix.Flash.get(socket.assigns.flash, :email)
     form = to_form(%{"email" => email}, as: "user")

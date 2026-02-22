@@ -63,8 +63,8 @@ defmodule VotaSanremoWeb.LeaderboardLiveTest do
     end
 
     test "Weighted checkbox is checked by default", %{conn: conn} do
-      {:ok, _live, html} = live(conn, ~p"/leaderboard")
-      assert Floki.attribute(html, "input[name=weighted-scores-flag]", "checked") == ["checked"]
+      {:ok, live, _html} = live(conn, ~p"/leaderboard")
+      assert has_element?(live, "input[name='weighted-scores-flag'][checked]")
     end
 
     test "User can switch to average average scores", %{conn: conn} do

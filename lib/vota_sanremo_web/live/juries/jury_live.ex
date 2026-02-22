@@ -6,6 +6,7 @@ defmodule VotaSanremoWeb.JuryLive do
   alias VotaSanremo.Performers
   alias VotaSanremo.Accounts
 
+  @impl true
   def mount(%{"jury_id" => jury_id}, _session, socket) do
     {:ok,
      socket
@@ -57,6 +58,7 @@ defmodule VotaSanremoWeb.JuryLive do
     assign(socket, :is_member, Juries.member?(jury, user))
   end
 
+  @impl true
   def handle_event("weighted-flag-selected", %{"weighted-scores-flag" => flag}, socket) do
     {:noreply,
      socket
@@ -64,6 +66,7 @@ defmodule VotaSanremoWeb.JuryLive do
      |> assign_scores()}
   end
 
+  @impl true
   def handle_event("exit-jury", _params, socket) do
     case Juries.member_exit(socket.assigns.jury, socket.assigns.current_user) do
       :ok ->

@@ -4,6 +4,7 @@ defmodule VotaSanremoWeb.Admin.ManageEditionsLive do
   import VotaSanremo.GetFreshName
   alias VotaSanremo.Editions
 
+  @impl true
   def mount(_params, _session, socket) do
     {:ok, socket |> assign_editions}
   end
@@ -13,10 +14,12 @@ defmodule VotaSanremoWeb.Admin.ManageEditionsLive do
     |> assign(:editions, Editions.list_editions_with_evenings())
   end
 
+  @impl true
   def handle_info({VotaSanremoWeb.Admin.EditionEditorInternal, :edition_updated}, socket) do
     {:noreply, socket |> assign_editions}
   end
 
+  @impl true
   def handle_event("new_edition", _params, socket) do
     new_name = get_fresh_name(dgettext("editions", "New edition"), Editions.list_editions_names())
 
