@@ -1,9 +1,9 @@
-<div>
+<div class="pt-6">
   <.form for={@form} id="vote-form" phx-target={@myself} phx-change="score-selected">
     <fieldset class="vote-form-radio-group">
       <%= for {label, score} <- @scores do %>
         <label
-          class="flex justify-center bg-gray-200 hover:bg-gray-300 rounded-lg text-lg py-2"
+          class="btn btn-ghost bg-base-200 text-lg"
           role="button"
         >
           <input type="radio" value={score} name="score" class="hidden" /> {label}
@@ -15,7 +15,7 @@
   <button
     :if={not Enum.empty?(@performance.votes)}
     type="button"
-    class="w-full bg-red-200 hover:bg-red-300 rounded-lg text-lg py-2 mt-2"
+    class="btn btn-error btn-outline w-full mt-2"
     id="delete-vote"
     phx-click="delete-vote"
     phx-target={@myself}

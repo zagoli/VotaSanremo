@@ -10,9 +10,9 @@ defmodule VotaSanremoWeb.InfoDataBadge do
 
   def info_data_badge(assigns) do
     ~H"""
-    <div class="w-24 h-32 p-3 bg-slate-200 rounded-md flex flex-col items-center overflow-hidden">
-      <span class="text-slate-700 text-sm font-light text-center">{@label}</span>
-      <span class="text-slate-800 font-semibold mt-2" id={@value_id}>
+    <div class="w-24 h-32 p-3 bg-base-200 rounded-btn flex flex-col items-center overflow-hidden">
+      <span class="text-base-content/70 text-sm font-light text-center">{@label}</span>
+      <span class="text-base-content font-semibold mt-2" id={@value_id}>
         {render_slot(@inner_block)}
       </span>
     </div>

@@ -10,7 +10,7 @@ defmodule VotaSanremoWeb.PerformersScores do
 
   def performers_scores(assigns) do
     ~H"""
-    <div class="bg-zinc-100 border-4 border-zinc-500 rounded-lg p-3">
+    <div class="card bg-base-200 card-body p-3">
       <%= for {performance_type, scores} <- order_and_group_scores(@scores) do %>
         <.header class="mb-2">
           {performance_type}

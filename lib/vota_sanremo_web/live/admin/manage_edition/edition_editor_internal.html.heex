@@ -1,4 +1,4 @@
-<div class="w-full bg-zinc-100 rounded-xl p-3 border border-zinc-400 mb-3" id={@id}>
+<div class="w-full bg-base-200 rounded-xl p-3 border border-base-300 mb-3" id={@id}>
   <.form for={@form} phx-submit="update_edition" phx-target={@myself}>
     <div class="flex justify-between items-center pl-1 pr-1">
       <.input
@@ -52,9 +52,9 @@
 
   <div
     :for={evening <- @edition.evenings}
-    class="w-full bg-zinc-200 mt-3 mb-3 rounded-xl flex items-center evenings"
+    class="w-full bg-base-300 mt-3 mb-3 rounded-xl flex items-center evenings"
   >
-    <span class="bg-zinc-300 font-bold rounded-l-xl p-3" name="evening-number">
+    <span class="bg-base-300 font-bold rounded-l-xl p-3" name="evening-number">
       {evening.number}
     </span>
 

@@ -27,11 +27,11 @@ defmodule VotaSanremoWeb.PresentationTable do
     ~H"""
     <div class="grid grid-cols-2 gap-y-2 ">
       <%= for item <- @items do %>
-        <div class="border-b">
+        <div class="border-b border-base-300">
           {render_slot(@name, item)}
         </div>
 
-        <div class="border-b text-right pr-3">
+        <div class="border-b border-base-300 text-right pr-3">
           {render_slot(@property, item)}
         </div>
       <% end %>
@@ -53,9 +53,8 @@ defmodule VotaSanremoWeb.PresentationTable do
     ~H"""
     <button
       type="button"
-      class="bg-gray-300 disabled:bg-gray-100 rounded-lg px-2 disabled:text-gray-300"
+      class="badge bg-base-300 text-base-content border-base-300 disabled:opacity-40"
       {@rest}
-      style="line-height: normal"
     >
       {render_slot(@inner_block)}
     </button>
@@ -73,7 +72,7 @@ defmodule VotaSanremoWeb.PresentationTable do
 
   def badge(assigns) do
     ~H"""
-    <span class="bg-gray-300 rounded-lg px-2 leading-6">
+    <span class="badge bg-base-300 text-base-content border-base-300">
       {render_slot(@inner_block)}
     </span>
     """
