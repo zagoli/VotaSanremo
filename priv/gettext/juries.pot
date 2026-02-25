@@ -37,29 +37,29 @@ msgstr ""
 msgid "Create a new jury"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_live.ex:76
+#: lib/vota_sanremo_web/live/juries/jury_live.ex:79
 #, elixir-autogen, elixir-format
 msgid "Error exiting the jury"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:76
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:79
 #, elixir-autogen, elixir-format
 msgid "Error inviting user"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:90
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:94
 #, elixir-autogen, elixir-format
 msgid "Error removing member."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:35
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:39
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:58
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:37
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:41
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:60
 #, elixir-autogen, elixir-format
 msgid "Error while accepting this invite. Sorry!"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:54
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:56
 #, elixir-autogen, elixir-format
 msgid "Error while declining this invite. Sorry!"
 msgstr ""
@@ -89,12 +89,12 @@ msgstr ""
 msgid "Invite a user"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:27
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:29
 #, elixir-autogen, elixir-format
 msgid "Invite accepted! You are now part of %{jury_name}"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:49
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:51
 #, elixir-autogen, elixir-format
 msgid "Invite declined."
 msgstr ""
@@ -116,7 +116,7 @@ msgstr ""
 msgid "Jury name"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:87
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:91
 #, elixir-autogen, elixir-format
 msgid "Member removed!"
 msgstr ""
@@ -169,7 +169,7 @@ msgstr ""
 msgid "There are no members yet."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:73
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:76
 #, elixir-autogen, elixir-format
 msgid "User invited"
 msgstr ""
@@ -179,12 +179,12 @@ msgstr ""
 msgid "You are a member of"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:60
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:63
 #, elixir-autogen, elixir-format
 msgid "You are not allowed to invite a user!"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:52
+#: lib/vota_sanremo_web/live/juries/jury_members_live.ex:55
 #, elixir-autogen, elixir-format
 msgid "You cannot invite yourself!"
 msgstr ""
@@ -204,7 +204,7 @@ msgstr ""
 msgid "You have not created any juries and you are not a member of any jury."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_live.ex:72
+#: lib/vota_sanremo_web/live/juries/jury_live.ex:75
 #, elixir-autogen, elixir-format
 msgid "You have successfully exited the jury!"
 msgstr ""

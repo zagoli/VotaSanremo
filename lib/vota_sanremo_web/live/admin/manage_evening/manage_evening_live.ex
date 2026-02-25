@@ -14,10 +14,12 @@ defmodule VotaSanremoWeb.Admin.ManageEveningLive do
     {:ok,
      socket
      |> assign(:evening, evening)
+     |> assign(:copy_from_evening_id, nil)
      |> assign_evening_form(evening_changeset)
      |> assign_performance_form(performance_changeset)
      |> assign_performers()
-     |> assign_performance_types()}
+     |> assign_performance_types()
+     |> assign_other_evenings()}
   end
 
   defp assign_evening_form(socket, changeset) do
@@ -41,6 +43,14 @@ defmodule VotaSanremoWeb.Admin.ManageEveningLive do
       performance_types:
         Performances.list_performance_types()
         |> Enum.map(&{&1.type, &1.id})
+    )
+  end
+
+  defp assign_other_evenings(socket) do
+    assign(socket,
+      other_evenings:
+        Evenings.list_other_evenings(socket.assigns.evening.id)
+        |> Enum.map(&{dgettext("evenings", "Evening %{number}", number: &1.number), &1.id})
     )
   end
 
@@ -123,6 +133,45 @@ defmodule VotaSanremoWeb.Admin.ManageEveningLive do
       {:error, _changeset} ->
         {:noreply,
          socket |> put_flash(:error, dgettext("performances", "Could not delete performance."))}
+    end
+  end
+
+  @impl true
+  def handle_event(
+        "select_copy_evening",
+        %{"copy_evening" => %{"evening_id" => evening_id}},
+        socket
+      ) do
+    {:noreply, assign(socket, :copy_from_evening_id, String.to_integer(evening_id))}
+  end
+
+  @impl true
+  def handle_event(
+        "confirm_copy_performances",
+        _params,
+        %{assigns: %{evening: evening, copy_from_evening_id: source_evening_id}} = socket
+      ) do
+    case Performances.copy_performances_from_evening(source_evening_id, evening.id) do
+      {:ok, _performances} ->
+        evening = Evenings.get_evening_with_performances!(evening.id)
+
+        {:noreply,
+         socket
+         |> assign(:evening, evening)
+         |> assign(:copy_from_evening_id, nil)
+         |> put_flash(
+           :info,
+           dgettext("performances", "Performances copied successfully.")
+         )}
+
+      {:error, _reason} ->
+        {:noreply,
+         socket
+         |> assign(:copy_from_evening_id, nil)
+         |> put_flash(
+           :error,
+           dgettext("performances", "Could not copy performances.")
+         )}
     end
   end
 end

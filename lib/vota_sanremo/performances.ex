@@ -213,4 +213,53 @@ defmodule VotaSanremo.Performances do
   def change_performance(%Performance{} = performance, attrs \\ %{}) do
     Performance.changeset(performance, attrs)
   end
+
+  @doc """
+  Copies all performances from a source evening to a target evening.
+  Deletes all existing performances of the target evening first, then
+  creates new performances copying performer_id and performance_type_id
+  from the source evening's performances.
+
+  The operation is wrapped in a transaction: if any step fails,
+  all changes are rolled back.
+
+  ## Examples
+
+      iex> copy_performances_from_evening(source_evening_id, target_evening_id)
+      {:ok, [%Performance{}, ...]}
+
+      iex> copy_performances_from_evening(bad_source_id, target_evening_id)
+      {:error, reason}
+
+  """
+  def copy_performances_from_evening(source_evening_id, target_evening_id) do
+    alias VotaSanremo.Evenings
+
+    Repo.transaction(fn ->
+      source_evening = Evenings.get_evening_with_performances!(source_evening_id)
+      target_evening = Evenings.get_evening_with_performances!(target_evening_id)
+
+      # Delete all existing performances of the target evening
+      Enum.each(target_evening.performances, fn performance ->
+        case Repo.delete(performance) do
+          {:ok, _} -> :ok
+          {:error, changeset} -> Repo.rollback(changeset)
+        end
+      end)
+
+      # Copy performances from source to target
+      Enum.map(source_evening.performances, fn performance ->
+        attrs = %{
+          performer_id: performance.performer_id,
+          performance_type_id: performance.performance_type_id,
+          evening_id: target_evening.id
+        }
+
+        case create_performance(attrs) do
+          {:ok, new_performance} -> new_performance
+          {:error, changeset} -> Repo.rollback(changeset)
+        end
+      end)
+    end)
+  end
 end

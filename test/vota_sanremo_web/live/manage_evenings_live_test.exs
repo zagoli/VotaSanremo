@@ -103,4 +103,88 @@ defmodule VotaSanremoWeb.ManageEveningsLiveTest do
       refute has_element?(live, "#performance-#{performance.id}")
     end
   end
+
+  describe "Copy performances from another evening" do
+    setup [:register_and_log_in_admin, :create_evening]
+
+    test "The page shows the copy from evening form", %{conn: conn, evening: evening} do
+      {:ok, _live, html} = live(conn, ~p"/admin/evening/#{evening.id}")
+
+      assert html =~ "Copy from evening"
+      assert html =~ "Select an evening"
+    end
+
+    test "It is possible to copy performances from another evening", %{
+      conn: conn,
+      evening: evening
+    } do
+      edition = edition_fixture()
+      source_evening = evening_fixture(%{edition_id: edition.id, number: 3, date: ~D[2024-02-16]})
+      performer = performer_fixture()
+      performance_type = performance_type_fixture()
+
+      performance_fixture(%{
+        evening_id: source_evening.id,
+        performer_id: performer.id,
+        performance_type_id: performance_type.id
+      })
+
+      {:ok, live, _html} = live(conn, ~p"/admin/evening/#{evening.id}")
+
+      # Submit the copy form to open the confirmation modal
+      live
+      |> form("#copy-performances-form", copy_evening: %{evening_id: source_evening.id})
+      |> render_submit()
+
+      # Confirm the copy
+      assert has_element?(live, "#confirm-copy-modal")
+
+      live
+      |> element("#confirm-copy-modal button", "Confirm")
+      |> render_click()
+
+      # The performances should have been copied
+      assert has_element?(live, "#performances", performer.name)
+      assert has_element?(live, "#performances", performance_type.type)
+      assert has_element?(live, "[role='alert']", "Performances copied successfully.")
+    end
+
+    test "Copying performances deletes existing ones", %{conn: conn, evening: evening} do
+      edition = edition_fixture()
+      source_evening = evening_fixture(%{edition_id: edition.id, number: 3, date: ~D[2024-02-16]})
+
+      # Create an existing performance in the target evening
+      existing_perf = performance_fixture(%{evening_id: evening.id})
+
+      existing_performer =
+        VotaSanremo.Performers.get_performer!(existing_perf.performer_id)
+
+      # Create a performance in the source evening
+      new_performer = performer_fixture()
+
+      performance_fixture(%{
+        evening_id: source_evening.id,
+        performer_id: new_performer.id
+      })
+
+      {:ok, live, _html} = live(conn, ~p"/admin/evening/#{evening.id}")
+
+      # Verify existing performance is shown
+      assert has_element?(live, "#performances", existing_performer.name)
+
+      # Submit the copy form
+      live
+      |> form("#copy-performances-form", copy_evening: %{evening_id: source_evening.id})
+      |> render_submit()
+
+      # Confirm the copy
+      live
+      |> element("#confirm-copy-modal button", "Confirm")
+      |> render_click()
+
+      # The old performance should be gone, the new one should be there
+      refute has_element?(live, "#performances", existing_performer.name)
+      assert has_element?(live, "#performances", new_performer.name)
+    end
+  end
 end

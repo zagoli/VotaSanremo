@@ -22,6 +22,22 @@ defmodule VotaSanremo.Evenings do
   end
 
   @doc """
+  Returns the list of evenings excluding the one with the given id.
+
+  ## Examples
+
+      iex> list_other_evenings(1)
+      [%Evening{}, ...]
+
+  """
+  def list_other_evenings(excluded_evening_id) do
+    Evening
+    |> where([e], e.id != ^excluded_evening_id)
+    |> order_by([e], asc: e.number)
+    |> Repo.all()
+  end
+
+  @doc """
   Gets a single evening.
 
   Raises `Ecto.NoResultsError` if the Evening does not exist.
