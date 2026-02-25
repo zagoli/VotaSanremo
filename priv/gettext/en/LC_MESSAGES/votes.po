@@ -37,12 +37,12 @@ msgstr ""
 msgid "There are no votes to show yet."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/votes/vote_form.ex:143
+#: lib/vota_sanremo_web/live/votes/vote_form.ex:146
 #, elixir-autogen, elixir-format
 msgid "There was an error while deleting your vote."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/votes/vote_form.ex:118
+#: lib/vota_sanremo_web/live/votes/vote_form.ex:121
 #, elixir-autogen, elixir-format
 msgid "There was an error while submitting your vote."
 msgstr ""
@@ -58,8 +58,8 @@ msgstr ""
 msgid "Weighted scores"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/votes/vote_form.ex:101
-#: lib/vota_sanremo_web/live/votes/vote_form.ex:126
+#: lib/vota_sanremo_web/live/votes/vote_form.ex:104
+#: lib/vota_sanremo_web/live/votes/vote_form.ex:129
 #, elixir-autogen, elixir-format
 msgid "You cannot vote now."
 msgstr ""

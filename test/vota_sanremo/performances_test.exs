@@ -217,4 +217,82 @@ defmodule VotaSanremo.PerformancesTest do
       assert retrieved_performance_2.votes == []
     end
   end
+
+  describe "copy_performances_from_evening/2" do
+    import VotaSanremo.{
+      PerformancesFixtures,
+      EveningsFixtures,
+      EditionsFixtures,
+      PerformersFixtures
+    }
+
+    test "copies performances from source evening to target evening" do
+      edition = edition_fixture()
+      source_evening = evening_fixture(%{edition_id: edition.id, number: 1, date: ~D[2024-02-14]})
+      target_evening = evening_fixture(%{edition_id: edition.id, number: 2, date: ~D[2024-02-15]})
+      performer = performer_fixture()
+      performance_type = performance_type_fixture()
+
+      performance_fixture(%{
+        evening_id: source_evening.id,
+        performer_id: performer.id,
+        performance_type_id: performance_type.id
+      })
+
+      assert {:ok, copied} =
+               Performances.copy_performances_from_evening(source_evening.id, target_evening.id)
+
+      assert length(copied) == 1
+      [new_perf] = copied
+      assert new_perf.evening_id == target_evening.id
+      assert new_perf.performer_id == performer.id
+      assert new_perf.performance_type_id == performance_type.id
+    end
+
+    test "deletes existing performances of target evening before copying" do
+      edition = edition_fixture()
+      source_evening = evening_fixture(%{edition_id: edition.id, number: 1, date: ~D[2024-02-14]})
+      target_evening = evening_fixture(%{edition_id: edition.id, number: 2, date: ~D[2024-02-15]})
+
+      # Create a performance in target evening
+      existing_perf = performance_fixture(%{evening_id: target_evening.id})
+
+      # Create a performance in source evening
+      performance_fixture(%{evening_id: source_evening.id})
+
+      assert {:ok, _copied} =
+               Performances.copy_performances_from_evening(source_evening.id, target_evening.id)
+
+      # The existing performance should be deleted
+      assert_raise Ecto.NoResultsError, fn ->
+        Performances.get_performance!(existing_perf.id)
+      end
+    end
+
+    test "copies multiple performances" do
+      edition = edition_fixture()
+      source_evening = evening_fixture(%{edition_id: edition.id, number: 1, date: ~D[2024-02-14]})
+      target_evening = evening_fixture(%{edition_id: edition.id, number: 2, date: ~D[2024-02-15]})
+
+      performance_fixture(%{evening_id: source_evening.id})
+      performance_fixture(%{evening_id: source_evening.id})
+      performance_fixture(%{evening_id: source_evening.id})
+
+      assert {:ok, copied} =
+               Performances.copy_performances_from_evening(source_evening.id, target_evening.id)
+
+      assert length(copied) == 3
+    end
+
+    test "returns ok with empty list when source has no performances" do
+      edition = edition_fixture()
+      source_evening = evening_fixture(%{edition_id: edition.id, number: 1, date: ~D[2024-02-14]})
+      target_evening = evening_fixture(%{edition_id: edition.id, number: 2, date: ~D[2024-02-15]})
+
+      assert {:ok, copied} =
+               Performances.copy_performances_from_evening(source_evening.id, target_evening.id)
+
+      assert copied == []
+    end
+  end
 end

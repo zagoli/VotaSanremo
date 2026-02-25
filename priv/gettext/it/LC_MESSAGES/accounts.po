@@ -11,7 +11,7 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.ex:71
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.ex:76
 #, elixir-autogen, elixir-format
 msgid "A link to confirm your email change has been sent to the new address."
 msgstr "Un link per confermare il cambio email è stato inviato al nuovo indirizzo."
@@ -26,7 +26,7 @@ msgstr "Account creato con successo! Un'email di conferma è stata inviata al tu
 msgid "Account deleted successfully."
 msgstr "Account eliminato con successo."
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:13
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:14
 #, elixir-autogen, elixir-format
 msgid "Already registered?"
 msgstr "Hai già un account?"
@@ -52,28 +52,28 @@ msgstr "Cambia password"
 msgid "Change your email"
 msgstr "Cambia la tua email"
 
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:9
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:10
 #, elixir-autogen, elixir-format
 msgid "Confirm Account"
 msgstr "Conferma Account"
 
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:15
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:16
 #, elixir-autogen, elixir-format
 msgid "Confirm my account"
 msgstr "Conferma il mio account"
 
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:29
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:30
 #: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:83
 #, elixir-autogen, elixir-format
 msgid "Confirm new password"
 msgstr "Conferma nuova password"
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:50
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:51
 #, elixir-autogen, elixir-format
 msgid "Create an account"
 msgstr "Crea un account"
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:49
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:50
 #, elixir-autogen, elixir-format
 msgid "Creating account..."
 msgstr "Sto creando un account..."
@@ -89,23 +89,23 @@ msgstr "Password attuale"
 msgid "Delete account"
 msgstr "Elimina account"
 
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:10
+#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:11
 #, elixir-autogen, elixir-format
 msgid "Don't have an account?"
 msgstr "Non hai un account?"
 
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.ex:16
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.ex:17
 #, elixir-autogen, elixir-format
 msgid "Email change link is invalid or it has expired."
 msgstr "Il link per il cambio email non è valido o è scaduto."
 
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.ex:10
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.ex:11
 #, elixir-autogen, elixir-format
 msgid "Email changed successfully."
 msgstr "Email modificata con successo."
 
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:10
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:28
+#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:11
+#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:29
 #, elixir-autogen, elixir-format
 msgid "Forgot your password?"
 msgstr "Password dimenticata?"
@@ -120,22 +120,22 @@ msgstr "Ho capito, elimina il mio account"
 msgid "If you set your votes privacy to public, every registered user will be able to see them."
 msgstr "Se imposti i tuoi voti come pubblici, tutti gli utenti registrati potranno vederli."
 
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:46
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:49
 #, elixir-autogen, elixir-format
 msgid "If your email is in our system and it has not been confirmed yet, you will receive an email with instructions shortly."
 msgstr "Se la tua email è nel nostro sistema e non è stata ancora confermata, riceverai a breve un'email con le istruzioni."
 
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:46
+#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:49
 #, elixir-autogen, elixir-format
 msgid "If your email is in our system, you will receive instructions to reset your password shortly."
 msgstr "Se la tua email è nel nostro sistema, riceverai a breve le istruzioni per reimpostare la password."
 
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:25
+#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:26
 #, elixir-autogen, elixir-format
 msgid "Keep me logged in"
 msgstr "Ricordami"
 
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:8
+#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:9
 #, elixir-autogen, elixir-format
 msgid "Log in to account"
 msgstr "Accedi al tuo account"
@@ -145,7 +145,7 @@ msgstr "Accedi al tuo account"
 msgid "Logged out successfully."
 msgstr "Disconnesso con successo."
 
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:33
+#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:34
 #, elixir-autogen, elixir-format
 msgid "Logging in..."
 msgstr "Accesso in corso..."
@@ -155,13 +155,13 @@ msgstr "Accesso in corso..."
 msgid "Manage users"
 msgstr "Gestisci utenti"
 
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:23
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:24
 #: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:77
 #, elixir-autogen, elixir-format
 msgid "New password"
 msgstr "Nuova password"
 
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:10
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:11
 #, elixir-autogen, elixir-format
 msgid "No confirmation instructions received?"
 msgstr "Non hai ricevuto le istruzioni di conferma?"
@@ -181,7 +181,7 @@ msgstr "Numero di utenti registrati"
 msgid "Other settings"
 msgstr "Altre impostazioni"
 
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:69
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:72
 #, elixir-autogen, elixir-format
 msgid "Password reset successfully."
 msgstr "Password reimpostata con successo."
@@ -201,23 +201,23 @@ msgstr "Privati"
 msgid "Public"
 msgstr "Pubblici"
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:11
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:12
 #, elixir-autogen, elixir-format
 msgid "Register for an account"
 msgstr "Registra un account"
 
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:20
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:21
 #, elixir-autogen, elixir-format
 msgid "Resend confirmation instructions"
 msgstr "Reinvia istruzioni di conferma"
 
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:9
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:34
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:10
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:35
 #, elixir-autogen, elixir-format
 msgid "Reset Password"
 msgstr "Reimposta Password"
 
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:89
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:93
 #, elixir-autogen, elixir-format
 msgid "Reset password link is invalid or it has expired."
 msgstr "Il link per reimpostare la password non è valido o è scaduto."
@@ -227,7 +227,7 @@ msgstr "Il link per reimpostare la password non è valido o è scaduto."
 msgid "Search a user"
 msgstr "Cerca un utente"
 
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:20
+#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:21
 #, elixir-autogen, elixir-format
 msgid "Send password reset instructions"
 msgstr "Invia istruzioni per reimpostare la password"
@@ -242,12 +242,12 @@ msgstr "Imposta la privacy dei tuoi voti"
 msgid "The juries you founded and your votes will also be deleted."
 msgstr "Anche le giurie che hai fondato e i tuoi voti verranno eliminati."
 
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:57
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:60
 #, elixir-autogen, elixir-format
 msgid "User confirmation link is invalid or it has expired."
 msgstr "Il link di conferma utente non è valido o è scaduto."
 
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:40
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:43
 #, elixir-autogen, elixir-format
 msgid "User confirmed successfully."
 msgstr "Utente confermato con successo."
@@ -257,12 +257,12 @@ msgstr "Utente confermato con successo."
 msgid "Username"
 msgstr "Nome utente"
 
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:12
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:13
 #, elixir-autogen, elixir-format
 msgid "We'll send a new confirmation link to your inbox"
 msgstr "Ti invieremo un nuovo link di conferma nella tua casella email"
 
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:12
+#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:13
 #, elixir-autogen, elixir-format
 msgid "We'll send a password reset link to your inbox"
 msgstr "Ti invieremo un link per reimpostare la password nella tua casella email"
@@ -277,12 +277,12 @@ msgstr "Bentornato!"
 msgid "You are about to delete your account."
 msgstr "Stai per eliminare il tuo account."
 
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:14
+#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:15
 #, elixir-autogen, elixir-format
 msgid "for an account now."
 msgstr "un account."
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:17
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:18
 #, elixir-autogen, elixir-format
 msgid "to your account now."
 msgstr "al tuo account."

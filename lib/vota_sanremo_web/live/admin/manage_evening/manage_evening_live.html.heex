@@ -51,6 +51,62 @@
 <.header>{dgettext("performances", "Performances")}</.header>
 
 <.form
+  for={%{}}
+  as={:copy_evening}
+  id="copy-performances-form"
+  phx-submit="select_copy_evening"
+  class="bg-zinc-50 rounded-xl p-3 border border-zinc-200 my-3"
+>
+  <div class="grid grid-cols-[1fr_min-content] gap-3">
+    <.input
+      name="copy_evening[evening_id]"
+      value=""
+      label={dgettext("performances", "Copy from evening")}
+      type="select"
+      options={@other_evenings}
+      prompt={dgettext("performances", "Select an evening")}
+    />
+    <.button
+      type="submit"
+      title={dgettext("performances", "copy performances")}
+      class="!p-1 h-min self-end mb-1"
+    >
+      <.icon name="hero-document-duplicate-mini" />
+    </.button>
+  </div>
+</.form>
+
+<.modal
+  :if={@copy_from_evening_id}
+  id="confirm-copy-modal"
+  show
+  on_cancel={JS.push("select_copy_evening", value: %{copy_evening: %{evening_id: ""}})}
+>
+  <div class="p-4">
+    <h3 class="text-lg font-semibold mb-4">
+      {dgettext("performances", "Confirm copy")}
+    </h3>
+    <p class="mb-6">
+      {dgettext(
+        "performances",
+        "Are you sure? All existing performances of this evening will be deleted and replaced with the ones from the selected evening."
+      )}
+    </p>
+    <div class="flex justify-end gap-3">
+      <.button
+        phx-click={JS.exec("data-cancel", to: "#confirm-copy-modal")}
+        class="btn-ghost"
+      >
+        {gettext("Cancel")}
+      </.button>
+      <.button phx-click="confirm_copy_performances">
+        {gettext("Confirm")}
+      </.button>
+    </div>
+  </div>
+</.modal>
+
+<.form
   for={@performance_form}
   id="add-performance"
   phx-submit="save"

@@ -106,7 +106,8 @@ defmodule VotaSanremo.TestSetupFixtures do
   """
   def setup_for_avg_score_by_jury_test(%User{} = founder, %User{} = member) do
     {first_performance_id, _second_performance_id, edition_id, performer_name,
-     first_performance_type, _second_performance_type} =
+     first_performance_type,
+     _second_performance_type} =
       common_setup_for_avg_scores()
 
     founder_vote =

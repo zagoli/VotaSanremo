@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.ex:71
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.ex:76
 #, elixir-autogen, elixir-format
 msgid "A link to confirm your email change has been sent to the new address."
 msgstr ""
@@ -26,7 +26,7 @@ msgstr ""
 msgid "Account deleted successfully."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:13
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:14
 #, elixir-autogen, elixir-format
 msgid "Already registered?"
 msgstr ""
@@ -52,28 +52,28 @@ msgstr ""
 msgid "Change your email"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:9
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:10
 #, elixir-autogen, elixir-format
 msgid "Confirm Account"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:15
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:16
 #, elixir-autogen, elixir-format
 msgid "Confirm my account"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:29
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:30
 #: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:83
 #, elixir-autogen, elixir-format
 msgid "Confirm new password"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:50
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:51
 #, elixir-autogen, elixir-format
 msgid "Create an account"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:49
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:50
 #, elixir-autogen, elixir-format
 msgid "Creating account..."
 msgstr ""
@@ -89,23 +89,23 @@ msgstr ""
 msgid "Delete account"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:10
+#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:11
 #, elixir-autogen, elixir-format
 msgid "Don't have an account?"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.ex:16
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.ex:17
 #, elixir-autogen, elixir-format
 msgid "Email change link is invalid or it has expired."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.ex:10
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.ex:11
 #, elixir-autogen, elixir-format
 msgid "Email changed successfully."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:10
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:28
+#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:11
+#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:29
 #, elixir-autogen, elixir-format
 msgid "Forgot your password?"
 msgstr ""
@@ -120,22 +120,22 @@ msgstr ""
 msgid "If you set your votes privacy to public, every registered user will be able to see them."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:46
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:49
 #, elixir-autogen, elixir-format
 msgid "If your email is in our system and it has not been confirmed yet, you will receive an email with instructions shortly."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:46
+#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:49
 #, elixir-autogen, elixir-format
 msgid "If your email is in our system, you will receive instructions to reset your password shortly."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:25
+#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:26
 #, elixir-autogen, elixir-format
 msgid "Keep me logged in"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:8
+#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:9
 #, elixir-autogen, elixir-format
 msgid "Log in to account"
 msgstr ""
@@ -145,7 +145,7 @@ msgstr ""
 msgid "Logged out successfully."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:33
+#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:34
 #, elixir-autogen, elixir-format
 msgid "Logging in..."
 msgstr ""
@@ -155,13 +155,13 @@ msgstr ""
 msgid "Manage users"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:23
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:24
 #: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:77
 #, elixir-autogen, elixir-format
 msgid "New password"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:10
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:11
 #, elixir-autogen, elixir-format
 msgid "No confirmation instructions received?"
 msgstr ""
@@ -181,7 +181,7 @@ msgstr ""
 msgid "Other settings"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:69
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:72
 #, elixir-autogen, elixir-format
 msgid "Password reset successfully."
 msgstr ""
@@ -201,23 +201,23 @@ msgstr ""
 msgid "Public"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:11
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:12
 #, elixir-autogen, elixir-format
 msgid "Register for an account"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:20
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:21
 #, elixir-autogen, elixir-format
 msgid "Resend confirmation instructions"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:9
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:34
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:10
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:35
 #, elixir-autogen, elixir-format
 msgid "Reset Password"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:89
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:93
 #, elixir-autogen, elixir-format
 msgid "Reset password link is invalid or it has expired."
 msgstr ""
@@ -227,7 +227,7 @@ msgstr ""
 msgid "Search a user"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:20
+#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:21
 #, elixir-autogen, elixir-format
 msgid "Send password reset instructions"
 msgstr ""
@@ -242,12 +242,12 @@ msgstr ""
 msgid "The juries you founded and your votes will also be deleted."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:57
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:60
 #, elixir-autogen, elixir-format
 msgid "User confirmation link is invalid or it has expired."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:40
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:43
 #, elixir-autogen, elixir-format
 msgid "User confirmed successfully."
 msgstr ""
@@ -257,12 +257,12 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:12
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:13
 #, elixir-autogen, elixir-format
 msgid "We'll send a new confirmation link to your inbox"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:12
+#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:13
 #, elixir-autogen, elixir-format
 msgid "We'll send a password reset link to your inbox"
 msgstr ""
@@ -277,12 +277,12 @@ msgstr ""
 msgid "You are about to delete your account."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:14
+#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:15
 #, elixir-autogen, elixir-format
 msgid "for an account now."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:17
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:18
 #, elixir-autogen, elixir-format
 msgid "to your account now."
 msgstr ""

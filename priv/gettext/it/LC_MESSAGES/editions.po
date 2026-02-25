@@ -16,7 +16,7 @@ msgstr ""
 msgid "Are you sure to delete this edition?"
 msgstr "Sei sicuro di voler eliminare questa edizione?"
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:107
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:155
 #, elixir-autogen, elixir-format
 msgid "Back to all editions"
 msgstr "Torna a tutte le edizioni"
@@ -26,7 +26,7 @@ msgstr "Torna a tutte le edizioni"
 msgid "Create a new edition"
 msgstr "Crea una nuova edizione"
 
-#: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.ex:33
+#: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.ex:36
 #, elixir-autogen, elixir-format
 msgid "Error creating the edition"
 msgstr "Error durante la creazione dell'edizione"
@@ -36,7 +36,7 @@ msgstr "Error durante la creazione dell'edizione"
 msgid "Manage editions"
 msgstr "Gestisci edizioni"
 
-#: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.ex:21
+#: lib/vota_sanremo_web/live/admin/manage_edition/manage_editions_live.ex:24
 #, elixir-autogen, elixir-format
 msgid "New edition"
 msgstr "Nuova edizione"
