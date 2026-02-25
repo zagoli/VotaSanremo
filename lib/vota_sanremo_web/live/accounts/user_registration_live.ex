@@ -12,7 +12,7 @@ defmodule VotaSanremoWeb.UserRegistrationLive do
         {dgettext("accounts", "Register for an account")}
         <:subtitle>
           {dgettext("accounts", "Already registered?")}
-          <.link navigate={~p"/users/log_in"} class="font-semibold text-brand hover:underline">
+          <.link navigate={~p"/users/log_in"} class="font-semibold text-primary hover:underline">
             {gettext("Log in")}
           </.link>
           {dgettext("accounts", "to your account now.")}

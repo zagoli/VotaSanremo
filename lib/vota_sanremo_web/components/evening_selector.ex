@@ -11,7 +11,7 @@ defmodule VotaSanremoWeb.EveningSelector do
       type="button"
       class={[
         "join-item btn flex-1",
-        if(@selected, do: "btn-active", else: "btn-ghost")
+        if(@selected, do: "btn-primary", else: "btn-ghost")
       ]}
       phx-click="evening-selected"
       value={@evening.id}

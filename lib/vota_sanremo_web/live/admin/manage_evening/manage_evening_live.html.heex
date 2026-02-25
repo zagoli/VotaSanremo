@@ -7,7 +7,7 @@
   id={"evening-form-#{@evening.id}"}
   phx-change="validate"
   phx-submit="save"
-  class="bg-base-200 rounded-xl p-3 border border-base-300 my-3"
+  class="bg-base-200 rounded-xl p-4 border border-base-300 shadow-sm my-4"
 >
   <div class="flex gap-3">
     <.input
@@ -55,7 +55,7 @@
   as={:copy_evening}
   id="copy-performances-form"
   phx-submit="select_copy_evening"
-  class="bg-base-100 rounded-xl p-3 border border-base-200 my-3"
+  class="bg-base-100 rounded-xl p-4 border border-base-200 shadow-sm my-4"
 >
   <div class="grid grid-cols-[1fr_min-content] gap-3">
     <.input
@@ -110,7 +110,7 @@
   for={@performance_form}
   id="add-performance"
   phx-submit="save"
-  class="bg-base-100 rounded-xl p-3 border border-base-200 my-3"
+  class="bg-base-100 rounded-xl p-4 border border-base-200 shadow-sm my-4"
 >
   <div class="grid grid-cols-[1fr_1fr_min-content] gap-3">
     <.input

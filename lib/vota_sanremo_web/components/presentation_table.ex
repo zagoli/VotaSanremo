@@ -53,7 +53,7 @@ defmodule VotaSanremoWeb.PresentationTable do
     ~H"""
     <button
       type="button"
-      class="badge bg-base-300 text-base-content border-base-300 disabled:opacity-40"
+      class="badge badge-primary badge-outline font-semibold disabled:opacity-40"
       {@rest}
     >
       {render_slot(@inner_block)}
@@ -62,7 +62,7 @@ defmodule VotaSanremoWeb.PresentationTable do
   end
 
   @doc """
-  Renders a gray badge.
+  Renders a themed badge.
 
   ## Examples
 
@@ -72,7 +72,7 @@ defmodule VotaSanremoWeb.PresentationTable do
 
   def badge(assigns) do
     ~H"""
-    <span class="badge bg-base-300 text-base-content border-base-300">
+    <span class="badge badge-primary badge-outline font-semibold">
       {render_slot(@inner_block)}
     </span>
     """

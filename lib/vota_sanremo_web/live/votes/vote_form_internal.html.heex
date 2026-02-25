@@ -3,7 +3,7 @@
     <fieldset class="vote-form-radio-group">
       <%= for {label, score} <- @scores do %>
         <label
-          class="btn btn-ghost bg-base-200 text-lg"
+          class="btn btn-ghost bg-base-200 text-lg hover:btn-primary"
           role="button"
         >
           <input type="radio" value={score} name="score" class="hidden" /> {label}

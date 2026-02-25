@@ -10,13 +10,13 @@ defmodule VotaSanremoWeb.PerformersScores do
 
   def performers_scores(assigns) do
     ~H"""
-    <div class="card bg-base-200 card-body p-3">
+    <div class="card bg-base-200 card-body p-4 shadow-sm">
       <%= for {performance_type, scores} <- order_and_group_scores(@scores) do %>
         <.header class="mb-2">
           {performance_type}
         </.header>
 
-        <div class="mb-7">
+        <div class="mb-5">
           <.presentation_table items={scores}>
             <:name :let={score_group}>{score_group.name}</:name>
 

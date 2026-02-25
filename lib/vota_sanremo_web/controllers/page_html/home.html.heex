@@ -1,20 +1,35 @@
 <.flash_group flash={@flash} />
-<main class="text-center">
-  <h1 class="mt-12 text-7xl font-bold">Vota Sanremo</h1>
 
-  <h2 class="mt-2 text-xl font-semibold">
-    {gettext("Rate your favourite artists every night!")}
-  </h2>
+<!-- Hero Section -->
+<div class="hero-gradient py-24 px-6">
+  <div class="text-center max-w-2xl mx-auto">
+    <div class="flex justify-center mb-6">
+      <.icon name="hero-star-solid" class="size-14 text-secondary" />
+    </div>
+    <h1 class="text-5xl md:text-7xl font-bold tracking-tight">
+      Vota Sanremo
+    </h1>
+    <p class="mt-5 text-lg md:text-xl font-light opacity-90 max-w-lg mx-auto">
+      {gettext("Rate your favourite artists every night!")}
+    </p>
+  </div>
+</div>
 
-  <p class="mx-auto max-w-prose mt-10">
+<!-- Content Section -->
+<div class="text-center py-14 px-6 max-w-xl mx-auto">
+  <p class="text-base leading-relaxed text-base-content/80">
     {gettext(
       "Contribute to the global leaderboard by voting for your favourite artists every night. You can also create a jury with your friends!"
-    )} <b>{gettext("Log in to vote!")}</b>
+    )}
+  </p>
+  <p class="mt-3 font-semibold text-base-content">
+    {gettext("Log in to vote!")}
   </p>
 
-  <div class="flex justify-center">
-    <.link href={~p"/leaderboard"} class="btn btn-neutral mt-16 max-w-96">
+  <div class="flex justify-center mt-10">
+    <.link href={~p"/leaderboard"} class="btn btn-secondary btn-lg shadow-lg">
+      <.icon name="hero-chart-bar" class="size-5" />
       {gettext("View the live leaderboard!")}
     </.link>
   </div>
-</main>
+</div>

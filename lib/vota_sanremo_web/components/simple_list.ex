@@ -19,12 +19,12 @@ defmodule VotaSanremoWeb.SimpleList do
 
   def simple_list(assigns) do
     ~H"""
-    <ul class={["list bg-base-100 rounded-box shadow-sm mt-4", @class]} id={@id}>
+    <ul class={["list bg-base-100 rounded-box shadow-sm mt-4 border border-base-200", @class]} id={@id}>
       <li
         :for={item <- @item}
         class={[
           "list-row flex items-center",
-          @item_click && "hover:bg-base-200 cursor-pointer transition-colors"
+          @item_click && "hover:bg-primary/5 cursor-pointer transition-colors"
         ]}
         id={Map.get(item, :item_id)}
       >
