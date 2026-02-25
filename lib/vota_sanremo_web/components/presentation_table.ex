@@ -27,11 +27,11 @@ defmodule VotaSanremoWeb.PresentationTable do
     ~H"""
     <div class="grid grid-cols-2 gap-y-2 ">
       <%= for item <- @items do %>
-        <div class="border-b border-base-300">
+        <div class="border-b border-base-300 py-2 flex items-center">
           {render_slot(@name, item)}
         </div>
 
-        <div class="border-b border-base-300 text-right pr-3">
+        <div class="border-b border-base-300 py-2 text-right pr-3 flex items-center justify-end">
           {render_slot(@property, item)}
         </div>
       <% end %>
