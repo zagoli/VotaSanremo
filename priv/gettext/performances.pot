@@ -32,7 +32,7 @@ msgstr ""
 msgid "Performance deleted successfully."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:116
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:124
 #, elixir-autogen, elixir-format
 msgid "Performance type"
 msgstr ""
@@ -58,7 +58,7 @@ msgstr ""
 msgid "Performances"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:110
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:118
 #, elixir-autogen, elixir-format
 msgid "Performer"
 msgstr ""
@@ -68,27 +68,27 @@ msgstr ""
 msgid "Save performance type"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:131
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:139
 #, elixir-autogen, elixir-format
 msgid "There are no performances yet."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:122
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:130
 #, elixir-autogen, elixir-format
 msgid "add performance"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:146
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:154
 #, elixir-autogen, elixir-format
 msgid "delete performance"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:85
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:90
 #, elixir-autogen, elixir-format
 msgid "Are you sure? All existing performances of this evening will be deleted and replaced with the ones from the selected evening."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:82
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:87
 #, elixir-autogen, elixir-format
 msgid "Confirm copy"
 msgstr ""

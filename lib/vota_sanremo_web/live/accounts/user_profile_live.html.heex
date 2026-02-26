@@ -2,8 +2,6 @@
   <h1 class="text-3xl font-bold text-base-content">{@user.username}</h1>
 
   <section class="mt-6">
-    <h2 class="text-xl font-bold text-base-content">{dgettext("votes", "Votes")}</h2>
-
     <%= if @user.votes_privacy == :private do %>
       <p>
         {dgettext("votes", "%{username} does not want to disclose his/her votes.",
