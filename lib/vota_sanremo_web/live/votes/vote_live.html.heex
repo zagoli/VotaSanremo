@@ -3,7 +3,7 @@
 
   <.header class="text-center">
     {@selected_evening.description}
-    <:subtitle class="!mt-0">
+    <:subtitle class="mt-0!">
       <%= case @voting_status do %>
         <% :before -> %>
           {dgettext("votes", "Voting for this evening will open in ")}
