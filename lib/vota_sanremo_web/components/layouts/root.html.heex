@@ -2,6 +2,12 @@
 <html lang={@locale |> String.replace("_", "-")} data-theme="light">
   <head>
     <meta charset="utf-8" />
+    <script>
+      (function() {
+        var theme = localStorage.getItem("theme") || "light";
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
     <.live_title>

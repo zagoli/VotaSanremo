@@ -3,11 +3,9 @@
 
 @source "../../lib/vota_sanremo_web";
 
-/* DaisyUI theme configuration */
+/* DaisyUI base configuration (no built-in themes — we define custom ones below) */
 @plugin "daisyui" {
-    themes:
-        light --default,
-        dark --prefersdark;
+    themes: false;
     logs: false;
 }
 
@@ -16,8 +14,10 @@
    ============================================================ */
 
 /* Light theme: Deep navy primary, rich gold secondary, white base */
-:root,
-[data-theme="light"] {
+@plugin "daisyui/theme" {
+    name: "light";
+    default: true;
+    color-scheme: light;
     --color-primary: oklch(35% 0.14 260);
     --color-primary-content: oklch(98% 0 0);
     --color-secondary: oklch(73% 0.13 80);
@@ -44,7 +44,10 @@
 }
 
 /* Dark theme: Bright blue primary, bright gold secondary, dark navy base */
-[data-theme="dark"] {
+@plugin "daisyui/theme" {
+    name: "dark";
+    prefersdark: true;
+    color-scheme: dark;
     --color-primary: oklch(58% 0.18 255);
     --color-primary-content: oklch(97% 0.005 255);
     --color-secondary: oklch(78% 0.14 80);

@@ -35,6 +35,35 @@ topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" })
 window.addEventListener("phx:page-loading-start", _info => topbar.show(300))
 window.addEventListener("phx:page-loading-stop", _info => topbar.hide())
 
+// Theme toggle persistence
+function initThemeToggle() {
+  const savedTheme = localStorage.getItem("theme") || "light";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+
+  // Sync all theme-controller checkboxes with saved state
+  document.querySelectorAll("input.theme-controller").forEach(input => {
+    input.checked = savedTheme === input.value;
+  });
+
+  // Listen for changes on theme-controller checkboxes
+  document.addEventListener("change", (e) => {
+    if (e.target.classList.contains("theme-controller")) {
+      const theme = e.target.checked ? e.target.value : "light";
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+    }
+  });
+}
+
+// Init on DOMContentLoaded and after LiveView navigations
+initThemeToggle();
+window.addEventListener("phx:page-loading-stop", () => {
+  const savedTheme = localStorage.getItem("theme") || "light";
+  document.querySelectorAll("input.theme-controller").forEach(input => {
+    input.checked = savedTheme === input.value;
+  });
+});
+
 // connect if there are any LiveViews on the page
 liveSocket.connect()
 
