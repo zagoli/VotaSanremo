@@ -21,7 +21,7 @@ defmodule VotaSanremoWeb.PerformersScores do
             <:name :let={score_group}>{score_group.name}</:name>
 
             <:property :let={score_group}>
-              <.badge>
+              <.badge width={12}>
                 {score_to_string(score_group.score)}
               </.badge>
             </:property>

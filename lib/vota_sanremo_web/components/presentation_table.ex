@@ -64,15 +64,21 @@ defmodule VotaSanremoWeb.PresentationTable do
   @doc """
   Renders a themed badge.
 
+  ## Attributes
+  - `:width` - Optional width in Tailwind units (e.g., 12 becomes `w-12`)
+
   ## Examples
 
       <.badge>Hi I'm a badge</.badge>
+      <.badge width={12}>With width</.badge>
   """
+  attr :width, :integer, default: nil, doc: "the width in Tailwind units"
   slot :inner_block, required: true
 
   def badge(assigns) do
+    width_class = if assigns.width, do: "w-#{assigns.width}", else: ""
     ~H"""
-    <span class="badge badge-primary badge-outline font-semibold">
+    <span class={"badge badge-primary badge-outline font-semibold #{width_class}"}>
       {render_slot(@inner_block)}
     </span>
     """
