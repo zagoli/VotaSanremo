@@ -37,13 +37,15 @@
           </div>
 
           <div class="flex-1">
-            <.link navigate="/" class="link text-xl font-bold tracking-tight flex items-center gap-2 ml-2 no-underline hover:no-underline">
-              <.icon name="hero-star-solid" class="size-5 text-secondary" />
-              VotaSanremo
+            <.link
+              navigate="/"
+              class="link text-xl font-bold tracking-tight flex items-center gap-2 ml-2 no-underline hover:no-underline"
+            >
+              <.icon name="hero-star-solid" class="size-5 text-secondary" /> VotaSanremo
             </.link>
           </div>
-
-          <!-- Desktop quick links -->
+          
+<!-- Desktop quick links -->
           <div class="flex-none hidden md:flex items-center gap-1">
             <.link :if={@current_user} navigate={~p"/vote"} class="btn btn-ghost btn-sm">
               {gettext("Vote")}
@@ -55,8 +57,8 @@
               {gettext("Juries")}
             </.link>
           </div>
-
-          <!-- Language switcher & theme toggle -->
+          
+<!-- Language switcher & theme toggle -->
           <div class="flex-none flex items-center gap-1 ml-2">
             <div class="flex items-center gap-1">
               <.link href={~p"/?lang=en"} title="English" class="btn btn-ghost btn-xs px-1">
@@ -66,8 +68,8 @@
                 <Flagpack.ita class="w-5 h-4" />
               </.link>
             </div>
-
-            <!-- Theme toggle (light/dark) -->
+            
+<!-- Theme toggle (light/dark) -->
             <label
               class="swap swap-rotate btn btn-ghost btn-circle"
               title={gettext("Toggle theme")}
@@ -85,12 +87,12 @@
             </label>
           </div>
         </div>
-
-        <!-- Page content -->
+        
+<!-- Page content -->
         {@inner_content}
       </div>
-
-      <!-- Drawer sidebar -->
+      
+<!-- Drawer sidebar -->
       <div class="drawer-side z-40">
         <label for="nav-drawer" aria-label={gettext("Close menu")} class="drawer-overlay"></label>
 
@@ -98,8 +100,7 @@
           <!-- Sidebar header — branded navy -->
           <div class="sidebar-brand-header p-4 flex items-center justify-between">
             <span class="font-bold text-lg tracking-tight flex items-center gap-2">
-              <.icon name="hero-star-solid" class="size-5 text-secondary" />
-              VotaSanremo
+              <.icon name="hero-star-solid" class="size-5 text-secondary" /> VotaSanremo
             </span>
             <label for="nav-drawer" class="btn btn-ghost btn-circle btn-sm">
               <.icon name="hero-x-mark" class="size-5" />

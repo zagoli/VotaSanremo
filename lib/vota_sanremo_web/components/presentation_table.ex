@@ -77,6 +77,7 @@ defmodule VotaSanremoWeb.PresentationTable do
 
   def badge(assigns) do
     width_class = if assigns.width, do: "w-#{assigns.width}", else: ""
+
     ~H"""
     <span class={"badge badge-primary badge-outline font-semibold #{width_class}"}>
       {render_slot(@inner_block)}
