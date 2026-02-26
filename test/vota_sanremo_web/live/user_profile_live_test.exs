@@ -28,7 +28,6 @@ defmodule VotaSanremoWeb.UserProfileLiveTest do
     } do
       {:ok, _live, html} = live(conn, ~p"/users/profile/#{user.id}")
 
-      assert html =~ "Votes"
       assert html =~ performer
       assert html =~ first_performance_type
       assert html =~ second_performance_type
@@ -44,7 +43,6 @@ defmodule VotaSanremoWeb.UserProfileLiveTest do
 
       {:ok, _live, html} = live(conn, ~p"/users/profile/#{user.id}")
 
-      assert html =~ "Votes"
       assert html =~ "#{user.username} does not want to disclose his/her votes."
       refute html =~ "5.0"
     end

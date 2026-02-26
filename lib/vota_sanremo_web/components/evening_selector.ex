@@ -9,13 +9,10 @@ defmodule VotaSanremoWeb.EveningSelector do
     ~H"""
     <button
       type="button"
-      class={"px-4 py-1 text-lg first:rounded-l-lg last:rounded-r-lg flex-1 border hover:bg-zinc-200" <>
-            if assigns.selected do
-              " bg-zinc-100 text-zinc-700 font-semibold"
-            else
-              ""
-            end
-      }
+      class={[
+        "join-item btn flex-1",
+        if(@selected, do: "btn-primary", else: "btn-ghost border border-base-300")
+      ]}
       phx-click="evening-selected"
       value={@evening.id}
     >
@@ -30,7 +27,7 @@ defmodule VotaSanremoWeb.EveningSelector do
 
   def evening_selector(assigns) do
     ~H"""
-    <div class={["flex", @class]}>
+    <div class={["join w-full", @class]}>
       <.evening_button
         :for={evening <- @evenings}
         evening={evening}

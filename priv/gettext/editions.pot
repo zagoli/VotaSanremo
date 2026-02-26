@@ -16,7 +16,7 @@ msgstr ""
 msgid "Are you sure to delete this edition?"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:155
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:163
 #, elixir-autogen, elixir-format
 msgid "Back to all editions"
 msgstr ""

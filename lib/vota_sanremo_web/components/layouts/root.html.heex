@@ -2,6 +2,12 @@
 <html lang={@locale |> String.replace("_", "-")} data-theme="light">
   <head>
     <meta charset="utf-8" />
+    <script>
+      (function() {
+        var theme = localStorage.getItem("theme") || "light";
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
     <.live_title>
@@ -18,8 +24,8 @@
       <input id="nav-drawer" type="checkbox" class="drawer-toggle" />
 
       <div class="drawer-content flex flex-col">
-        <!-- Navbar -->
-        <div class="navbar bg-base-100 border-b border-base-200 sticky top-0 z-30">
+        <!-- Navbar — branded navy -->
+        <div class="navbar navbar-brand sticky top-0 z-30 shadow-md">
           <div class="flex-none">
             <label
               for="nav-drawer"
@@ -31,8 +37,11 @@
           </div>
 
           <div class="flex-1">
-            <.link navigate="/" class="btn btn-ghost text-xl font-bold">
-              VotaSanremo
+            <.link
+              navigate="/"
+              class="link text-xl font-bold tracking-tight flex items-center gap-2 ml-2 no-underline hover:no-underline"
+            >
+              <.icon name="hero-star-solid" class="size-5 text-secondary" /> VotaSanremo
             </.link>
           </div>
           
@@ -88,14 +97,17 @@
         <label for="nav-drawer" aria-label={gettext("Close menu")} class="drawer-overlay"></label>
 
         <aside class="bg-base-200 min-h-full w-72 flex flex-col">
-          <div class="p-4 flex items-center justify-between border-b border-base-300">
-            <span class="font-bold text-lg">VotaSanremo</span>
+          <!-- Sidebar header — branded navy -->
+          <div class="sidebar-brand-header p-4 flex items-center justify-between">
+            <span class="font-bold text-lg tracking-tight flex items-center gap-2">
+              <.icon name="hero-star-solid" class="size-5 text-secondary" /> VotaSanremo
+            </span>
             <label for="nav-drawer" class="btn btn-ghost btn-circle btn-sm">
               <.icon name="hero-x-mark" class="size-5" />
             </label>
           </div>
 
-          <ul class="menu flex-1 p-4 gap-1">
+          <ul class="menu w-full flex-1 gap-1 p-3">
             <li :if={@current_user}>
               <.link href={~p"/vote"}>
                 <.icon name="hero-star" class="size-4" />
@@ -147,7 +159,7 @@
               </li>
 
               <%= if @current_user.user_type === :admin do %>
-                <div class="divider my-2 text-xs font-semibold opacity-60">
+                <div class="divider my-2 text-xs font-semibold uppercase tracking-wider opacity-60">
                   {gettext("Admin")}
                 </div>
 

@@ -3,7 +3,7 @@
 
   <.link
     :if={@current_user}
-    class="block mt-3 text-center w-full bg-zinc-600 text-white rounded-lg p-3"
+    class="btn btn-primary w-full mt-4"
     navigate={~p"/juries/personal"}
   >
     {dgettext("juries", "My Juries")}
@@ -16,7 +16,7 @@
       <:item :for={%{jury: jury, member_count: member_count} <- @top_juries} click_target={jury}>
         <div class="flex justify-between">
           <span>{jury.name}</span>
-          <span class="text-zinc-600">
+          <span class="opacity-60">
             {case member_count do
               0 -> dgettext("juries", "No members")
               _ -> dngettext("juries", "One member", "%{count} members", member_count)

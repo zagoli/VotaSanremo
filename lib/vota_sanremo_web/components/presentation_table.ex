@@ -27,11 +27,11 @@ defmodule VotaSanremoWeb.PresentationTable do
     ~H"""
     <div class="grid grid-cols-2 gap-y-2 ">
       <%= for item <- @items do %>
-        <div class="border-b">
+        <div class="border-b border-base-300 py-2 flex items-center">
           {render_slot(@name, item)}
         </div>
 
-        <div class="border-b text-right pr-3">
+        <div class="border-b border-base-300 py-2 text-right pr-3 flex items-center justify-end">
           {render_slot(@property, item)}
         </div>
       <% end %>
@@ -53,9 +53,8 @@ defmodule VotaSanremoWeb.PresentationTable do
     ~H"""
     <button
       type="button"
-      class="bg-gray-300 disabled:bg-gray-100 rounded-lg px-2 disabled:text-gray-300"
+      class="btn btn-xs btn-outline btn-primary w-12"
       {@rest}
-      style="line-height: normal"
     >
       {render_slot(@inner_block)}
     </button>
@@ -63,17 +62,22 @@ defmodule VotaSanremoWeb.PresentationTable do
   end
 
   @doc """
-  Renders a gray badge.
+  Renders a themed badge.
+
+  ## Attributes
+  - `:width` - Optional width in Tailwind units (e.g., 12 becomes `w-12`)
 
   ## Examples
 
       <.badge>Hi I'm a badge</.badge>
+      <.badge width={12}>With width</.badge>
   """
+  attr :width, :integer, default: nil, doc: "the width in Tailwind units"
   slot :inner_block, required: true
 
   def badge(assigns) do
     ~H"""
-    <span class="bg-gray-300 rounded-lg px-2 leading-6">
+    <span class={"badge badge-primary badge-outline font-semibold #{if assigns.width, do: "w-#{assigns.width}", else: ""}"}>
       {render_slot(@inner_block)}
     </span>
     """

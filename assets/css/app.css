@@ -3,15 +3,134 @@
 
 @source "../../lib/vota_sanremo_web";
 
-/* DaisyUI theme configuration */
+/* DaisyUI base configuration (no built-in themes — we define custom ones below) */
 @plugin "daisyui" {
-    themes:
-        light --default,
-        dark --prefersdark;
+    themes: false;
     logs: false;
 }
 
-/* LiveView loading state variants */
+/* ============================================================
+   Sanremo Custom Theme — Elegant Navy & Gold
+   ============================================================ */
+
+/* Light theme: Deep navy primary, rich gold secondary, white base */
+@plugin "daisyui/theme" {
+    name: "light";
+    default: true;
+    color-scheme: light;
+    --color-primary: oklch(35% 0.14 260);
+    --color-primary-content: oklch(98% 0 0);
+    --color-secondary: oklch(73% 0.13 80);
+    --color-secondary-content: oklch(20% 0.05 80);
+    --color-accent: oklch(55% 0.20 350);
+    --color-accent-content: oklch(98% 0 0);
+    --color-neutral: oklch(22% 0.04 260);
+    --color-neutral-content: oklch(92% 0.01 260);
+    --color-base-100: oklch(100% 0 0);
+    --color-base-200: oklch(96.5% 0.007 255);
+    --color-base-300: oklch(92% 0.014 255);
+    --color-base-content: oklch(22% 0.04 260);
+    --color-info: oklch(62% 0.17 245);
+    --color-info-content: oklch(98% 0 0);
+    --color-success: oklch(72% 0.17 155);
+    --color-success-content: oklch(98% 0 0);
+    --color-warning: oklch(80% 0.16 85);
+    --color-warning-content: oklch(22% 0.08 85);
+    --color-error: oklch(65% 0.22 25);
+    --color-error-content: oklch(98% 0 0);
+    --radius-box: 0.75rem;
+    --radius-field: 0.375rem;
+    --radius-selector: 0.5rem;
+}
+
+/* Dark theme: Bright blue primary, bright gold secondary, dark navy base */
+@plugin "daisyui/theme" {
+    name: "dark";
+    prefersdark: true;
+    color-scheme: dark;
+    --color-primary: oklch(58% 0.18 255);
+    --color-primary-content: oklch(97% 0.005 255);
+    --color-secondary: oklch(78% 0.14 80);
+    --color-secondary-content: oklch(18% 0.04 80);
+    --color-accent: oklch(70% 0.16 350);
+    --color-accent-content: oklch(15% 0.03 350);
+    --color-neutral: oklch(24% 0.04 255);
+    --color-neutral-content: oklch(88% 0.01 255);
+    --color-base-100: oklch(17% 0.035 260);
+    --color-base-200: oklch(22% 0.04 258);
+    --color-base-300: oklch(30% 0.04 256);
+    --color-base-content: oklch(92% 0.01 255);
+    --color-info: oklch(65% 0.16 245);
+    --color-info-content: oklch(97% 0 0);
+    --color-success: oklch(75% 0.16 155);
+    --color-success-content: oklch(18% 0.04 155);
+    --color-warning: oklch(82% 0.16 85);
+    --color-warning-content: oklch(20% 0.06 85);
+    --color-error: oklch(68% 0.20 25);
+    --color-error-content: oklch(15% 0.04 25);
+    --radius-box: 0.75rem;
+    --radius-field: 0.375rem;
+    --radius-selector: 0.5rem;
+}
+
+/* ============================================================
+   Branded Navbar
+   ============================================================ */
+.navbar-brand {
+    background-color: var(--color-primary);
+    color: var(--color-primary-content);
+    border-bottom: 1px solid oklch(0% 0 0 / 0.12);
+}
+
+.navbar-brand .btn {
+    color: var(--color-primary-content);
+}
+
+.navbar-brand .btn:hover {
+    background-color: oklch(100% 0 0 / 0.12);
+}
+
+.navbar-brand .swap {
+    color: var(--color-primary-content);
+}
+
+/* ============================================================
+   Branded Sidebar Header
+   ============================================================ */
+.sidebar-brand-header {
+    background-color: var(--color-primary);
+    color: var(--color-primary-content);
+}
+
+.sidebar-brand-header .btn {
+    color: var(--color-primary-content);
+}
+
+/* ============================================================
+   Hero Section Gradient
+   ============================================================ */
+.hero-gradient {
+    background: linear-gradient(
+        135deg,
+        var(--color-primary) 0%,
+        oklch(40% 0.12 270) 50%,
+        oklch(35% 0.10 280) 100%
+    );
+    color: var(--color-primary-content);
+}
+
+[data-theme="dark"] .hero-gradient {
+    background: linear-gradient(
+        135deg,
+        oklch(20% 0.06 260) 0%,
+        oklch(25% 0.08 270) 50%,
+        oklch(22% 0.06 280) 100%
+    );
+}
+
+/* ============================================================
+   LiveView loading state variants
+   ============================================================ */
 @variant phx-click-loading {
     &.phx-click-loading,
     .phx-click-loading & {
@@ -33,7 +152,9 @@
     }
 }
 
-/* Vote form radio grid layout */
+/* ============================================================
+   Vote form radio grid layout
+   ============================================================ */
 fieldset.vote-form-radio-group {
     display: grid;
     grid-template: repeat(9, 1fr) 1fr / repeat(4, 1fr);

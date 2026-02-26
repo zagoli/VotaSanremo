@@ -21,7 +21,7 @@
     </.radio_group>
   </.simple_form>
 </div>
-<hr />
+<div class="divider"></div>
 <div class="my-5">
   <.header>
     {dgettext("accounts", "Change your email")}
@@ -50,7 +50,7 @@
     </:actions>
   </.simple_form>
 </div>
-<hr />
+<div class="divider"></div>
 <div class="my-5">
   <.header>
     {dgettext("accounts", "Change Password")}
@@ -98,13 +98,13 @@
     </:actions>
   </.simple_form>
 </div>
-<hr />
+<div class="divider"></div>
 <div class="my-5">
   <.header>{dgettext("accounts", "Other settings")}</.header>
   <.link
     id="delete-account"
     patch={~p"/users/settings/delete_account"}
-    class="rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-3 inline-block mt-3 text-sm"
+    class="btn btn-error btn-sm mt-3"
   >
     {dgettext("accounts", "Delete account")}
   </.link>
@@ -127,7 +127,7 @@
     href={~p"/users/settings/delete_account/confirmed"}
     method="delete"
     id="delete-account-confirm"
-    class="rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-3 inline-block mt-3 text-sm"
+    class="btn btn-error btn-sm mt-3"
   >
     {dgettext("accounts", "I understand, delete my account")}
   </.link>

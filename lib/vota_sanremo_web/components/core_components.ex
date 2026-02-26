@@ -74,7 +74,7 @@ defmodule VotaSanremoWeb.CoreComponents do
         id={"#{@id}-container"}
         phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
         phx-key="escape"
-        class="modal-box relative w-full max-w-2xl"
+        class="modal-box relative w-full max-w-2xl shadow-xl"
       >
         <button
           phx-click={JS.exec("data-cancel", to: "##{@id}")}
@@ -567,13 +567,13 @@ defmodule VotaSanremoWeb.CoreComponents do
     ~H"""
     <header class={[@actions != [] && "flex items-center justify-between gap-6", @class]}>
       <div>
-        <h1 class="text-xl font-semibold leading-8">
+        <h1 class="text-xl font-bold leading-8 text-base-content">
           {render_slot(@inner_block)}
         </h1>
 
         <p
           :for={subtitle <- @subtitle}
-          class={["mt-1 text-sm opacity-70", Map.get(subtitle, :class, "")]}
+          class={["mt-1 text-sm text-base-content/60", Map.get(subtitle, :class, "")]}
         >
           {render_slot(subtitle)}
         </p>
@@ -704,7 +704,7 @@ defmodule VotaSanremoWeb.CoreComponents do
     <div class="mt-8">
       <.link
         navigate={@navigate}
-        class="link link-hover text-sm font-semibold flex items-center gap-1"
+        class="link link-primary link-hover text-sm font-semibold flex items-center gap-1"
       >
         <.icon name="hero-arrow-left-solid" class="size-3" />
         {render_slot(@inner_block)}
