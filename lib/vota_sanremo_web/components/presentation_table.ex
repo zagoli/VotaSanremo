@@ -76,10 +76,8 @@ defmodule VotaSanremoWeb.PresentationTable do
   slot :inner_block, required: true
 
   def badge(assigns) do
-    width_class = if assigns.width, do: "w-#{assigns.width}", else: ""
-
     ~H"""
-    <span class={"badge badge-primary badge-outline font-semibold #{width_class}"}>
+    <span class={"badge badge-primary badge-outline font-semibold #{if assigns.width, do: "w-#{assigns.width}", else: ""}"}>
       {render_slot(@inner_block)}
     </span>
     """
