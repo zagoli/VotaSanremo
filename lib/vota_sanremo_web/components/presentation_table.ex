@@ -53,7 +53,7 @@ defmodule VotaSanremoWeb.PresentationTable do
     ~H"""
     <button
       type="button"
-      class="badge badge-primary badge-outline font-semibold disabled:opacity-40"
+      class="btn btn-xs btn-outline btn-primary w-12"
       {@rest}
     >
       {render_slot(@inner_block)}
