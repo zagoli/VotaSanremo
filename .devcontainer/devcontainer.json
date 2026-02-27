@@ -1,21 +1,24 @@
 {
-    "name": "Phoenix",
-    "dockerComposeFile": "docker-compose.yml",
-    "service": "app",
-    "workspaceFolder": "/workspace",
-   
-    "customizations": {
-     "vscode": {
+  "name": "Phoenix",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+
+  "forwardPorts": [4000, 5432],
+
+  "postCreateCommand": "mix setup",
+
+  "customizations": {
+    "vscode": {
       "settings": {
-       "terminal.integrated.shell.linux": "/bin/bash"
+        "terminal.integrated.defaultProfile.linux": "bash"
       },
       "extensions": [
-       "dbaeumer.vscode-eslint",
-       "jakebecker.elixir-ls",
-       "phoenixframework.phoenix",
-       "github.copilot",
-       "github.copilot-chat"
+        "ElixirLS.elixir-ls",
+        "dbaeumer.vscode-eslint",
+        "github.copilot",
+        "github.copilot-chat"
       ]
-     }
     }
-   }
+  }
+}
