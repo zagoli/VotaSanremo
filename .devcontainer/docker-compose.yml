@@ -1,23 +1,23 @@
-version: '3'
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        VARIANT: latest
-        PHX_VERSION: 1.5.3
     volumes:
       - ..:/workspace:cached
-      - vscode-extension:/root/.vscode-server-insiders
     command: sleep infinity
-    network_mode: service:db
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/my_app_dev
 
   db:
-    image: postgres:latest
+    image: postgres:16
     restart: unless-stopped
     ports:
       - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
@@ -25,4 +25,3 @@ services:
 
 volumes:
   postgres-data:
-  vscode-extension:
