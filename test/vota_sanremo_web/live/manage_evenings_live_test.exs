@@ -10,8 +10,8 @@ defmodule VotaSanremoWeb.ManageEveningsLiveTest do
     edition = edition_fixture()
     evening = evening_fixture(%{edition_id: edition.id, number: 1, date: ~D[2024-02-14]})
     # Create another evening in the same edition for uniqueness testing
-    evening_fixture(%{edition_id: edition.id, number: 2, date: ~D[2024-02-15]})
-    %{evening: evening}
+    evening_2 = evening_fixture(%{edition_id: edition.id, number: 2, date: ~D[2024-02-15]})
+    %{evening: evening, evening_2: evening_2}
   end
 
   describe "Edit evening" do
@@ -105,6 +105,8 @@ defmodule VotaSanremoWeb.ManageEveningsLiveTest do
   end
 
   describe "Copy performances from another evening" do
+    alias VotaSanremo.Evenings
+
     setup [:register_and_log_in_admin, :create_evening]
 
     test "The page shows the copy from evening form", %{conn: conn, evening: evening} do
@@ -114,12 +116,25 @@ defmodule VotaSanremoWeb.ManageEveningsLiveTest do
       assert html =~ "Select an evening"
     end
 
+    test "The select and button are disabled if there are no other evenings", %{
+      conn: conn,
+      evening: evening,
+      evening_2: evening_2
+    } do
+      Evenings.delete_evening(evening_2)
+      {:ok, live, _html} = live(conn, ~p"/admin/evening/#{evening.id}")
+
+      assert has_element?(live, "#copy-performances-form select[disabled]")
+      assert has_element?(live, "#copy-performances-form button[disabled]")
+    end
+
     test "It is possible to copy performances from another evening", %{
       conn: conn,
       evening: evening
     } do
-      edition = edition_fixture()
-      source_evening = evening_fixture(%{edition_id: edition.id, number: 3, date: ~D[2024-02-16]})
+      source_evening =
+        evening_fixture(%{edition_id: evening.edition_id, number: 3, date: ~D[2024-02-16]})
+
       performer = performer_fixture()
       performance_type = performance_type_fixture()
 
@@ -150,8 +165,8 @@ defmodule VotaSanremoWeb.ManageEveningsLiveTest do
     end
 
     test "Copying performances deletes existing ones", %{conn: conn, evening: evening} do
-      edition = edition_fixture()
-      source_evening = evening_fixture(%{edition_id: edition.id, number: 3, date: ~D[2024-02-16]})
+      source_evening =
+        evening_fixture(%{edition_id: evening.edition_id, number: 3, date: ~D[2024-02-16]})
 
       # Create an existing performance in the target evening
       existing_perf = performance_fixture(%{evening_id: evening.id})

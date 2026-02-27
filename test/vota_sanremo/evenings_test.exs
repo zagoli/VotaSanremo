@@ -15,6 +15,19 @@ defmodule VotaSanremo.EveningsTest do
       assert Evenings.list_evenings() == [evening]
     end
 
+    test "list_other_evenings/1 returns evenings of the same edition excluding the given id" do
+      edition = edition_fixture()
+      evening1 = evening_fixture(%{edition_id: edition.id, number: 1, date: ~D[2024-04-28]})
+      evening2 = evening_fixture(%{edition_id: edition.id, number: 2, date: ~D[2024-04-29]})
+      # Different edition
+      _evening3 = evening_fixture()
+
+      other_evenings = Evenings.list_other_evenings(evening1)
+
+      assert length(other_evenings) == 1
+      assert other_evenings == [evening2]
+    end
+
     test "get_evening!/1 returns the evening with given id" do
       evening = evening_fixture()
       assert Evenings.get_evening!(evening.id) == evening

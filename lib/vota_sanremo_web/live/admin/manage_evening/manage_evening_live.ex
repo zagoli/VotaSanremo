@@ -49,7 +49,7 @@ defmodule VotaSanremoWeb.Admin.ManageEveningLive do
   defp assign_other_evenings(socket) do
     assign(socket,
       other_evenings:
-        Evenings.list_other_evenings(socket.assigns.evening.id)
+        Evenings.list_other_evenings(socket.assigns.evening)
         |> Enum.map(&{dgettext("evenings", "Evening %{number}", number: &1.number), &1.id})
     )
   end
