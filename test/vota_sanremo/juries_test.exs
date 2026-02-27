@@ -324,7 +324,7 @@ defmodule VotaSanremo.JuriesTest do
   defp extract_urls_from_invite_email(email) do
     %{
       provider_options: %{
-        dynamic_template_data: %{accept_url: accept_url, decline_url: decline_url}
+        params: %{accept_url: accept_url, decline_url: decline_url}
       }
     } = email
 
