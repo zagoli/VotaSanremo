@@ -1,4 +1,6 @@
 defmodule VotaSanremo.Accounts.UserNotifier do
+  require Logger
+
   import Swoosh.Email
 
   alias VotaSanremo.Mailer
@@ -7,10 +9,10 @@ defmodule VotaSanremo.Accounts.UserNotifier do
   @sender_email "votasanremo@zagoli.com"
   @sender_name "VotaSanremo"
 
-  @confirm_account_ita_template_id "d-e73304d0aac24738bff098dfd2f7096e"
-  @reset_password_ita_template_id "d-a77ba2379579432e8f5b8503db8df739"
-  @update_email_ita_template_id "d-373c2c3c43eb4bb8a6ecd314d481cc94"
-  @user_invite_ita_template_id "d-1447f1e3bfb846e9b54cd39e7cc37867"
+  @confirm_account_ita_template_id 1
+  @reset_password_ita_template_id 2
+  @update_email_ita_template_id 3
+  @user_invite_ita_template_id 4
 
   # Delivers an email using the given SendGrid template_id.
   defp deliver(recipient, template_id, data) when is_map(data) do
@@ -19,10 +21,15 @@ defmodule VotaSanremo.Accounts.UserNotifier do
       |> to(recipient)
       |> from({@sender_name, @sender_email})
       |> put_provider_option(:template_id, template_id)
-      |> put_provider_option(:dynamic_template_data, data)
+      |> put_provider_option(:params, data)
 
     with {:ok, _metadata} <- Mailer.deliver(email) do
+      Logger.info("Email sent to #{recipient}.")
       {:ok, email}
+    else
+      {:error, reason} ->
+        Logger.error("Failed to send email to #{recipient}: #{inspect(reason)}")
+        {:error, reason}
     end
   end
 
