@@ -29,7 +29,7 @@ defmodule VotaSanremo.AccountsFixtures do
     {:ok, captured_email} = fun.(&"[TOKEN]#{&1}[TOKEN]")
 
     [_, token | _] =
-      String.split(captured_email.provider_options.dynamic_template_data.url, "[TOKEN]")
+      String.split(captured_email.provider_options.params.url, "[TOKEN]")
 
     token
   end
