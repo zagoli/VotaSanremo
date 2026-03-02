@@ -1,24 +1,26 @@
 <div class="w-full bg-base-200 rounded-xl p-4 border border-base-300 shadow-sm mb-4" id={@id}>
   <.form for={@form} phx-submit="update_edition" phx-target={@myself}>
-    <div class="flex justify-between items-center pl-1 pr-1">
+    <div class="flex flex-col gap-2 pl-1 pr-1 md:flex-row md:justify-between md:items-center md:gap-0">
       <.input
         type="text"
         field={@form[:name]}
         class="text-lg font-bold bg-inherit p-0 border-none"
         phx-change="editing"
       />
-      <.input
-        type="date"
-        field={@form[:start_date]}
-        phx-change="editing"
-        class="bg-inherit p-0 border-none max-w-28"
-      />
-      <.input
-        type="date"
-        field={@form[:end_date]}
-        phx-change="editing"
-        class="bg-inherit p-0 border-none max-w-28"
-      />
+      <div class="flex gap-2 items-center">
+        <.input
+          type="date"
+          field={@form[:start_date]}
+          phx-change="editing"
+          class="bg-inherit p-0 border-none max-w-28"
+        />
+        <.input
+          type="date"
+          field={@form[:end_date]}
+          phx-change="editing"
+          class="bg-inherit p-0 border-none max-w-28"
+        />
+      </div>
       <div class="flex gap-2 items-center">
         <button
           type="submit"
@@ -54,36 +56,38 @@
     :for={evening <- @edition.evenings}
     class="w-full bg-base-300 mt-3 mb-3 rounded-xl flex items-center evenings"
   >
-    <span class="bg-base-300 font-bold rounded-l-xl p-3" name="evening-number">
+    <span class="bg-base-300 font-bold rounded-l-xl p-3 self-stretch flex items-center" name="evening-number">
       {evening.number}
     </span>
 
-    <div class="grid grid-cols-[1fr_1fr_1fr_min-content_min-content] items-center p-3 w-full">
+    <div class="grid grid-cols-[1fr_min-content] gap-1 items-center p-3 w-full md:grid-cols-[1fr_1fr_1fr_min-content_min-content]">
       <span>
         {Calendar.strftime(evening.date, "%d/%m/%Y")}
       </span>
-      <span>
+      <span class="row-start-2 md:row-start-auto">
         {dgettext("evenings", "Votes start:")} {Calendar.strftime(evening.votes_start, "%H:%M")}
       </span>
-      <span>
+      <span class="row-start-3 md:row-start-auto">
         {dgettext("evenings", "Votes end:")} {Calendar.strftime(evening.votes_end, "%H:%M")}
       </span>
-      <.link
-        title={dgettext("evenings", "edit evening %{number}", number: evening.number)}
-        navigate={~p"/admin/evening/#{evening.id}"}
-      >
-        <.icon name="hero-pencil-mini" class="ml-2" />
-      </.link>
+      <div class="flex items-center row-start-1 justify-self-end md:row-start-auto md:justify-self-auto">
+        <.link
+          title={dgettext("evenings", "edit evening %{number}", number: evening.number)}
+          navigate={~p"/admin/evening/#{evening.id}"}
+        >
+          <.icon name="hero-pencil-mini" class="ml-2" />
+        </.link>
 
-      <button
-        type="button"
-        title={dgettext("evenings", "delete evening %{number}", number: evening.number)}
-        phx-click="delete_evening"
-        value={evening.id}
-        phx-target={@myself}
-      >
-        <.icon name="hero-trash-mini" class="ml-2" />
-      </button>
+        <button
+          type="button"
+          title={dgettext("evenings", "delete evening %{number}", number: evening.number)}
+          phx-click="delete_evening"
+          value={evening.id}
+          phx-target={@myself}
+        >
+          <.icon name="hero-trash-mini" class="ml-2" />
+        </button>
+      </div>
     </div>
   </div>
 </div>
