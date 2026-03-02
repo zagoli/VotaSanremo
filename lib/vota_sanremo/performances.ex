@@ -220,24 +220,21 @@ defmodule VotaSanremo.Performances do
   creates new performances copying performer_id and performance_type_id
   from the source evening's performances.
 
-  The operation is wrapped in a transaction: if any step fails,
-  all changes are rolled back.
-
   ## Examples
 
-      iex> copy_performances_from_evening(source_evening_id, target_evening_id)
+      iex> copy_performances_from_evening(%Evening{}, %Evening{})
       {:ok, [%Performance{}, ...]}
 
-      iex> copy_performances_from_evening(bad_source_id, target_evening_id)
+      iex> copy_performances_from_evening(%Evening{id: bad_id}, %Evening{})
       {:error, reason}
 
   """
-  def copy_performances_from_evening(source_evening_id, target_evening_id) do
+  def copy_performances_from_evening(%Evening{} = source_evening, %Evening{} = target_evening) do
     alias VotaSanremo.Evenings
 
     Repo.transaction(fn ->
-      source_evening = Evenings.get_evening_with_performances!(source_evening_id)
-      target_evening = Evenings.get_evening_with_performances!(target_evening_id)
+      source_evening = Evenings.get_evening_with_performances!(source_evening.id)
+      target_evening = Evenings.get_evening_with_performances!(target_evening.id)
 
       # Delete all existing performances of the target evening
       Enum.each(target_evening.performances, fn performance ->

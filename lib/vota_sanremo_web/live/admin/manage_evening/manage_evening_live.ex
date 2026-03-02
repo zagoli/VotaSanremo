@@ -14,7 +14,7 @@ defmodule VotaSanremoWeb.Admin.ManageEveningLive do
     {:ok,
      socket
      |> assign(:evening, evening)
-     |> assign(:copy_from_evening_id, nil)
+     |> assign(:copy_from_evening, nil)
      |> assign_evening_form(evening_changeset)
      |> assign_performance_form(performance_changeset)
      |> assign_performers()
@@ -47,11 +47,7 @@ defmodule VotaSanremoWeb.Admin.ManageEveningLive do
   end
 
   defp assign_other_evenings(socket) do
-    assign(socket,
-      other_evenings:
-        Evenings.list_other_evenings(socket.assigns.evening)
-        |> Enum.map(&{dgettext("evenings", "Evening %{number}", number: &1.number), &1.id})
-    )
+    assign(socket, other_evenings: Evenings.list_other_evenings(socket.assigns.evening))
   end
 
   @impl true
@@ -138,27 +134,29 @@ defmodule VotaSanremoWeb.Admin.ManageEveningLive do
 
   @impl true
   def handle_event(
-        "select_copy_evening",
+        "select_copy_performances",
         %{"copy_evening" => %{"evening_id" => evening_id}},
-        socket
+        %{assigns: %{other_evenings: other_evenings}} = socket
       ) do
-    {:noreply, assign(socket, :copy_from_evening_id, String.to_integer(evening_id))}
+    evening_id = String.to_integer(evening_id)
+    source_evening = Enum.find(other_evenings, &(&1.id == evening_id))
+    {:noreply, assign(socket, :copy_from_evening, source_evening)}
   end
 
   @impl true
   def handle_event(
         "confirm_copy_performances",
         _params,
-        %{assigns: %{evening: evening, copy_from_evening_id: source_evening_id}} = socket
+        %{assigns: %{evening: evening, copy_from_evening: source_evening}} = socket
       ) do
-    case Performances.copy_performances_from_evening(source_evening_id, evening.id) do
+    case Performances.copy_performances_from_evening(source_evening, evening) do
       {:ok, _performances} ->
         evening = Evenings.get_evening_with_performances!(evening.id)
 
         {:noreply,
          socket
          |> assign(:evening, evening)
-         |> assign(:copy_from_evening_id, nil)
+         |> assign(:copy_from_evening, nil)
          |> put_flash(
            :info,
            dgettext("performances", "Performances copied successfully.")
@@ -167,7 +165,7 @@ defmodule VotaSanremoWeb.Admin.ManageEveningLive do
       {:error, _reason} ->
         {:noreply,
          socket
-         |> assign(:copy_from_evening_id, nil)
+         |> assign(:copy_from_evening, nil)
          |> put_flash(
            :error,
            dgettext("performances", "Could not copy performances.")

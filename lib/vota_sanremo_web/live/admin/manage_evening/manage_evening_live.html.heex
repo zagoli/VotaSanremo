@@ -54,7 +54,7 @@
   for={%{}}
   as={:copy_evening}
   id="copy-performances-form"
-  phx-submit="select_copy_evening"
+  phx-submit="select_copy_performances"
   class="bg-base-100 rounded-xl p-4 border border-base-200 shadow-sm my-4"
 >
   <div class="grid grid-cols-[1fr_min-content] gap-3">
@@ -63,7 +63,7 @@
       value=""
       label={dgettext("performances", "Copy from evening")}
       type="select"
-      options={@other_evenings}
+      options={Enum.map(@other_evenings, &{dgettext("evenings", "Evening %{number}", number: &1.number), &1.id})}
       prompt={dgettext("performances", "Select an evening")}
       disabled={Enum.empty?(@other_evenings)}
     />
@@ -79,10 +79,10 @@
 </.form>
 
 <.modal
-  :if={@copy_from_evening_id}
+  :if={@copy_from_evening}
   id="confirm-copy-modal"
   show
-  on_cancel={JS.push("select_copy_evening", value: %{copy_evening: %{evening_id: ""}})}
+  on_cancel={JS.push("select_copy_performances", value: %{copy_evening: %{evening_id: ""}})}
 >
   <div class="p-4">
     <h3 class="text-lg font-semibold mb-4">

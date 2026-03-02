@@ -240,9 +240,7 @@ defmodule VotaSanremo.PerformancesTest do
       })
 
       assert {:ok, copied} =
-               Performances.copy_performances_from_evening(source_evening.id, target_evening.id)
-
-      assert length(copied) == 1
+               Performances.copy_performances_from_evening(source_evening, target_evening)
       [new_perf] = copied
       assert new_perf.evening_id == target_evening.id
       assert new_perf.performer_id == performer.id
@@ -261,7 +259,7 @@ defmodule VotaSanremo.PerformancesTest do
       performance_fixture(%{evening_id: source_evening.id})
 
       assert {:ok, _copied} =
-               Performances.copy_performances_from_evening(source_evening.id, target_evening.id)
+               Performances.copy_performances_from_evening(source_evening, target_evening)
 
       # The existing performance should be deleted
       assert_raise Ecto.NoResultsError, fn ->
@@ -279,7 +277,7 @@ defmodule VotaSanremo.PerformancesTest do
       performance_fixture(%{evening_id: source_evening.id})
 
       assert {:ok, copied} =
-               Performances.copy_performances_from_evening(source_evening.id, target_evening.id)
+               Performances.copy_performances_from_evening(source_evening, target_evening)
 
       assert length(copied) == 3
     end
@@ -290,7 +288,7 @@ defmodule VotaSanremo.PerformancesTest do
       target_evening = evening_fixture(%{edition_id: edition.id, number: 2, date: ~D[2024-02-15]})
 
       assert {:ok, copied} =
-               Performances.copy_performances_from_evening(source_evening.id, target_evening.id)
+               Performances.copy_performances_from_evening(source_evening, target_evening)
 
       assert copied == []
     end
