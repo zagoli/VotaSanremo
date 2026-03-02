@@ -11,7 +11,7 @@ defmodule VotaSanremoWeb.UserSessionController do
       params,
       dgettext(
         "accounts",
-        "Account created successfully! A confirmation email was sent to your email address."
+        "Account created successfully! An email was sent to activate your account."
       )
     )
   end

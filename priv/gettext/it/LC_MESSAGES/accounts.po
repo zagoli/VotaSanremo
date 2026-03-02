@@ -18,8 +18,8 @@ msgstr "Un link per confermare il cambio email è stato inviato al nuovo indiriz
 
 #: lib/vota_sanremo_web/controllers/user_session_controller.ex:12
 #, elixir-autogen, elixir-format
-msgid "Account created successfully! A confirmation email was sent to your email address."
-msgstr "Account creato con successo! Un'email di conferma è stata inviata al tuo indirizzo email."
+msgid "Account created successfully! An email was sent to activate your account."
+msgstr "Account creato con successo! Un'email per attivare l'account è stata inviata al tuo indirizzo email."
 
 #: lib/vota_sanremo_web/controllers/user_session_controller.ex:55
 #, elixir-autogen, elixir-format

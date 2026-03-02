@@ -18,7 +18,7 @@ msgstr ""
 
 #: lib/vota_sanremo_web/controllers/user_session_controller.ex:12
 #, elixir-autogen, elixir-format
-msgid "Account created successfully! A confirmation email was sent to your email address."
+msgid "Account created successfully! An email was sent to activate your account."
 msgstr ""
 
 #: lib/vota_sanremo_web/controllers/user_session_controller.ex:55
