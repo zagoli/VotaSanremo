@@ -1,6 +1,8 @@
 defmodule VotaSanremoWeb.UserRegistrationLive do
   use VotaSanremoWeb, :live_view
 
+  require Logger
+
   alias VotaSanremo.Accounts
   alias VotaSanremo.Accounts.User
 
@@ -70,23 +72,32 @@ defmodule VotaSanremoWeb.UserRegistrationLive do
 
   @impl true
   def handle_event("save", %{"user" => user_params}, socket) do
-    case Accounts.register_user(user_params) do
-      {:ok, user} ->
-        {:ok, _} =
-          Accounts.deliver_user_confirmation_instructions(
-            user,
-            &url(~p"/users/confirm/#{&1}")
-          )
+    with {:ok, user} <- Accounts.register_user(user_params),
+         :ok <- deliver_confirmation_instructions(user) do
+      changeset = Accounts.change_user_registration(user)
+      Logger.info("Confirmation instructions sent to #{user.username}")
 
-        changeset = Accounts.change_user_registration(user)
+      {:noreply,
+       socket
+       |> assign(trigger_submit: true)
+       |> assign_form(changeset)}
+    else
+      {:error, %Ecto.Changeset{} = changeset} ->
+        {:noreply, socket |> assign(check_errors: true) |> assign_form(changeset)}
+
+      {:delivery_error, user} ->
+        Logger.error("Failed to deliver confirmation instructions to #{user.username}")
+        Accounts.delete_user(user)
 
         {:noreply,
          socket
-         |> assign(trigger_submit: true)
-         |> assign_form(changeset)}
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, socket |> assign(check_errors: true) |> assign_form(changeset)}
+         |> put_flash(
+           :error,
+           dgettext(
+             "accounts",
+             "There was an error creating your account, please try again later."
+           )
+         )}
     end
   end
 
@@ -94,6 +105,13 @@ defmodule VotaSanremoWeb.UserRegistrationLive do
   def handle_event("validate", %{"user" => user_params}, socket) do
     changeset = Accounts.change_user_registration(%User{}, user_params)
     {:noreply, assign_form(socket, Map.put(changeset, :action, :validate))}
+  end
+
+  defp deliver_confirmation_instructions(user) do
+    case Accounts.deliver_user_confirmation_instructions(user, &url(~p"/users/confirm/#{&1}")) do
+      {:ok, _mail} -> :ok
+      {:error, _} -> {:delivery_error, user}
+    end
   end
 
   defp assign_form(socket, %Ecto.Changeset{} = changeset) do

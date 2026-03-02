@@ -31,40 +31,40 @@ msgstr "Errore!"
 msgid "Hang in there while we get back on track"
 msgstr "Aspetta un attimo mentre ci riprendiamo"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:49
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:121
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:57
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:128
 #, elixir-autogen, elixir-format
 msgid "Juries"
 msgstr "Giurie"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:46
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:114
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:54
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:121
 #, elixir-autogen, elixir-format
 msgid "Leaderboard"
 msgstr "Classifica"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:198
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:205
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:28
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:23
 #: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:28
 #: lib/vota_sanremo_web/live/accounts/user_login_live.ex:35
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:16
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:18
 #: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:42
 #, elixir-autogen, elixir-format
 msgid "Log in"
 msgstr "Accedi"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:150
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:157
 #, elixir-autogen, elixir-format
 msgid "Log out"
 msgstr "Esci"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:136
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:143
 #, elixir-autogen, elixir-format
 msgid "My invites"
 msgstr "I miei inviti"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:191
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:198
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:27
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:22
 #: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:27
@@ -73,12 +73,12 @@ msgstr "I miei inviti"
 msgid "Register"
 msgstr "Registrati"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:129
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:136
 #, elixir-autogen, elixir-format
 msgid "Search users"
 msgstr "Cerca un utente"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:143
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:150
 #, elixir-autogen, elixir-format
 msgid "Settings"
 msgstr "Impostazioni"
@@ -93,8 +93,8 @@ msgstr "Qualcosa è andato storto!"
 msgid "Success!"
 msgstr "Operazione riuscita!"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:43
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:107
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:51
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:114
 #, elixir-autogen, elixir-format
 msgid "Vote"
 msgstr "Vota"
@@ -155,20 +155,20 @@ msgstr "Rifiuta"
 #: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:18
 #: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:18
 #: lib/vota_sanremo_web/live/accounts/user_login_live.ex:20
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:45
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:47
 #: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "Email"
 msgstr "Email"
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:32
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:34
 #: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:19
 #, elixir-autogen, elixir-format
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr "Ops, qualcosa è andato storto! Controlla gli errori qui sotto."
 
 #: lib/vota_sanremo_web/live/accounts/user_login_live.ex:21
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:48
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:50
 #, elixir-autogen, elixir-format
 msgid "Password"
 msgstr "Password"
@@ -202,17 +202,17 @@ msgstr "Invio in corso..."
 msgid "Sign up"
 msgstr "Registrati"
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:38
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:40
 #, elixir-autogen, elixir-format
 msgid "Username"
 msgstr "Nome utente"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:169
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:176
 #, elixir-autogen, elixir-format
 msgid "Manage editions"
 msgstr "Gestisci edizioni"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:176
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:183
 #, elixir-autogen, elixir-format
 msgid "Manage performers"
 msgstr "Gestisci artisti"
@@ -244,12 +244,12 @@ msgstr "Modifica"
 msgid "Name"
 msgstr "Nome"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:183
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:190
 #, elixir-autogen, elixir-format
 msgid "Manage performance types"
 msgstr "Gestisci tipi di performance"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:162
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:169
 #, elixir-autogen, elixir-format
 msgid "Manage users"
 msgstr "Gestisci utenti"
@@ -259,37 +259,37 @@ msgstr "Gestisci utenti"
 msgid "Delete vote"
 msgstr "Elimina voto"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:156
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:163
 #, elixir-autogen, elixir-format
 msgid "Admin"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:100
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:102
 #, elixir-autogen, elixir-format
 msgid "Cancel"
 msgstr "Annulla"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:89
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:97
 #, elixir-autogen, elixir-format
 msgid "Close menu"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:103
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:105
 #, elixir-autogen, elixir-format
 msgid "Confirm"
 msgstr "Conferma"
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:27
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:33
 #, elixir-autogen, elixir-format
 msgid "Open menu"
 msgstr ""
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:73
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:81
 #, elixir-autogen, elixir-format
 msgid "Toggle dark mode"
 msgstr ""
 
-#: lib/vota_sanremo_web/components/layouts/root.html.heex:67
+#: lib/vota_sanremo_web/components/layouts/root.html.heex:75
 #, elixir-autogen, elixir-format
 msgid "Toggle theme"
 msgstr ""

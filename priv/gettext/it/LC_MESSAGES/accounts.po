@@ -26,7 +26,7 @@ msgstr "Account creato con successo! Un'email di conferma è stata inviata al tu
 msgid "Account deleted successfully."
 msgstr "Account eliminato con successo."
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:14
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:16
 #, elixir-autogen, elixir-format
 msgid "Already registered?"
 msgstr "Hai già un account?"
@@ -68,12 +68,12 @@ msgstr "Conferma il mio account"
 msgid "Confirm new password"
 msgstr "Conferma nuova password"
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:51
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:53
 #, elixir-autogen, elixir-format
 msgid "Create an account"
 msgstr "Crea un account"
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:50
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:52
 #, elixir-autogen, elixir-format
 msgid "Creating account..."
 msgstr "Sto creando un account..."
@@ -201,7 +201,7 @@ msgstr "Privati"
 msgid "Public"
 msgstr "Pubblici"
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:12
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:14
 #, elixir-autogen, elixir-format
 msgid "Register for an account"
 msgstr "Registra un account"
@@ -282,7 +282,12 @@ msgstr "Stai per eliminare il tuo account."
 msgid "for an account now."
 msgstr "un account."
 
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:18
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:20
 #, elixir-autogen, elixir-format
 msgid "to your account now."
 msgstr "al tuo account."
+
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:96
+#, elixir-autogen, elixir-format
+msgid "There was an error creating your account, please try again later."
+msgstr "Si è verificato un errore durante la creazione del tuo account, riprova più tardi."

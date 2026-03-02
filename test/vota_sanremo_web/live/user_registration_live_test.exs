@@ -1,5 +1,5 @@
 defmodule VotaSanremoWeb.UserRegistrationLiveTest do
-  use VotaSanremoWeb.ConnCase, async: true
+  use VotaSanremoWeb.ConnCase, async: false
 
   import Phoenix.LiveViewTest
   import VotaSanremo.AccountsFixtures
@@ -67,6 +67,38 @@ defmodule VotaSanremoWeb.UserRegistrationLiveTest do
         |> render_submit()
 
       assert result =~ "has already been taken"
+    end
+  end
+
+  describe "register user with email delivery failure" do
+    setup do
+      original_config = Application.get_env(:vota_sanremo, VotaSanremo.Mailer)
+
+      Application.put_env(
+        :vota_sanremo,
+        VotaSanremo.Mailer,
+        adapter: VotaSanremo.SwooshFailingAdapter
+      )
+
+      on_exit(fn ->
+        Application.put_env(:vota_sanremo, VotaSanremo.Mailer, original_config)
+      end)
+
+      :ok
+    end
+
+    test "shows error and deletes user when email delivery fails", %{conn: conn} do
+      {:ok, lv, _html} = live(conn, ~p"/users/register")
+
+      email = unique_user_email()
+      attrs = valid_user_attributes(email: email)
+
+      lv
+      |> form("#registration_form", user: attrs)
+      |> render_submit()
+
+      assert render(lv) =~ "There was an error creating your account"
+      assert VotaSanremo.Accounts.get_user_by_email(email) == nil
     end
   end
 

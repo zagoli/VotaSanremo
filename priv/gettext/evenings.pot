@@ -26,7 +26,7 @@ msgstr ""
 msgid "Evening Number"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.ex:85
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.ex:81
 #, elixir-autogen, elixir-format
 msgid "Evening updated successfully."
 msgstr ""
@@ -71,7 +71,7 @@ msgstr ""
 msgid "edit evening %{number}"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.ex:53
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:66
 #, elixir-autogen, elixir-format
 msgid "Evening %{number}"
 msgstr ""

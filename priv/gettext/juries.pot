@@ -21,7 +21,7 @@ msgstr ""
 msgid "Back to juries"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:51
+#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:53
 #, elixir-autogen, elixir-format
 msgid "Back to jury"
 msgstr ""
@@ -52,14 +52,14 @@ msgstr ""
 msgid "Error removing member."
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:37
 #: lib/vota_sanremo_web/live/juries/my_invites_live.ex:41
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:60
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:45
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:64
 #, elixir-autogen, elixir-format
 msgid "Error while accepting this invite. Sorry!"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:56
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:60
 #, elixir-autogen, elixir-format
 msgid "Error while declining this invite. Sorry!"
 msgstr ""
@@ -89,19 +89,19 @@ msgstr ""
 msgid "Invite a user"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:29
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:33
 #, elixir-autogen, elixir-format
 msgid "Invite accepted! You are now part of %{jury_name}"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:51
+#: lib/vota_sanremo_web/live/juries/my_invites_live.ex:55
 #, elixir-autogen, elixir-format
 msgid "Invite declined."
 msgstr ""
 
 #: lib/vota_sanremo_web/live/juries/juries_live.html.heex:2
 #: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:23
-#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:34
+#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "Juries"
 msgstr ""
@@ -149,7 +149,7 @@ msgid_plural "%{count} members"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:40
+#: lib/vota_sanremo_web/live/juries/jury_members_live.html.heex:41
 #, elixir-autogen, elixir-format
 msgid "Pending sent invites"
 msgstr ""
@@ -174,7 +174,7 @@ msgstr ""
 msgid "User invited"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:27
+#: lib/vota_sanremo_web/live/juries/personal_juries_live.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "You are a member of"
 msgstr ""
