@@ -13,7 +13,11 @@ defmodule VotaSanremoWeb.MyInvitesLive do
 
   @impl true
   def handle_params(params, _uri, socket) do
-    {:noreply, apply_action(socket, socket.assigns.live_action, params)}
+    if connected?(socket) do
+      {:noreply, apply_action(socket, socket.assigns.live_action, params)}
+    else
+      {:noreply, socket}
+    end
   end
 
   defp apply_action(socket, :index, _), do: socket
