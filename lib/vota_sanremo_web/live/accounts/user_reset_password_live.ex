@@ -16,7 +16,7 @@ defmodule VotaSanremoWeb.UserResetPasswordLive do
         phx-change="validate"
       >
         <.error :if={@form.errors != []}>
-          {gettext("Oops, something went wrong! Please check the errors below.")}
+          {dgettext("accounts", "Oops, something went wrong! Please check the errors below.")}
         </.error>
         <.input
           field={@form[:password]}
@@ -31,15 +31,15 @@ defmodule VotaSanremoWeb.UserResetPasswordLive do
           required
         />
         <:actions>
-          <.button phx-disable-with={gettext("Resetting...")} class="w-full">
+          <.button phx-disable-with={dgettext("accounts", "Resetting...")} class="w-full">
             {dgettext("accounts", "Reset Password")}
           </.button>
         </:actions>
       </.simple_form>
 
       <p class="text-center text-sm mt-4">
-        <.link href={~p"/users/register"}>{gettext("Register")}</.link>
-        | <.link href={~p"/users/log_in"}>{gettext("Log in")}</.link>
+        <.link href={~p"/users/register"}>{dgettext("accounts", "Register")}</.link>
+        | <.link href={~p"/users/log_in"}>{dgettext("accounts", "Log in")}</.link>
       </p>
     </div>
     """

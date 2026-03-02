@@ -252,6 +252,7 @@ msgstr "Il link di conferma utente non è valido o è scaduto."
 msgid "User confirmed successfully."
 msgstr "Utente confermato con successo."
 
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:40
 #: lib/vota_sanremo_web/live/user_search/user_search_live.html.heex:7
 #, elixir-autogen, elixir-format
 msgid "Username"
@@ -291,3 +292,74 @@ msgstr "al tuo account."
 #, elixir-autogen, elixir-format
 msgid "There was an error creating your account, please try again later."
 msgstr "Si è verificato un errore durante la creazione del tuo account, riprova più tardi."
+
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:119
+#, elixir-autogen, elixir-format
+msgid "Are you sure?"
+msgstr "Sei sicuro?"
+
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:47
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:95
+#, elixir-autogen, elixir-format
+msgid "Changing..."
+msgstr "Modifica in corso..."
+
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:15
+#, elixir-autogen, elixir-format
+msgid "Confirming..."
+msgstr "Conferma in corso..."
+
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:18
+#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:18
+#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:20
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:47
+#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:36
+#, elixir-autogen, elixir-format
+msgid "Email"
+msgstr "Email"
+
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:28
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:23
+#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:28
+#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:35
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:18
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:42
+#, elixir-autogen, elixir-format
+msgid "Log in"
+msgstr "Accedi"
+
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:34
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:19
+#, elixir-autogen, elixir-format
+msgid "Oops, something went wrong! Please check the errors below."
+msgstr "Ops, qualcosa è andato storto! Controlla gli errori qui sotto."
+
+#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:21
+#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:50
+#, elixir-autogen, elixir-format
+msgid "Password"
+msgstr "Password"
+
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:27
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:22
+#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:27
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:41
+#, elixir-autogen, elixir-format
+msgid "Register"
+msgstr "Registrati"
+
+#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:34
+#, elixir-autogen, elixir-format
+msgid "Resetting..."
+msgstr "Ripristino in corso..."
+
+#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:20
+#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:20
+#, elixir-autogen, elixir-format
+msgid "Sending..."
+msgstr "Invio in corso..."
+
+#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:13
+#, elixir-autogen, elixir-format
+msgid "Sign up"
+msgstr "Registrati"

@@ -11,12 +11,12 @@
 </.header>
 
 <.table id="performance_types" rows={@streams.performance_types}>
-  <:col :let={{_id, performance_type}} label={gettext("Name")}>{performance_type.type}</:col>
+  <:col :let={{_id, performance_type}} label={dgettext("performances", "Name")}>{performance_type.type}</:col>
 
   <:action :let={{_id, performance_type}}>
     <.link
       patch={~p"/admin/performance_types/#{performance_type}/edit"}
-      aria-label={gettext("Edit")}
+      aria-label={dgettext("performances", "Edit")}
     >
       <.icon name="hero-pencil-mini" />
     </.link>
@@ -25,8 +25,8 @@
   <:action :let={{id, performance_type}}>
     <.link
       phx-click={JS.push("delete", value: %{id: performance_type.id}) |> hide("##{id}")}
-      data-confirm={gettext("Are you sure?")}
-      aria-label={gettext("Delete")}
+      data-confirm={dgettext("performances", "Are you sure?")}
+      aria-label={dgettext("performances", "Delete")}
     >
       <.icon name="hero-trash-mini" />
     </.link>

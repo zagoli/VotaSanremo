@@ -80,7 +80,7 @@ defmodule VotaSanremoWeb.CoreComponents do
           phx-click={JS.exec("data-cancel", to: "##{@id}")}
           type="button"
           class="btn btn-ghost btn-circle btn-sm absolute right-3 top-3"
-          aria-label={gettext("close")}
+          aria-label={dgettext("default", "close")}
         >
           <.icon name="hero-x-mark-solid" class="size-5" />
         </button>
@@ -94,7 +94,7 @@ defmodule VotaSanremoWeb.CoreComponents do
         class="modal-backdrop"
         phx-click={JS.exec("data-cancel", to: "##{@id}")}
       >
-        <button type="button">{gettext("close")}</button>
+        <button type="button">{dgettext("default", "close")}</button>
       </div>
     </div>
     """
@@ -143,7 +143,7 @@ defmodule VotaSanremoWeb.CoreComponents do
       <button
         type="button"
         class="btn btn-ghost btn-circle btn-xs ml-auto"
-        aria-label={gettext("close")}
+        aria-label={dgettext("default", "close")}
       >
         <.icon name="hero-x-mark-solid" class="size-4" />
       </button>
@@ -165,29 +165,29 @@ defmodule VotaSanremoWeb.CoreComponents do
   def flash_group(assigns) do
     ~H"""
     <div id={@id} class="toast toast-top toast-end z-50">
-      <.flash kind={:info} title={gettext("Success!")} flash={@flash} />
-      <.flash kind={:error} title={gettext("Error!")} flash={@flash} />
+      <.flash kind={:info} title={dgettext("default", "Success!")} flash={@flash} />
+      <.flash kind={:error} title={dgettext("default", "Error!")} flash={@flash} />
       <.flash
         id="client-error"
         kind={:error}
-        title={gettext("We can't find the internet")}
+        title={dgettext("default", "We can't find the internet")}
         phx-disconnected={show(".phx-client-error #client-error")}
         phx-connected={hide("#client-error")}
         hidden
       >
-        {gettext("Attempting to reconnect")}
+        {dgettext("default", "Attempting to reconnect")}
         <.icon name="hero-arrow-path" class="ml-1 size-3 animate-spin" />
       </.flash>
 
       <.flash
         id="server-error"
         kind={:error}
-        title={gettext("Something went wrong!")}
+        title={dgettext("default", "Something went wrong!")}
         phx-disconnected={show(".phx-server-error #server-error")}
         phx-connected={hide("#server-error")}
         hidden
       >
-        {gettext("Hang in there while we get back on track")}
+        {dgettext("default", "Hang in there while we get back on track")}
         <.icon name="hero-arrow-path" class="ml-1 size-3 animate-spin" />
       </.flash>
     </div>
@@ -622,7 +622,7 @@ defmodule VotaSanremoWeb.CoreComponents do
           <tr>
             <th :for={col <- @col} class="font-semibold">{col[:label]}</th>
             <th :if={@action != []}>
-              <span class="sr-only">{gettext("Actions")}</span>
+              <span class="sr-only">{dgettext("default", "Actions")}</span>
             </th>
           </tr>
         </thead>

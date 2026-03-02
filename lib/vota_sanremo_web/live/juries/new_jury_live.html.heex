@@ -14,8 +14,8 @@
 >
   <.input field={@form[:name]} label={dgettext("juries", "Jury name")} phx-debounce="blur" />
   <:actions>
-    <.button type="submit" phx-disable-with={gettext("Saving...")} class="w-full">
-      {gettext("Save")}
+    <.button type="submit" phx-disable-with={dgettext("juries", "Saving...")} class="w-full">
+      {dgettext("juries", "Save")}
     </.button>
   </:actions>
 </.simple_form>

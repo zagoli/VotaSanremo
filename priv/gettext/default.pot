@@ -44,12 +44,6 @@ msgid "Leaderboard"
 msgstr ""
 
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:205
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:28
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:23
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:28
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:35
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:18
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:42
 #, elixir-autogen, elixir-format
 msgid "Log in"
 msgstr ""
@@ -65,10 +59,6 @@ msgid "My invites"
 msgstr ""
 
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:198
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:27
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:22
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:27
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:41
 #, elixir-autogen, elixir-format
 msgid "Register"
 msgstr ""
@@ -131,82 +121,6 @@ msgstr ""
 msgid "Rate your favourite artists every night!"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:16
-#, elixir-autogen, elixir-format
-msgid "Accept"
-msgstr ""
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:47
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:95
-#, elixir-autogen, elixir-format
-msgid "Changing..."
-msgstr ""
-
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_live.ex:15
-#, elixir-autogen, elixir-format
-msgid "Confirming..."
-msgstr ""
-
-#: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:22
-#, elixir-autogen, elixir-format
-msgid "Decline"
-msgstr ""
-
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:18
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:18
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:20
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:47
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:36
-#, elixir-autogen, elixir-format
-msgid "Email"
-msgstr ""
-
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:34
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:19
-#, elixir-autogen, elixir-format
-msgid "Oops, something went wrong! Please check the errors below."
-msgstr ""
-
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:21
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:50
-#, elixir-autogen, elixir-format
-msgid "Password"
-msgstr ""
-
-#: lib/vota_sanremo_web/live/accounts/user_reset_password_live.ex:34
-#, elixir-autogen, elixir-format
-msgid "Resetting..."
-msgstr ""
-
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:47
-#: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:18
-#, elixir-autogen, elixir-format
-msgid "Save"
-msgstr ""
-
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:23
-#: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:24
-#: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:17
-#, elixir-autogen, elixir-format
-msgid "Saving..."
-msgstr ""
-
-#: lib/vota_sanremo_web/live/accounts/user_confirmation_instructions_live.ex:20
-#: lib/vota_sanremo_web/live/accounts/user_forgot_password_live.ex:20
-#, elixir-autogen, elixir-format
-msgid "Sending..."
-msgstr ""
-
-#: lib/vota_sanremo_web/live/accounts/user_login_live.ex:13
-#, elixir-autogen, elixir-format
-msgid "Sign up"
-msgstr ""
-
-#: lib/vota_sanremo_web/live/accounts/user_registration_live.ex:40
-#, elixir-autogen, elixir-format
-msgid "Username"
-msgstr ""
-
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:176
 #, elixir-autogen, elixir-format
 msgid "Manage editions"
@@ -215,33 +129,6 @@ msgstr ""
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:183
 #, elixir-autogen, elixir-format
 msgid "Manage performers"
-msgstr ""
-
-#: lib/vota_sanremo_web/live/accounts/user_settings_live.html.heex:119
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:28
-#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:22
-#, elixir-autogen, elixir-format
-msgid "Are you sure?"
-msgstr ""
-
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:29
-#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:23
-#, elixir-autogen, elixir-format
-msgid "Delete"
-msgstr ""
-
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:19
-#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:14
-#, elixir-autogen, elixir-format
-msgid "Edit"
-msgstr ""
-
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/form_component.ex:21
-#: lib/vota_sanremo_web/live/admin/manage_performance_type/manage_performance_types_live.html.heex:14
-#: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:22
-#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:11
-#, elixir-autogen, elixir-format
-msgid "Name"
 msgstr ""
 
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:190
@@ -254,29 +141,14 @@ msgstr ""
 msgid "Manage users"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/votes/vote_form_internal.html.heex:23
-#, elixir-autogen, elixir-format
-msgid "Delete vote"
-msgstr ""
-
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:163
 #, elixir-autogen, elixir-format
 msgid "Admin"
 msgstr ""
 
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:102
-#, elixir-autogen, elixir-format
-msgid "Cancel"
-msgstr ""
-
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:97
 #, elixir-autogen, elixir-format
 msgid "Close menu"
-msgstr ""
-
-#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:105
-#, elixir-autogen, elixir-format
-msgid "Confirm"
 msgstr ""
 
 #: lib/vota_sanremo_web/components/layouts/root.html.heex:33

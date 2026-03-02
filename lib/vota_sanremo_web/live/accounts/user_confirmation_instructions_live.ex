@@ -15,17 +15,17 @@ defmodule VotaSanremoWeb.UserConfirmationInstructionsLive do
       </.header>
 
       <.simple_form for={@form} id="resend_confirmation_form" phx-submit="send_instructions">
-        <.input field={@form[:email]} type="email" placeholder={gettext("Email")} required />
+        <.input field={@form[:email]} type="email" placeholder={dgettext("accounts", "Email")} required />
         <:actions>
-          <.button phx-disable-with={gettext("Sending...")} class="w-full">
+          <.button phx-disable-with={dgettext("accounts", "Sending...")} class="w-full">
             {dgettext("accounts", "Resend confirmation instructions")}
           </.button>
         </:actions>
       </.simple_form>
 
       <p class="text-center mt-4">
-        <.link href={~p"/users/register"}>{gettext("Register")}</.link>
-        | <.link href={~p"/users/log_in"}>{gettext("Log in")}</.link>
+        <.link href={~p"/users/register"}>{dgettext("accounts", "Register")}</.link>
+        | <.link href={~p"/users/log_in"}>{dgettext("accounts", "Log in")}</.link>
       </p>
     </div>
     """

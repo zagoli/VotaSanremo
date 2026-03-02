@@ -208,3 +208,23 @@ msgstr "Non hai creato nessuna giuria, e non sei membro di nessuna giuria."
 #, elixir-autogen, elixir-format
 msgid "You have successfully exited the jury!"
 msgstr "Sei uscito dalla giuria!"
+
+#: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:16
+#, elixir-autogen, elixir-format
+msgid "Accept"
+msgstr "Accetta"
+
+#: lib/vota_sanremo_web/live/juries/my_invites_live.html.heex:22
+#, elixir-autogen, elixir-format
+msgid "Decline"
+msgstr "Rifiuta"
+
+#: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:18
+#, elixir-autogen, elixir-format
+msgid "Save"
+msgstr "Salva"
+
+#: lib/vota_sanremo_web/live/juries/new_jury_live.html.heex:17
+#, elixir-autogen, elixir-format
+msgid "Saving..."
+msgstr "Salvataggio in corso..."

@@ -12,15 +12,15 @@ defmodule VotaSanremoWeb.UserConfirmationLive do
       <.simple_form for={@form} id="confirmation_form" phx-submit="confirm_account">
         <input type="hidden" name={@form[:token].name} value={@form[:token].value} />
         <:actions>
-          <.button phx-disable-with={gettext("Confirming...")} class="w-full">
+          <.button phx-disable-with={dgettext("accounts", "Confirming...")} class="w-full">
             {dgettext("accounts", "Confirm my account")}
           </.button>
         </:actions>
       </.simple_form>
 
       <p class="text-center mt-4">
-        <.link href={~p"/users/register"}>{gettext("Register")}</.link>
-        | <.link href={~p"/users/log_in"}>{gettext("Log in")}</.link>
+        <.link href={~p"/users/register"}>{dgettext("accounts", "Register")}</.link>
+        | <.link href={~p"/users/log_in"}>{dgettext("accounts", "Log in")}</.link>
       </p>
     </div>
     """

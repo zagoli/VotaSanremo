@@ -75,3 +75,18 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "Evening %{number}"
 msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:102
+#, elixir-autogen, elixir-format
+msgid "Cancel"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:105
+#, elixir-autogen, elixir-format
+msgid "Confirm"
+msgstr ""
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:47
+#, elixir-autogen, elixir-format
+msgid "Save"
+msgstr ""

@@ -44,7 +44,7 @@
   </div>
 
   <:actions>
-    <.button>{gettext("Save")}</.button>
+    <.button>{dgettext("evenings", "Save")}</.button>
   </:actions>
 </.simple_form>
 
@@ -99,10 +99,10 @@
         phx-click={JS.exec("data-cancel", to: "#confirm-copy-modal")}
         class="btn-ghost"
       >
-        {gettext("Cancel")}
+        {dgettext("evenings", "Cancel")}
       </.button>
       <.button phx-click="confirm_copy_performances">
-        {gettext("Confirm")}
+        {dgettext("evenings", "Confirm")}
       </.button>
     </div>
   </div>

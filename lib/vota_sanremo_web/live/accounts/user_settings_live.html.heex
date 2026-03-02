@@ -33,7 +33,7 @@
     phx-submit="update_email"
     phx-change="validate_email"
   >
-    <.input field={@email_form[:email]} type="email" label={gettext("Email")} required />
+    <.input field={@email_form[:email]} type="email" label={dgettext("accounts", "Email")} required />
     <.input
       field={@email_form[:current_password]}
       name="current_password"
@@ -44,7 +44,7 @@
       required
     />
     <:actions>
-      <.button phx-disable-with={gettext("Changing...")}>
+      <.button phx-disable-with={dgettext("accounts", "Changing...")}>
         {dgettext("accounts", "Change Email")}
       </.button>
     </:actions>
@@ -92,7 +92,7 @@
       required
     />
     <:actions>
-      <.button phx-disable-with={gettext("Changing...")}>
+      <.button phx-disable-with={dgettext("accounts", "Changing...")}>
         {dgettext("accounts", "Change Password")}
       </.button>
     </:actions>
@@ -116,7 +116,7 @@
   show
   on_cancel={JS.patch(~p"/users/settings")}
 >
-  <.header>{gettext("Are you sure?")}</.header>
+  <.header>{dgettext("accounts", "Are you sure?")}</.header>
   <p>
     {dgettext("accounts", "You are about to delete your account.")}
   </p>

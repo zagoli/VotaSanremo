@@ -19,9 +19,9 @@ defmodule VotaSanremoWeb.Admin.ManagePerformersLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={@form[:name]} type="text" label={gettext("Name")} />
+        <.input field={@form[:name]} type="text" label={dgettext("performers", "Name")} />
         <:actions>
-          <.button phx-disable-with={gettext("Saving...")}>
+          <.button phx-disable-with={dgettext("performers", "Saving...")}>
             {dgettext("performers", "Save Performer")}
           </.button>
         </:actions>

@@ -13,13 +13,13 @@
 
     <:action :let={invite}>
       <.button_link path={~p"/juries/my_invites/accept/#{invite.id}"}>
-        {gettext("Accept")}
+        {dgettext("juries", "Accept")}
       </.button_link>
     </:action>
 
     <:action :let={invite}>
       <.button_link path={~p"/juries/my_invites/decline/#{invite.id}"}>
-        {gettext("Decline")}
+        {dgettext("juries", "Decline")}
       </.button_link>
     </:action>
   </.table>

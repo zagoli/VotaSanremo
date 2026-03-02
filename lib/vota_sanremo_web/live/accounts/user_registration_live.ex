@@ -15,7 +15,7 @@ defmodule VotaSanremoWeb.UserRegistrationLive do
         <:subtitle>
           {dgettext("accounts", "Already registered?")}
           <.link navigate={~p"/users/log_in"} class="font-semibold text-primary hover:underline">
-            {gettext("Log in")}
+            {dgettext("accounts", "Log in")}
           </.link>
           {dgettext("accounts", "to your account now.")}
         </:subtitle>
@@ -31,23 +31,23 @@ defmodule VotaSanremoWeb.UserRegistrationLive do
         method="post"
       >
         <.error :if={@check_errors}>
-          {gettext("Oops, something went wrong! Please check the errors below.")}
+          {dgettext("accounts", "Oops, something went wrong! Please check the errors below.")}
         </.error>
 
         <.input
           field={@form[:username]}
           type="text"
-          label={gettext("Username")}
+          label={dgettext("accounts", "Username")}
           phx-debounce="blur"
           required
         />
         <.input
           field={@form[:email]}
           type="email"
-          label={gettext("Email")}
+          label={dgettext("accounts", "Email")}
           phx-debounce="blur"
           required
-        /> <.input field={@form[:password]} type="password" label={gettext("Password")} required />
+        /> <.input field={@form[:password]} type="password" label={dgettext("accounts", "Password")} required />
         <:actions>
           <.button phx-disable-with={dgettext("accounts", "Creating account...")} class="w-full">
             {dgettext("accounts", "Create an account")}

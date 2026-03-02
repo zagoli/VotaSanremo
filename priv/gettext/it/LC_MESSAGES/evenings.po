@@ -75,3 +75,18 @@ msgstr "modifica serata %{number}"
 #, elixir-autogen, elixir-format
 msgid "Evening %{number}"
 msgstr "Serata %{number}"
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:102
+#, elixir-autogen, elixir-format
+msgid "Cancel"
+msgstr "Annulla"
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:105
+#, elixir-autogen, elixir-format
+msgid "Confirm"
+msgstr "Conferma"
+
+#: lib/vota_sanremo_web/live/admin/manage_evening/manage_evening_live.html.heex:47
+#, elixir-autogen, elixir-format
+msgid "Save"
+msgstr "Salva"

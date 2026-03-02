@@ -46,3 +46,29 @@ msgstr "Artisti"
 #, elixir-autogen, elixir-format
 msgid "Save Performer"
 msgstr "Salva artista"
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:22
+#, elixir-autogen, elixir-format
+msgid "Are you sure?"
+msgstr "Sei sicuro?"
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:23
+#, elixir-autogen, elixir-format
+msgid "Delete"
+msgstr "Elimina"
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:14
+#, elixir-autogen, elixir-format
+msgid "Edit"
+msgstr "Modifica"
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:22
+#: lib/vota_sanremo_web/live/admin/manage_performers/manage_performers_live.html.heex:11
+#, elixir-autogen, elixir-format
+msgid "Name"
+msgstr "Nome"
+
+#: lib/vota_sanremo_web/live/admin/manage_performers/form_component.ex:24
+#, elixir-autogen, elixir-format
+msgid "Saving..."
+msgstr "Salvataggio in corso..."

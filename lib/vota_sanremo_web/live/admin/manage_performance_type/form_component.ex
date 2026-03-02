@@ -18,9 +18,9 @@ defmodule VotaSanremoWeb.PerformanceTypeLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={@form[:type]} type="text" label={gettext("Name")} />
+        <.input field={@form[:type]} type="text" label={dgettext("performances", "Name")} />
         <:actions>
-          <.button phx-disable-with={gettext("Saving...")}>
+          <.button phx-disable-with={dgettext("performances", "Saving...")}>
             {dgettext("performances", "Save performance type")}
           </.button>
         </:actions>

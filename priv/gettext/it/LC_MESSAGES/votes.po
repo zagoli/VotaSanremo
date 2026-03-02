@@ -73,3 +73,8 @@ msgstr "Le votazioni per questa serata si sono concluse."
 #, elixir-autogen, elixir-format
 msgid "Voting for this evening will open in "
 msgstr "Le votazioni per questa serata apriranno tra "
+
+#: lib/vota_sanremo_web/live/votes/vote_form_internal.html.heex:23
+#, elixir-autogen, elixir-format
+msgid "Delete vote"
+msgstr "Elimina voto"

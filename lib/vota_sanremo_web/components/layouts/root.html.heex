@@ -30,7 +30,7 @@
             <label
               for="nav-drawer"
               class="btn btn-ghost btn-circle"
-              aria-label={gettext("Open menu")}
+              aria-label={dgettext("default", "Open menu")}
             >
               <.icon name="hero-bars-3" class="size-6" />
             </label>
@@ -48,13 +48,13 @@
 <!-- Desktop quick links -->
           <div class="flex-none hidden md:flex items-center gap-1">
             <.link :if={@current_user} navigate={~p"/vote"} class="btn btn-ghost btn-sm">
-              {gettext("Vote")}
+              {dgettext("default", "Vote")}
             </.link>
             <.link navigate={~p"/leaderboard"} class="btn btn-ghost btn-sm">
-              {gettext("Leaderboard")}
+              {dgettext("default", "Leaderboard")}
             </.link>
             <.link navigate={~p"/juries"} class="btn btn-ghost btn-sm">
-              {gettext("Juries")}
+              {dgettext("default", "Juries")}
             </.link>
           </div>
           
@@ -72,13 +72,13 @@
 <!-- Theme toggle (light/dark) -->
             <label
               class="swap swap-rotate btn btn-ghost btn-circle"
-              title={gettext("Toggle theme")}
+              title={dgettext("default", "Toggle theme")}
             >
               <input
                 type="checkbox"
                 class="theme-controller"
                 value="dark"
-                aria-label={gettext("Toggle dark mode")}
+                aria-label={dgettext("default", "Toggle dark mode")}
               />
               <!-- sun icon (shown in light mode) -->
               <.icon name="hero-sun" class="swap-off size-5" />
@@ -94,7 +94,7 @@
       
 <!-- Drawer sidebar -->
       <div class="drawer-side z-40">
-        <label for="nav-drawer" aria-label={gettext("Close menu")} class="drawer-overlay"></label>
+        <label for="nav-drawer" aria-label={dgettext("default", "Close menu")} class="drawer-overlay"></label>
 
         <aside class="bg-base-200 min-h-full w-72 flex flex-col">
           <!-- Sidebar header — branded navy -->
@@ -111,21 +111,21 @@
             <li :if={@current_user}>
               <.link href={~p"/vote"}>
                 <.icon name="hero-star" class="size-4" />
-                {gettext("Vote")}
+                {dgettext("default", "Vote")}
               </.link>
             </li>
 
             <li>
               <.link href={~p"/leaderboard"}>
                 <.icon name="hero-chart-bar" class="size-4" />
-                {gettext("Leaderboard")}
+                {dgettext("default", "Leaderboard")}
               </.link>
             </li>
 
             <li>
               <.link href={~p"/juries"}>
                 <.icon name="hero-user-group" class="size-4" />
-                {gettext("Juries")}
+                {dgettext("default", "Juries")}
               </.link>
             </li>
 
@@ -133,61 +133,61 @@
               <li>
                 <.link href={~p"/search/users"}>
                   <.icon name="hero-magnifying-glass" class="size-4" />
-                  {gettext("Search users")}
+                  {dgettext("default", "Search users")}
                 </.link>
               </li>
 
               <li>
                 <.link href={~p"/juries/my_invites"}>
                   <.icon name="hero-envelope" class="size-4" />
-                  {gettext("My invites")}
+                  {dgettext("default", "My invites")}
                 </.link>
               </li>
 
               <li>
                 <.link href={~p"/users/settings"}>
                   <.icon name="hero-cog-6-tooth" class="size-4" />
-                  {gettext("Settings")}
+                  {dgettext("default", "Settings")}
                 </.link>
               </li>
 
               <li>
                 <.link href={~p"/users/log_out"} method="delete">
                   <.icon name="hero-arrow-right-on-rectangle" class="size-4" />
-                  {gettext("Log out")}
+                  {dgettext("default", "Log out")}
                 </.link>
               </li>
 
               <%= if @current_user.user_type === :admin do %>
                 <div class="divider my-2 text-xs font-semibold uppercase tracking-wider opacity-60">
-                  {gettext("Admin")}
+                  {dgettext("default", "Admin")}
                 </div>
 
                 <li>
                   <.link href={~p"/admin/users"}>
                     <.icon name="hero-users" class="size-4" />
-                    {gettext("Manage users")}
+                    {dgettext("default", "Manage users")}
                   </.link>
                 </li>
 
                 <li>
                   <.link href={~p"/admin/editions"}>
                     <.icon name="hero-calendar-days" class="size-4" />
-                    {gettext("Manage editions")}
+                    {dgettext("default", "Manage editions")}
                   </.link>
                 </li>
 
                 <li>
                   <.link href={~p"/admin/performers"}>
                     <.icon name="hero-musical-note" class="size-4" />
-                    {gettext("Manage performers")}
+                    {dgettext("default", "Manage performers")}
                   </.link>
                 </li>
 
                 <li>
                   <.link href={~p"/admin/performance_types"}>
                     <.icon name="hero-tag" class="size-4" />
-                    {gettext("Manage performance types")}
+                    {dgettext("default", "Manage performance types")}
                   </.link>
                 </li>
               <% end %>
@@ -195,14 +195,14 @@
               <li>
                 <.link href={~p"/users/register"}>
                   <.icon name="hero-user-plus" class="size-4" />
-                  {gettext("Register")}
+                  {dgettext("default", "Register")}
                 </.link>
               </li>
 
               <li>
                 <.link href={~p"/users/log_in"}>
                   <.icon name="hero-arrow-left-on-rectangle" class="size-4" />
-                  {gettext("Log in")}
+                  {dgettext("default", "Log in")}
                 </.link>
               </li>
             <% end %>

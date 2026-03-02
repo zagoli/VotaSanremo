@@ -15,17 +15,17 @@ defmodule VotaSanremoWeb.UserForgotPasswordLive do
       </.header>
 
       <.simple_form for={@form} id="reset_password_form" phx-submit="send_email">
-        <.input field={@form[:email]} type="email" placeholder={gettext("Email")} required />
+        <.input field={@form[:email]} type="email" placeholder={dgettext("accounts", "Email")} required />
         <:actions>
-          <.button phx-disable-with={gettext("Sending...")} class="w-full">
+          <.button phx-disable-with={dgettext("accounts", "Sending...")} class="w-full">
             {dgettext("accounts", "Send password reset instructions")}
           </.button>
         </:actions>
       </.simple_form>
 
       <p class="text-center text-sm mt-4">
-        <.link href={~p"/users/register"}>{gettext("Register")}</.link>
-        | <.link href={~p"/users/log_in"}>{gettext("Log in")}</.link>
+        <.link href={~p"/users/register"}>{dgettext("accounts", "Register")}</.link>
+        | <.link href={~p"/users/log_in"}>{dgettext("accounts", "Log in")}</.link>
       </p>
     </div>
     """
