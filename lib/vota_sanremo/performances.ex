@@ -214,20 +214,6 @@ defmodule VotaSanremo.Performances do
     Performance.changeset(performance, attrs)
   end
 
-
-  @doc """
-  Deletes all performances associated with an Evening.
-  ## Examples
-
-      iex> delete_performances_of_evening(%Evening{})
-      {0, nil}
-  """
-  def delete_performances_of_evening(%Evening{} = evening) do
-    Performance
-    |> where([p], p.evening_id == ^evening.id)
-    |> Repo.delete_all()
-  end
-
   @doc """
   Copies all performances from a source evening to a target evening.
   Deletes all existing performances of the target evening first, then
@@ -244,33 +230,29 @@ defmodule VotaSanremo.Performances do
 
   """
   def copy_performances_from_evening(%Evening{} = source_evening, %Evening{} = target_evening) do
-    alias VotaSanremo.Evenings
+    now = DateTime.utc_now() |> DateTime.truncate(:second)
 
-    Repo.transaction(fn ->
-      source_evening = Evenings.get_evening_with_performances!(source_evening.id)
-      target_evening = Evenings.get_evening_with_performances!(target_evening.id)
+    delete_query =
+      from p in Performance, where: p.evening_id == ^target_evening.id
 
-      # Delete all existing performances of the target evening
-      Enum.each(target_evening.performances, fn performance ->
-        case Repo.delete(performance) do
-          {:ok, _} -> :ok
-          {:error, changeset} -> Repo.rollback(changeset)
-        end
-      end)
-
-      # Copy performances from source to target
-      Enum.map(source_evening.performances, fn performance ->
-        attrs = %{
-          performer_id: performance.performer_id,
-          performance_type_id: performance.performance_type_id,
-          evening_id: target_evening.id
+    insert_query =
+      from p in Performance,
+        where: p.evening_id == ^source_evening.id,
+        select: %{
+          performer_id: p.performer_id,
+          performance_type_id: p.performance_type_id,
+          evening_id: ^target_evening.id,
+          inserted_at: ^now,
+          updated_at: ^now
         }
 
-        case create_performance(attrs) do
-          {:ok, new_performance} -> new_performance
-          {:error, changeset} -> Repo.rollback(changeset)
-        end
-      end)
-    end)
+    Ecto.Multi.new()
+    |> Ecto.Multi.delete_all(:delete, delete_query)
+    |> Ecto.Multi.insert_all(:insert, Performance, insert_query, returning: true)
+    |> Repo.transaction()
+    |> case do
+      {:ok, %{insert: {_count, inserted}}} -> {:ok, inserted}
+      {:error, _op, reason, _changes} -> {:error, reason}
+    end
   end
 end
