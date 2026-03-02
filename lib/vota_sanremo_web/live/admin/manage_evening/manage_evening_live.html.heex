@@ -101,7 +101,7 @@
       >
         {gettext("Cancel")}
       </.button>
-      <.button phx-click="confirm_copy_performances">
+      <.button phx-click="confirm_copy_performances" phx-disable-with={gettext("Copying...")}>
         {gettext("Confirm")}
       </.button>
     </div>
