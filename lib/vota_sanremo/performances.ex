@@ -214,6 +214,20 @@ defmodule VotaSanremo.Performances do
     Performance.changeset(performance, attrs)
   end
 
+
+  @doc """
+  Deletes all performances associated with an Evening.
+  ## Examples
+
+      iex> delete_performances_of_evening(%Evening{})
+      {0, nil}
+  """
+  def delete_performances_of_evening(%Evening{} = evening) do
+    Performance
+    |> where([p], p.evening_id == ^evening.id)
+    |> Repo.delete_all()
+  end
+
   @doc """
   Copies all performances from a source evening to a target evening.
   Deletes all existing performances of the target evening first, then

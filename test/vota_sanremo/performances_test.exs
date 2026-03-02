@@ -218,6 +218,57 @@ defmodule VotaSanremo.PerformancesTest do
     end
   end
 
+  describe "delete_performances_of_evening/1" do
+    import VotaSanremo.{
+      PerformancesFixtures,
+      EveningsFixtures
+    }
+
+    test "deletes all performances of the given evening" do
+      evening = evening_fixture()
+      performance_1 = performance_fixture(%{evening_id: evening.id})
+      performance_2 = performance_fixture(%{evening_id: evening.id})
+
+      Performances.delete_performances_of_evening(evening)
+
+      assert_raise Ecto.NoResultsError, fn -> Performances.get_performance!(performance_1.id) end
+      assert_raise Ecto.NoResultsError, fn -> Performances.get_performance!(performance_2.id) end
+    end
+
+    test "does not delete performances of other evenings" do
+      evening_1 = evening_fixture(%{date: ~D[2024-02-24], number: 1})
+      evening_2 = evening_fixture(%{date: ~D[2024-02-25], number: 2})
+      performance_to_delete = performance_fixture(%{evening_id: evening_1.id})
+      performance_to_keep = performance_fixture(%{evening_id: evening_2.id})
+
+      Performances.delete_performances_of_evening(evening_1)
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Performances.get_performance!(performance_to_delete.id)
+      end
+
+      assert Performances.get_performance!(performance_to_keep.id) == performance_to_keep
+    end
+
+    test "returns the number of deleted performances" do
+      evening = evening_fixture()
+      performance_fixture(%{evening_id: evening.id})
+      performance_fixture(%{evening_id: evening.id})
+
+      {count, nil} = Performances.delete_performances_of_evening(evening)
+
+      assert count == 2
+    end
+
+    test "returns zero when evening has no performances" do
+      evening = evening_fixture()
+
+      {count, nil} = Performances.delete_performances_of_evening(evening)
+
+      assert count == 0
+    end
+  end
+
   describe "copy_performances_from_evening/2" do
     import VotaSanremo.{
       PerformancesFixtures,
